@@ -1,0 +1,591 @@
+```html
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <!-- Mobile par full screen aur sahi zoom ke liye -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UPSC CSC Audio Book</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons (Reliable Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body, html {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Body scroll locked, only main content scrolls */
+        }
+        
+        .app-container {
+            height: 100dvh;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .playing-bars span {
+            animation: bounce 1s infinite;
+        }
+        .playing-bars span:nth-child(2) { animation-delay: 0.2s; }
+        .playing-bars span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 100% { height: 100%; }
+            50% { height: 30%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Full Screen Container -->
+    <div class="bg-gray-50 app-container relative overflow-hidden">
+        
+        <audio id="audio-player"></audio>
+
+        <!-- Toast Message -->
+        <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs md:text-sm px-6 py-3 rounded-full z-[70] shadow-2xl whitespace-nowrap transition-opacity duration-300 opacity-0 pointer-events-none hidden">
+        </div>
+
+        <!-- ================= HEADER (Fixed at Top) ================= -->
+        <div class="bg-white z-20 shrink-0 shadow-sm w-full" id="header-container">
+            <div class="max-w-7xl mx-auto w-full">
+                <!-- Top Navbar -->
+                <header class="px-4 py-3 flex items-center justify-between">
+                    <i class="fa-solid fa-bars text-xl text-gray-700 cursor-pointer hover:text-orange-500 transition-colors"></i>
+                    
+                    <div class="flex items-center gap-2 cursor-pointer" onclick="window.changeTab('Home')">
+                        <i class="fa-solid fa-headphones text-2xl text-orange-500"></i>
+                        <div class="flex flex-col items-start leading-none mt-1">
+                            <span class="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">UPSC <span class="text-orange-500">CSC</span></span>
+                            <span class="text-[10px] md:text-xs font-bold text-orange-500 tracking-wider">AUDIO BOOK</span>
+                        </div>
+                    </div>
+
+                    <div onclick="window.changeTab('Profile')" class="w-9 h-9 rounded-full border border-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-100 text-gray-500 transition-colors">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </header>
+
+                <!-- Search Bar -->
+                <div id="search-container" class="px-4 pb-2 relative">
+                    <div id="search-box" class="bg-gray-100 rounded-full flex items-center px-4 py-2 md:py-3 transition-all max-w-2xl mx-auto border border-transparent focus-within:border-orange-300 focus-within:bg-white focus-within:shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3"></i>
+                        <input 
+                            type="text" 
+                            id="search-input"
+                            placeholder="Search for topics, subjects or podcasts..." 
+                            class="bg-transparent border-none outline-none w-full text-sm md:text-base text-gray-700 placeholder:text-gray-400 h-8"
+                            oninput="window.handleSearch(event)"
+                        />
+                        <button onclick="window.startVoiceSearch()" id="mic-btn" class="ml-2 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500 transition-colors">
+                            <i id="mic-icon" class="fa-solid fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category Tabs -->
+                <div id="category-container" class="flex overflow-x-auto hide-scrollbar px-4 pt-2 border-b border-gray-100 gap-6 md:gap-8 max-w-7xl mx-auto">
+                    <!-- Categories injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MAIN CONTENT (Scrollable) ================= -->
+        <main id="main-content" class="flex-1 overflow-y-auto hide-scrollbar bg-gray-50/80 pb-24 pt-4 w-full relative">
+            <!-- Content injected here -->
+        </main>
+
+        <!-- ================= MINI PLAYER (Fixed Bottom, Above Nav) ================= -->
+        <div id="mini-player-wrapper" class="absolute bottom-[65px] left-0 right-0 w-full z-40 hidden px-2 md:px-6 pointer-events-none">
+            <div id="mini-player" class="bg-[#F96D15] px-4 py-3 items-center justify-between shadow-xl rounded-xl animate-slide-up max-w-4xl mx-auto pointer-events-auto flex w-full">
+                <!-- Player HTML injected here -->
+            </div>
+        </div>
+
+        <!-- ================= BOTTOM NAVIGATION (Fixed Bottom) ================= -->
+        <nav id="bottom-nav" class="shrink-0 h-[65px] bg-white border-t border-gray-200 w-full z-50 shadow-[0_-5px_20px_-5px_rgba(0,0,0,0.1)]">
+            <div class="max-w-md md:max-w-3xl mx-auto w-full h-full flex justify-between items-center px-2 md:px-8" id="nav-items-container">
+                <!-- Nav buttons injected here -->
+            </div>
+        </nav>
+
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        const FALLBACK_IMG = "https://placehold.co/400x400/f3f4f6/9ca3af?text=UPSC+Audio";
+
+        const CATEGORIES = ["All", "History", "Polity", "Geography", "Economy", "Environment", "Science", "Current Affairs", "Ethics"];
+
+        const PODCAST_LIST = [
+            { id: 1, category: "Ancient History", title: "सिंधु घाटी सभ्यता - सम्पूर्ण अध्ययन", desc: "सिंधु घाटी सभ्यता का उद्भव, विस्तार, नगर, कला, लिपि, अर्थव्यवस्था और पतन।", plays: "12.4K Plays", date: "01 Jun 2025", episode: "Episode 01", duration: "32:45", image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400&h=400", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { id: 2, category: "Polity", title: "भारतीय संविधान की प्रमुख विशेषताएँ", desc: "भारतीय संविधान की प्रस्तावना, विशेषताएँ, स्रोत और मूल संरचना सिद्धांत।", plays: "15.7K Plays", date: "31 May 2025", episode: "Episode 05", duration: "28:30", image: "https://images.unsplash.com/photo-1588714477688-cfad01265819?auto=format&fit=crop&q=80&w=400&h=400", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { id: 3, category: "Geography", title: "भारतीय नदियां और उनकी सहायक नदियां", desc: "भारतीय नदियों का उद्गम, प्रवाह, सहायक नदियाँ और महत्व।", plays: "10.8K Plays", date: "30 May 2025", episode: "Episode 03", duration: "26:18", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=400&h=400", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { id: 4, category: "Environment", title: "पर्यावरण और पारिस्थितिकी तंत्र - Part 1", desc: "पर्यावरण की अवधारणा, पारिस्थितिकी तंत्र के घटक और प्रकार।", plays: "8.3K Plays", date: "29 May 2025", episode: "Episode 02", duration: "26:40", image: "https://images.unsplash.com/photo-1418065460487-3e4565551910?auto=format&fit=crop&q=80&w=400&h=400", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+            { id: 5, category: "Economy", title: "भारतीय अर्थव्यवस्था - मुद्रास्फीति (Inflation)", desc: "मुद्रास्फीति के कारण, प्रभाव और RBI की मौद्रिक नीतियां।", plays: "5.2K Plays", date: "28 May 2025", episode: "Episode 04", duration: "45:10", image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=400&h=400", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" },
+            { id: 6, category: "Science", title: "अंतरिक्ष प्रौद्योगिकी - ISRO Missions", desc: "गगनयान, चंद्रयान और आदित्य एल-1 मिशन की पूरी जानकारी।", plays: "19.1K Plays", date: "27 May 2025", episode: "Episode 08", duration: "38:20", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400&h=400", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" }
+        ];
+
+        let state = {
+            activeTab: 'Home',
+            activeCategory: 'All',
+            searchQuery: '',
+            bookmarks: new Set(),
+            downloads: new Set(),
+            currentTrackId: null,
+            isPlaying: false
+        };
+
+        const audioElement = document.getElementById('audio-player');
+
+        function init() {
+            renderHeaderExtras();
+            renderMainContent();
+            renderBottomNav();
+            audioElement.addEventListener('ended', window.handleNextTrack);
+        }
+
+        function renderHeaderExtras() {
+            const searchContainer = document.getElementById('search-container');
+            const categoryContainer = document.getElementById('category-container');
+
+            if (state.activeTab === 'Home') {
+                searchContainer.style.display = 'block';
+                categoryContainer.style.display = 'flex';
+
+                categoryContainer.innerHTML = CATEGORIES.map(cat => `
+                    <button
+                        onclick="window.changeCategory('${cat}')"
+                        class="pb-3 text-sm md:text-base font-semibold whitespace-nowrap border-b-2 transition-colors ${
+                            state.activeCategory === cat 
+                                ? 'border-orange-500 text-orange-500' 
+                                : 'border-transparent text-gray-500 hover:text-gray-900'
+                        }"
+                    >
+                        ${cat}
+                    </button>
+                `).join('');
+            } else {
+                searchContainer.style.display = 'none';
+                categoryContainer.style.display = 'none';
+            }
+        }
+
+        function renderMainContent() {
+            const mainEl = document.getElementById('main-content');
+            
+            if (state.activeTab === 'Home') {
+                const searchLower = state.searchQuery.toLowerCase();
+                const filtered = PODCAST_LIST.filter(p => {
+                    const matchCat = state.activeCategory === 'All' || p.category.includes(state.activeCategory);
+                    const matchSearch = p.title.toLowerCase().includes(searchLower) || p.category.toLowerCase().includes(searchLower);
+                    return matchCat && matchSearch;
+                });
+
+                // Desktop Grid Layout added
+                let html = `
+                    <div class="max-w-7xl mx-auto px-4 w-full">
+                        <div class="py-2 mb-2 flex justify-between items-end">
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 leading-none">
+                                ${state.searchQuery ? 'Search Results' : 'Latest Podcasts'}
+                            </h2>
+                            ${!state.searchQuery ? `<span class="text-sm font-semibold text-orange-500 cursor-pointer hover:underline">View All</span>` : ''}
+                        </div>
+                `;
+
+                if (filtered.length === 0) {
+                    html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white rounded-xl shadow-sm">कोई पॉडकास्ट नहीं मिला।</div>`;
+                } else {
+                    // grid-cols-1 for mobile, grid-cols-2 for tablet, grid-cols-3 for desktop
+                    html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 pb-6 w-full">`;
+                    
+                    filtered.forEach(podcast => {
+                        const isThisPlaying = state.currentTrackId === podcast.id && state.isPlaying;
+                        const isBookmarked = state.bookmarks.has(podcast.id);
+                        const isDownloaded = state.downloads.has(podcast.id);
+
+                        html += `
+                        <div class="bg-white rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40' : 'border-gray-100'} w-full">
+                            
+                            <!-- Image Area -->
+                            <div class="relative w-[110px] md:w-[130px] h-[130px] md:h-[150px] rounded-xl overflow-hidden shrink-0 cursor-pointer group" onclick="window.togglePlay(${podcast.id})">
+                                <img src="${podcast.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover bg-gray-200 transition-transform duration-500 group-hover:scale-110" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                
+                                ${isThisPlaying ? `
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[1px]">
+                                    <div class="flex gap-1.5 items-end h-5 playing-bars">
+                                        <span class="w-1.5 h-full bg-orange-500 rounded-t-sm"></span>
+                                        <span class="w-1.5 h-2/3 bg-orange-500 rounded-t-sm"></span>
+                                        <span class="w-1.5 h-full bg-orange-500 rounded-t-sm"></span>
+                                    </div>
+                                </div>` : `
+                                <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="fa-solid fa-play text-white text-3xl opacity-80 shadow-lg"></i>
+                                </div>
+                                `}
+                                
+                                <span class="absolute bottom-2 left-2 bg-orange-600 text-white text-[9px] md:text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">${podcast.episode}</span>
+                                <span class="absolute top-2 right-2 bg-black/70 text-white text-[9px] md:text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm backdrop-blur-sm"><i class="fa-regular fa-clock mr-1"></i>${podcast.duration}</span>
+                            </div>
+
+                            <!-- Content Area -->
+                            <div class="flex flex-col flex-1 py-1 overflow-hidden justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start mb-1.5">
+                                        <span class="text-[10px] md:text-[11px] font-bold text-orange-600 bg-orange-50 px-2.5 py-0.5 rounded-full">${podcast.category}</span>
+                                        <i class="fa-solid fa-ellipsis-vertical text-gray-400 cursor-pointer px-2 hover:text-gray-700"></i>
+                                    </div>
+                                    
+                                    <h3 class="font-bold text-sm md:text-base text-gray-900 leading-tight mb-1.5 line-clamp-2 cursor-pointer hover:text-orange-600 transition-colors" onclick="window.togglePlay(${podcast.id})">${podcast.title}</h3>
+                                    <p class="text-[11px] md:text-xs text-gray-500 leading-snug line-clamp-2 hidden sm:block mb-2">${podcast.desc}</p>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex items-center gap-4 text-[10px] md:text-xs font-medium text-gray-400 mb-2.5">
+                                        <div class="flex items-center gap-1.5"><i class="fa-solid fa-headphones"></i><span>${podcast.plays}</span></div>
+                                        <div class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i><span>${podcast.date}</span></div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+                                        <button onclick="window.togglePlay(${podcast.id})" class="flex items-center gap-1.5 font-bold text-xs md:text-sm transition-colors ${isThisPlaying ? 'text-orange-600' : 'text-gray-700 hover:text-orange-500'}">
+                                            <i class="fa-solid ${isThisPlaying ? 'fa-circle-pause text-orange-500 text-lg md:text-xl' : 'fa-circle-play text-orange-500 text-lg md:text-xl'}"></i>
+                                            ${isThisPlaying ? 'Playing' : 'Play Now'}
+                                        </button>
+                                        <div class="flex items-center gap-4">
+                                            <button onclick="window.toggleDownload(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isDownloaded ? 'text-green-500' : 'text-gray-400 hover:text-gray-700'}">
+                                                <i class="fa-solid ${isDownloaded ? 'fa-circle-check' : 'fa-download'}"></i>
+                                            </button>
+                                            <button onclick="window.toggleBookmark(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isBookmarked ? 'text-orange-500' : 'text-gray-400 hover:text-gray-700'}">
+                                                <i class="fa-solid fa-bookmark"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                    html += `</div></div>`;
+                }
+                mainEl.innerHTML = html;
+            } 
+            else if (state.activeTab === 'Downloads') {
+                mainEl.innerHTML = generateListScreenHTML('My Downloads', state.downloads, 'अभी तक कुछ भी डाउनलोड नहीं किया गया है।', 'fa-trash', window.toggleDownload);
+            }
+            else if (state.activeTab === 'Bookmarks') {
+                mainEl.innerHTML = generateListScreenHTML('Saved Bookmarks', state.bookmarks, 'आपने कोई पॉडकास्ट बुकमार्क नहीं किया है।', 'fa-bookmark', window.toggleBookmark);
+            }
+            else if (state.activeTab === 'Library') {
+                const libCats = CATEGORIES.filter(c => c !== 'All').map(cat => `
+                    <div onclick="window.changeCategory('${cat}'); window.changeTab('Home');" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center cursor-pointer hover:border-orange-500 hover:shadow-md transition-all group">
+                        <i class="fa-solid fa-book-open text-3xl text-gray-300 group-hover:text-orange-400 mb-3 transition-colors"></i>
+                        <span class="font-bold text-gray-700 group-hover:text-gray-900">${cat}</span>
+                    </div>
+                `).join('');
+                
+                mainEl.innerHTML = `
+                    <div class="max-w-7xl mx-auto px-4">
+                        <h2 class="text-2xl font-bold mb-6 text-gray-900">Library Categories</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">${libCats}</div>
+                    </div>
+                `;
+            }
+            else if (state.activeTab === 'Profile') {
+                mainEl.innerHTML = `
+                    <div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10 md:mt-20">
+                        <div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 rounded-full flex items-center justify-center mb-6 shadow-inner border-4 border-white">
+                            <i class="fa-solid fa-user text-6xl text-orange-500"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-900">UPSC Aspirant</h2>
+                        <p class="text-gray-500 mt-2 text-lg">Student Account</p>
+                        
+                        <div class="grid grid-cols-3 w-full gap-4 mt-8 mb-8 border-y border-gray-200 py-6">
+                            <div class="text-center">
+                                <h3 class="font-bold text-2xl text-orange-500">124</h3>
+                                <p class="text-xs md:text-sm text-gray-500">Hours Listened</p>
+                            </div>
+                            <div class="text-center border-x border-gray-200">
+                                <h3 class="font-bold text-2xl text-orange-500">45</h3>
+                                <p class="text-xs md:text-sm text-gray-500">Completed</p>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="font-bold text-2xl text-orange-500">12</h3>
+                                <p class="text-xs md:text-sm text-gray-500">Certificates</p>
+                            </div>
+                        </div>
+
+                        <button class="w-full max-w-sm bg-orange-500 text-white font-bold py-3.5 rounded-xl hover:bg-orange-600 transition-colors shadow-md text-lg">
+                            Edit Profile
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function generateListScreenHTML(title, itemSet, emptyMsg, removeIconClass, removeFunc) {
+            let html = `<div class="max-w-7xl mx-auto px-4"><h2 class="text-2xl font-bold mb-6 text-gray-900">${title} <span class="text-gray-400 text-lg">(${itemSet.size})</span></h2>`;
+            
+            if (itemSet.size === 0) {
+                html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white rounded-2xl border-2 border-dashed border-gray-300 flex flex-col items-center">
+                    <i class="fa-solid fa-box-open text-4xl mb-4 text-gray-300"></i>
+                    <p class="text-lg">${emptyMsg}</p>
+                </div>`;
+            } else {
+                html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">`;
+                itemSet.forEach(id => {
+                    const item = PODCAST_LIST.find(p => p.id === id);
+                    const isThisPlaying = state.currentTrackId === item.id && state.isPlaying;
+                    
+                    html += `
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-4 flex-1 overflow-hidden cursor-pointer" onclick="window.togglePlay(${item.id})">
+                            <img src="${item.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-16 h-16 rounded-xl object-cover bg-gray-200" />
+                            <div class="flex flex-col flex-1 truncate pr-2">
+                                <span class="font-bold text-sm md:text-base text-gray-900 truncate mb-1">${item.title}</span>
+                                <span class="text-xs font-semibold text-orange-500 bg-orange-50 inline-block px-2 py-0.5 rounded w-max">${item.category}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <button onclick="window.togglePlay(${item.id})" class="w-10 h-10 flex items-center justify-center bg-orange-50 text-orange-500 rounded-full hover:bg-orange-100 transition-colors">
+                                <i class="fa-solid ${isThisPlaying ? 'fa-pause' : 'fa-play'}"></i>
+                            </button>
+                            <button onclick="window.removeItemFromList('${title}', ${item.id})" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-red-500 bg-gray-50 rounded-full transition-colors">
+                                <i class="fa-solid ${removeIconClass} ${removeIconClass==='fa-bookmark'?'text-orange-500':''}"></i>
+                            </button>
+                        </div>
+                    </div>`;
+                });
+                html += `</div>`;
+            }
+            html += `</div>`;
+            return html;
+        }
+
+        function renderMiniPlayer() {
+            const playerWrapper = document.getElementById('mini-player-wrapper');
+            const playerEl = document.getElementById('mini-player');
+            
+            if (!state.currentTrackId) {
+                playerWrapper.classList.add('hidden');
+                return;
+            }
+
+            const track = PODCAST_LIST.find(p => p.id === state.currentTrackId);
+            
+            playerWrapper.classList.remove('hidden');
+
+            playerEl.innerHTML = `
+                <div class="flex items-center gap-4 w-[70%]">
+                    <img src="${track.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-12 h-12 rounded-lg border-2 border-white/20 object-cover shrink-0 ${state.isPlaying ? 'animate-[spin_4s_linear_infinite] rounded-full' : ''}" />
+                    <div class="flex flex-col overflow-hidden">
+                        <span class="text-[14px] font-bold text-white truncate">${track.title}</span>
+                        <span class="text-[11px] font-medium text-white/90 truncate">${track.category} • Episode ${track.id}</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6 text-white pr-2">
+                    <i class="fa-solid fa-backward-step cursor-pointer text-xl hover:text-white/70 transition-colors hidden sm:block" onclick="window.handlePrevTrack()"></i>
+                    <button onclick="window.togglePlay(${track.id})" class="w-11 h-11 bg-white rounded-full flex items-center justify-center text-[#F96D15] shadow-lg hover:scale-105 transition-transform shrink-0">
+                        <i class="fa-solid ${state.isPlaying ? 'fa-pause' : 'fa-play text-lg ml-0.5'}"></i>
+                    </button>
+                    <i class="fa-solid fa-forward-step cursor-pointer text-xl hover:text-white/70 transition-colors" onclick="window.handleNextTrack()"></i>
+                </div>
+            `;
+        }
+
+        function renderBottomNav() {
+            const navEl = document.getElementById('nav-items-container');
+            const tabs = [
+                { id: 'Home', label: 'Home', icon: 'fa-house', badge: false },
+                { id: 'Library', label: 'Library', icon: 'fa-book-open', badge: false },
+                { id: 'Downloads', label: 'Downloads', icon: 'fa-download', badge: state.downloads.size > 0 },
+                { id: 'Bookmarks', label: 'Bookmarks', icon: 'fa-bookmark', badge: state.bookmarks.size > 0 },
+                { id: 'Profile', label: 'Profile', icon: 'fa-user', badge: false }
+            ];
+
+            navEl.innerHTML = tabs.map(t => `
+                <button onclick="window.changeTab('${t.id}')" class="flex flex-col items-center justify-center flex-1 h-full gap-1.5 relative group">
+                    <div class="relative">
+                        <i class="fa-solid ${t.icon} text-xl md:text-2xl transition-colors duration-300 ${state.activeTab === t.id ? 'text-orange-500 transform -translate-y-1' : 'text-gray-400 group-hover:text-gray-600'}"></i>
+                        ${t.badge ? `<span class="absolute -top-1 -right-2 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>` : ''}
+                    </div>
+                    <span class="text-[10px] md:text-xs transition-colors font-medium ${state.activeTab === t.id ? 'text-orange-600 font-bold' : 'text-gray-500'}">${t.label}</span>
+                </button>
+            `).join('');
+        }
+
+        // --- Event Handlers ---
+
+        window.changeTab = function(tab) {
+            state.activeTab = tab;
+            renderHeaderExtras();
+            renderMainContent();
+            renderBottomNav();
+            window.scrollTo(0,0);
+        };
+
+        window.changeCategory = function(cat) {
+            state.activeCategory = cat;
+            renderHeaderExtras();
+            renderMainContent();
+        };
+
+        window.handleSearch = function(e) {
+            state.searchQuery = e.target.value;
+            renderMainContent();
+        };
+
+        window.toggleBookmark = function(id) {
+            if (state.bookmarks.has(id)) {
+                state.bookmarks.delete(id);
+                showToast("बुकमार्क से हटा दिया गया!");
+            } else {
+                state.bookmarks.add(id);
+                showToast("बुकमार्क में सेव कर लिया गया!");
+            }
+            renderMainContent();
+            renderBottomNav();
+        };
+
+        window.toggleDownload = function(id) {
+            if (state.downloads.has(id)) {
+                state.downloads.delete(id);
+                showToast("डाउनलोड से डिलीट कर दिया गया!");
+            } else {
+                state.downloads.add(id);
+                showToast("सफलतापूर्वक डाउनलोड हो गया!");
+            }
+            renderMainContent();
+            renderBottomNav();
+        };
+
+        window.removeItemFromList = function(title, id) {
+            if(title === 'My Downloads') window.toggleDownload(id);
+            if(title === 'Saved Bookmarks') window.toggleBookmark(id);
+        };
+
+        window.togglePlay = function(id) {
+            if (state.currentTrackId === id) {
+                state.isPlaying = !state.isPlaying;
+                state.isPlaying ? audioElement.play() : audioElement.pause();
+            } else {
+                state.currentTrackId = id;
+                state.isPlaying = true;
+                const track = PODCAST_LIST.find(p => p.id === id);
+                audioElement.src = track.audioUrl;
+                audioElement.play().catch(e => console.log("Play interrupted"));
+            }
+            renderMainContent();
+            renderMiniPlayer();
+        };
+
+        window.handleNextTrack = function() {
+            if (!state.currentTrackId) return;
+            const currentIndex = PODCAST_LIST.findIndex(p => p.id === state.currentTrackId);
+            const nextIndex = (currentIndex + 1) % PODCAST_LIST.length;
+            window.togglePlay(PODCAST_LIST[nextIndex].id);
+        };
+
+        window.handlePrevTrack = function() {
+            if (!state.currentTrackId) return;
+            const currentIndex = PODCAST_LIST.findIndex(p => p.id === state.currentTrackId);
+            const prevIndex = (currentIndex - 1 + PODCAST_LIST.length) % PODCAST_LIST.length;
+            window.togglePlay(PODCAST_LIST[prevIndex].id);
+        };
+
+        // --- Voice Search ---
+        window.startVoiceSearch = function() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                showToast("क्षमा करें, आपका ब्राउज़र वॉइस सर्च सपोर्ट नहीं करता। Chrome उपयोग करें।");
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'hi-IN';
+            recognition.continuous = false;
+            
+            const micIcon = document.getElementById('mic-icon');
+            const searchBox = document.getElementById('search-box');
+            const micBtn = document.getElementById('mic-btn');
+
+            recognition.onstart = () => {
+                showToast("बोलिए, हम सुन रहे हैं...");
+                micIcon.classList.replace('text-gray-500', 'text-orange-600');
+                searchBox.classList.add('ring-2', 'ring-orange-400', 'bg-orange-50');
+                micBtn.classList.add('bg-orange-200', 'animate-pulse');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                state.searchQuery = transcript;
+                document.getElementById('search-input').value = transcript;
+                showToast(`आपने कहा: "${transcript}"`);
+                renderMainContent();
+            };
+
+            recognition.onerror = () => {
+                showToast("आवाज़ पहचानने में समस्या हुई। कृपया दोबारा प्रयास करें।");
+            };
+
+            recognition.onend = () => {
+                micIcon.classList.replace('text-orange-600', 'text-gray-500');
+                searchBox.classList.remove('ring-2', 'ring-orange-400', 'bg-orange-50');
+                micBtn.classList.remove('bg-orange-200', 'animate-pulse');
+            };
+
+            recognition.start();
+        };
+
+        // --- Toast ---
+        let toastTimeout;
+        function showToast(msg) {
+            const toastEl = document.getElementById('toast');
+            toastEl.textContent = msg;
+            toastEl.classList.remove('hidden', 'opacity-0');
+            toastEl.classList.add('opacity-100');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toastEl.classList.remove('opacity-100');
+                toastEl.classList.add('opacity-0');
+                setTimeout(() => toastEl.classList.add('hidden'), 300);
+            }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
+
+
+```
