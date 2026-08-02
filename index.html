@@ -2,14 +2,18 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <!-- Mobile par full screen aur sahi zoom ke liye -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UPSC CSC Audio Book</title>
     
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     
-    <!-- FontAwesome Icons (Reliable Icons) -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
@@ -19,12 +23,11 @@
     <style>
         body, html {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
-            overflow: hidden; /* Body scroll locked, only main content scrolls */
+            overflow: hidden;
         }
         
         .app-container {
@@ -63,79 +66,189 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
     <!-- Main Full Screen Container -->
-    <div class="bg-gray-50 app-container relative overflow-hidden">
+    <div class="app-container relative overflow-hidden flex flex-col">
         
         <audio id="audio-player"></audio>
 
         <!-- Toast Message -->
-        <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs md:text-sm px-6 py-3 rounded-full z-[70] shadow-2xl whitespace-nowrap transition-opacity duration-300 opacity-0 pointer-events-none hidden">
+        <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs md:text-sm px-6 py-3 rounded-full z-[90] shadow-2xl whitespace-nowrap transition-opacity duration-300 opacity-0 pointer-events-none hidden">
         </div>
 
         <!-- ================= HEADER (Fixed at Top) ================= -->
-        <div class="bg-white z-20 shrink-0 shadow-sm w-full" id="header-container">
+        <div class="bg-white dark:bg-gray-800 z-20 shrink-0 shadow-sm w-full transition-colors duration-200" id="header-container">
             <div class="max-w-7xl mx-auto w-full">
                 <!-- Top Navbar -->
                 <header class="px-4 py-3 flex items-center justify-between">
-                    <i class="fa-solid fa-bars text-xl text-gray-700 cursor-pointer hover:text-orange-500 transition-colors"></i>
+                    <i class="fa-solid fa-bars text-xl text-gray-700 dark:text-gray-200 cursor-pointer hover:text-orange-500 transition-colors" onclick="window.openDrawer()"></i>
                     
                     <div class="flex items-center gap-2 cursor-pointer" onclick="window.changeTab('Home')">
                         <i class="fa-solid fa-headphones text-2xl text-orange-500"></i>
                         <div class="flex flex-col items-start leading-none mt-1">
-                            <span class="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">UPSC <span class="text-orange-500">CSC</span></span>
+                            <span class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">UPSC <span class="text-orange-500">CSC</span></span>
                             <span class="text-[10px] md:text-xs font-bold text-orange-500 tracking-wider">AUDIO BOOK</span>
                         </div>
                     </div>
 
-                    <div onclick="window.changeTab('Profile')" class="w-9 h-9 rounded-full border border-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-100 text-gray-500 transition-colors">
-                        <i class="fa-solid fa-user"></i>
+                    <div class="flex items-center gap-3">
+                        <div class="hidden sm:flex items-center gap-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm cursor-pointer hover:opacity-90 transition-opacity" onclick="window.showToast('Premium Active!')">
+                            <i class="fa-solid fa-crown text-amber-500"></i> Premium
+                        </div>
+                        <div onclick="window.changeTab('Profile')" class="w-9 h-9 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-300 transition-colors">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
                     </div>
                 </header>
 
                 <!-- Search Bar -->
                 <div id="search-container" class="px-4 pb-2 relative">
-                    <div id="search-box" class="bg-gray-100 rounded-full flex items-center px-4 py-2 md:py-3 transition-all max-w-2xl mx-auto border border-transparent focus-within:border-orange-300 focus-within:bg-white focus-within:shadow-sm">
+                    <div id="search-box" class="bg-gray-100 dark:bg-gray-700 rounded-full flex items-center px-4 py-2 md:py-3 transition-all max-w-2xl mx-auto border border-transparent focus-within:border-orange-300 focus-within:bg-white dark:focus-within:bg-gray-800 focus-within:shadow-sm">
                         <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3"></i>
                         <input 
                             type="text" 
                             id="search-input"
                             placeholder="Search for topics, subjects or podcasts..." 
-                            class="bg-transparent border-none outline-none w-full text-sm md:text-base text-gray-700 placeholder:text-gray-400 h-8"
+                            class="bg-transparent border-none outline-none w-full text-sm md:text-base text-gray-700 dark:text-gray-200 placeholder:text-gray-400 h-8"
                             oninput="window.handleSearch(event)"
                         />
-                        <button onclick="window.startVoiceSearch()" id="mic-btn" class="ml-2 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500 transition-colors">
+                        <button onclick="window.startVoiceSearch()" id="mic-btn" class="ml-2 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-300 transition-colors">
                             <i id="mic-icon" class="fa-solid fa-microphone"></i>
                         </button>
                     </div>
                 </div>
 
                 <!-- Category Tabs -->
-                <div id="category-container" class="flex overflow-x-auto hide-scrollbar px-4 pt-2 border-b border-gray-100 gap-6 md:gap-8 max-w-7xl mx-auto">
+                <div id="category-container" class="flex overflow-x-auto hide-scrollbar px-4 pt-2 border-b border-gray-100 dark:border-gray-700 gap-6 md:gap-8 max-w-7xl mx-auto">
                     <!-- Categories injected here -->
                 </div>
             </div>
         </div>
 
         <!-- ================= MAIN CONTENT (Scrollable) ================= -->
-        <main id="main-content" class="flex-1 overflow-y-auto hide-scrollbar bg-gray-50/80 pb-24 pt-4 w-full relative">
+        <main id="main-content" class="flex-1 overflow-y-auto hide-scrollbar bg-gray-50 dark:bg-gray-900 pb-28 pt-4 w-full relative transition-colors duration-200">
             <!-- Content injected here -->
         </main>
 
         <!-- ================= MINI PLAYER (Fixed Bottom, Above Nav) ================= -->
         <div id="mini-player-wrapper" class="absolute bottom-[65px] left-0 right-0 w-full z-40 hidden px-2 md:px-6 pointer-events-none">
-            <div id="mini-player" class="bg-[#F96D15] px-4 py-3 flex-col justify-center shadow-xl rounded-xl animate-slide-up max-w-4xl mx-auto pointer-events-auto flex w-full">
+            <div id="mini-player" class="bg-[#F96D15] px-4 py-3 flex-col justify-center shadow-xl rounded-xl animate-slide-up max-w-4xl mx-auto pointer-events-auto flex w-full text-white cursor-pointer" onclick="window.openPlayerModal()">
                 <!-- Player HTML injected here -->
             </div>
         </div>
 
         <!-- ================= BOTTOM NAVIGATION (Fixed Bottom) ================= -->
-        <nav id="bottom-nav" class="shrink-0 h-[65px] bg-white border-t border-gray-200 w-full z-50 shadow-[0_-5px_20px_-5px_rgba(0,0,0,0.1)]">
+        <nav id="bottom-nav" class="shrink-0 h-[65px] bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 w-full z-50 shadow-[0_-5px_20px_-5px_rgba(0,0,0,0.1)] transition-colors duration-200">
             <div class="max-w-md md:max-w-3xl mx-auto w-full h-full flex justify-between items-center px-2 md:px-8" id="nav-items-container">
                 <!-- Nav buttons injected here -->
             </div>
         </nav>
+
+        <!-- ================= FULL SCREEN NOW PLAYING MODAL ================= -->
+        <div id="player-modal" class="fixed inset-0 bg-gray-900/90 dark:bg-black/95 z-[100] hidden flex flex-col justify-between p-4 md:p-8 backdrop-blur-md animate-slide-up text-white overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between w-full max-w-2xl mx-auto pt-2">
+                <button onclick="window.closePlayerModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                    <i class="fa-solid fa-chevron-down text-lg"></i>
+                </button>
+                <span class="text-base font-bold tracking-wide">Now Playing</span>
+                <div class="relative">
+                    <button onclick="window.togglePlayerMenu(event)" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                        <i class="fa-solid fa-ellipsis-vertical text-lg"></i>
+                    </button>
+                    <!-- Player Dropdown Menu -->
+                    <div id="player-dropdown" class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 hidden z-50 py-2">
+                        <div onclick="window.openNotificationsModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium">
+                            <div class="flex items-center gap-3"><i class="fa-regular fa-bell text-gray-500"></i> Notifications</div>
+                            <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                        </div>
+                        <div onclick="window.openShareModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-share-nodes text-gray-500"></i> Share</div>
+                            <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium border-t border-gray-100 dark:border-gray-700">
+                            <div class="flex items-center gap-3"><i class="fa-regular fa-moon text-gray-500"></i> Dark Mode</div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="dark-mode-toggle" class="sr-only peer" onchange="window.toggleDarkMode()">
+                                <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Body Content -->
+            <div id="player-modal-content" class="flex flex-col items-center justify-center max-w-md mx-auto w-full my-auto py-4">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+
+        <!-- ================= NOTIFICATIONS MODAL ================= -->
+        <div id="notifications-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
+            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-lg rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up max-h-[85vh] overflow-y-auto">
+                <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700 mb-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-chevron-left cursor-pointer text-lg" onclick="window.closeNotificationsModal()"></i>
+                        <h3 class="text-lg font-bold">Notifications</h3>
+                    </div>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeNotificationsModal()"></i>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
+                        <span class="font-medium text-sm">All Notifications</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
+                        <span class="font-medium text-sm">New Podcasts</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
+                        <span class="font-medium text-sm">Test & Quizzes</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
+                        <span class="font-medium text-sm">Offers & Updates</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                    <div class="flex items-center justify-between py-3">
+                        <span class="font-medium text-sm">Important Announcements</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SHARE MODAL ================= -->
+        <div id="share-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
+            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-lg rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up">
+                <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700 mb-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-chevron-left cursor-pointer text-lg" onclick="window.closeShareModal()"></i>
+                        <h3 class="text-lg font-bold">Share</h3>
+                    </div>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeShareModal()"></i>
+                </div>
+                <div class="space-y-3">
+                    <div onclick="window.shareTo('WhatsApp')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-whatsapp"></i></div><span class="font-semibold">WhatsApp</span></div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                    <div onclick="window.shareTo('Telegram')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-telegram"></i></div><span class="font-semibold">Telegram</span></div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                    <div onclick="window.shareTo('Facebook')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-facebook-f"></i></div><span class="font-semibold">Facebook</span></div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                    <div onclick="window.copyLink()" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-200 text-lg"><i class="fa-solid fa-link"></i></div><span class="font-semibold">Copy Link</span></div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -146,18 +259,54 @@
         const CATEGORIES = ["All", "History", "Polity", "Geography", "Economy", "Environment", "Science", "Current Affairs", "Ethics"];
 
         const PODCAST_LIST = [
-            { id: 1, category: "Geography", title: "एल नीनो और ला नीना का खेल", desc: "एल नीनो और ला नीना का भारतीय मानसून पर प्रभाव।", plays: "12.4K Plays", date: "01 Jun 2025", episode: "Episode 01", duration: "32:45", image: "IMG_20260801_215005_232.jpg", audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a" },
-            { id: 2, category: "Geography", title: "भारत का आकार, स्थिति, समय और पड़ोस", desc: "भारत का आकार, स्थिति, मानक समय और पड़ोसी देशों का विवरण।", plays: "New", date: "01 Aug 2026", episode: "Episode 02", duration: "Full Audio", image: "IMG_20260801_223530_539.jpg", audioUrl: "भारत_का_आकार_स्थिति_समय_और_पड़ोस_compressed.m4a" }
+            { 
+                id: 1, 
+                category: "Geography", 
+                title: "एल नीनो और ला नीना का खेल", 
+                desc: "एल नीनो और ला नीना का भारतीय मानसून पर प्रभाव।", 
+                plays: "12.4K Plays", 
+                date: "01 Jun 2025", 
+                episode: "Episode 01", 
+                duration: "32:45", 
+                image: "IMG_20260801_215005_232.jpg", 
+                audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a" 
+            },
+            { 
+                id: 2, 
+                category: "Geography", 
+                title: "भारत का आकार, स्थिति, समय और पड़ोस", 
+                desc: "भारत का आकार, स्थिति, मानक समय और पड़ोसी देशों का विवरण।", 
+                plays: "9.8K Plays", 
+                date: "01 Aug 2025", 
+                episode: "Episode 02", 
+                duration: "Full Audio", 
+                image: "IMG_20260801_223530_539.jpg", 
+                audioUrl: "भारत_का_आकार_स्थिति_समय_और_पड़ोस_compressed.m4a" 
+            },
+            { 
+                id: 3, 
+                category: "Polity", 
+                title: "भारतीय संविधान की प्रस्तावना और विशेषताएँ", 
+                desc: "भारतीय संविधान की प्रस्तावना, विशेषताएँ, स्रोत और मूल संरचना सिद्धांत।", 
+                plays: "15.2K Plays", 
+                date: "15 May 2025", 
+                episode: "Episode 03", 
+                duration: "28:30", 
+                image: "https://images.unsplash.com/photo-1588714477688-cfad01265819?auto=format&fit=crop&q=80&w=400&h=400", 
+                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" 
+            }
         ];
 
         let state = {
             activeTab: 'Home',
             activeCategory: 'All',
             searchQuery: '',
-            bookmarks: new Set(),
-            downloads: new Set(),
+            bookmarks: new Set([1]),
+            downloads: new Set([1, 2]),
             currentTrackId: null,
-            isPlaying: false
+            isPlaying: false,
+            playbackSpeed: 1.0,
+            darkMode: false
         };
 
         const audioElement = document.getElementById('audio-player');
@@ -168,31 +317,107 @@
             renderBottomNav();
             audioElement.addEventListener('ended', window.handleNextTrack);
             
-            // --- Audio Seek Bar Logic ---
             audioElement.addEventListener('timeupdate', () => {
                 const seekBar = document.getElementById('seek-bar');
+                const modalSeekBar = document.getElementById('modal-seek-bar');
                 const currentTimeDisp = document.getElementById('current-time-disp');
+                const modalCurrentDisp = document.getElementById('modal-current-time');
                 const totalTimeDisp = document.getElementById('total-time-disp');
+                const modalTotalDisp = document.getElementById('modal-total-time');
                 
-                if (seekBar && !isNaN(audioElement.duration)) {
-                    seekBar.max = audioElement.duration;
-                    seekBar.value = audioElement.currentTime;
-                    
+                if (!isNaN(audioElement.duration)) {
                     const formatTime = (seconds) => {
                         const m = Math.floor(seconds / 60);
                         const s = Math.floor(seconds % 60);
                         return `${m}:${s < 10 ? '0' : ''}${s}`;
                     };
-                    
-                    currentTimeDisp.textContent = formatTime(audioElement.currentTime);
-                    totalTimeDisp.textContent = formatTime(audioElement.duration);
+                    const curText = formatTime(audioElement.currentTime);
+                    const totText = formatTime(audioElement.duration);
+
+                    if (seekBar) {
+                        seekBar.max = audioElement.duration;
+                        seekBar.value = audioElement.currentTime;
+                    }
+                    if (modalSeekBar) {
+                        modalSeekBar.max = audioElement.duration;
+                        modalSeekBar.value = audioElement.currentTime;
+                    }
+                    if (currentTimeDisp) currentTimeDisp.textContent = curText;
+                    if (modalCurrentDisp) modalCurrentDisp.textContent = curText;
+                    if (totalTimeDisp) totalTimeDisp.textContent = totText;
+                    if (modalTotalDisp) modalTotalDisp.textContent = totText;
                 }
             });
-
-            window.seekAudio = function(value) {
-                audioElement.currentTime = value;
-            };
         }
+
+        window.seekAudio = function(value) {
+            audioElement.currentTime = value;
+        };
+
+        window.skipTime = function(seconds) {
+            audioElement.currentTime = Math.max(0, Math.min(audioElement.duration || 0, audioElement.currentTime + seconds));
+        };
+
+        window.changeSpeed = function() {
+            const speeds = [1.0, 1.25, 1.5, 2.0, 0.75];
+            const nextIdx = (speeds.indexOf(state.playbackSpeed) + 1) % speeds.length;
+            state.playbackSpeed = speeds[nextIdx];
+            audioElement.playbackRate = state.playbackSpeed;
+            const btn = document.getElementById('speed-btn');
+            if (btn) btn.textContent = state.playbackSpeed + 'x';
+            showToast(`Speed: ${state.playbackSpeed}x`);
+        };
+
+        window.openSleepTimer = function() {
+            showToast("Sleep Timer: Playing for 30 mins");
+        };
+
+        window.toggleDarkMode = function() {
+            state.darkMode = !state.darkMode;
+            document.documentElement.classList.toggle('dark', state.darkMode);
+            const toggle = document.getElementById('dark-mode-toggle');
+            if (toggle) toggle.checked = state.darkMode;
+            showToast(state.darkMode ? "Dark Mode Enabled" : "Light Mode Enabled");
+        };
+
+        window.togglePlayerMenu = function(e) {
+            if (e) e.stopPropagation();
+            const dropdown = document.getElementById('player-dropdown');
+            if (dropdown) dropdown.classList.toggle('hidden');
+        };
+
+        window.openNotificationsModal = function() {
+            const modal = document.getElementById('notifications-modal');
+            if (modal) modal.classList.remove('hidden');
+        };
+        window.closeNotificationsModal = function() {
+            const modal = document.getElementById('notifications-modal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        window.openShareModal = function() {
+            const modal = document.getElementById('share-modal');
+            if (modal) modal.classList.remove('hidden');
+        };
+        window.closeShareModal = function() {
+            const modal = document.getElementById('share-modal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        window.shareTo = function(platform) {
+            showToast(`Shared via ${platform}!`);
+            window.closeShareModal();
+        };
+
+        window.copyLink = function() {
+            navigator.clipboard?.writeText(window.location.href);
+            showToast("Link copied to clipboard!");
+            window.closeShareModal();
+        };
+
+        window.openDrawer = function() {
+            showToast("Menu opened");
+        };
 
         function renderHeaderExtras() {
             const searchContainer = document.getElementById('search-container');
@@ -208,7 +433,7 @@
                         class="pb-3 text-sm md:text-base font-semibold whitespace-nowrap border-b-2 transition-colors ${
                             state.activeCategory === cat 
                                 ? 'border-orange-500 text-orange-500' 
-                                : 'border-transparent text-gray-500 hover:text-gray-900'
+                                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                         }"
                     >
                         ${cat}
@@ -231,11 +456,10 @@
                     return matchCat && matchSearch;
                 });
 
-                // Desktop Grid Layout added
                 let html = `
                     <div class="max-w-7xl mx-auto px-4 w-full">
                         <div class="py-2 mb-2 flex justify-between items-end">
-                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 leading-none">
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-none">
                                 ${state.searchQuery ? 'Search Results' : 'Latest Podcasts'}
                             </h2>
                             ${!state.searchQuery ? `<span class="text-sm font-semibold text-orange-500 cursor-pointer hover:underline">View All</span>` : ''}
@@ -243,9 +467,8 @@
                 `;
 
                 if (filtered.length === 0) {
-                    html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white rounded-xl shadow-sm">कोई पॉडकास्ट नहीं मिला।</div>`;
+                    html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm">कोई पॉडकास्ट नहीं मिला।</div>`;
                 } else {
-                    // grid-cols-1 for mobile, grid-cols-2 for tablet, grid-cols-3 for desktop
                     html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 pb-6 w-full">`;
                     
                     filtered.forEach(podcast => {
@@ -254,7 +477,7 @@
                         const isDownloaded = state.downloads.has(podcast.id);
 
                         html += `
-                        <div class="bg-white rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40' : 'border-gray-100'} w-full">
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40 dark:bg-orange-950/20' : 'border-gray-100 dark:border-gray-700'} w-full">
                             
                             <!-- Image Area -->
                             <div class="relative w-[110px] md:w-[130px] h-[130px] md:h-[150px] rounded-xl overflow-hidden shrink-0 cursor-pointer group" onclick="window.togglePlay(${podcast.id})">
@@ -282,12 +505,12 @@
                             <div class="flex flex-col flex-1 py-1 overflow-hidden justify-between">
                                 <div>
                                     <div class="flex justify-between items-start mb-1.5">
-                                        <span class="text-[10px] md:text-[11px] font-bold text-orange-600 bg-orange-50 px-2.5 py-0.5 rounded-full">${podcast.category}</span>
-                                        <i class="fa-solid fa-ellipsis-vertical text-gray-400 cursor-pointer px-2 hover:text-gray-700"></i>
+                                        <span class="text-[10px] md:text-[11px] font-bold text-orange-600 bg-orange-50 dark:bg-orange-900/40 px-2.5 py-0.5 rounded-full">${podcast.category}</span>
+                                        <i class="fa-solid fa-ellipsis-vertical text-gray-400 cursor-pointer px-2 hover:text-gray-700 dark:hover:text-gray-200" onclick="window.openShareModal()"></i>
                                     </div>
                                     
-                                    <h3 class="font-bold text-sm md:text-base text-gray-900 leading-tight mb-1.5 line-clamp-2 cursor-pointer hover:text-orange-600 transition-colors" onclick="window.togglePlay(${podcast.id})">${podcast.title}</h3>
-                                    <p class="text-[11px] md:text-xs text-gray-500 leading-snug line-clamp-2 hidden sm:block mb-2">${podcast.desc}</p>
+                                    <h3 class="font-bold text-sm md:text-base text-gray-900 dark:text-white leading-tight mb-1.5 line-clamp-2 cursor-pointer hover:text-orange-600 transition-colors" onclick="window.togglePlay(${podcast.id})">${podcast.title}</h3>
+                                    <p class="text-[11px] md:text-xs text-gray-500 dark:text-gray-400 leading-snug line-clamp-2 hidden sm:block mb-2">${podcast.desc}</p>
                                 </div>
                                 
                                 <div>
@@ -296,16 +519,16 @@
                                         <div class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i><span>${podcast.date}</span></div>
                                     </div>
 
-                                    <div class="flex items-center justify-between pt-2 border-t border-gray-100">
-                                        <button onclick="window.togglePlay(${podcast.id})" class="flex items-center gap-1.5 font-bold text-xs md:text-sm transition-colors ${isThisPlaying ? 'text-orange-600' : 'text-gray-700 hover:text-orange-500'}">
+                                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
+                                        <button onclick="window.togglePlay(${podcast.id})" class="flex items-center gap-1.5 font-bold text-xs md:text-sm transition-colors ${isThisPlaying ? 'text-orange-600 dark:text-orange-400' : 'text-gray-700 dark:text-gray-200 hover:text-orange-500'}">
                                             <i class="fa-solid ${isThisPlaying ? 'fa-circle-pause text-orange-500 text-lg md:text-xl' : 'fa-circle-play text-orange-500 text-lg md:text-xl'}"></i>
                                             ${isThisPlaying ? 'Playing' : 'Play Now'}
                                         </button>
                                         <div class="flex items-center gap-4">
-                                            <button onclick="window.toggleDownload(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isDownloaded ? 'text-green-500' : 'text-gray-400 hover:text-gray-700'}">
+                                            <button onclick="window.toggleDownload(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isDownloaded ? 'text-green-500' : 'text-gray-400 hover:text-gray-200'}">
                                                 <i class="fa-solid ${isDownloaded ? 'fa-circle-check' : 'fa-download'}"></i>
                                             </button>
-                                            <button onclick="window.toggleBookmark(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isBookmarked ? 'text-orange-500' : 'text-gray-400 hover:text-gray-700'}">
+                                            <button onclick="window.toggleBookmark(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isBookmarked ? 'text-orange-500' : 'text-gray-400 hover:text-gray-200'}">
                                                 <i class="fa-solid fa-bookmark"></i>
                                             </button>
                                         </div>
@@ -326,15 +549,15 @@
             }
             else if (state.activeTab === 'Library') {
                 const libCats = CATEGORIES.filter(c => c !== 'All').map(cat => `
-                    <div onclick="window.changeCategory('${cat}'); window.changeTab('Home');" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center cursor-pointer hover:border-orange-500 hover:shadow-md transition-all group">
-                        <i class="fa-solid fa-book-open text-3xl text-gray-300 group-hover:text-orange-400 mb-3 transition-colors"></i>
-                        <span class="font-bold text-gray-700 group-hover:text-gray-900">${cat}</span>
+                    <div onclick="window.changeCategory('${cat}'); window.changeTab('Home');" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-orange-500 hover:shadow-md transition-all group">
+                        <i class="fa-solid fa-book-open text-3xl text-gray-300 dark:text-gray-600 group-hover:text-orange-400 mb-3 transition-colors"></i>
+                        <span class="font-bold text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white">${cat}</span>
                     </div>
                 `).join('');
                 
                 mainEl.innerHTML = `
                     <div class="max-w-7xl mx-auto px-4">
-                        <h2 class="text-2xl font-bold mb-6 text-gray-900">Library Categories</h2>
+                        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Library Categories</h2>
                         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">${libCats}</div>
                     </div>
                 `;
@@ -342,28 +565,28 @@
             else if (state.activeTab === 'Profile') {
                 mainEl.innerHTML = `
                     <div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10 md:mt-20">
-                        <div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 rounded-full flex items-center justify-center mb-6 shadow-inner border-4 border-white">
+                        <div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 dark:bg-orange-950/40 rounded-full flex items-center justify-center mb-6 shadow-inner border-4 border-white dark:border-gray-800">
                             <i class="fa-solid fa-user text-6xl text-orange-500"></i>
                         </div>
-                        <h2 class="text-3xl font-bold text-gray-900">UPSC Aspirant</h2>
-                        <p class="text-gray-500 mt-2 text-lg">Student Account</p>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">UPSC Aspirant</h2>
+                        <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Student Account</p>
                         
-                        <div class="grid grid-cols-3 w-full gap-4 mt-8 mb-8 border-y border-gray-200 py-6">
+                        <div class="grid grid-cols-3 w-full gap-4 mt-8 mb-8 border-y border-gray-200 dark:border-gray-700 py-6">
                             <div class="text-center">
                                 <h3 class="font-bold text-2xl text-orange-500">124</h3>
-                                <p class="text-xs md:text-sm text-gray-500">Hours Listened</p>
+                                <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400">Hours Listened</p>
                             </div>
-                            <div class="text-center border-x border-gray-200">
+                            <div class="text-center border-x border-gray-200 dark:border-gray-700">
                                 <h3 class="font-bold text-2xl text-orange-500">45</h3>
-                                <p class="text-xs md:text-sm text-gray-500">Completed</p>
+                                <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400">Completed</p>
                             </div>
                             <div class="text-center">
                                 <h3 class="font-bold text-2xl text-orange-500">12</h3>
-                                <p class="text-xs md:text-sm text-gray-500">Certificates</p>
+                                <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400">Certificates</p>
                             </div>
                         </div>
 
-                        <button class="w-full max-w-sm bg-orange-500 text-white font-bold py-3.5 rounded-xl hover:bg-orange-600 transition-colors shadow-md text-lg">
+                        <button onclick="window.showToast('Profile Updated')" class="w-full max-w-sm bg-orange-500 text-white font-bold py-3.5 rounded-xl hover:bg-orange-600 transition-colors shadow-md text-lg">
                             Edit Profile
                         </button>
                     </div>
@@ -372,10 +595,10 @@
         }
 
         function generateListScreenHTML(title, itemSet, emptyMsg, removeIconClass, removeFunc) {
-            let html = `<div class="max-w-7xl mx-auto px-4"><h2 class="text-2xl font-bold mb-6 text-gray-900">${title} <span class="text-gray-400 text-lg">(${itemSet.size})</span></h2>`;
+            let html = `<div class="max-w-7xl mx-auto px-4"><h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">${title} <span class="text-gray-400 text-lg">(${itemSet.size})</span></h2>`;
             
             if (itemSet.size === 0) {
-                html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white rounded-2xl border-2 border-dashed border-gray-300 flex flex-col items-center">
+                html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white dark:bg-gray-800 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-col items-center">
                     <i class="fa-solid fa-box-open text-4xl mb-4 text-gray-300"></i>
                     <p class="text-lg">${emptyMsg}</p>
                 </div>`;
@@ -383,22 +606,23 @@
                 html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">`;
                 itemSet.forEach(id => {
                     const item = PODCAST_LIST.find(p => p.id === id);
+                    if (!item) return;
                     const isThisPlaying = state.currentTrackId === item.id && state.isPlaying;
                     
                     html += `
-                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:shadow-md transition-shadow">
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between hover:shadow-md transition-shadow">
                         <div class="flex items-center gap-4 flex-1 overflow-hidden cursor-pointer" onclick="window.togglePlay(${item.id})">
                             <img src="${item.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-16 h-16 rounded-xl object-cover bg-gray-200" />
                             <div class="flex flex-col flex-1 truncate pr-2">
-                                <span class="font-bold text-sm md:text-base text-gray-900 truncate mb-1">${item.title}</span>
-                                <span class="text-xs font-semibold text-orange-500 bg-orange-50 inline-block px-2 py-0.5 rounded w-max">${item.category}</span>
+                                <span class="font-bold text-sm md:text-base text-gray-900 dark:text-white truncate mb-1">${item.title}</span>
+                                <span class="text-xs font-semibold text-orange-500 bg-orange-50 dark:bg-orange-900/40 inline-block px-2 py-0.5 rounded w-max">${item.category}</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 shrink-0">
-                            <button onclick="window.togglePlay(${item.id})" class="w-10 h-10 flex items-center justify-center bg-orange-50 text-orange-500 rounded-full hover:bg-orange-100 transition-colors">
+                            <button onclick="window.togglePlay(${item.id})" class="w-10 h-10 flex items-center justify-center bg-orange-50 dark:bg-orange-900/40 text-orange-500 rounded-full hover:bg-orange-100 transition-colors">
                                 <i class="fa-solid ${isThisPlaying ? 'fa-pause' : 'fa-play'}"></i>
                             </button>
-                            <button onclick="window.removeItemFromList('${title}', ${item.id})" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-red-500 bg-gray-50 rounded-full transition-colors">
+                            <button onclick="window.removeItemFromList('${title}', ${item.id})" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-red-500 bg-gray-50 dark:bg-gray-700 rounded-full transition-colors">
                                 <i class="fa-solid ${removeIconClass} ${removeIconClass==='fa-bookmark'?'text-orange-500':''}"></i>
                             </button>
                         </div>
@@ -420,7 +644,6 @@
             }
 
             const track = PODCAST_LIST.find(p => p.id === state.currentTrackId);
-            
             playerWrapper.classList.remove('hidden');
 
             playerEl.innerHTML = `
@@ -433,14 +656,14 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-6 text-white pr-2">
-                        <i class="fa-solid fa-backward-step cursor-pointer text-xl hover:text-white/70 transition-colors hidden sm:block" onclick="window.handlePrevTrack()"></i>
-                        <button onclick="window.togglePlay(${track.id})" class="w-11 h-11 bg-white rounded-full flex items-center justify-center text-[#F96D15] shadow-lg hover:scale-105 transition-transform shrink-0">
+                        <i class="fa-solid fa-backward-step cursor-pointer text-xl hover:text-white/70 transition-colors hidden sm:block" onclick="event.stopPropagation(); window.handlePrevTrack()"></i>
+                        <button onclick="event.stopPropagation(); window.togglePlay(${track.id})" class="w-11 h-11 bg-white rounded-full flex items-center justify-center text-[#F96D15] shadow-lg hover:scale-105 transition-transform shrink-0">
                             <i class="fa-solid ${state.isPlaying ? 'fa-pause' : 'fa-play text-lg ml-0.5'}"></i>
                         </button>
-                        <i class="fa-solid fa-forward-step cursor-pointer text-xl hover:text-white/70 transition-colors" onclick="window.handleNextTrack()"></i>
+                        <i class="fa-solid fa-forward-step cursor-pointer text-xl hover:text-white/70 transition-colors" onclick="event.stopPropagation(); window.handleNextTrack()"></i>
                     </div>
                 </div>
-                <div class="flex items-center gap-3 mt-2.5 w-full">
+                <div class="flex items-center gap-3 mt-2.5 w-full" onclick="event.stopPropagation()">
                     <span id="current-time-disp" class="text-[10px] font-medium text-white w-8">0:00</span>
                     <input type="range" id="seek-bar" class="w-full h-1 bg-white/30 rounded-lg appearance-none cursor-pointer accent-white" value="0" min="0" step="1" oninput="window.seekAudio(this.value)">
                     <span id="total-time-disp" class="text-[10px] font-medium text-white w-8 text-right">0:00</span>
@@ -461,12 +684,103 @@
             navEl.innerHTML = tabs.map(t => `
                 <button onclick="window.changeTab('${t.id}')" class="flex flex-col items-center justify-center flex-1 h-full gap-1.5 relative group">
                     <div class="relative">
-                        <i class="fa-solid ${t.icon} text-xl md:text-2xl transition-colors duration-300 ${state.activeTab === t.id ? 'text-orange-500 transform -translate-y-1' : 'text-gray-400 group-hover:text-gray-600'}"></i>
-                        ${t.badge ? `<span class="absolute -top-1 -right-2 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>` : ''}
+                        <i class="fa-solid ${t.icon} text-xl md:text-2xl transition-colors duration-300 ${state.activeTab === t.id ? 'text-orange-500 transform -translate-y-1' : 'text-gray-400 dark:text-gray-400 group-hover:text-gray-600'}"></i>
+                        ${t.badge ? `<span class="absolute -top-1 -right-2 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></span>` : ''}
                     </div>
-                    <span class="text-[10px] md:text-xs transition-colors font-medium ${state.activeTab === t.id ? 'text-orange-600 font-bold' : 'text-gray-500'}">${t.label}</span>
+                    <span class="text-[10px] md:text-xs transition-colors font-medium ${state.activeTab === t.id ? 'text-orange-600 font-bold' : 'text-gray-500 dark:text-gray-400'}">${t.label}</span>
                 </button>
             `).join('');
+        }
+
+        window.openPlayerModal = function() {
+            if (!state.currentTrackId) return;
+            renderPlayerModalContent();
+            const modal = document.getElementById('player-modal');
+            if (modal) modal.classList.remove('hidden');
+        };
+
+        window.closePlayerModal = function() {
+            const modal = document.getElementById('player-modal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        function renderPlayerModalContent() {
+            const container = document.getElementById('player-modal-content');
+            if (!container || !state.currentTrackId) return;
+            const track = PODCAST_LIST.find(p => p.id === state.currentTrackId);
+            if (!track) return;
+
+            const isBookmarked = state.bookmarks.has(track.id);
+            const isDownloaded = state.downloads.has(track.id);
+
+            container.innerHTML = `
+                <!-- Album Art -->
+                <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl mb-6 relative group border-4 border-white/10">
+                    <img src="${track.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <span class="absolute bottom-3 left-3 bg-orange-600 text-white text-xs font-bold px-2.5 py-1 rounded shadow">${track.episode}</span>
+                </div>
+
+                <!-- Title & Subtitle -->
+                <div class="text-center mb-6 w-full px-4">
+                    <h2 class="text-xl md:text-2xl font-bold mb-1 truncate">${track.title}</h2>
+                    <p class="text-sm text-white/70">${track.category} • UPSC CSC Audio Book</p>
+                </div>
+
+                <!-- Scrubber / Seek Bar -->
+                <div class="w-full px-2 mb-8">
+                    <div class="flex items-center gap-3 w-full mb-1">
+                        <span id="modal-current-time" class="text-xs text-white/80 w-10">0:00</span>
+                        <input type="range" id="modal-seek-bar" class="w-full h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-orange-500" value="0" min="0" step="1" oninput="window.seekAudio(this.value)">
+                        <span id="modal-total-time" class="text-xs text-white/80 w-10 text-right">0:00</span>
+                    </div>
+                </div>
+
+                <!-- Play Controls -->
+                <div class="flex items-center justify-center gap-8 mb-10 w-full">
+                    <button onclick="window.skipTime(-10)" class="flex flex-col items-center text-white/80 hover:text-white transition-colors">
+                        <div class="relative flex items-center justify-center">
+                            <i class="fa-solid fa-rotate-left text-2xl"></i>
+                            <span class="absolute text-[9px] font-bold mt-0.5">10</span>
+                        </div>
+                    </button>
+
+                    <button onclick="window.togglePlay(${track.id})" class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-105 transition-transform">
+                        <i class="fa-solid ${state.isPlaying ? 'fa-pause text-3xl' : 'fa-play text-3xl ml-1'}"></i>
+                    </button>
+
+                    <button onclick="window.skipTime(10)" class="flex flex-col items-center text-white/80 hover:text-white transition-colors">
+                        <div class="relative flex items-center justify-center">
+                            <i class="fa-solid fa-rotate-right text-2xl"></i>
+                            <span class="absolute text-[9px] font-bold mt-0.5">10</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Bottom Action Toolbar -->
+                <div class="flex items-center justify-between w-full max-w-sm px-4 text-white/80 text-xs font-semibold">
+                    <button onclick="window.changeSpeed()" id="speed-btn" class="flex flex-col items-center gap-1 hover:text-white transition-colors">
+                        <span class="text-sm font-bold border border-white/40 px-2 py-0.5 rounded-md">1.0x</span>
+                        <span class="text-[10px]">Speed</span>
+                    </button>
+                    <button onclick="window.openSleepTimer()" class="flex flex-col items-center gap-1 hover:text-white transition-colors">
+                        <i class="fa-regular fa-clock text-lg"></i>
+                        <span class="text-[10px]">Sleep Timer</span>
+                    </button>
+                    <button onclick="window.showToast('Playlist')" class="flex flex-col items-center gap-1 hover:text-white transition-colors">
+                        <i class="fa-solid fa-list text-lg"></i>
+                        <span class="text-[10px]">Playlist</span>
+                    </button>
+                    <button onclick="window.toggleBookmark(${track.id}); renderPlayerModalContent();" class="flex flex-col items-center gap-1 hover:text-white transition-colors ${isBookmarked ? 'text-orange-500' : ''}">
+                        <i class="fa-solid fa-bookmark text-lg"></i>
+                        <span class="text-[10px]">Save</span>
+                    </button>
+                    <button onclick="window.toggleDownload(${track.id}); renderPlayerModalContent();" class="flex flex-col items-center gap-1 hover:text-white transition-colors ${isDownloaded ? 'text-green-400' : ''}">
+                        <i class="fa-solid fa-download text-lg"></i>
+                        <span class="text-[10px]">Download</span>
+                    </button>
+                </div>
+            `;
         }
 
         // --- Event Handlers ---
@@ -528,10 +842,14 @@
                 state.isPlaying = true;
                 const track = PODCAST_LIST.find(p => p.id === id);
                 audioElement.src = track.audioUrl;
+                audioElement.playbackRate = state.playbackSpeed;
                 audioElement.play().catch(e => console.log("Play interrupted"));
             }
             renderMainContent();
             renderMiniPlayer();
+            if (!document.getElementById('player-modal').classList.contains('hidden')) {
+                renderPlayerModalContent();
+            }
         };
 
         window.handleNextTrack = function() {
@@ -595,7 +913,7 @@
 
         // --- Toast ---
         let toastTimeout;
-        function showToast(msg) {
+        window.showToast = function(msg) {
             const toastEl = document.getElementById('toast');
             toastEl.textContent = msg;
             toastEl.classList.remove('hidden', 'opacity-0');
