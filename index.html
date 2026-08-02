@@ -362,7 +362,9 @@
             currentTrackId: null,
             isPlaying: false,
             playbackSpeed: 1.0,
-            darkMode: false
+            darkMode: false,
+            userName: localStorage.getItem('userName') || 'UPSC Aspirant',
+            userImage: localStorage.getItem('userImage') || null
         };
 
         const audioElement = document.getElementById('audio-player');
@@ -640,31 +642,38 @@
                 `;
             }
             else if (state.activeTab === 'Profile') {
+                const userImgHtml = state.userImage 
+                    ? `<img src="${state.userImage}" class="w-full h-full object-cover" />` 
+                    : `<i class="fa-solid fa-user text-6xl text-orange-500"></i>`;
+                    
                 mainEl.innerHTML = `
-                    <div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10 md:mt-20">
-                        <div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 dark:bg-orange-950/40 rounded-full flex items-center justify-center mb-6 shadow-inner border-4 border-white dark:border-gray-800">
-                            <i class="fa-solid fa-user text-6xl text-orange-500"></i>
-                        </div>
-                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">UPSC Aspirant</h2>
-                        <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Student Account</p>
+                    <div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10 md:mt-16 w-full">
                         
-                        <div class="grid grid-cols-3 w-full gap-4 mt-8 mb-8 border-y border-gray-200 dark:border-gray-700 py-6">
-                            <div class="text-center">
-                                <h3 class="font-bold text-2xl text-orange-500">124</h3>
-                                <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400">Hours Listened</p>
+                        <!-- Upload Photo Section -->
+                        <div class="relative group cursor-pointer mb-4" onclick="document.getElementById('profile-img-upload').click()">
+                            <div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 dark:bg-orange-950/40 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-800 overflow-hidden relative transition-transform hover:scale-105">
+                                ${userImgHtml}
+                                <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-white text-xs font-medium">
+                                    <i class="fa-solid fa-camera text-2xl mb-1"></i>
+                                    Upload Photo
+                                </div>
                             </div>
-                            <div class="text-center border-x border-gray-200 dark:border-gray-700">
-                                <h3 class="font-bold text-2xl text-orange-500">45</h3>
-                                <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400">Completed</p>
-                            </div>
-                            <div class="text-center">
-                                <h3 class="font-bold text-2xl text-orange-500">12</h3>
-                                <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400">Certificates</p>
-                            </div>
+                            <input type="file" id="profile-img-upload" class="hidden" accept="image/*" onchange="window.handleImageUpload(event)">
                         </div>
-
-                        <button onclick="window.showToast('Profile Updated')" class="w-full max-w-sm bg-orange-500 text-white font-bold py-3.5 rounded-xl hover:bg-orange-600 transition-colors shadow-md text-lg">
-                            Edit Profile
+                        
+                        <!-- Edit Name Section -->
+                        <div class="w-full max-w-xs flex flex-col items-center mb-10 relative mt-2">
+                            <input type="text" id="profile-name-input" value="${state.userName}" 
+                                class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent focus:border-orange-500 outline-none text-center w-full transition-colors pb-1 placeholder-gray-400" 
+                                placeholder="Enter Your Name"
+                                onblur="window.saveProfileName(this.value)"
+                                onkeypress="if(event.key === 'Enter') this.blur()">
+                            <i class="fa-solid fa-pen absolute right-0 top-3 text-gray-300 dark:text-gray-600 text-sm pointer-events-none"></i>
+                            <p class="text-gray-500 dark:text-gray-400 mt-2 text-base md:text-lg">Student Account</p>
+                        </div>
+                        
+                        <button onclick="document.getElementById('profile-name-input').focus()" class="w-full max-w-sm bg-orange-500 text-white font-bold py-3.5 rounded-xl hover:bg-orange-600 transition-colors shadow-md text-lg flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-pen-to-square"></i> Edit Profile
                         </button>
                     </div>
                 `;
@@ -859,6 +868,30 @@
                 </div>
             `;
         }
+
+                window.handleImageUpload = function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    state.userImage = e.target.result;
+                    localStorage.setItem('userImage', state.userImage);
+                    window.showToast('Profile Photo Updated!');
+                    renderMainContent(); 
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        window.saveProfileName = function(name) {
+            if(name.trim() !== "") {
+                state.userName = name.trim();
+                localStorage.setItem('userName', state.userName);
+                window.showToast('Profile Updated!');
+            } else {
+                document.getElementById('profile-name-input').value = state.userName; 
+            }
+        };
 
         // --- Event Handlers ---
 
