@@ -93,8 +93,9 @@
                     </div>
 
                     <div class="flex items-center gap-3">
-                        <div class="hidden sm:flex items-center gap-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm cursor-pointer hover:opacity-90 transition-opacity" onclick="window.showToast('Premium Active!')">
-                            <i class="fa-solid fa-crown text-amber-500"></i> Premium
+                        <div class="relative cursor-pointer w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" onclick="window.openNotificationsModal()">
+                            <i class="fa-regular fa-bell text-gray-700 dark:text-gray-200 text-xl"></i>
+                            <span class="absolute top-1.5 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></span>
                         </div>
                         <div onclick="window.changeTab('Profile')" class="w-9 h-9 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-300 transition-colors">
                             <i class="fa-solid fa-user"></i>
@@ -201,6 +202,15 @@
             
             <!-- Sidebar Links -->
             <div class="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-3">
+                <!-- Upgrade Premium -->
+                <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl p-4 text-white shadow-lg cursor-pointer mb-2 transform hover:scale-[1.02] transition-transform" onclick="window.openUpgradeModal(); window.closeDrawer();">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-crown mr-1.5"></i> Premium</span>
+                        <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold">₹599/mo</span>
+                    </div>
+                    <p class="text-xs text-white/90 leading-tight">Unlock all audiobooks & downloads.</p>
+                </div>
+                
                 <!-- Dark Mode Toggle -->
                 <div class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700" onclick="document.getElementById('sidebar-dark-toggle').click()">
                     <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
@@ -296,6 +306,63 @@
 
     </div>
 
+    
+        <!-- ================= UPGRADE MODAL ================= -->
+        <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
+            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
+                <!-- Decor -->
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
+                
+                <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
+                    <h3 class="text-xl font-extrabold flex items-center gap-2">
+                        <i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium
+                    </h3>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
+                </div>
+                
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                            <div>
+                                <h4 class="font-bold text-sm">Access All Audiobooks</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Listen to premium, expertly curated content.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                            <div>
+                                <h4 class="font-bold text-sm">Unlimited Offline Downloads</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Download and listen anywhere, anytime without internet.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                            <div>
+                                <h4 class="font-bold text-sm">Ad-Free Experience</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Zero interruptions during your focus time.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-6 flex justify-between items-center">
+                        <div>
+                            <span class="block text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider mb-1">Monthly Plan</span>
+                            <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹599<span class="text-sm font-medium text-gray-500">/mo</span></span>
+                        </div>
+                        <div class="bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded">Popular</div>
+                    </div>
+                    
+                    <button onclick="window.processPayment()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3.5 rounded-xl hover:from-amber-600 hover:to-orange-600 transition-colors shadow-lg text-base flex items-center justify-center gap-2">
+                        Upgrade Now
+                    </button>
+                    <p class="text-center text-[10px] text-gray-400 mt-3">* QR Code payment integration coming soon</p>
+                </div>
+            </div>
+        </div>
+
     <!-- ================= JAVASCRIPT ================= -->
     <script>
         const FALLBACK_IMG = "https://placehold.co/400x400/f3f4f6/9ca3af?text=UPSC+Audio";
@@ -303,54 +370,11 @@
         const CATEGORIES = ["All", "History", "Polity", "Geography", "Economy", "Environment", "Science", "Current Affairs", "Ethics"];
 
         const PODCAST_LIST = [
-            { 
-                id: 1, 
-                category: "Geography", 
-                title: "एल नीनो और ला नीना का खेल", 
-                desc: "एल नीनो और ला नीना का भारतीय मानसून पर प्रभाव।", 
-                plays: "12.4K Plays", 
-                date: "01 Jun 2025", 
-                episode: "Episode 01", 
-                duration: "32:45", 
-                image: "IMG_20260801_215005_232.jpg", 
-                audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a" 
-            },
-            { 
-                id: 2, 
-                category: "Geography", 
-                title: "भारत का आकार, स्थिति, समय और पड़ोस", 
-                desc: "भारत का आकार, स्थिति, मानक समय और पड़ोसी देशों का विवरण।", 
-                plays: "9.8K Plays", 
-                date: "01 Aug 2025", 
-                episode: "Episode 02", 
-                duration: "Full Audio", 
-                image: "IMG_20260801_223530_539.jpg", 
-                audioUrl: "भारत_का_आकार_स्थिति_समय_और_पड़ोस_compressed.m4a" 
-            },
-            { 
-                id: 3, 
-                category: "Geography", 
-                title: "पृथ्वी का इंजन: प्लेट विवर्तनिकी", 
-                desc: "प्लेट विवर्तनिकी (Plate Tectonics) और भू-आकृति विज्ञान का विस्तृत अध्ययन।", 
-                plays: "New", 
-                date: "02 Aug 2026", 
-                episode: "Episode 03", 
-                duration: "Full Audio", 
-                image: "File_00000000928c81fa83b7e8a0a2355421.png", 
-                audioUrl: "पृथ्वी_का_इंजन_प्लेट_विवर्तनिकी_और_भू_आकृति_विज्ञान_compressed.m4a" 
-            },
-            { 
-                id: 4, 
-                category: "Economy", 
-                title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", 
-                desc: "बैंकिंग प्रणाली, RBI के कार्य और डिजिटल रुपये की संपूर्ण जानकारी।", 
-                plays: "New", 
-                date: "02 Aug 2026", 
-                episode: "Episode 04", 
-                duration: "Full Audio", 
-                image: "IMG_20260802_142802_943.jpg", 
-                audioUrl: "पैसे_का_सफ़र_बैंकिंग_RBI_और_डिजिटल_रुपया.m4a" 
-            }
+            { id: 1, category: "Geography", title: "एल नीनो और ला नीना का खेल", desc: "एल नीनो और ला नीना का भारतीय मानसून पर प्रभाव।", plays: "12.4K Plays", date: "01 Jun 2025", episode: "Episode 01", duration: "32:45", image: "IMG_20260801_215005_232.jpg", audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a", isPremium: false },
+            { id: 2, category: "Geography", title: "भारत का आकार, स्थिति, समय और पड़ोस", desc: "भारत का आकार, स्थिति, मानक समय और पड़ोसी देशों का विवरण।", plays: "9.8K Plays", date: "01 Aug 2025", episode: "Episode 02", duration: "Full Audio", image: "IMG_20260801_223530_539.jpg", audioUrl: "भारत_का_आकार_स्थिति_समय_और_पड़ोस_compressed.m4a", isPremium: false },
+            { id: 3, category: "Geography", title: "पृथ्वी का इंजन: प्लेट विवर्तनिकी", desc: "प्लेट विवर्तनिकी (Plate Tectonics) और भू-आकृति विज्ञान का विस्तृत अध्ययन।", plays: "New", date: "02 Aug 2026", episode: "Episode 03", duration: "Full Audio", image: "File_00000000928c81fa83b7e8a0a2355421.png", audioUrl: "पृथ्वी_का_इंजन_प्लेट_विवर्तनिकी_और_भू_आकृति_विज्ञान_compressed.m4a", isPremium: false },
+            { id: 4, category: "Economy", title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", desc: "बैंकिंग प्रणाली, RBI के कार्य और डिजिटल रुपये की संपूर्ण जानकारी।", plays: "New", date: "02 Aug 2026", episode: "Episode 04", duration: "Full Audio", image: "IMG_20260802_142802_943.jpg", audioUrl: "पैसे_का_सफ़र_बैंकिंग_RBI_और_डिजिटल_रुपया.m4a", isPremium: false },
+            { id: 5, category: "Polity", title: "भारतीय संविधान के छह मौलिक अधिकार", desc: "समानता, स्वतंत्रता, शोषण के विरुद्ध अधिकार और अन्य मौलिक अधिकारों की विस्तृत व्याख्या।", plays: "Premium", date: "03 Aug 2026", episode: "Episode 05", duration: "Full Audio", image: "file_0000000053888207920345384bbfc299.png", audioUrl: "भारतीय_संविधान_के_छह_मौलिक_अधिकार_compressed.m4a", isPremium: true }
         ];
 
         let state = {
@@ -364,7 +388,8 @@
             playbackSpeed: 1.0,
             darkMode: false,
             userName: localStorage.getItem('userName') || 'UPSC Aspirant',
-            userImage: localStorage.getItem('userImage') || null
+            userImage: localStorage.getItem('userImage') || null,
+            isPremiumUser: false
         };
 
         const audioElement = document.getElementById('audio-player');
@@ -406,7 +431,50 @@
                     if (modalTotalDisp) modalTotalDisp.textContent = totText;
                 }
             });
+            setTimeout(() => {
+                if (!sessionStorage.getItem('upgradePopShown') && !state.isPremiumUser) {
+                    window.openUpgradeModal();
+                    sessionStorage.setItem('upgradePopShown', 'true');
+                }
+            }, 1500);
         }
+
+        window.openUpgradeModal = function() {
+            const modal = document.getElementById('upgrade-modal');
+            if(modal) modal.classList.remove('hidden');
+        };
+        
+        window.closeUpgradeModal = function() {
+            const modal = document.getElementById('upgrade-modal');
+            if(modal) modal.classList.add('hidden');
+        };
+        
+        window.processPayment = function() {
+            window.showToast("QR Code Payment Page Loading...");
+            // Here you will redirect to UPI/QR page later
+            setTimeout(() => {
+                window.closeUpgradeModal();
+            }, 1000);
+        };
+
+        window.handlePlayClick = function(id) {
+            const track = PODCAST_LIST.find(p => p.id === id);
+            if (track && track.isPremium && !state.isPremiumUser) {
+                window.openUpgradeModal();
+            } else {
+                window.togglePlay(id);
+            }
+        };
+
+        window.handleDownloadClick = function(id) {
+            const track = PODCAST_LIST.find(p => p.id === id);
+            if (track && track.isPremium && !state.isPremiumUser) {
+                window.openUpgradeModal();
+            } else {
+                window.toggleDownload(id);
+            }
+        };
+
 
         window.seekAudio = function(value) {
             audioElement.currentTime = value;
@@ -555,15 +623,23 @@
                         const isBookmarked = state.bookmarks.has(podcast.id);
                         const isDownloaded = state.downloads.has(podcast.id);
 
+                                                const isLocked = podcast.isPremium && !state.isPremiumUser;
                         html += `
                         <div class="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40 dark:bg-orange-950/20' : 'border-gray-100 dark:border-gray-700'} w-full">
                             
                             <!-- Image Area -->
-                            <div class="relative w-[110px] md:w-[130px] h-[130px] md:h-[150px] rounded-xl overflow-hidden shrink-0 cursor-pointer group" onclick="window.togglePlay(${podcast.id})">
+                            <div class="relative w-[110px] md:w-[130px] h-[130px] md:h-[150px] rounded-xl overflow-hidden shrink-0 cursor-pointer group" onclick="window.handlePlayClick(${podcast.id})">
                                 <img src="${podcast.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover bg-gray-200 transition-transform duration-500 group-hover:scale-110" />
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                                 
-                                ${isThisPlaying ? `
+                                ${isLocked ? `
+                                <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center backdrop-blur-[2px]">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center text-white mb-1 shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+                                        <i class="fa-solid fa-lock text-lg"></i>
+                                    </div>
+                                    <span class="text-white text-[9px] font-bold tracking-widest uppercase">Premium</span>
+                                </div>` 
+                                : (isThisPlaying ? `
                                 <div class="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[1px]">
                                     <div class="flex gap-1.5 items-end h-5 playing-bars">
                                         <span class="w-1.5 h-full bg-orange-500 rounded-t-sm"></span>
@@ -574,7 +650,7 @@
                                 <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <i class="fa-solid fa-play text-white text-3xl opacity-80 shadow-lg"></i>
                                 </div>
-                                `}
+                                `)}
                                 
                                 <span class="absolute bottom-2 left-2 bg-orange-600 text-white text-[9px] md:text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">${podcast.episode}</span>
                                 <span class="absolute top-2 right-2 bg-black/70 text-white text-[9px] md:text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm backdrop-blur-sm"><i class="fa-regular fa-clock mr-1"></i>${podcast.duration}</span>
@@ -588,7 +664,7 @@
                                         <i class="fa-solid fa-ellipsis-vertical text-gray-400 cursor-pointer px-2 hover:text-gray-700 dark:hover:text-gray-200" onclick="window.openShareModal()"></i>
                                     </div>
                                     
-                                    <h3 class="font-bold text-sm md:text-base text-gray-900 dark:text-white leading-tight mb-1.5 line-clamp-2 cursor-pointer hover:text-orange-600 transition-colors" onclick="window.togglePlay(${podcast.id})">${podcast.title}</h3>
+                                    <h3 class="font-bold text-sm md:text-base text-gray-900 dark:text-white leading-tight mb-1.5 line-clamp-2 cursor-pointer hover:text-orange-600 transition-colors" onclick="window.handlePlayClick(${podcast.id})">${podcast.title}</h3>
                                     <p class="text-[11px] md:text-xs text-gray-500 dark:text-gray-400 leading-snug line-clamp-2 hidden sm:block mb-2">${podcast.desc}</p>
                                 </div>
                                 
@@ -599,12 +675,12 @@
                                     </div>
 
                                     <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
-                                        <button onclick="window.togglePlay(${podcast.id})" class="flex items-center gap-1.5 font-bold text-xs md:text-sm transition-colors ${isThisPlaying ? 'text-orange-600 dark:text-orange-400' : 'text-gray-700 dark:text-gray-200 hover:text-orange-500'}">
-                                            <i class="fa-solid ${isThisPlaying ? 'fa-circle-pause text-orange-500 text-lg md:text-xl' : 'fa-circle-play text-orange-500 text-lg md:text-xl'}"></i>
-                                            ${isThisPlaying ? 'Playing' : 'Play Now'}
+                                        <button onclick="window.handlePlayClick(${podcast.id})" class="flex items-center gap-1.5 font-bold text-xs md:text-sm transition-colors ${isLocked ? 'text-amber-500 dark:text-amber-400' : (isThisPlaying ? 'text-orange-600 dark:text-orange-400' : 'text-gray-700 dark:text-gray-200 hover:text-orange-500')}">
+                                            <i class="fa-solid ${isLocked ? 'fa-crown text-amber-500' : (isThisPlaying ? 'fa-circle-pause text-orange-500' : 'fa-circle-play text-orange-500')} text-lg md:text-xl"></i>
+                                            ${isLocked ? 'Unlock' : (isThisPlaying ? 'Playing' : 'Play Now')}
                                         </button>
                                         <div class="flex items-center gap-4">
-                                            <button onclick="window.toggleDownload(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isDownloaded ? 'text-green-500' : 'text-gray-400 hover:text-gray-200'}">
+                                            <button onclick="window.handleDownloadClick(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isDownloaded ? 'text-green-500' : 'text-gray-400 hover:text-gray-200'}">
                                                 <i class="fa-solid ${isDownloaded ? 'fa-circle-check' : 'fa-download'}"></i>
                                             </button>
                                             <button onclick="window.toggleBookmark(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isBookmarked ? 'text-orange-500' : 'text-gray-400 hover:text-gray-200'}">
@@ -616,6 +692,7 @@
                             </div>
                         </div>`;
                     });
+                    html += `</div></div>`;
                     html += `</div></div>`;
                 }
                 mainEl.innerHTML = html;
@@ -697,7 +774,7 @@
                     
                     html += `
                     <div class="bg-white dark:bg-gray-800 p-3 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between hover:shadow-md transition-shadow">
-                        <div class="flex items-center gap-4 flex-1 overflow-hidden cursor-pointer" onclick="window.togglePlay(${item.id})">
+                        <div class="flex items-center gap-4 flex-1 overflow-hidden cursor-pointer" onclick="window.handlePlayClick(${item.id})">
                             <img src="${item.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-16 h-16 rounded-xl object-cover bg-gray-200" />
                             <div class="flex flex-col flex-1 truncate pr-2">
                                 <span class="font-bold text-sm md:text-base text-gray-900 dark:text-white truncate mb-1">${item.title}</span>
@@ -705,7 +782,7 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3 shrink-0">
-                            <button onclick="window.togglePlay(${item.id})" class="w-10 h-10 flex items-center justify-center bg-orange-50 dark:bg-orange-900/40 text-orange-500 rounded-full hover:bg-orange-100 transition-colors">
+                            <button onclick="window.handlePlayClick(${item.id})" class="w-10 h-10 flex items-center justify-center bg-orange-50 dark:bg-orange-900/40 text-orange-500 rounded-full hover:bg-orange-100 transition-colors">
                                 <i class="fa-solid ${isThisPlaying ? 'fa-pause' : 'fa-play'}"></i>
                             </button>
                             <button onclick="window.removeItemFromList('${title}', ${item.id})" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-red-500 bg-gray-50 dark:bg-gray-700 rounded-full transition-colors">
