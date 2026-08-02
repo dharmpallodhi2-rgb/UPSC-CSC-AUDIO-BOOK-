@@ -184,6 +184,50 @@
             </div>
         </div>
 
+        
+        <!-- ================= SIDEBAR MENU ================= -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-[120] hidden opacity-0 transition-opacity duration-300" onclick="window.closeDrawer()"></div>
+        <div id="sidebar-menu" class="fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-800 z-[130] transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+            <!-- Sidebar Header -->
+            <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between mt-2">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-headphones text-2xl text-orange-500"></i>
+                    <div class="flex flex-col items-start leading-none mt-1">
+                        <span class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">UPSC <span class="text-orange-500">CSC</span></span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark text-2xl text-gray-500 dark:text-gray-400 cursor-pointer hover:text-red-500" onclick="window.closeDrawer()"></i>
+            </div>
+            
+            <!-- Sidebar Links -->
+            <div class="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-3">
+                <!-- Dark Mode Toggle -->
+                <div class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700" onclick="document.getElementById('sidebar-dark-toggle').click()">
+                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
+                        <i class="fa-solid fa-moon text-xl w-6 text-center"></i>
+                        <span class="font-bold text-sm">Dark Mode</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer" onclick="event.stopPropagation()">
+                        <input type="checkbox" id="sidebar-dark-toggle" class="sr-only peer" onchange="window.toggleDarkMode()">
+                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                    </label>
+                </div>
+
+                <!-- Join Telegram -->
+                <a href="https://t.me/pyqforupscinhindi" target="_blank" class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700 group">
+                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
+                        <i class="fa-brands fa-telegram text-[#229ED9] text-2xl w-6 text-center group-hover:scale-110 transition-transform"></i>
+                        <span class="font-bold text-sm">Join Telegram</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-sm text-gray-400"></i>
+                </a>
+            </div>
+            
+            <div class="p-4 text-center border-t border-gray-100 dark:border-gray-700">
+                <p class="text-xs text-gray-400 dark:text-gray-500 font-medium">UPSC CSC Audio Book v1.0</p>
+            </div>
+        </div>
+
         <!-- ================= NOTIFICATIONS MODAL ================= -->
         <div id="notifications-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
             <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-lg rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up max-h-[85vh] overflow-y-auto">
@@ -294,6 +338,18 @@
                 duration: "Full Audio", 
                 image: "File_00000000928c81fa83b7e8a0a2355421.png", 
                 audioUrl: "पृथ्वी_का_इंजन_प्लेट_विवर्तनिकी_और_भू_आकृति_विज्ञान_compressed.m4a" 
+            },
+            { 
+                id: 4, 
+                category: "Economy", 
+                title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", 
+                desc: "बैंकिंग प्रणाली, RBI के कार्य और डिजिटल रुपये की संपूर्ण जानकारी।", 
+                plays: "New", 
+                date: "02 Aug 2026", 
+                episode: "Episode 04", 
+                duration: "Full Audio", 
+                image: "IMG_20260802_142802_943.jpg", 
+                audioUrl: "पैसे_का_सफ़र_बैंकिंग_RBI_और_डिजिटल_रुपया.m4a" 
             }
         ];
 
@@ -375,8 +431,10 @@
         window.toggleDarkMode = function() {
             state.darkMode = !state.darkMode;
             document.documentElement.classList.toggle('dark', state.darkMode);
-            const toggle = document.getElementById('dark-mode-toggle');
-            if (toggle) toggle.checked = state.darkMode;
+            const toggle1 = document.getElementById('dark-mode-toggle');
+            const toggle2 = document.getElementById('sidebar-dark-toggle');
+            if (toggle1) toggle1.checked = state.darkMode;
+            if (toggle2) toggle2.checked = state.darkMode;
             showToast(state.darkMode ? "Dark Mode Enabled" : "Light Mode Enabled");
         };
 
@@ -416,7 +474,26 @@
         };
 
         window.openDrawer = function() {
-            showToast("Menu opened");
+            const overlay = document.getElementById('sidebar-overlay');
+            const menu = document.getElementById('sidebar-menu');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                menu.classList.remove('-translate-x-full');
+            }, 10);
+            
+            const toggle = document.getElementById('sidebar-dark-toggle');
+            if(toggle) toggle.checked = state.darkMode;
+        };
+
+        window.closeDrawer = function() {
+            const overlay = document.getElementById('sidebar-overlay');
+            const menu = document.getElementById('sidebar-menu');
+            overlay.classList.add('opacity-0');
+            menu.classList.add('-translate-x-full');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
         };
 
         function renderHeaderExtras() {
