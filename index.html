@@ -183,20 +183,7 @@
             <div id="player-modal-content" class="flex flex-col items-center justify-center max-w-md mx-auto w-full my-auto py-4">
                 <!-- Injected dynamically -->
             
-            <!-- ================= SCRIPT OVERLAY (Inside Player Modal) ================= -->
-            <div id="script-overlay" class="absolute inset-x-0 bottom-0 h-[80%] bg-gray-900 dark:bg-black z-[105] rounded-t-3xl border-t border-gray-700 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] transition-transform transform translate-y-full duration-300 flex flex-col">
-                <div class="flex items-center justify-between p-5 border-b border-gray-800 shrink-0">
-                    <h3 class="text-white font-bold text-lg"><i class="fa-solid fa-file-lines text-orange-500 mr-2"></i> Live Script</h3>
-                    <button onclick="window.toggleScriptOverlay()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                        <i class="fa-solid fa-chevron-down text-sm"></i>
-                    </button>
-                </div>
-                <div id="script-content" class="flex-1 overflow-y-auto p-6 space-y-6 text-xl font-medium text-gray-500 leading-relaxed pb-32 hide-scrollbar">
-                    <!-- Script lines injected here -->
-                </div>
-                <!-- Fade Out Effect at Bottom -->
-                <div class="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-gray-900 dark:from-black to-transparent pointer-events-none"></div>
-            </div>
+            
 </div>
         </div>
 
@@ -384,22 +371,12 @@
 
         const CATEGORIES = ["All", "History", "Polity", "Geography", "Economy", "Environment", "Science", "Current Affairs", "Ethics"];
 
-        const dummyScript = [
-            { time: 0, text: "UPSC CSE ऑडियो बुक में आपका स्वागत है।" },
-            { time: 4, text: "आज के इस एपिसोड में हम एक महत्वपूर्ण विषय पर चर्चा करेंगे।" },
-            { time: 8, text: "यह विषय प्रारंभिक और मुख्य परीक्षा दोनों के दृष्टिकोण से अत्यधिक उपयोगी है।" },
-            { time: 13, text: "चलिए शुरुआत करते हैं इसके मूल कांसेप्ट (Basic Concept) से।" },
-            { time: 17, text: "सबसे पहले हम इसकी परिभाषा और इसके ऐतिहासिक परिप्रेक्ष्य को समझेंगे।" },
-            { time: 22, text: "इसके बाद हम इसके वर्तमान संदर्भ और समाज में उपयोगिता पर बात करेंगे।" },
-            { time: 27, text: "ध्यान से सुनिए और अपनी नोटबुक में महत्वपूर्ण बिंदुओं को नोट करते चलिए।" }
-        ];
-
         const PODCAST_LIST = [
-            { id: 1, category: "Geography", title: "एल नीनो और ला नीना का खेल", desc: "एल नीनो और ला नीना का भारतीय मानसून पर प्रभाव।", plays: "12.4K Plays", date: "01 Jun 2025", episode: "Episode 01", duration: "32:45", image: "IMG_20260801_215005_232.jpg", audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a", isPremium: false, script: dummyScript },
-            { id: 2, category: "Geography", title: "भारत का आकार, स्थिति, समय और पड़ोस", desc: "भारत का आकार, स्थिति, मानक समय और पड़ोसी देशों का विवरण।", plays: "9.8K Plays", date: "01 Aug 2025", episode: "Episode 02", duration: "Full Audio", image: "IMG_20260801_223530_539.jpg", audioUrl: "भारत_का_आकार_स्थिति_समय_और_पड़ोस_compressed.m4a", isPremium: false, script: dummyScript },
-            { id: 3, category: "Geography", title: "पृथ्वी का इंजन: प्लेट विवर्तनिकी", desc: "प्लेट विवर्तनिकी (Plate Tectonics) और भू-आकृति विज्ञान का विस्तृत अध्ययन।", plays: "New", date: "02 Aug 2026", episode: "Episode 03", duration: "Full Audio", image: "File_00000000928c81fa83b7e8a0a2355421.png", audioUrl: "पृथ्वी_का_इंजन_प्लेट_विवर्तनिकी_और_भू_आकृति_विज्ञान_compressed.m4a", isPremium: false, script: dummyScript },
-            { id: 4, category: "Economy", title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", desc: "बैंकिंग प्रणाली, RBI के कार्य और डिजिटल रुपये की संपूर्ण जानकारी।", plays: "New", date: "02 Aug 2026", episode: "Episode 04", duration: "Full Audio", image: "IMG_20260802_142802_943.jpg", audioUrl: "पैसे_का_सफ़र_बैंकिंग_RBI_और_डिजिटल_रुपया.m4a", isPremium: false, script: dummyScript },
-            { id: 5, category: "Polity", title: "भारतीय संविधान के छह मौलिक अधिकार", desc: "समानता, स्वतंत्रता, शोषण के विरुद्ध अधिकार और अन्य मौलिक अधिकारों की विस्तृत व्याख्या।", plays: "Premium", date: "03 Aug 2026", episode: "Episode 05", duration: "Full Audio", image: "file_0000000053888207920345384bbfc299.png", audioUrl: "भारतीय_संविधान_के_छह_मौलिक_अधिकार_compressed.m4a", isPremium: true, script: dummyScript }
+            { id: 1, category: "Geography", title: "एल नीनो और ला नीना का खेल", desc: "एल नीनो और ला नीना का भारतीय मानसून पर प्रभाव।", plays: "12.4K Plays", date: "01 Jun 2025", episode: "Episode 01", duration: "32:45", image: "IMG_20260801_215005_232.jpg", audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a", isPremium: false },
+            { id: 2, category: "Geography", title: "भारत का आकार, स्थिति, समय और पड़ोस", desc: "भारत का आकार, स्थिति, मानक समय और पड़ोसी देशों का विवरण।", plays: "9.8K Plays", date: "01 Aug 2025", episode: "Episode 02", duration: "Full Audio", image: "IMG_20260801_223530_539.jpg", audioUrl: "भारत_का_आकार_स्थिति_समय_और_पड़ोस_compressed.m4a", isPremium: false },
+            { id: 3, category: "Geography", title: "पृथ्वी का इंजन: प्लेट विवर्तनिकी", desc: "प्लेट विवर्तनिकी (Plate Tectonics) और भू-आकृति विज्ञान का विस्तृत अध्ययन।", plays: "New", date: "02 Aug 2026", episode: "Episode 03", duration: "Full Audio", image: "File_00000000928c81fa83b7e8a0a2355421.png", audioUrl: "पृथ्वी_का_इंजन_प्लेट_विवर्तनिकी_और_भू_आकृति_विज्ञान_compressed.m4a", isPremium: false },
+            { id: 4, category: "Economy", title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", desc: "बैंकिंग प्रणाली, RBI के कार्य और डिजिटल रुपये की संपूर्ण जानकारी।", plays: "New", date: "02 Aug 2026", episode: "Episode 04", duration: "Full Audio", image: "IMG_20260802_142802_943.jpg", audioUrl: "पैसे_का_सफ़र_बैंकिंग_RBI_और_डिजिटल_रुपया.m4a", isPremium: false },
+            { id: 5, category: "Polity", title: "भारतीय संविधान के छह मौलिक अधिकार", desc: "समानता, स्वतंत्रता, शोषण के विरुद्ध अधिकार और अन्य मौलिक अधिकारों की विस्तृत व्याख्या।", plays: "Premium", date: "03 Aug 2026", episode: "Episode 05", duration: "Full Audio", image: "file_0000000053888207920345384bbfc299.png", audioUrl: "भारतीय_संविधान_के_छह_मौलिक_अधिकार_compressed.m4a", isPremium: true }
         ];
 
         let state = {
@@ -414,9 +391,7 @@
             darkMode: false,
             userName: localStorage.getItem('userName') || 'UPSC Aspirant',
             userImage: localStorage.getItem('userImage') || null,
-            isPremiumUser: false,
-            isScriptOpen: false,
-            activeScriptIndex: -1
+            isPremiumUser: false
         };
 
         const audioElement = document.getElementById('audio-player');
@@ -457,38 +432,7 @@
                     if (totalTimeDisp) totalTimeDisp.textContent = totText;
                     if (modalTotalDisp) modalTotalDisp.textContent = totText;
                     
-                    // --- LIVE SCRIPT LOGIC ---
-                    if (state.isScriptOpen && state.currentTrackId) {
-                        const track = PODCAST_LIST.find(p => p.id === state.currentTrackId);
-                        if (track && track.script) {
-                            let newIndex = -1;
-                            // Find current line based on time
-                            for(let i = 0; i < track.script.length; i++) {
-                                if (audioElement.currentTime >= track.script[i].time) {
-                                    newIndex = i;
-                                } else {
-                                    break;
-                                }
-                            }
-                            
-                            if (newIndex !== state.activeScriptIndex && newIndex !== -1) {
-                                state.activeScriptIndex = newIndex;
-                                const scriptLines = document.querySelectorAll('.script-line');
-                                scriptLines.forEach((line, index) => {
-                                    if (index === newIndex) {
-                                        line.classList.add('text-orange-500', 'font-bold', 'scale-105');
-                                        line.classList.remove('text-gray-500');
-                                        // Auto-scroll to active line
-                                        line.scrollIntoView({ behavior: "smooth", block: "center" });
-                                    } else {
-                                        line.classList.remove('text-orange-500', 'font-bold', 'scale-105');
-                                        line.classList.add('text-gray-500');
-                                    }
-                                });
-                            }
-                        }
                     }
-                }
             });
             setTimeout(() => {
                 if (!sessionStorage.getItem('upgradePopShown') && !state.isPremiumUser) {
@@ -1034,10 +978,7 @@
                         <i class="fa-solid fa-list text-lg"></i>
                         <span class="text-[10px]">Playlist</span>
                     </button>
-                    <button onclick="window.toggleScriptOverlay()" class="flex flex-col items-center gap-1 hover:text-orange-400 text-orange-200 transition-colors">
-                        <i class="fa-solid fa-file-lines text-lg"></i>
-                        <span class="text-[10px]">Live Script</span>
-                    </button>
+                    
                     <button onclick="window.toggleBookmark(${track.id}); renderPlayerModalContent();" class="flex flex-col items-center gap-1 hover:text-white transition-colors ${isBookmarked ? 'text-orange-500' : ''}">
                         <i class="fa-solid fa-bookmark text-lg"></i>
                         <span class="text-[10px]">Save</span>
