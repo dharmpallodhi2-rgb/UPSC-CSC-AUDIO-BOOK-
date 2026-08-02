@@ -1173,7 +1173,7 @@
     <!-- ================= FIREBASE LOGIN & DB MODULE ================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -1192,13 +1192,17 @@
         const provider = new GoogleAuthProvider();
 
         window.loginWithGoogle = () => {
-            signInWithPopup(auth, provider).then((result) => {
-                window.showToast("लॉगिन सफल हुआ!");
-            }).catch((error) => {
-                console.error(error);
-                window.showToast("लॉगिन फ़ेल हो गया!");
-            });
+            signInWithRedirect(auth, provider);
         };
+
+        getRedirectResult(auth).then((result) => {
+            if (result) {
+                window.showToast("लॉगिन सफल हुआ!");
+            }
+        }).catch((error) => {
+            console.error(error);
+            window.showToast("लॉगिन फ़ेल हो गया!");
+        });
 
         window.logoutUser = () => {
             signOut(auth).then(() => {
