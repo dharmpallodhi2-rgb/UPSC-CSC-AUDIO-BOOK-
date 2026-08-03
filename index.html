@@ -65,6 +65,8 @@
             50% { height: 30%; }
         }
     </style>
+    <!-- Current Affairs Data File -->
+    <script src="current-affairs.js"></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
@@ -733,93 +735,54 @@
                     return matchCat && matchSearch;
                 });
 
-                let html = `
-        <div class="max-w-7xl mx-auto px-4 w-full mb-6 mt-2 animate-slide-up">
-            <div id="current-affairs-card" class="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-black dark:to-gray-900 rounded-2xl p-5 shadow-lg border-l-4 border-orange-500 cursor-pointer transition-transform hover:scale-[1.01]" onclick="window.toggleCurrentAffairs()">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center">
-                            <i class="fa-regular fa-newspaper text-orange-500 text-2xl"></i>
-                        </div>
-                        <div>
-                            <h2 class="text-lg md:text-xl font-black text-white tracking-wide uppercase">Today Current Affairs</h2>
-                            <p class="text-orange-400 font-bold text-sm">Date: 3 August 2026</p>
-                        </div>
-                    </div>
-                    <i id="ca-chevron" class="fa-solid fa-chevron-down text-gray-400 text-xl transition-transform duration-300"></i>
-                </div>
-            </div>
-
-            <!-- Detailed Content (Hidden by default) -->
-            <div id="current-affairs-content" class="hidden bg-white dark:bg-gray-800 mt-2 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-6 border-b pb-2 border-gray-200 dark:border-gray-700">The Hindu Analysis - 3 August 2026</h3>
+                let html = ``;
                 
-                <div class="space-y-6 text-gray-900 dark:text-gray-100">
-                    
-                    <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-blue-500">
-                        <h4 class="font-black text-lg mb-2">1. कावेरी जल विवाद (Cauvery Water Dispute)</h4>
-                        <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
-                            <li>कर्नाटक और तमिलनाडु के बीच पानी के बंटवारे को लेकर तनाव बढ़ा।</li>
-                            <li>कावेरी जल प्रबंधन प्राधिकरण ने कर्नाटक को 15 दिनों तक 3500 क्यूसेक पानी छोड़ने का आदेश दिया है।</li>
-                            <li>बारिश की कमी के कारण कर्नाटक में पानी का जल स्तर कम है, जिससे राजनीतिक विवाद गहरा गया है।</li>
-                        </ul>
-                    </div>
+                // Check if CURRENT_AFFAIRS_DATA exists from the external file
+                if (typeof CURRENT_AFFAIRS_DATA !== 'undefined' && CURRENT_AFFAIRS_DATA.length > 0) {
+                    CURRENT_AFFAIRS_DATA.forEach((ca, index) => {
+                        let topicsHtml = '';
+                        const colors = ['blue', 'red', 'green', 'purple', 'pink', 'yellow', 'indigo'];
+                        
+                        ca.topics.forEach((topic, i) => {
+                            let color = colors[i % colors.length];
+                            let listItems = topic.details.map(d => `<li>${d}</li>`).join('');
+                            topicsHtml += `
+                                <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-${color}-500">
+                                    <h4 class="font-black text-lg mb-2">${topic.heading}</h4>
+                                    <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
+                                        ${listItems}
+                                    </ul>
+                                </div>
+                            `;
+                        });
 
-                    <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-red-500">
-                        <h4 class="font-black text-lg mb-2">2. भिवंडी इमारत हादसा (Bhiwandi Building Collapse)</h4>
-                        <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
-                            <li>भिवंडी में एक जर्जर इमारत गिरने से 10 लोगों की मौत।</li>
-                            <li>इमारत को 6 साल पहले ही नगर निगम ने 'खतरनाक' घोषित कर दिया था।</li>
-                            <li>यह भारत में बुनियादी ढांचे (Infrastructure) के रखरखाव और नौकरशाही की लापरवाही को उजागर करता है।</li>
-                        </ul>
-                    </div>
+                        html += `
+                        <div class="max-w-7xl mx-auto px-4 w-full mb-6 mt-2 animate-slide-up">
+                            <div id="ca-card-${index}" class="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-black dark:to-gray-900 rounded-2xl p-5 shadow-lg border-l-4 border-orange-500 cursor-pointer transition-transform hover:scale-[1.01]" onclick="window.toggleCurrentAffairs(${index})">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center shrink-0">
+                                            <i class="fa-regular fa-newspaper text-orange-500 text-2xl"></i>
+                                        </div>
+                                        <div>
+                                            <h2 class="text-lg md:text-xl font-black text-white tracking-wide uppercase">${ca.title}</h2>
+                                            <p class="text-orange-400 font-bold text-sm">Date: ${ca.date}</p>
+                                        </div>
+                                    </div>
+                                    <i id="ca-chevron-${index}" class="fa-solid fa-chevron-down text-gray-400 text-xl transition-transform duration-300 ml-2"></i>
+                                </div>
+                            </div>
+                            <div id="ca-content-${index}" class="hidden bg-white dark:bg-gray-800 mt-2 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                                <div class="space-y-6 text-gray-900 dark:text-gray-100">
+                                    ${topicsHtml}
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    });
+                }
 
-                    <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-green-500">
-                        <h4 class="font-black text-lg mb-2">3. सार्वजनिक स्वास्थ्य व्यय (Decline in Public Health Spending)</h4>
-                        <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
-                            <li>वर्ल्ड बैंक की रिपोर्ट: निम्न और मध्यम आय वाले देश यूनिवर्सल हेल्थ कवरेज के लिए आवश्यक न्यूनतम खर्च का केवल आधा ही खर्च कर रहे हैं।</li>
-                            <li>अमेरिका और अन्य विकसित देशों ने स्वास्थ्य के लिए विकास सहायता (DAH) में भारी कटौती की है।</li>
-                            <li>सरकारों पर बढ़ते कर्ज और फंड के कम उपयोग (Underutilization) के कारण स्वास्थ्य सेवाएं प्रभावित।</li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-purple-500">
-                        <h4 class="font-black text-lg mb-2">4. इसरो से वैज्ञानिकों का पलायन (Exodus of Scientists from ISRO)</h4>
-                        <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
-                            <li>हाल ही में लगभग 120 वैज्ञानिकों ने इसरो से इस्तीफा दिया।</li>
-                            <li>प्रमुख कारण: प्राइवेट सेक्टर की तुलना में कम वेतन, नौकरशाही का हस्तक्षेप और शोध की स्वतंत्रता में कमी।</li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-pink-500">
-                        <h4 class="font-black text-lg mb-2">5. यौन कर्मियों पर सुप्रीम कोर्ट का फैसला (Supreme Court on Sex Work)</h4>
-                        <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
-                            <li>सुप्रीम कोर्ट ने स्पष्ट किया कि सहमति देने वाले वयस्क यौन कर्मियों को जबरन "रेस्क्यू" नहीं किया जाना चाहिए।</li>
-                            <li>हर मामले को मानव तस्करी (Human Trafficking) से जोड़ना गलत है; स्वैच्छिक यौन कार्य को अपराध की तरह नहीं देखा जाना चाहिए।</li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-yellow-500">
-                        <h4 class="font-black text-lg mb-2">6. 94,000 सरकारी स्कूलों का बंद होना</h4>
-                        <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
-                            <li>नीति आयोग की रिपोर्ट: पिछले एक दशक में 94,000 सरकारी स्कूल बंद हुए (रोजाना लगभग 25)।</li>
-                            <li>राष्ट्रीय शिक्षा नीति (NEP) के 'रैशनलाइजेशन' के कारण छोटे स्कूलों को बंद किया गया, जिससे शिक्षा तक पहुंच प्रभावित हुई।</li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-indigo-500">
-                        <h4 class="font-black text-lg mb-2">7. कॉमनवेल्थ गेम्स (CWG) 2026 में भारत</h4>
-                        <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
-                            <li>ग्लासगो CWG में भारत ने 13 स्वर्ण, 17 रजत और 9 कांस्य सहित कुल 39 पदक जीते।</li>
-                            <li>बॉक्सिंग में सर्वश्रेष्ठ प्रदर्शन (7 गोल्ड)। मीराबाई चानू ने लगातार तीसरा गोल्ड जीता।</li>
-                            <li>अगले कॉमनवेल्थ गेम्स 2030 में भारत के अहमदाबाद में आयोजित किए जाएंगे।</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
+                html += `
                     <div class="max-w-7xl mx-auto px-4 w-full">
                         <div class="py-2 mb-2 flex justify-between items-end">
                             <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-none">
@@ -1523,9 +1486,9 @@
 
 
         
-        window.toggleCurrentAffairs = function() {
-            const content = document.getElementById('current-affairs-content');
-            const chevron = document.getElementById('ca-chevron');
+        window.toggleCurrentAffairs = function(index) {
+            const content = document.getElementById(`ca-content-${index}`);
+            const chevron = document.getElementById(`ca-chevron-${index}`);
             if (content.classList.contains('hidden')) {
                 content.classList.remove('hidden');
                 chevron.classList.add('rotate-180');
