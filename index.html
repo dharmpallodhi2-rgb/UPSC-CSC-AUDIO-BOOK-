@@ -1285,7 +1285,7 @@
     <!-- ================= FIREBASE LOGIN & DB MODULE ================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -1344,7 +1344,7 @@
                 // Init Recaptcha if not done
                 if(!window.recaptchaVerifier) {
                     window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-                        'size': 'normal',
+                        'size': 'invisible',
                         'callback': (response) => {
                             // reCAPTCHA solved
                         }
@@ -1455,17 +1455,18 @@
         });
 
         window.loginWithGoogle = () => {
-            signInWithRedirect(auth, provider);
-        };
-
-        getRedirectResult(auth).then((result) => {
-            if (result) {
+            window.showToast("Google से कनेक्ट कर रहे हैं...");
+            signInWithPopup(auth, provider).then((result) => {
                 window.showToast("लॉगिन सफल हुआ!");
-            }
-        }).catch((error) => {
-            console.error(error);
-            window.showToast("लॉगिन फ़ेल हो गया!");
-        });
+            }).catch((error) => {
+                console.error("Google Auth Error:", error);
+                if (error.code === 'auth/popup-closed-by-user') {
+                    window.showToast("लॉगिन कैंसिल कर दिया गया।");
+                } else {
+                    window.showToast("लॉगिन फ़ेल: " + error.message);
+                }
+            });
+        };
 
         window.logoutUser = () => {
             signOut(auth).then(() => {
