@@ -300,7 +300,7 @@
                 <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl p-4 text-white shadow-lg cursor-pointer mb-2 transform hover:scale-[1.02] transition-transform" onclick="window.openUpgradeModal(); window.closeDrawer();">
                     <div class="flex items-center justify-between mb-2">
                         <span class="font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-crown mr-1.5"></i> Premium</span>
-                        <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold">₹599/mo</span>
+                        <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold">₹599</span>
                     </div>
                     <p class="text-xs text-white/90 leading-tight">Unlock all audiobooks & downloads.</p>
                 </div>
@@ -407,46 +407,60 @@
 
     </div>
 
-    <!-- ================= UPGRADE MODAL (NEW MANUAL PAYMENT UI) ================= -->
+    <!-- ================= CUSTOM UPGRADE MODAL WITH QR & ACCESS CODE ================= -->
     <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-center items-center backdrop-blur-sm p-4">
-        <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden max-h-[90vh] overflow-y-auto">
             <!-- Decor -->
             <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
             
-            <div class="flex items-center justify-between pb-4 mb-2 relative z-10 border-b border-gray-100 dark:border-gray-700">
-                <h3 class="text-xl font-extrabold flex items-center gap-2">
-                    <i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium
+            <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
+                <h3 class="text-xl font-extrabold flex items-center gap-2 text-amber-500">
+                    <i class="fa-solid fa-crown text-2xl"></i> Go Premium
                 </h3>
                 <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
             </div>
             
-            <div class="relative z-10 flex flex-col items-center text-center mt-2">
-                <p class="text-sm font-bold text-gray-600 dark:text-gray-300 mb-4">Scan QR Code to Pay <span class="text-amber-500 font-extrabold text-lg">₹599</span></p>
+            <div class="relative z-10">
+                <!-- Features List Updated -->
+                <ul class="space-y-2 mb-6 bg-amber-50 dark:bg-amber-900/10 p-4 rounded-xl border border-amber-100 dark:border-amber-800/30">
+                    <li class="flex items-center gap-3 font-semibold text-sm"><i class="fa-solid fa-circle-check text-green-500"></i> Premium access</li>
+                    <li class="flex items-center gap-3 font-semibold text-sm"><i class="fa-solid fa-circle-check text-green-500"></i> All audio podcast</li>
+                    <li class="flex items-center gap-3 font-semibold text-sm"><i class="fa-solid fa-circle-check text-green-500"></i> Download podcast</li>
+                    <li class="flex items-center gap-3 font-semibold text-sm"><i class="fa-solid fa-circle-check text-green-500"></i> UPSC PYQS quiz</li>
+                    <li class="flex items-center gap-3 font-semibold text-sm"><i class="fa-solid fa-circle-check text-green-500"></i> All attempt quiz</li>
+                    <li class="flex items-center gap-3 font-semibold text-sm"><i class="fa-solid fa-circle-check text-green-500"></i> New and trending podcast</li>
+                </ul>
                 
-                <!-- QR Code Image -->
-                <div class="bg-white p-2.5 rounded-2xl shadow-[0_0_15px_rgba(245,158,11,0.2)] border-2 border-amber-500/50 mb-3 inline-block">
-                    <img src="1000016508.jpg" alt="Payment QR Code" class="w-48 h-48 object-contain rounded-xl" />
+                <!-- QR Code & Instructions -->
+                <div class="text-center mb-6">
+                    <p class="text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Scan QR to Pay (₹599)</p>
+                    <div class="bg-white p-2 rounded-xl inline-block shadow-md border-2 border-amber-400 mb-2">
+                        <img src="IMG_20260803_213224_326~2.jpg" alt="Payment QR" class="w-40 h-40 object-contain rounded-lg">
+                    </div>
+                    <p class="text-lg font-black text-gray-900 dark:text-white tracking-wider">9685026772</p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 mt-3">
+                        <p class="text-xs font-bold text-gray-600 dark:text-gray-300 leading-relaxed text-center">
+                            सेंड योर स्क्रीनशॉट एंड पेमेंट करने के बाद स्क्रीनशॉट whatsapp पर भेजें और प्रीमियम एक्सेस कोड पाए।
+                        </p>
+                        <a href="https://wa.me/919685026772" target="_blank" class="mt-3 w-full bg-[#25D366] hover:bg-[#1DA851] text-white font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Send Screenshot on WhatsApp
+                        </a>
+                    </div>
                 </div>
                 
-                <!-- Number -->
-                <div class="bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-full mb-5 flex items-center gap-2">
-                    <i class="fa-brands fa-google-pay text-xl text-gray-600 dark:text-gray-300"></i>
-                    <i class="fa-solid fa-phone text-gray-400 text-xs"></i>
-                    <p class="text-lg font-extrabold tracking-widest text-gray-800 dark:text-white">9685026772</p>
+                <!-- Access Code Verification System -->
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-5">
+                    <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Enter Access Code</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="access-code-input" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-xl px-4 py-3 outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all font-mono placeholder:font-sans text-sm" placeholder="Paste your code here...">
+                        <button onclick="window.verifyAccessCode()" class="bg-amber-500 hover:bg-amber-600 text-white px-5 py-3 rounded-xl font-bold transition-colors shadow-md text-sm">
+                            Verify
+                        </button>
+                    </div>
+                    <p class="text-[10px] text-center text-gray-400 mt-2">* Code is provided manually on WhatsApp after payment.</p>
                 </div>
                 
-                <!-- Instruction Box -->
-                <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-xl p-3.5 mb-6 w-full text-left shadow-sm">
-                    <p class="text-xs text-amber-800 dark:text-amber-300 font-bold leading-relaxed flex items-start gap-2">
-                        <i class="fa-solid fa-circle-info mt-0.5 text-amber-500"></i> 
-                        <span>पेमेंट करने के बाद स्क्रीनशॉट WhatsApp पर भेजें और प्रीमियम एक्सेस कोड पाएं।</span>
-                    </p>
-                </div>
-                
-                <!-- WhatsApp Button -->
-                <button onclick="window.openWhatsApp()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3.5 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/30 text-base flex items-center justify-center gap-2 transform hover:scale-[1.02]">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Screenshot
-                </button>
             </div>
         </div>
     </div>
@@ -528,7 +542,7 @@
                     if (totalTimeDisp) totalTimeDisp.textContent = totText;
                     if (modalTotalDisp) modalTotalDisp.textContent = totText;
                     
-                    }
+                }
             });
             setTimeout(() => {
                 if (!sessionStorage.getItem('upgradePopShown') && !window.state.isPremiumUser) {
@@ -536,43 +550,6 @@
                     sessionStorage.setItem('upgradePopShown', 'true');
                 }
             }, 1500);
-        }
-
-        window.toggleScriptOverlay = function() {
-            const overlay = document.getElementById('script-overlay');
-            if (!overlay) return;
-            
-            window.state.isScriptOpen = !window.state.isScriptOpen;
-            
-            if (window.state.isScriptOpen) {
-                overlay.classList.remove('hidden');
-                renderScriptContent();
-                setTimeout(() => {
-                    overlay.classList.remove('translate-y-full');
-                }, 10);
-            } else {
-                overlay.classList.add('translate-y-full');
-                setTimeout(() => {
-                    overlay.classList.add('hidden');
-                }, 300);
-            }
-        };
-
-        function renderScriptContent() {
-            const container = document.getElementById('script-content');
-            if (!container || !window.state.currentTrackId) return;
-            
-            const track = PODCAST_LIST.find(p => p.id === window.state.currentTrackId);
-            if (!track || !track.script) {
-                container.innerHTML = '<p class="text-center text-gray-500 mt-10">Script not available for this episode.</p>';
-                return;
-            }
-            
-            window.state.activeScriptIndex = -1;
-            
-            container.innerHTML = track.script.map((line, index) => 
-                `<p class="script-line text-lg md:text-xl transition-all duration-300 transform origin-left cursor-pointer" onclick="window.seekAudio(${line.time})">${line.text}</p>`
-            ).join('');
         }
 
         window.openUpgradeModal = function() {
@@ -584,32 +561,31 @@
             const modal = document.getElementById('upgrade-modal');
             if(modal) modal.classList.add('hidden');
         };
-        
-        // ================= WHATSAPP MANUAL PAYMENT LOGIC =================
-        window.openWhatsApp = function() {
+
+        // ================= ACCESS CODE SYSTEM =================
+        window.verifyAccessCode = function() {
+            const codeInput = document.getElementById('access-code-input').value.trim();
+            
+            // Check if user is logged in before giving access
             if (!window.state.isLoggedIn) {
-                window.showToast("पेमेंट स्क्रीनशॉट भेजने के लिए पहले लॉगिन करें!");
+                window.showToast("कोड वेरीफाई करने के लिए पहले लॉगिन करें!");
                 window.changeTab('Profile');
                 window.closeUpgradeModal();
                 return;
             }
 
-            // आपका दिया गया मोबाइल नंबर (Country Code 91 के साथ)
-            const phoneNumber = "919685026772";
-            
-            // जो मैसेज अपने आप टाइप होकर जाएगा
-            const rawMessage = `नमस्ते, मैंने UPSC CSE Audio Book Premium के लिए ₹599 का पेमेंट कर दिया है। यह मेरा स्क्रीनशॉट है। कृपया मुझे प्रीमियम एक्सेस कोड दें।\n\nMy Email: ${window.state.userEmail}`;
-            
-            // मैसेज को URL फ्रेंडली बनाना
-            const encodedMessage = encodeURIComponent(rawMessage);
-            
-            // WhatsApp API Link
-            const waUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            
-            window.showToast("WhatsApp खुल रहा है...");
-            
-            // नए टैब/ऐप में WhatsApp खोलना
-            window.open(waUrl, '_blank'); 
+            if (codeInput === 'Polity9977') {
+                // Unlock Premium Access
+                window.state.isPremiumUser = true;
+                window.showToast("Success! Premium Access Unlocked.");
+                document.getElementById('access-code-input').value = ""; // Clear input
+                window.closeUpgradeModal();
+                window.renderMainContent(); // Refresh UI to remove locks
+            } else if (codeInput === "") {
+                window.showToast("कृपया अपना एक्सेस कोड दर्ज करें!");
+            } else {
+                window.showToast("Invalid Access Code! कृपया सही कोड डालें।");
+            }
         };
 
         window.handlePlayClick = function(id) {
@@ -629,7 +605,6 @@
                 window.toggleDownload(id);
             }
         };
-
 
         window.seekAudio = function(value) {
             audioElement.currentTime = value;
@@ -817,9 +792,11 @@
                         const isBookmarked = window.state.bookmarks.has(podcast.id);
                         const isDownloaded = window.state.downloads.has(podcast.id);
                         const isLocked = podcast.isPremium && !window.state.isPremiumUser;
+                        
                         html += `
                         <div class="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40 dark:bg-orange-950/20' : 'border-gray-100 dark:border-gray-700'} w-full">
                             
+                            <!-- Image Area -->
                             <div class="relative w-[110px] md:w-[130px] h-[130px] md:h-[150px] rounded-xl overflow-hidden shrink-0 cursor-pointer group" onclick="window.handlePlayClick(${podcast.id})">
                                 <img src="${podcast.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover bg-gray-200 transition-transform duration-500 group-hover:scale-110" />
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
@@ -848,6 +825,7 @@
                                 <span class="absolute top-2 right-2 bg-black/70 text-white text-[9px] md:text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm backdrop-blur-sm"><i class="fa-regular fa-clock mr-1"></i>${podcast.duration}</span>
                             </div>
 
+                            <!-- Content Area -->
                             <div class="flex flex-col flex-1 py-1 overflow-hidden justify-between">
                                 <div>
                                     <div class="flex justify-between items-start mb-1.5">
@@ -913,7 +891,6 @@
             mainEl.innerHTML = `
                 <div class="max-w-md mx-auto px-4 w-full py-4 space-y-4">
                     
-                    <!-- Geography Card -->
                     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#2E7D32] flex p-3 relative overflow-hidden transition-all hover:shadow-md">
                         <div class="w-[85px] h-[85px] shrink-0 bg-[#E8F5E9] dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4">
                              <i class="fa-solid fa-earth-americas text-4xl text-[#2E7D32] dark:text-green-400"></i>
@@ -936,7 +913,6 @@
                         </div>
                     </div>
 
-                    <!-- History Card -->
                     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#E65100] flex p-3 relative overflow-hidden transition-all hover:shadow-md">
                         <div class="w-[85px] h-[85px] shrink-0 bg-[#FFF3E0] dark:bg-orange-900/30 rounded-full flex items-center justify-center mr-4">
                              <i class="fa-solid fa-building-columns text-4xl text-[#E65100] dark:text-orange-400"></i>
@@ -959,7 +935,6 @@
                         </div>
                     </div>
 
-                    <!-- Polity Card -->
                     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#6A1B9A] flex p-3 relative overflow-hidden transition-all hover:shadow-md">
                         <div class="w-[85px] h-[85px] shrink-0 bg-[#F3E5F5] dark:bg-purple-900/30 rounded-full flex items-center justify-center mr-4">
                              <i class="fa-solid fa-scale-balanced text-4xl text-[#6A1B9A] dark:text-purple-400"></i>
@@ -978,29 +953,6 @@
                              </div>
                              <button onclick="window.startQuiz('polity')" class="w-full bg-[#6A1B9A] hover:bg-purple-900 text-white font-bold py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm shadow-sm">
                                  <i class="fa-solid fa-play-circle text-lg"></i> क्विज शुरू करें
-                             </button>
-                        </div>
-                    </div>
-
-                    <!-- Economy Card (Placeholder) -->
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#1565C0] flex p-3 relative overflow-hidden transition-all hover:shadow-md opacity-75">
-                        <div class="w-[85px] h-[85px] shrink-0 bg-[#E3F2FD] dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-4">
-                             <i class="fa-solid fa-chart-line text-4xl text-[#1565C0] dark:text-blue-400"></i>
-                        </div>
-                        <div class="flex-1 flex flex-col justify-between">
-                             <h3 class="text-[17px] font-bold text-[#1565C0] dark:text-blue-400 mb-1">अर्थव्यवस्था (Economy)</h3>
-                             <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 p-1.5 rounded-lg mb-2 border border-gray-100 dark:border-gray-600">
-                                 <div class="flex items-center gap-1.5 border-r border-gray-200 dark:border-gray-600 pr-2 w-1/2 justify-center">
-                                     <i class="fa-regular fa-file-lines text-[#1565C0] dark:text-blue-400 text-sm"></i>
-                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">50</span><br><span class="text-[9px] text-gray-500 font-medium">प्रश्न</span></div>
-                                 </div>
-                                 <div class="flex items-center gap-1.5 w-1/2 justify-center">
-                                     <i class="fa-regular fa-clock text-[#1565C0] dark:text-blue-400 text-sm"></i>
-                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">60</span><br><span class="text-[9px] text-gray-500 font-medium">मिनट</span></div>
-                                 </div>
-                             </div>
-                             <button disabled class="w-full bg-[#1565C0] text-white font-bold py-2 rounded-lg flex items-center justify-center gap-2 text-sm shadow-sm opacity-50 cursor-not-allowed">
-                                 <i class="fa-solid fa-lock text-sm"></i> Coming Soon
                              </button>
                         </div>
                     </div>
@@ -1265,7 +1217,6 @@
             }
         };
 
-        
         // ================= QUIZ LOGIC =================
         let quizTimerInterval = null;
 
