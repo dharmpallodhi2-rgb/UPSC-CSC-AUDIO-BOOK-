@@ -65,15 +65,38 @@
             50% { height: 30%; }
         }
     </style>
+    
     <!-- Current Affairs Data File -->
     <script src="current-affairs.js"></script>
-    <!-- Razorpay Checkout Script -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-</head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
-    <!-- Main Full Screen Container -->
-    
+    <!-- ================= HIGH-LEVEL SECURITY PROTOCOL ================= -->
+    <script>
+        // Anti-Copy & Anti-Right Click (Disable Context Menu)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // DevTools Blocking (Block F12, Ctrl+Shift+I/J/C, Ctrl+U)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+               (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
+               (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+
+        // Anti-Debugging Logic (Freeze browser if DevTools is opened forcefully)
+        setInterval(function() {
+            (function() {
+                return false;
+            }['constructor']('debugger')());
+        }, 100);
+    </script>
+</head>
+
+<!-- Anti-Select, Anti-Drag Attributes applied to Body -->
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200" oncopy="return false" oncut="return false" onpaste="return false" onselectstart="return false" draggable="false">
+
     <!-- ================= AUTHENTICATION (LOGIN/SIGNUP) SYSTEM ================= -->
     <div id="auth-screen" class="fixed inset-0 z-[200] bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center p-4 transition-opacity duration-500 overflow-y-auto hidden">
         <div class="w-full max-w-md flex flex-col items-center mb-8">
@@ -142,7 +165,6 @@
 
     <!-- Main Full Screen Container (Hidden by default until logged in) -->
     <div id="main-app-container" class="app-container relative overflow-hidden flex flex-col hidden">
-
         
         <audio id="audio-player"></audio>
 
@@ -258,7 +280,6 @@
             </div>
         </div>
 
-        
         <!-- ================= SIDEBAR MENU ================= -->
         <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-[120] hidden opacity-0 transition-opacity duration-300" onclick="window.closeDrawer()"></div>
         <div id="sidebar-menu" class="fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-800 z-[130] transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
@@ -386,61 +407,49 @@
 
     </div>
 
-    
-        <!-- ================= UPGRADE MODAL ================= -->
-        <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
-            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
-                <!-- Decor -->
-                <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
+    <!-- ================= UPGRADE MODAL (NEW MANUAL PAYMENT UI) ================= -->
+    <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-center items-center backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
+            <!-- Decor -->
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
+            
+            <div class="flex items-center justify-between pb-4 mb-2 relative z-10 border-b border-gray-100 dark:border-gray-700">
+                <h3 class="text-xl font-extrabold flex items-center gap-2">
+                    <i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium
+                </h3>
+                <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
+            </div>
+            
+            <div class="relative z-10 flex flex-col items-center text-center mt-2">
+                <p class="text-sm font-bold text-gray-600 dark:text-gray-300 mb-4">Scan QR Code to Pay <span class="text-amber-500 font-extrabold text-lg">₹599</span></p>
                 
-                <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
-                    <h3 class="text-xl font-extrabold flex items-center gap-2">
-                        <i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium
-                    </h3>
-                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
+                <!-- QR Code Image -->
+                <div class="bg-white p-2.5 rounded-2xl shadow-[0_0_15px_rgba(245,158,11,0.2)] border-2 border-amber-500/50 mb-3 inline-block">
+                    <img src="1000016508.jpg" alt="Payment QR Code" class="w-48 h-48 object-contain rounded-xl" />
                 </div>
                 
-                <div class="relative z-10">
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
-                    
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
-                            <div>
-                                <h4 class="font-bold text-sm">Access All Audiobooks</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Listen to premium, expertly curated content.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
-                            <div>
-                                <h4 class="font-bold text-sm">Unlimited Offline Downloads</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Download and listen anywhere, anytime without internet.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
-                            <div>
-                                <h4 class="font-bold text-sm">Ad-Free Experience</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Zero interruptions during your focus time.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    
-                    <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-6 flex justify-between items-center">
-                        <div>
-                            <span class="block text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider mb-1">Monthly Plan</span>
-                            <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹599<span class="text-sm font-medium text-gray-500">/mo</span></span>
-                        </div>
-                        <div class="bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded">Popular</div>
-                    </div>
-                    
-                    <button onclick="window.processPayment()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3.5 rounded-xl hover:from-amber-600 hover:to-orange-600 transition-colors shadow-lg text-base flex items-center justify-center gap-2">
-                        Upgrade Now
-                    </button>
+                <!-- Number -->
+                <div class="bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-full mb-5 flex items-center gap-2">
+                    <i class="fa-brands fa-google-pay text-xl text-gray-600 dark:text-gray-300"></i>
+                    <i class="fa-solid fa-phone text-gray-400 text-xs"></i>
+                    <p class="text-lg font-extrabold tracking-widest text-gray-800 dark:text-white">9685026772</p>
                 </div>
+                
+                <!-- Instruction Box -->
+                <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-xl p-3.5 mb-6 w-full text-left shadow-sm">
+                    <p class="text-xs text-amber-800 dark:text-amber-300 font-bold leading-relaxed flex items-start gap-2">
+                        <i class="fa-solid fa-circle-info mt-0.5 text-amber-500"></i> 
+                        <span>पेमेंट करने के बाद स्क्रीनशॉट WhatsApp पर भेजें और प्रीमियम एक्सेस कोड पाएं।</span>
+                    </p>
+                </div>
+                
+                <!-- WhatsApp Button -->
+                <button onclick="window.openWhatsApp()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3.5 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/30 text-base flex items-center justify-center gap-2 transform hover:scale-[1.02]">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Screenshot
+                </button>
             </div>
         </div>
+    </div>
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
@@ -457,10 +466,10 @@
         ];
 
         const QUIZ_DB = {
-  geography: [{"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}, {"hi": {"q": "'अल नीनो' (El Nino) घटना के संबंध में कौन-सा कथन सही है?", "options": ["पेरू के तट पर गर्म पानी का जमाव", "भारतीय मानसून में वृद्धि", "अटलांटिक महासागर की घटना", "भूमध्य सागर की घटना"]}, "en": {"q": "Which statement is correct regarding the 'El Nino' phenomenon?", "options": ["Accumulation of warm water off the coast of Peru", "Increase in Indian monsoon", "Phenomenon of the Atlantic Ocean", "Phenomenon of the Mediterranean Sea"]}, "correct": 0}, {"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}, {"hi": {"q": "'अल नीनो' (El Nino) घटना के संबंध में कौन-सा कथन सही है?", "options": ["पेरू के तट पर गर्म पानी का जमाव", "भारतीय मानसून में वृद्धि", "अटलांटिक महासागर की घटना", "भूमध्य सागर की घटना"]}, "en": {"q": "Which statement is correct regarding the 'El Nino' phenomenon?", "options": ["Accumulation of warm water off the coast of Peru", "Increase in Indian monsoon", "Phenomenon of the Atlantic Ocean", "Phenomenon of the Mediterranean Sea"]}, "correct": 0}, {"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 উভয়", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}, {"hi": {"q": "'अल नीनो' (El Nino) घटना के संबंध में कौन-सा कथन सही है?", "options": ["पेरू के तट पर गर्म पानी का जमाव", "भारतीय मानसून में वृद्धि", "अटलांटिक महासागर की घटना", "भूमध्य सागर की घटना"]}, "en": {"q": "Which statement is correct regarding the 'El Nino' phenomenon?", "options": ["Accumulation of warm water off the coast of Peru", "Increase in Indian monsoon", "Phenomenon of the Atlantic Ocean", "Phenomenon of the Mediterranean Sea"]}, "correct": 0}, {"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}, {"hi": {"q": "'अल नीनो' (El Nino) घटना के संबंध में कौन-सा कथन सही है?", "options": ["पेरू के तट पर गर्म पानी का जमाव", "भारतीय मानसून में वृद्धि", "अटलांटिक महासागर की घटना", "भूमध्य सागर की घटना"]}, "en": {"q": "Which statement is correct regarding the 'El Nino' phenomenon?", "options": ["Accumulation of warm water off the coast of Peru", "Increase in Indian monsoon", "Phenomenon of the Atlantic Ocean", "Phenomenon of the Mediterranean Sea"]}, "correct": 0}, {"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}, {"hi": {"q": "'अल नीनो' (El Nino) घटना के संबंध में कौन-सा कथन सही है?", "options": ["पेरू के तट पर गर्म पानी का जमाव", "भारतीय मानसून में वृद्धि", "अटलांटिक महासागर की घटना", "भूमध्य सागर की घटना"]}, "en": {"q": "Which statement is correct regarding the 'El Nino' phenomenon?", "options": ["Accumulation of warm water off the coast of Peru", "Increase in Indian monsoon", "Phenomenon of the Atlantic Ocean", "Phenomenon of the Mediterranean Sea"]}, "correct": 0}],
-  history: [{"hi": {"q": "सिंधु घाटी सभ्यता (Indus Valley Civilization) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. यह मुख्यतः एक लौकिक सभ्यता थी और इसमें धार्मिक तत्व मौजूद होने पर भी वर्चस्वशाली नहीं थे।<br>2. उस काल में भारत में कपास से वस्त्र बनाए जाते थे।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "With reference to the Indus Valley Civilization, consider the following statements:<br>1. It was predominantly a secular civilization and the religious element, though present, did not dominate.<br>2. During this period, cotton was used for manufacturing textiles in India.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "गुप्त काल के दौरान, 'सार्थवाह' शब्द का अर्थ क्या था?", "options": ["ग्राम प्रधान", "व्यापारियों के कारवां का नेता", "मुख्य न्यायिक अधिकारी", "शाही अंगरक्षक"]}, "en": {"q": "During the Gupta period, what was the meaning of the word 'Sarthavaha'?", "options": ["Village Headman", "Leader of the merchant caravan", "Chief Judicial Officer", "Royal Bodyguard"]}, "correct": 1}, {"hi": {"q": "सिंधु घाटी सभ्यता (Indus Valley Civilization) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. यह मुख्यतः एक लौकिक सभ्यता थी और इसमें धार्मिक तत्व मौजूद होने पर भी वर्चस्वशाली नहीं थे।<br>2. उस काल में भारत में कपास से वस्त्र बनाए जाते थे।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "With reference to the Indus Valley Civilization, consider the following statements:<br>1. It was predominantly a secular civilization and the religious element, though present, did not dominate.<br>2. During this period, cotton was used for manufacturing textiles in India.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "गुप्त काल के दौरान, 'सार्थवाह' शब्द का अर्थ क्या था?", "options": ["ग्राम प्रधान", "व्यापारियों के कारवां का नेता", "मुख्य न्यायिक अधिकारी", "शाही अंगरक्षक"]}, "en": {"q": "During the Gupta period, what was the meaning of the word 'Sarthavaha'?", "options": ["Village Headman", "Leader of the merchant caravan", "Chief Judicial Officer", "Royal Bodyguard"]}, "correct": 1}, {"hi": {"q": "सिंधु घाटी सभ्यता (Indus Valley Civilization) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. यह मुख्यतः एक लौकिक सभ्यता थी और इसमें धार्मिक तत्व मौजूद होने पर भी वर्चस्वशाली नहीं थे।<br>2. उस काल में भारत में कपास से वस्त्र बनाए जाते थे।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "With reference to the Indus Valley Civilization, consider the following statements:<br>1. It was predominantly a secular civilization and the religious element, though present, did not dominate.<br>2. During this period, cotton was used for manufacturing textiles in India.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "गुप्त काल के दौरान, 'सार्थवाह' शब्द का अर्थ क्या था?", "options": ["ग्राम प्रधान", "व्यापारियों के कारवां का नेता", "मुख्य न्यायिक अधिकारी", "शाही अंगरक्षक"]}, "en": {"q": "During the Gupta period, what was the meaning of the word 'Sarthavaha'?", "options": ["Village Headman", "Leader of the merchant caravan", "Chief Judicial Officer", "Royal Bodyguard"]}, "correct": 1}],
-  polity: [{"hi": {"q": "भारतीय संविधान की प्रस्तावना (Preamble) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. इसे अदालत में लागू नहीं किया जा सकता (Non-justiciable)।<br>2. इसे 42वें संशोधन द्वारा संशोधित किया गया था।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding the Preamble of the Indian Constitution:<br>1. It is non-justiciable in nature.<br>2. It was amended by the 42nd Amendment.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "अनुच्छेद 21 (Article 21) के तहत 'प्राण और दैहिक स्वतंत्रता का संरक्षण' में क्या शामिल है?", "options": ["केवल मनमानी कार्यकारी कार्रवाई से सुरक्षा", "कार्यकारी और विधायी दोनों कार्यवाहियों से सुरक्षा", "केवल भारतीय नागरिकों के लिए उपलब्ध", "आपातकाल के दौरान निलंबित किया जा सकता है"]}, "en": {"q": "Protection of Life and Personal Liberty under Article 21 includes:", "options": ["Protection only against arbitrary executive action", "Protection against both executive and legislative actions", "Available only to Indian citizens", "Can be suspended during an emergency"]}, "correct": 1}, {"hi": {"q": "राज्य के नीति निदेशक तत्वों (DPSP) का मुख्य उद्देश्य क्या है?", "options": ["राजनीतिक लोकतंत्र की स्थापना", "सामाजिक और आर्थिक लोकतंत्र की स्थापना", "गांधीवादी राज्य की स्थापना", "पूंजीवादी राज्य की स्थापना"]}, "en": {"q": "What is the main objective of the Directive Principles of State Policy (DPSP)?", "options": ["Establishment of Political Democracy", "Establishment of Social and Economic Democracy", "Establishment of a Gandhian State", "Establishment of a Capitalist State"]}, "correct": 1}]
-};
+            geography: [{"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}, {"hi": {"q": "'अल नीनो' (El Nino) घटना के संबंध में कौन-सा कथन सही है?", "options": ["पेरू के तट पर गर्म पानी का जमाव", "भारतीय मानसून में वृद्धि", "अटलांटिक महासागर की घटना", "भूमध्य सागर की घटना"]}, "en": {"q": "Which statement is correct regarding the 'El Nino' phenomenon?", "options": ["Accumulation of warm water off the coast of Peru", "Increase in Indian monsoon", "Phenomenon of the Atlantic Ocean", "Phenomenon of the Mediterranean Sea"]}, "correct": 0}],
+            history: [{"hi": {"q": "सिंधु घाटी सभ्यता (Indus Valley Civilization) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. यह मुख्यतः एक लौकिक सभ्यता थी और इसमें धार्मिक तत्व मौजूद होने पर भी वर्चस्वशाली नहीं थे।<br>2. उस काल में भारत में कपास से वस्त्र बनाए जाते थे।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "With reference to the Indus Valley Civilization, consider the following statements:<br>1. It was predominantly a secular civilization and the religious element, though present, did not dominate.<br>2. During this period, cotton was used for manufacturing textiles in India.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "गुप्त काल के दौरान, 'सार्थवाह' शब्द का अर्थ क्या था?", "options": ["ग्राम प्रधान", "व्यापारियों के कारवां का नेता", "मुख्य न्यायिक अधिकारी", "शाही अंगरक्षक"]}, "en": {"q": "During the Gupta period, what was the meaning of the word 'Sarthavaha'?", "options": ["Village Headman", "Leader of the merchant caravan", "Chief Judicial Officer", "Royal Bodyguard"]}, "correct": 1}],
+            polity: [{"hi": {"q": "भारतीय संविधान की प्रस्तावना (Preamble) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. इसे अदालत में लागू नहीं किया जा सकता (Non-justiciable)।<br>2. इसे 42वें संशोधन द्वारा संशोधित किया गया था।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding the Preamble of the Indian Constitution:<br>1. It is non-justiciable in nature.<br>2. It was amended by the 42nd Amendment.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "अनुच्छेद 21 (Article 21) के तहत 'प्राण और दैहिक स्वतंत्रता का संरक्षण' में क्या शामिल है?", "options": ["केवल मनमानी कार्यकारी कार्रवाई से सुरक्षा", "कार्यकारी और विधायी दोनों कार्यवाहियों से सुरक्षा", "केवल भारतीय नागरिकों के लिए उपलब्ध", "आपातकाल के दौरान निलंबित किया जा सकता है"]}, "en": {"q": "Protection of Life and Personal Liberty under Article 21 includes:", "options": ["Protection only against arbitrary executive action", "Protection against both executive and legislative actions", "Available only to Indian citizens", "Can be suspended during an emergency"]}, "correct": 1}, {"hi": {"q": "राज्य के नीति निदेशक तत्वों (DPSP) का मुख्य उद्देश्य क्या है?", "options": ["राजनीतिक लोकतंत्र की स्थापना", "सामाजिक और आर्थिक लोकतंत्र की स्थापना", "गांधीवादी राज्य की स्थापना", "पूंजीवादी राज्य की स्थापना"]}, "en": {"q": "What is the main objective of the Directive Principles of State Policy (DPSP)?", "options": ["Establishment of Political Democracy", "Establishment of Social and Economic Democracy", "Establishment of a Gandhian State", "Establishment of a Capitalist State"]}, "correct": 1}]
+        };
 
         window.state = {
             activeTab: 'Home',
@@ -529,7 +538,6 @@
             }, 1500);
         }
 
-        
         window.toggleScriptOverlay = function() {
             const overlay = document.getElementById('script-overlay');
             if (!overlay) return;
@@ -538,9 +546,7 @@
             
             if (window.state.isScriptOpen) {
                 overlay.classList.remove('hidden');
-                // Render content first
                 renderScriptContent();
-                // small timeout to let display:block apply before translating
                 setTimeout(() => {
                     overlay.classList.remove('translate-y-full');
                 }, 10);
@@ -562,7 +568,6 @@
                 return;
             }
             
-            // Reset active index when rendering
             window.state.activeScriptIndex = -1;
             
             container.innerHTML = track.script.map((line, index) => 
@@ -580,46 +585,31 @@
             if(modal) modal.classList.add('hidden');
         };
         
-        window.processPayment = function() {
+        // ================= WHATSAPP MANUAL PAYMENT LOGIC =================
+        window.openWhatsApp = function() {
             if (!window.state.isLoggedIn) {
-                window.showToast("पेमेंट करने के लिए पहले लॉगिन करें!");
+                window.showToast("पेमेंट स्क्रीनशॉट भेजने के लिए पहले लॉगिन करें!");
                 window.changeTab('Profile');
                 window.closeUpgradeModal();
                 return;
             }
 
-            var options = {
-                "key": "rzp_live_TLZCXEEB1WD5W",
-                "amount": "59900",
-                "currency": "INR",
-                "name": "UPSC CSE Audio Book",
-                "description": "Premium Membership (1 Month)",
-                "image": "https://placehold.co/400x400/f3f4f6/9ca3af?text=UPSC",
-                "handler": async function (response) {
-                    window.showToast("पेमेंट सफल! Premium अनलॉक किया जा रहा है...");
-                    try {
-                        window.state.isPremiumUser = true;
-                        window.showToast("बधाई हो! अब आप Premium मेंबर हैं।");
-                        window.closeUpgradeModal();
-                        window.renderMainContent();
-                    } catch (error) {
-                        console.error("Error:", error);
-                    }
-                },
-                "prefill": {
-                    "name": window.state.userName,
-                    "email": window.state.userEmail
-                },
-                "theme": {
-                    "color": "#F97316"
-                }
-            };
+            // आपका दिया गया मोबाइल नंबर (Country Code 91 के साथ)
+            const phoneNumber = "919685026772";
             
-            var rzp1 = new Razorpay(options);
-            rzp1.on('payment.failed', function (response){
-                window.showToast("पेमेंट फेल हो गया: " + response.error.description);
-            });
-            rzp1.open();
+            // जो मैसेज अपने आप टाइप होकर जाएगा
+            const rawMessage = `नमस्ते, मैंने UPSC CSE Audio Book Premium के लिए ₹599 का पेमेंट कर दिया है। यह मेरा स्क्रीनशॉट है। कृपया मुझे प्रीमियम एक्सेस कोड दें।\n\nMy Email: ${window.state.userEmail}`;
+            
+            // मैसेज को URL फ्रेंडली बनाना
+            const encodedMessage = encodeURIComponent(rawMessage);
+            
+            // WhatsApp API Link
+            const waUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            window.showToast("WhatsApp खुल रहा है...");
+            
+            // नए टैब/ऐप में WhatsApp खोलना
+            window.open(waUrl, '_blank'); 
         };
 
         window.handlePlayClick = function(id) {
@@ -656,11 +646,11 @@
             audioElement.playbackRate = window.state.playbackSpeed;
             const btn = document.getElementById('speed-btn');
             if (btn) btn.textContent = window.state.playbackSpeed + 'x';
-            showToast(`Speed: ${window.state.playbackSpeed}x`);
+            window.showToast(`Speed: ${window.state.playbackSpeed}x`);
         };
 
         window.openSleepTimer = function() {
-            showToast("Sleep Timer: Playing for 30 mins");
+            window.showToast("Sleep Timer: Playing for 30 mins");
         };
 
         window.toggleDarkMode = function() {
@@ -670,7 +660,7 @@
             const toggle2 = document.getElementById('sidebar-dark-toggle');
             if (toggle1) toggle1.checked = window.state.darkMode;
             if (toggle2) toggle2.checked = window.state.darkMode;
-            showToast(window.state.darkMode ? "Dark Mode Enabled" : "Light Mode Enabled");
+            window.showToast(window.state.darkMode ? "Dark Mode Enabled" : "Light Mode Enabled");
         };
 
         window.togglePlayerMenu = function(e) {
@@ -698,13 +688,13 @@
         };
 
         window.shareTo = function(platform) {
-            showToast(`Shared via ${platform}!`);
+            window.showToast(`Shared via ${platform}!`);
             window.closeShareModal();
         };
 
         window.copyLink = function() {
             navigator.clipboard?.writeText(window.location.href);
-            showToast("Link copied to clipboard!");
+            window.showToast("Link copied to clipboard!");
             window.closeShareModal();
         };
 
@@ -770,7 +760,6 @@
 
                 let html = ``;
                 
-                // Check if CURRENT_AFFAIRS_DATA exists from the external file
                 if (typeof CURRENT_AFFAIRS_DATA !== 'undefined' && CURRENT_AFFAIRS_DATA.length > 0) {
                     CURRENT_AFFAIRS_DATA.forEach((ca, index) => {
                         let topicsHtml = '';
@@ -827,12 +816,10 @@
                         const isThisPlaying = window.state.currentTrackId === podcast.id && window.state.isPlaying;
                         const isBookmarked = window.state.bookmarks.has(podcast.id);
                         const isDownloaded = window.state.downloads.has(podcast.id);
-
-                                                const isLocked = podcast.isPremium && !window.state.isPremiumUser;
+                        const isLocked = podcast.isPremium && !window.state.isPremiumUser;
                         html += `
                         <div class="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40 dark:bg-orange-950/20' : 'border-gray-100 dark:border-gray-700'} w-full">
                             
-                            <!-- Image Area -->
                             <div class="relative w-[110px] md:w-[130px] h-[130px] md:h-[150px] rounded-xl overflow-hidden shrink-0 cursor-pointer group" onclick="window.handlePlayClick(${podcast.id})">
                                 <img src="${podcast.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover bg-gray-200 transition-transform duration-500 group-hover:scale-110" />
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
@@ -861,7 +848,6 @@
                                 <span class="absolute top-2 right-2 bg-black/70 text-white text-[9px] md:text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm backdrop-blur-sm"><i class="fa-regular fa-clock mr-1"></i>${podcast.duration}</span>
                             </div>
 
-                            <!-- Content Area -->
                             <div class="flex flex-col flex-1 py-1 overflow-hidden justify-between">
                                 <div>
                                     <div class="flex justify-between items-start mb-1.5">
@@ -1190,20 +1176,17 @@
             const isDownloaded = window.state.downloads.has(track.id);
 
             container.innerHTML = `
-                <!-- Album Art -->
                 <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl mb-6 relative group border-4 border-white/10">
                     <img src="${track.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                     <span class="absolute bottom-3 left-3 bg-orange-600 text-white text-xs font-bold px-2.5 py-1 rounded shadow">${track.episode}</span>
                 </div>
 
-                <!-- Title & Subtitle -->
                 <div class="text-center mb-6 w-full px-4">
                     <h2 class="text-xl md:text-2xl font-bold mb-1 truncate">${track.title}</h2>
                     <p class="text-sm text-white/70">${track.category} • UPSC CSE Audio Book</p>
                 </div>
 
-                <!-- Scrubber / Seek Bar -->
                 <div class="w-full px-2 mb-8">
                     <div class="flex items-center gap-3 w-full mb-1">
                         <span id="modal-current-time" class="text-xs text-white/80 w-10">0:00</span>
@@ -1212,7 +1195,6 @@
                     </div>
                 </div>
 
-                <!-- Play Controls -->
                 <div class="flex items-center justify-center gap-8 mb-10 w-full">
                     <button onclick="window.skipTime(-10)" class="flex flex-col items-center text-white/80 hover:text-white transition-colors">
                         <div class="relative flex items-center justify-center">
@@ -1233,7 +1215,6 @@
                     </button>
                 </div>
 
-                <!-- Bottom Action Toolbar -->
                 <div class="flex items-center justify-between w-full max-w-md px-2 md:px-4 text-white/80 text-xs font-semibold">
                     <button onclick="window.changeSpeed()" id="speed-btn" class="flex flex-col items-center gap-1 hover:text-white transition-colors">
                         <span class="text-sm font-bold border border-white/40 px-2 py-0.5 rounded-md">1.0x</span>
@@ -1260,7 +1241,7 @@
             `;
         }
 
-                window.handleImageUpload = function(event) {
+        window.handleImageUpload = function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -1329,7 +1310,7 @@
             const qIndex = window.state.quizState.currentQ;
             const activeDb = QUIZ_DB[window.state.quizState.activeQuizId];
             const rawData = activeDb[qIndex];
-            const qData = rawData[window.state.quizState.lang]; // Get language specific data
+            const qData = rawData[window.state.quizState.lang]; 
             
             const mainEl = document.getElementById('main-content');
             
@@ -1367,7 +1348,6 @@
 
             mainEl.innerHTML = `
                 <div class="max-w-3xl mx-auto px-4 w-full h-full flex flex-col pt-2 pb-6">
-                    <!-- Top Bar: Timer and Language -->
                     <div class="flex justify-between items-center mb-4">
                         <div class="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
                             <i class="fa-regular fa-clock text-red-500 animate-pulse text-lg"></i>
@@ -1457,10 +1437,8 @@
                     <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Quiz Completed!</h2>
                     <p class="text-gray-500 dark:text-gray-400 mb-10 font-medium bg-gray-100 dark:bg-gray-800 px-4 py-1.5 rounded-full text-sm">${titleStr}</p>
                     
-                    <!-- Circular Graph -->
                     <div class="relative w-56 h-56 mb-12">
                         <svg viewBox="0 0 36 36" class="w-full h-full transform -rotate-90 drop-shadow-xl">
-                            <!-- Background Circle (Wrong) -->
                             <path
                                 class="text-red-500 dark:text-red-600"
                                 stroke-width="3"
@@ -1470,7 +1448,6 @@
                                 a 15.9155 15.9155 0 0 1 0 31.831
                                 a 15.9155 15.9155 0 0 1 0 -31.831"
                             />
-                            <!-- Foreground Circle (Correct) -->
                             <path
                                 class="text-green-500 dark:text-green-400 transition-all duration-1000 ease-out"
                                 stroke-dasharray="${correctPercent}, 100"
@@ -1508,10 +1485,7 @@
                 </div>
             `;
         };
-        // ==============================================
 
-
-        
         window.toggleCurrentAffairs = function(index) {
             const content = document.getElementById(`ca-content-${index}`);
             const chevron = document.getElementById(`ca-chevron-${index}`);
@@ -1523,8 +1497,6 @@
                 chevron.classList.remove('rotate-180');
             }
         };
-
-        // --- Event Handlers ---
 
         window.changeTab = function(tab) {
             window.state.activeTab = tab;
@@ -1548,10 +1520,10 @@
         window.toggleBookmark = function(id) {
             if (window.state.bookmarks.has(id)) {
                 window.state.bookmarks.delete(id);
-                showToast("बुकमार्क से हटा दिया गया!");
+                window.showToast("बुकमार्क से हटा दिया गया!");
             } else {
                 window.state.bookmarks.add(id);
-                showToast("बुकमार्क में सेव कर लिया गया!");
+                window.showToast("बुकमार्क में सेव कर लिया गया!");
             }
             renderMainContent();
             renderBottomNav();
@@ -1560,10 +1532,10 @@
         window.toggleDownload = function(id) {
             if (window.state.downloads.has(id)) {
                 window.state.downloads.delete(id);
-                showToast("डाउनलोड से डिलीट कर दिया गया!");
+                window.showToast("डाउनलोड से डिलीट कर दिया गया!");
             } else {
                 window.state.downloads.add(id);
-                showToast("सफलतापूर्वक डाउनलोड हो गया!");
+                window.showToast("सफलतापूर्वक डाउनलोड हो गया!");
             }
             renderMainContent();
             renderBottomNav();
@@ -1607,12 +1579,11 @@
             window.togglePlay(PODCAST_LIST[prevIndex].id);
         };
 
-        // --- Voice Search ---
         window.startVoiceSearch = function() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             
             if (!SpeechRecognition) {
-                showToast("क्षमा करें, आपका ब्राउज़र वॉइस सर्च सपोर्ट नहीं करता। Chrome उपयोग करें।");
+                window.showToast("क्षमा करें, आपका ब्राउज़र वॉइस सर्च सपोर्ट नहीं करता। Chrome उपयोग करें।");
                 return;
             }
 
@@ -1625,7 +1596,7 @@
             const micBtn = document.getElementById('mic-btn');
 
             recognition.onstart = () => {
-                showToast("बोलिए, हम सुन रहे हैं...");
+                window.showToast("बोलिए, हम सुन रहे हैं...");
                 micIcon.classList.replace('text-gray-500', 'text-orange-600');
                 searchBox.classList.add('ring-2', 'ring-orange-400', 'bg-orange-50');
                 micBtn.classList.add('bg-orange-200', 'animate-pulse');
@@ -1635,12 +1606,12 @@
                 const transcript = event.results[0][0].transcript;
                 window.state.searchQuery = transcript;
                 document.getElementById('search-input').value = transcript;
-                showToast(`आपने कहा: "${transcript}"`);
+                window.showToast(`आपने कहा: "${transcript}"`);
                 renderMainContent();
             };
 
             recognition.onerror = () => {
-                showToast("आवाज़ पहचानने में समस्या हुई। कृपया दोबारा प्रयास करें।");
+                window.showToast("आवाज़ पहचानने में समस्या हुई। कृपया दोबारा प्रयास करें।");
             };
 
             recognition.onend = () => {
@@ -1652,7 +1623,6 @@
             recognition.start();
         };
 
-        // --- Toast ---
         let toastTimeout;
         window.showToast = function(msg) {
             const toastEl = document.getElementById('toast');
