@@ -88,7 +88,8 @@
 
             <!-- EMAIL LOGIN/SIGNUP SECTION -->
             <div id="email-section" class="block">
-                <h2 id="email-title" class="text-xl font-bold text-gray-900 dark:text-white mb-4">लॉगिन करें</h2>
+                <h2 id="email-title" class="text-xl font-bold text-gray-900 dark:text-white mb-1">लॉगिन करें</h2>
+                <p id="email-subtitle" class="text-xs text-gray-500 mb-4">अगर अकाउंट नहीं है, तो पहले नीचे "Sign Up" पर क्लिक करें।</p>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1.5">Email Address</label>
@@ -171,10 +172,15 @@
             </div>
 
             <!-- Google Login -->
-            <button onclick="window.loginWithGoogle()" class="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 font-bold py-3.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shadow-sm text-base flex items-center justify-center gap-3">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
-                Continue with Google
-            </button>
+            <div id="google-login-container">
+                <button onclick="window.loginWithGoogle()" class="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 font-bold py-3.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shadow-sm text-base flex items-center justify-center gap-3">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+                    Continue with Google
+                </button>
+            </div>
+            <p id="webview-warning" class="text-[10px] text-center text-red-500 mt-3 font-semibold hidden">
+                <i class="fa-solid fa-circle-exclamation"></i> ऐप के अंदर Google लॉगिन प्रतिबंधित है। कृपया Email या OTP से लॉगिन करें।
+            </p>
             
         </div>
     </div>
@@ -1348,7 +1354,8 @@
         window.toggleEmailMode = () => {
             isSignupMode = !isSignupMode;
             document.getElementById('email-title').innerText = isSignupMode ? "नया अकाउंट बनाएं" : "लॉगिन करें";
-            document.querySelector('#email-action-btn span').innerText = isSignupMode ? "Sign Up" : "Login";
+            document.querySelector('#email-action-btn span').innerText = isSignupMode ? "अकाउंट बनाएं (Sign Up)" : "Login";
+            document.getElementById('email-subtitle').innerText = isSignupMode ? "नया पासवर्ड बनाएं (अपनी जीमेल का असली पासवर्ड न डालें)" : "अगर अकाउंट नहीं है, तो पहले नीचे 'Sign Up' पर क्लिक करें।";
             document.getElementById('email-toggle-text').innerText = isSignupMode ? "पहले से अकाउंट है?" : "नया अकाउंट बनाएं?";
             document.getElementById('email-toggle-btn').innerText = isSignupMode ? "Login" : "Sign Up";
         };
@@ -1436,6 +1443,18 @@
 
         // OTP Input Auto-advance logic
         document.addEventListener('DOMContentLoaded', () => {
+            // WebView Detection for Google Login
+            const isWebView = /(wv|appmint|Android.*Version\/[\d\.]+)/i.test(navigator.userAgent);
+            if(isWebView) {
+                const googleContainer = document.getElementById('google-login-container');
+                const webviewWarning = document.getElementById('webview-warning');
+                if(googleContainer && webviewWarning) {
+                    googleContainer.classList.add('hidden');
+                    webviewWarning.classList.remove('hidden');
+                    webviewWarning.classList.add('block');
+                }
+            }
+
             const boxes = document.querySelectorAll('.otp-box');
             boxes.forEach((box, index) => {
                 box.addEventListener('keyup', (e) => {
