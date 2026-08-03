@@ -64,18 +64,6 @@
             0%, 100% { height: 100%; }
             50% { height: 30%; }
         }
-
-        /* Animated Orange Border Custom CSS */
-        @keyframes gradientBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .animated-border-box {
-            background: linear-gradient(270deg, #F96D15, #ffb800, #F96D15, #ff2a00);
-            background-size: 300% 300%;
-            animation: gradientBorder 2.5s ease infinite;
-        }
     </style>
     
     <!-- Current Affairs Data File -->
@@ -177,7 +165,6 @@
 
     <!-- Main Full Screen Container (Hidden by default until logged in) -->
     <div id="main-app-container" class="app-container relative overflow-hidden flex flex-col hidden">
-
         
         <audio id="audio-player"></audio>
 
@@ -444,6 +431,7 @@
 
             <!-- QR Code Section -->
             <div class="bg-gray-50 dark:bg-gray-700/40 rounded-2xl p-4 flex flex-col items-center border border-gray-200 dark:border-gray-600 mb-5 shadow-sm">
+                <!-- यहाँ आपका दिया हुआ QR कोड लगाया गया है -->
                 <img src="IMG_20260803_213224_326~2.jpg" alt="Payment QR" class="w-48 h-48 object-contain rounded-xl shadow-sm mb-3 bg-white p-2 border border-gray-100">
                 
                 <p class="text-[11px] md:text-xs text-center font-bold text-gray-600 dark:text-gray-300 leading-snug">
@@ -494,7 +482,7 @@
             bookmarks: new Set([1]),
             downloads: new Set([1, 2]),
             currentTrackId: null,
-            pendingTrackId: null, 
+            pendingTrackId: null, // न्यू: एक्सेस कोड डालने के बाद तुरंत प्ले करने के लिए
             isPlaying: false,
             playbackSpeed: 1.0,
             darkMode: false,
@@ -593,7 +581,7 @@
         }
 
         window.openUpgradeModal = function(trackId = null) {
-            window.state.pendingTrackId = trackId; 
+            window.state.pendingTrackId = trackId; // स्टोर करें कि कौनसी ऑडियो पर क्लिक किया गया था
             const modal = document.getElementById('upgrade-modal');
             if(modal) modal.classList.remove('hidden');
         };
@@ -608,12 +596,14 @@
             const inputField = document.getElementById('premium-access-code');
             const code = inputField.value.trim();
             
+            // अगर बच्चा 'Polity9977' डालता है
             if (code === "Polity9977") {
                 window.showToast("एक्सेस कोड सही है! प्रीमियम अनलॉक हो गया।");
-                window.state.isPremiumUser = true; 
-                window.closeUpgradeModal(); 
-                window.renderMainContent(); 
+                window.state.isPremiumUser = true; // प्रीमियम चालू
+                window.closeUpgradeModal(); // पॉप-अप बंद
+                window.renderMainContent(); // लॉक वाले बटन हटाने के लिए रीफ्रेश
                 
+                // अगर उसने किसी पर्टिकुलर ऑडियो पर क्लिक करके बॉक्स खोला था, तो उसे प्ले कर दो
                 if (window.state.pendingTrackId) {
                     window.togglePlay(window.state.pendingTrackId);
                     window.state.pendingTrackId = null;
@@ -622,13 +612,14 @@
                 window.showToast("कृपया एक्सेस कोड डालें!");
             } else {
                 window.showToast("गलत एक्सेस कोड! कृपया WhatsApp पर सही कोड मांगें।");
-                inputField.value = ""; 
+                inputField.value = ""; // गलत कोड मिटा दें
             }
         };
 
         window.handlePlayClick = function(id) {
             const track = PODCAST_LIST.find(p => p.id === id);
             if (track && track.isPremium && !window.state.isPremiumUser) {
+                // अगर ट्रैक प्रीमियम है, तो सीधे हमारा नया Upgrade Modal (QR Code) खुलेगा
                 window.openUpgradeModal(id);
             } else {
                 window.togglePlay(id);
@@ -774,28 +765,6 @@
 
                 let html = ``;
                 
-                // ---- NEW COMING SOON THUMBNAIL BLOCK ----
-                if (!window.state.searchQuery) {
-                    html += `
-                    <div class="max-w-7xl mx-auto px-4 w-full mb-6 mt-4 animate-slide-up">
-                        <div class="relative rounded-2xl p-[3px] animated-border-box shadow-[0_0_15px_rgba(249,115,22,0.6)]">
-                            <div class="absolute top-4 right-4 z-10 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-[10px] md:text-xs font-black px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-widest border border-amber-300/50">
-                                <i class="fa-solid fa-crown text-sm"></i> Premium
-                            </div>
-                            <div class="bg-gray-900 rounded-[13px] overflow-hidden relative flex flex-col">
-                                <img src="File_00000000325882118e1f54398af9e515.png" alt="Coming Soon Podcast" class="w-full h-auto object-contain bg-black max-h-[250px]" />
-                                <div class="bg-gray-900 text-center py-3 border-t border-gray-800">
-                                    <span class="text-orange-500 font-extrabold text-sm md:text-base tracking-[0.15em] uppercase flex items-center justify-center gap-2">
-                                        <i class="fa-solid fa-microphone-lines"></i> Coming Soon
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
-                }
-                // ----------------------------------------
-
                 if (typeof CURRENT_AFFAIRS_DATA !== 'undefined' && CURRENT_AFFAIRS_DATA.length > 0) {
                     CURRENT_AFFAIRS_DATA.forEach((ca, index) => {
                         let topicsHtml = '';
@@ -1212,17 +1181,20 @@
             const isDownloaded = window.state.downloads.has(track.id);
 
             container.innerHTML = `
+                <!-- Album Art -->
                 <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl mb-6 relative group border-4 border-white/10">
                     <img src="${track.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                     <span class="absolute bottom-3 left-3 bg-orange-600 text-white text-xs font-bold px-2.5 py-1 rounded shadow">${track.episode}</span>
                 </div>
 
+                <!-- Title & Subtitle -->
                 <div class="text-center mb-6 w-full px-4">
                     <h2 class="text-xl md:text-2xl font-bold mb-1 truncate">${track.title}</h2>
                     <p class="text-sm text-white/70">${track.category} • UPSC CSE Audio Book</p>
                 </div>
 
+                <!-- Scrubber / Seek Bar -->
                 <div class="w-full px-2 mb-8">
                     <div class="flex items-center gap-3 w-full mb-1">
                         <span id="modal-current-time" class="text-xs text-white/80 w-10">0:00</span>
@@ -1231,6 +1203,7 @@
                     </div>
                 </div>
 
+                <!-- Play Controls -->
                 <div class="flex items-center justify-center gap-8 mb-10 w-full">
                     <button onclick="window.skipTime(-10)" class="flex flex-col items-center text-white/80 hover:text-white transition-colors">
                         <div class="relative flex items-center justify-center">
@@ -1251,6 +1224,7 @@
                     </button>
                 </div>
 
+                <!-- Bottom Action Toolbar -->
                 <div class="flex items-center justify-between w-full max-w-md px-2 md:px-4 text-white/80 text-xs font-semibold">
                     <button onclick="window.changeSpeed()" id="speed-btn" class="flex flex-col items-center gap-1 hover:text-white transition-colors">
                         <span class="text-sm font-bold border border-white/40 px-2 py-0.5 rounded-md">1.0x</span>
@@ -1277,7 +1251,7 @@
             `;
         }
 
-        window.handleImageUpload = function(event) {
+                window.handleImageUpload = function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -1346,7 +1320,7 @@
             const qIndex = window.state.quizState.currentQ;
             const activeDb = QUIZ_DB[window.state.quizState.activeQuizId];
             const rawData = activeDb[qIndex];
-            const qData = rawData[window.state.quizState.lang]; 
+            const qData = rawData[window.state.quizState.lang]; // Get language specific data
             
             const mainEl = document.getElementById('main-content');
             
@@ -1384,6 +1358,7 @@
 
             mainEl.innerHTML = `
                 <div class="max-w-3xl mx-auto px-4 w-full h-full flex flex-col pt-2 pb-6">
+                    <!-- Top Bar: Timer and Language -->
                     <div class="flex justify-between items-center mb-4">
                         <div class="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
                             <i class="fa-regular fa-clock text-red-500 animate-pulse text-lg"></i>
@@ -1473,8 +1448,10 @@
                     <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Quiz Completed!</h2>
                     <p class="text-gray-500 dark:text-gray-400 mb-10 font-medium bg-gray-100 dark:bg-gray-800 px-4 py-1.5 rounded-full text-sm">${titleStr}</p>
                     
+                    <!-- Circular Graph -->
                     <div class="relative w-56 h-56 mb-12">
                         <svg viewBox="0 0 36 36" class="w-full h-full transform -rotate-90 drop-shadow-xl">
+                            <!-- Background Circle (Wrong) -->
                             <path
                                 class="text-red-500 dark:text-red-600"
                                 stroke-width="3"
@@ -1484,6 +1461,7 @@
                                 a 15.9155 15.9155 0 0 1 0 31.831
                                 a 15.9155 15.9155 0 0 1 0 -31.831"
                             />
+                            <!-- Foreground Circle (Correct) -->
                             <path
                                 class="text-green-500 dark:text-green-400 transition-all duration-1000 ease-out"
                                 stroke-dasharray="${correctPercent}, 100"
@@ -1521,12 +1499,111 @@
                 </div>
             `;
         };
+        // ==============================================
 
+
+        
+        window.toggleCurrentAffairs = function(index) {
+            const content = document.getElementById(`ca-content-${index}`);
+            const chevron = document.getElementById(`ca-chevron-${index}`);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                chevron.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
+            }
+        };
+
+        // --- Event Handlers ---
+
+        window.changeTab = function(tab) {
+            window.state.activeTab = tab;
+            renderHeaderExtras();
+            renderMainContent();
+            renderBottomNav();
+            window.scrollTo(0,0);
+        };
+
+        window.changeCategory = function(cat) {
+            window.state.activeCategory = cat;
+            renderHeaderExtras();
+            renderMainContent();
+        };
+
+        window.handleSearch = function(e) {
+            window.state.searchQuery = e.target.value;
+            renderMainContent();
+        };
+
+        window.toggleBookmark = function(id) {
+            if (window.state.bookmarks.has(id)) {
+                window.state.bookmarks.delete(id);
+                showToast("बुकमार्क से हटा दिया गया!");
+            } else {
+                window.state.bookmarks.add(id);
+                showToast("बुकमार्क में सेव कर लिया गया!");
+            }
+            renderMainContent();
+            renderBottomNav();
+        };
+
+        window.toggleDownload = function(id) {
+            if (window.state.downloads.has(id)) {
+                window.state.downloads.delete(id);
+                showToast("डाउनलोड से डिलीट कर दिया गया!");
+            } else {
+                window.state.downloads.add(id);
+                showToast("सफलतापूर्वक डाउनलोड हो गया!");
+            }
+            renderMainContent();
+            renderBottomNav();
+        };
+
+        window.removeItemFromList = function(title, id) {
+            if(title === 'My Downloads') window.toggleDownload(id);
+            if(title === 'Saved Bookmarks') window.toggleBookmark(id);
+        };
+
+        window.togglePlay = function(id) {
+            if (window.state.currentTrackId === id) {
+                window.state.isPlaying = !window.state.isPlaying;
+                window.state.isPlaying ? audioElement.play() : audioElement.pause();
+            } else {
+                window.state.currentTrackId = id;
+                window.state.isPlaying = true;
+                const track = PODCAST_LIST.find(p => p.id === id);
+                audioElement.src = track.audioUrl;
+                audioElement.playbackRate = window.state.playbackSpeed;
+                audioElement.play().catch(e => console.log("Play interrupted"));
+            }
+            renderMainContent();
+            renderMiniPlayer();
+            if (!document.getElementById('player-modal').classList.contains('hidden')) {
+                renderPlayerModalContent();
+            }
+        };
+
+        window.handleNextTrack = function() {
+            if (!window.state.currentTrackId) return;
+            const currentIndex = PODCAST_LIST.findIndex(p => p.id === window.state.currentTrackId);
+            const nextIndex = (currentIndex + 1) % PODCAST_LIST.length;
+            window.togglePlay(PODCAST_LIST[nextIndex].id);
+        };
+
+        window.handlePrevTrack = function() {
+            if (!window.state.currentTrackId) return;
+            const currentIndex = PODCAST_LIST.findIndex(p => p.id === window.state.currentTrackId);
+            const prevIndex = (currentIndex - 1 + PODCAST_LIST.length) % PODCAST_LIST.length;
+            window.togglePlay(PODCAST_LIST[prevIndex].id);
+        };
+
+        // --- Voice Search ---
         window.startVoiceSearch = function() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             
             if (!SpeechRecognition) {
-                window.showToast("क्षमा करें, आपका ब्राउज़र वॉइस सर्च सपोर्ट नहीं करता। Chrome उपयोग करें।");
+                showToast("क्षमा करें, आपका ब्राउज़र वॉइस सर्च सपोर्ट नहीं करता। Chrome उपयोग करें।");
                 return;
             }
 
@@ -1539,7 +1616,7 @@
             const micBtn = document.getElementById('mic-btn');
 
             recognition.onstart = () => {
-                window.showToast("बोलिए, हम सुन रहे हैं...");
+                showToast("बोलिए, हम सुन रहे हैं...");
                 micIcon.classList.replace('text-gray-500', 'text-orange-600');
                 searchBox.classList.add('ring-2', 'ring-orange-400', 'bg-orange-50');
                 micBtn.classList.add('bg-orange-200', 'animate-pulse');
@@ -1549,12 +1626,12 @@
                 const transcript = event.results[0][0].transcript;
                 window.state.searchQuery = transcript;
                 document.getElementById('search-input').value = transcript;
-                window.showToast(`आपने कहा: "${transcript}"`);
+                showToast(`आपने कहा: "${transcript}"`);
                 renderMainContent();
             };
 
             recognition.onerror = () => {
-                window.showToast("आवाज़ पहचानने में समस्या हुई। कृपया दोबारा प्रयास करें।");
+                showToast("आवाज़ पहचानने में समस्या हुई। कृपया दोबारा प्रयास करें।");
             };
 
             recognition.onend = () => {
@@ -1566,6 +1643,7 @@
             recognition.start();
         };
 
+        // --- Toast ---
         let toastTimeout;
         window.showToast = function(msg) {
             const toastEl = document.getElementById('toast');
