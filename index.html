@@ -65,7 +65,8 @@
             50% { height: 30%; }
         }
     </style>
-    <!-- Current Affairs Data File -->
+    
+    <!-- ================= CURRENT AFFAIRS DATA ================= -->
     <script>
         const CURRENT_AFFAIRS_DATA = [
             {
@@ -108,7 +109,7 @@
                             "इन खनिजों के उत्पादन पर कुछ ही देशों (मुख्यतः चीन) का एकाधिकार है। चीन 20 में से 19 खनिजों के शोधन में अग्रणी है।",
                             "2025 में चीन ने दुर्लभ मृदा तत्वों के निर्यात पर प्रतिबंध लगा दिया था।",
                             "भारत के पास इन खनिजों के भंडार हैं, लेकिन दोहन की क्षमता कम होने के कारण आयात पर निर्भरता बनी हुई है।",
-                            "भारत ने 2023 से 30 महत्वपूर्ण खनिजों की पहचान की है और 'राष्ट्रीय महत्वपूर्ण खनिज मिशन' शुरू किया है।"
+                            "भारत ने 2023 से 30 महत्वपूर्ण खनिजों की पहचान की और 'राष्ट्रीय महत्वपूर्ण खनिज मिशन' शुरू किया है।"
                         ]
                     },
                     {
@@ -124,7 +125,7 @@
                         heading: "6. भारत के मुक्त व्यापार समझौते (FTA)",
                         details: [
                             "भारत ने हाल ही में यूएई, ऑस्ट्रेलिया, ओमान, ब्रिटेन और न्यूजीलैंड के साथ एफटीए किए हैं।",
-                            "हालांकि, डेटा दर्शाता है कि एफटीए के बावजूद भारत के निर्यात में अपेक्षित वृद्धि नहीं हुई है, जबकि आयात बढ़ा है (जैसे आसियान और सिंगापुर के साथ)।",
+                            "हालांकि, डेटा दर्शाता है कि एफटीए के बावजूद भारत के निर्यात में अपेक्षित वृद्धि नहीं हुई है, जबकि आयात बढ़ा है।",
                             "भारत की घरेलू औद्योगिक क्षमता, लॉजिस्टिक दक्षता और बुनियादी ढांचे की कमियों के कारण एफटीए का पूरा लाभ नहीं मिल पा रहा है।",
                             "केवल एफटीए करने से निर्यात नहीं बढ़ेगा, बल्कि प्रौद्योगिकी और आपूर्ति श्रृंखलाओं में सुधार की आवश्यकता है।"
                         ]
@@ -194,7 +195,7 @@
                             "हाल ही में इसरो (ISRO) से लगभग 120 वैज्ञानिकों ने इस्तीफा दे दिया है। सरकार ने अब नियम बनाया है कि इस्तीफे सीधे मंजूर नहीं होंगे, बल्कि मंत्रालय की मंजूरी जरूरी होगी।",
                             "वेतन में अंतर: सरकारी संस्थानों का वेतनमान प्राइवेट कंपनियों और ग्लोबल स्टैंडर्ड (जैसे Google आदि) की तुलना में बहुत कम है।",
                             "नौकरशाही का दखल: इन रिसर्च संस्थानों में आईएएस अधिकारियों और नौकरशाही का अत्यधिक प्रभाव है, जिससे वैज्ञानिकों को पेशेवर गरिमा और आजादी महसूस नहीं होती।",
-                            "सुझाव: वैज्ञानिक संस्थानों को प्रशासनिक जकड़न से मुक्त करना चाहिए और बाजारตาม प्रतिस्पर्धी वेतन देना चाहिए।"
+                            "सुझाव: वैज्ञानिक संस्थानों को प्रशासनिक जकड़न से मुक्त करना चाहिए और बाजार के अनुसार प्रतिस्पर्धी वेतन देना चाहिए।"
                         ] 
                     },
                     { 
@@ -789,21 +790,11 @@
         // ==========================================
 
         window.handlePlayClick = function(id) {
-            const track = PODCAST_LIST.find(p => p.id === id);
-            if (track && track.isPremium && !window.state.isPremiumUser) {
-                window.openUpgradeModal();
-            } else {
-                window.togglePlay(id);
-            }
+            window.togglePlay(id);
         };
 
         window.handleDownloadClick = function(id) {
-            const track = PODCAST_LIST.find(p => p.id === id);
-            if (track && track.isPremium && !window.state.isPremiumUser) {
-                window.openUpgradeModal();
-            } else {
-                window.toggleDownload(id);
-            }
+            window.toggleDownload(id);
         };
 
 
@@ -1200,7 +1191,7 @@
                                 <i class="fa-solid fa-user-lock text-6xl text-gray-400"></i>
                             </div>
                             <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">लॉगिन करें</h2>
-                            <p class="text-gray-500 dark:text-gray-400 text-center mb-8 text-sm md:text-base">अपनी प्रोफाइल देखने और प्रीमियम ऑडियो सुनने के लिए Google से लॉगिन करें।</p>
+                            <p class="text-gray-500 dark:text-gray-400 text-center mb-8 text-sm md:text-base">अपनी प्रोफाइल देखने और प्रीमियम ऑडियो सुनने के लिए Google से लॉगिन करें。</p>
                             <button onclick="window.loginWithGoogle()" class="w-full max-w-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-bold py-3.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-md text-lg flex items-center justify-center gap-3">
                                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google">
                                 Login with Google
@@ -1724,6 +1715,15 @@
         };
 
         window.toggleDownload = function(id) {
+            const track = PODCAST_LIST.find(p => p.id === id);
+            if (!track) return;
+
+            // 🛑 STRICT PREMIUM LOCK FOR DOWNLOAD 🛑
+            if (track.isPremium && !window.state.isPremiumUser) {
+                window.openUpgradeModal();
+                return;
+            }
+
             if (window.state.downloads.has(id)) {
                 window.state.downloads.delete(id);
                 showToast("डाउनलोड से डिलीट कर दिया गया!");
@@ -1741,13 +1741,22 @@
         };
 
         window.togglePlay = function(id) {
+            const track = PODCAST_LIST.find(p => p.id === id);
+            if (!track) return;
+            
+            // 🛑 STRICT PREMIUM LOCK FOR PLAYING 🛑
+            // अब यह अगले गाने (Next Track) या प्लेयर पर भी काम करेगा।
+            if (track.isPremium && !window.state.isPremiumUser) {
+                window.openUpgradeModal();
+                return;
+            }
+
             if (window.state.currentTrackId === id) {
                 window.state.isPlaying = !window.state.isPlaying;
                 window.state.isPlaying ? audioElement.play() : audioElement.pause();
             } else {
                 window.state.currentTrackId = id;
                 window.state.isPlaying = true;
-                const track = PODCAST_LIST.find(p => p.id === id);
                 audioElement.src = track.audioUrl;
                 audioElement.playbackRate = window.state.playbackSpeed;
                 audioElement.play().catch(e => console.log("Play interrupted"));
