@@ -1,92 +1,1993 @@
-const CURRENT_AFFAIRS_DATA = [
-    {
-        date: "3 August 2026",
-        title: "TODAY CURRENT AFFAIRS",
-        topics: [
-            { 
-                heading: "1. कावेरी जल विवाद: कर्नाटक और तमिलनाडु के बीच बढ़ता तनाव", 
-                details: [
-                    "कावेरी नदी के जल बंटवारे को लेकर कर्नाटक (अपर राइपेरियन राज्य) और तमिलनाडु (लोअर राइपेरियन राज्य) के बीच विवाद फिर से गहरा गया है।",
-                    "वर्तमान स्थिति: मानसून के पहले हिस्से में बारिश की कमी के कारण यह विवाद फिर से उभरा है।",
-                    "प्राधिकरण का आदेश: कावेरी जल प्रबंधन प्राधिकरण (CWMA) ने कर्नाटक को 29 जुलाई से 15 दिनों तक बिलीगुंडलू सीमा पर 3500 क्यूसेक पानी छोड़ने का आदेश दिया है।",
-                    "तमिलनाडु का तर्क: तमिलनाडु को 31 TMC (Thousand Million Cubic) फीट पानी मिलना चाहिए था, लेकिन अब तक केवल 1 TMC फीट पानी ही मिला है।",
-                    "राजनीतिक तनाव: इस मुद्दे ने राजनीतिक रूप ले लिया है। कर्नाटक के मुख्यमंत्री ने तमिलनाडु के मुख्यमंत्री से अपनी बेंगलुरु यात्रा रद्द करने को कहा है।",
-                    "समाधान की आवश्यकता: जलवायु परिवर्तन के कारण भविष्य में भी कम बारिश वाले वर्ष आते रहेंगे, इसलिए इसके लिए एक दीर्घकालिक, वैज्ञानिक और संस्थागत फॉर्मूले की आवश्यकता है।"
-                ] 
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UPSC CSE Audio Book</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body, html {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .app-container {
+            height: 100dvh;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .playing-bars span {
+            animation: bounce 1s infinite;
+        }
+        .playing-bars span:nth-child(2) { animation-delay: 0.2s; }
+        .playing-bars span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 100% { height: 100%; }
+            50% { height: 30%; }
+        }
+    </style>
+    <!-- Current Affairs Data File -->
+    <script>
+        const CURRENT_AFFAIRS_DATA = [
+            {
+                date: "4 August 2026",
+                title: "TODAY CURRENT AFFAIRS",
+                topics: [
+                    {
+                        heading: "1. एआई और साइबर खतरे",
+                        details: [
+                            "एआई और साइबर खतरे आज के समाज के सामने बड़ी चुनौती हैं।",
+                            "साइबर खतरे तेजी से बदल रहे हैं और सरकारें इसके साथ तालमेल नहीं बिठा पा रही हैं।",
+                            "एआई संचालित मैलवेयर एंटी-वायरस सॉफ्टवेयर को पराजित कर सकते हैं।",
+                            "अमेरिका की कंपनी एंथ्रोपिक ने 'माइथोस' नाम का एआई मॉडल बनाया था जिसे उसकी क्षमताओं के कारण रोक दिया गया।",
+                            "चीन पर आरोप है कि उसने एंथ्रोपिक का एआई मॉडल चुरा लिया है।",
+                            "एआई का उपयोग पारंपरिक युद्धों में भी हो रहा है, जिससे निर्णय लेने में मानवीय हस्तक्षेप कम हो रहा है।"
+                        ]
+                    },
+                    {
+                        heading: "2. जन्म और मृत्यु पंजीकरण अधिनियम, 2026",
+                        details: [
+                            "2023 के संशोधन के बाद, स्कूल में दाखिला, आधार कार्ड, ड्राइविंग लाइसेंस, पासपोर्ट आदि के लिए जन्म प्रमाण पत्र अनिवार्य हो गया है।",
+                            "धारा 13(3) में संशोधन के अनुसार, 2 साल से अधिक देरी से पंजीकरण के लिए न्यायिक मजिस्ट्रेट का आदेश आवश्यक है।",
+                            "द हिंदू के अनुसार, इस प्रक्रिया को इतना जटिल नहीं बनाया जाना चाहिए क्योंकि यह आम लोगों के लिए मुश्किलें पैदा करता है।",
+                            "प्रक्रिया की जटिलता से फर्जी प्रमाण पत्रों और भ्रष्टाचार को बढ़ावा मिल सकता है।"
+                        ]
+                    },
+                    {
+                        heading: "3. फीफा फॉरवर्ड एंटरप्राइज (FFE)",
+                        details: [
+                            "फीफा अध्यक्ष जियानी इन्फेंटिनो ने फीफा फॉरवर्ड एंटरप्राइज (FFE) की शुरुआत की है, जिसमें निजी निवेशकों को शामिल किया जाएगा।",
+                            "यूरोपीय फुटबॉल संघों ने इसका कड़ा विरोध किया है।",
+                            "इस कदम से फीफा की निष्पक्षता और खेलों की पवित्रता पर सवाल उठ रहे हैं, क्योंकि फीफा एक गैर-लाभकारी संस्था है।",
+                            "खेलों के व्यावसायिक पक्ष को उसके नियामक पक्ष से अलग रखा जाना चाहिए।"
+                        ]
+                    },
+                    {
+                        heading: "4. रणनीतिक खनिज",
+                        details: [
+                            "लिथियम, कोबाल्ट, निकल, ग्रेफाइट और दुर्लभ मृदा तत्व अब रणनीतिक शक्ति का आधार बन गए हैं।",
+                            "इन खनिजों के उत्पादन पर कुछ ही देशों (मुख्यतः चीन) का एकाधिकार है। चीन 20 में से 19 खनिजों के शोधन में अग्रणी है।",
+                            "2025 में चीन ने दुर्लभ मृदा तत्वों के निर्यात पर प्रतिबंध लगा दिया था।",
+                            "भारत के पास इन खनिजों के भंडार हैं, लेकिन दोहन की क्षमता कम होने के कारण आयात पर निर्भरता बनी हुई है।",
+                            "भारत ने 2023 से 30 महत्वपूर्ण खनिजों की पहचान की है और 'राष्ट्रीय महत्वपूर्ण खनिज मिशन' शुरू किया है।"
+                        ]
+                    },
+                    {
+                        heading: "5. पीएम श्री योजना और राज्य",
+                        details: [
+                            "पीएम श्री (PM Schools for Rising India) योजना सरकारी स्कूलों के विकास के लिए है, लेकिन इसे 'राष्ट्रीय शिक्षा नीति (NEP) 2020' के तहत लागू किया जा रहा है।",
+                            "विपक्षी दलों द्वारा शासित कई राज्य इसका विरोध कर रहे हैं क्योंकि शिक्षा एक समवर्ती सूची का विषय है।",
+                            "केंद्र सरकार राज्यों को मिलने वाली शिक्षा निधि को पीएम श्री योजना लागू करने से जोड़ रही है।",
+                            "केरल सरकार ने धन की आवश्यकता के कारण इसे अनिच्छा से स्वीकार किया है।"
+                        ]
+                    },
+                    {
+                        heading: "6. भारत के मुक्त व्यापार समझौते (FTA)",
+                        details: [
+                            "भारत ने हाल ही में यूएई, ऑस्ट्रेलिया, ओमान, ब्रिटेन और न्यूजीलैंड के साथ एफटीए किए हैं।",
+                            "हालांकि, डेटा दर्शाता है कि एफटीए के बावजूद भारत के निर्यात में अपेक्षित वृद्धि नहीं हुई है, जबकि आयात बढ़ा है (जैसे आसियान और सिंगापुर के साथ)।",
+                            "भारत की घरेलू औद्योगिक क्षमता, लॉजिस्टिक दक्षता और बुनियादी ढांचे की कमियों के कारण एफटीए का पूरा लाभ नहीं मिल पा रहा है।",
+                            "केवल एफटीए करने से निर्यात नहीं बढ़ेगा, बल्कि प्रौद्योगिकी और आपूर्ति श्रृंखलाओं में सुधार की आवश्यकता है।"
+                        ]
+                    },
+                    {
+                        heading: "7. पाकिस्तान अधिकृत कश्मीर (POK) में विरोध",
+                        details: [
+                            "पीओके में महंगाई, जवाबदेही की कमी और अपारदर्शी शासन को लेकर बड़े पैमाने पर विरोध प्रदर्शन हो रहे हैं।",
+                            "जम्मू-कश्मीर संयुक्त अवामी एक्शन कमेटी (JKJAAC) के नेतृत्व में हिंसक प्रदर्शन हो रहे हैं, जिसमें 86 लोगों की मौत हो चुकी है।",
+                            "पीओके विधानसभा की 45 निर्वाचित सीटों में से 12 सीटें 1947 के बाद आए शरणार्थियों के लिए आरक्षित हैं, जिसका स्थानीय लोग विरोध कर रहे हैं।"
+                        ]
+                    },
+                    {
+                        heading: "8. पश्चिम बंगाल में बीएसएफ को भूमि हस्तांतरण",
+                        details: [
+                            "भारत-बांग्लादेश सीमा पर घुसपैठ रोकने के लिए पश्चिम बंगाल सरकार ने बीएसएफ को नौ स्थानों पर 32 एकड़ जमीन सौंपी है।",
+                            "कलकत्ता हाईकोर्ट ने जनवरी 2026 में राज्य सरकार को 31 मार्च 2026 तक बीएसएफ को जमीन सौंपने का आदेश दिया था।",
+                            "पश्चिम बंगाल में 864 किलोमीटर सीमा पर बाड़ लगाना अभी बाकी है।"
+                        ]
+                    },
+                    {
+                        heading: "9. लैब निर्मित हीरे (Lab-Grown Diamonds)",
+                        details: [
+                            "लैब ग्रोन डायमंड्स (LGD) प्राकृतिक हीरों के समान होते हैं, लेकिन सस्ते और पर्यावरण के अनुकूल होते हैं।",
+                            "इन्हें HPHT (High Pressure High Temperature) या CVD (Chemical Vapor Deposition) तकनीक से बनाया जाता है।",
+                            "भारत सरकार ने LGD के घरेलू उत्पादन को बढ़ावा देने के लिए IIT मद्रास को 'इंडिया सेंटर फॉर लैब ग्रोन डायमंड्स' (InCent-LGD) स्थापित करने के लिए अनुदान दिया है।"
+                        ]
+                    }
+                ]
             },
-            { 
-                heading: "2. भिवंडी इमारत हादसा: जर्जर बुनियादी ढांचे पर सवाल", 
-                details: [
-                    "मुंबई के पास भिवंडी में 'कोहिनूर' नाम की एक पुरानी इमारत ढहने से 10 लोगों की मौत हो गई।",
-                    "प्रशासनिक लापरवाही: भिवंडी नगर निगम ने इस इमारत को 6 साल पहले (2020 में) ही खतरनाक घोषित कर दिया था, लेकिन इसे खाली कराने या गिराने की कोई ठोस कार्रवाई नहीं की गई।",
-                    "जवाबदेही का अभाव: अक्सर ऐसे हादसों के बाद छोटे अधिकारियों को निलंबित कर दिया जाता है या ठेकेदार पर केस दर्ज होता है, लेकिन बड़े प्रशासनिक अधिकारियों पर कोई सख्त कानूनी कार्रवाई नहीं होती।",
-                    "निष्कर्ष: बुनियादी ढांचे को केवल वन-टाइम इन्वेस्टमेंट नहीं समझना चाहिए, बल्कि इसके उचित रखरखाव और प्रशासनिक निगरानी की सख्त आवश्यकता है।"
-                ] 
-            },
-            { 
-                heading: "3. सार्वजनिक स्वास्थ्य व्यय (Public Health Expenditure) की चुनौतियां", 
-                details: [
-                    "विश्व बैंक की एक हालिया रिपोर्ट के अनुसार, निम्न और मध्यम आय वाले देशों (LMICs) में यूनिवर्सल हेल्थ कवरेज पर सार्वजनिक खर्च न्यूनतम मानक (WHO) के आधे के बराबर है।",
-                    "विदेशी सहायता में कमी: विकसित देश जो स्वास्थ्य के लिए विकास सहायता (DAH) देते थे, उसमें भारी कटौती हुई है। अमेरिका ने अपने विदेशी सहायता कार्यक्रम में 67% की कटौती की है, जबकि ब्रिटेन, फ्रांस और जर्मनी ने भी क्रमशः 39%, 35% और 12% की कटौती की है।",
-                    "विकासशील देशों पर कर्ज: विकासशील देशों पर कर्ज का बोझ बढ़कर 31 ट्रिलियन डॉलर हो गया है, जिसके ब्याज के भुगतान के कारण स्वास्थ्य पर खर्च कम हो रहा है।",
-                    "भारत की स्थिति: भारत में स्वास्थ्य संरचना मिशन के लिए आवंटित बजट का केवल दो-तिहाई ही खर्च हो पाया (प्रशासनिक क्षमता की कमी)। इसके अलावा, भारत अपने स्वास्थ्य बजट का 25% से भी कम हिस्सा 'प्रिवेंटिव हेल्थकेयर' (बीमारी से बचाव) पर खर्च करता है।"
-                ] 
-            },
-            { 
-                heading: "4. इसरो और अन्य संस्थानों से वैज्ञानिकों का पलायन (Brain Drain)", 
-                details: [
-                    "हाल ही में इसरो (ISRO) से लगभग 120 वैज्ञानिकों ने इस्तीफा दे दिया है। सरकार ने अब नियम बनाया है कि इस्तीफे सीधे मंजूर नहीं होंगे, बल्कि मंत्रालय की मंजूरी जरूरी होगी।",
-                    "वेतन में अंतर: सरकारी संस्थानों का वेतनमान प्राइवेट कंपनियों और ग्लोबल स्टैंडर्ड (जैसे Google आदि) की तुलना में बहुत कम है।",
-                    "नौकरशाही का दखल: इन रिसर्च संस्थानों में आईएएस अधिकारियों और नौकरशाही का अत्यधिक प्रभाव है, जिससे वैज्ञानिकों को पेशेवर गरिमा और आजादी महसूस नहीं होती।",
-                    "सुझाव: वैज्ञानिक संस्थानों को प्रशासनिक जकड़न से मुक्त करना चाहिए और बाजार के अनुसार प्रतिस्पर्धी वेतन देना चाहिए।"
-                ] 
-            },
-            { 
-                heading: "5. सेक्स वर्क पर सुप्रीम कोर्ट का अहम फैसला", 
-                details: [
-                    "सुप्रीम कोर्ट ने सेक्स वर्क (यौनकर्म) से जुड़ी वर्षों पुरानी धारणा को चुनौती देते हुए महत्वपूर्ण फैसला सुनाया है।",
-                    "सहमति को प्राथमिकता: कोर्ट ने कहा कि स्वेच्छा से सेक्स वर्क करने वाले वयस्क यौनकर्मियों को 'रेस्क्यू' (बचाव) के नाम पर जबरन नहीं उठाया जा सकता।",
-                    "पुलिस को निर्देश: पुलिस को किसी भी हस्तक्षेप या छापे की शुरुआत सबसे पहले 'सहमति की जांच' से करनी चाहिए।",
-                    "एनजीओ (NGO) की भूमिका पर सवाल: कोर्ट ने उन रेस्क्यू एनजीओ की कार्यप्रणाली पर सवाल उठाए हैं जिन्होंने बचाव को एक 'उद्योग' बना लिया है और महिलाओं को जबरन आश्रय गृहों में भेजकर आर्थिक लाभ कमाते हैं।",
-                    "चूक: हालाँकि, इस फैसले में कोर्ट ने सेक्स वर्कर्स द्वारा खुद बनाए गए संगठनों को मान्यता देने से इनकार कर दिया और पुलिस व अदालतों पर ही भरोसा जताया है।"
-                ] 
-            },
-            { 
-                heading: "6. नीति आयोग की रिपोर्ट: एक दशक में 94,000 सरकारी स्कूल बंद", 
-                details: [
-                    "नीति आयोग की रिपोर्ट के अनुसार, पिछले 10 वर्षों में देश भर में 94,000 सरकारी स्कूल बंद कर दिए गए हैं (प्रतिदिन औसतन 25 स्कूल)।",
-                    "छात्रों की संख्या में गिरावट: सरकारी स्कूलों में दाखिला लेने वाले बच्चों का प्रतिशत 2005 के 71% से गिरकर अब 49.24% रह गया है।",
-                    "कारण: राष्ट्रीय शिक्षा नीति (NEP) में छोटे स्कूलों के 'रैशनलाइजेशन' (विलय) की बात कही गई है। इसके कारण आस-पड़ोस के छोटे स्कूल बंद हो गए हैं और बच्चों को दूर जाना पड़ रहा है।",
-                    "प्राइवेटाइजेशन: इसी दौरान निजी स्कूलों की संख्या 2.88 लाख से बढ़कर 3.31 लाख हो गई है, जो शिक्षा के बढ़ते व्यवसायीकरण को दर्शाता है।"
-                ] 
-            },
-            { 
-                heading: "7. केरल में लेप्टोस्पायरोसिस (Leptospirosis) का बढ़ता खतरा", 
-                details: [
-                    "केरल में लेप्टोस्पायरोसिस (चूहों और जानवरों से फैलने वाली जूनोटिक बीमारी) का बोझ बढ़ रहा है।",
-                    "कारण: केरल की जलवायु (साल भर की नमी, भारी बारिश और गर्मी) लेप्टोस्पायरा बैक्टीरिया के पनपने के लिए अनुकूल है। खेती-किसानी, डेयरी उद्योग और नाली सफाई से जुड़े लोग इससे ज्यादा प्रभावित होते हैं।",
-                    "निदान में देरी: इस बीमारी का शुरुआती निदान मुश्किल होता है क्योंकि 'एलिसा' (ELISA) जांच केवल तभी काम करती है जब शरीर में एंटीबॉडी का स्तर बहुत ज्यादा हो।",
-                    "बचाव: जोखिम वाले समूहों को बचाव के लिए 'डॉक्सीसाइक्लिन' (Doxycycline) दवा (कीमोप्रोफिलेक्सिस) दी जाती है, लेकिन लोगों द्वारा इसका सही से पालन नहीं किया जा रहा है।"
-                ] 
-            },
-            { 
-                heading: "8. रुपये में गिरावट और बढ़ता व्यापार घाटा", 
-                details: [
-                    "जुलाई 2025 से जुलाई 2026 के बीच अमेरिकी डॉलर के मुकाबले भारतीय रुपये में करीब 9% की गिरावट आई है।",
-                    "कारण: अमेरिका के टैरिफ, मध्य-पूर्व का संघर्ष, कच्चे तेल की बढ़ती कीमतें और वैश्विक अस्थिरता के कारण निवेशक डॉलर को सुरक्षित मान रहे हैं।",
-                    "अर्थव्यवस्था पर प्रभाव: रुपये की गिरावट से आयात महंगा हो गया है। भारत का व्यापार घाटा 2026 की पहली तिमाही में बढ़कर 86.9 अरब डॉलर हो गया है। अकेले मई 2026 में विदेशी निवेशकों ने भारतीय शेयर बाजार से 13.1 अरब डॉलर निकाल लिए।"
-                ] 
-            },
-            { 
-                heading: "9. ग्लासगो कॉमनवेल्थ गेम्स 2026 में भारत का शानदार प्रदर्शन", 
-                details: [
-                    "स्कॉटलैंड के ग्लासगो में संपन्न हुए कॉमनवेल्थ गेम्स में भारत ने बेहतरीन प्रदर्शन करते हुए कुल 39 पदक (13 स्वर्ण, 17 रजत, 9 कांस्य) जीते और पदक तालिका में चौथा स्थान हासिल किया।",
-                    "बॉक्सिंग में जलवा: भारत को सबसे ज्यादा 10 मेडल बॉक्सिंग में मिले (7 गोल्ड, 3 सिल्वर)।",
-                    "जूडो में इतिहास: अस्मिता डे और हर्ष सिंह ने पहली बार भारत को कॉमनवेल्थ के जूडो में गोल्ड मेडल दिलाया।",
-                    "एथलेटिक्स और वेटलिफ्टिंग: एथलीट गुलवीर सिंह ने 5000 मीटर और 10,000 मीटर में दो पदक जीते। वहीं मीराबाई चानू ने लगातार तीसरी बार वेटलिफ्टिंग में गोल्ड मेडल अपने नाम किया।",
-                    "आगामी गेम्स: अगला कॉमनवेल्थ गेम्स 2030 में भारत (अहमदाबाद) में आयोजित किया जाएगा।"
-                ] 
+            {
+                date: "3 August 2026",
+                title: "TODAY CURRENT AFFAIRS",
+                topics: [
+                    { 
+                        heading: "1. कावेरी जल विवाद: कर्नाटक और तमिलनाडु के बीच बढ़ता तनाव", 
+                        details: [
+                            "कावेरी नदी के जल बंटवारे को लेकर कर्नाटक (अपर राइपेरियन राज्य) और तमिलनाडु (लोअर राइपेरियन राज्य) के बीच विवाद फिर से गहरा गया है।",
+                            "वर्तमान स्थिति: मानसून के पहले हिस्से में बारिश की कमी के कारण यह विवाद फिर से उभरा है।",
+                            "प्राधिकरण का आदेश: कावेरी जल प्रबंधन प्राधिकरण (CWMA) ने कर्नाटक को 29 जुलाई से 15 दिनों तक बिलीगुंडलू सीमा पर 3500 क्यूसेक पानी छोड़ने का आदेश दिया है।",
+                            "तमिलनाडु का तर्क: तमिलनाडु को 31 TMC (Thousand Million Cubic) फीट पानी मिलना चाहिए था, लेकिन अब तक केवल 1 TMC फीट पानी ही मिला है।",
+                            "राजनीतिक तनाव: इस मुद्दे ने राजनीतिक रूप ले लिया है। कर्नाटक के मुख्यमंत्री ने तमिलनाडु के मुख्यमंत्री से अपनी बेंगलुरु यात्रा रद्द करने को कहा है।",
+                            "समाधान की आवश्यकता: जलवायु परिवर्तन के कारण भविष्य में भी कम बारिश वाले वर्ष आते रहेंगे, इसलिए इसके लिए एक दीर्घकालिक, वैज्ञानिक और संस्थागत फॉर्मूले की आवश्यकता है।"
+                        ] 
+                    },
+                    { 
+                        heading: "2. भिवंडी इमारत हादसा: जर्जर बुनियादी ढांचे पर सवाल", 
+                        details: [
+                            "मुंबई के पास भिवंडी में 'कोहिनूर' नाम की एक पुरानी इमारत ढहने से 10 लोगों की मौत हो गई।",
+                            "प्रशासनिक लापरवाही: भिवंडी नगर निगम ने इस इमारत को 6 साल पहले (2020 में) ही खतरनाक घोषित कर दिया था, लेकिन इसे खाली कराने या गिराने की कोई ठोस कार्रवाई नहीं की गई।",
+                            "जवाबदेही का अभाव: अक्सर ऐसे हादसों के बाद छोटे अधिकारियों को निलंबित कर दिया जाता है या ठेकेदार पर केस दर्ज होता है, लेकिन बड़े प्रशासनिक अधिकारियों पर कोई सख्त कानूनी कार्रवाई नहीं होती।",
+                            "निष्कर्ष: बुनियादी ढांचे को केवल वन-टाइम इन्वेस्टमेंट नहीं समझना चाहिए, बल्कि इसके उचित रखरखाव और प्रशासनिक निगरानी की सख्त आवश्यकता है।"
+                        ] 
+                    },
+                    { 
+                        heading: "3. सार्वजनिक स्वास्थ्य व्यय (Public Health Expenditure) की चुनौतियां", 
+                        details: [
+                            "विश्व बैंक की एक हालिया रिपोर्ट के अनुसार, निम्न और मध्यम आय वाले देशों (LMICs) में यूनिवर्सल हेल्थ कवरेज पर सार्वजनिक खर्च न्यूनतम मानक (WHO) के आधे के बराबर है।",
+                            "विदेशी सहायता में कमी: विकसित देश जो स्वास्थ्य के लिए विकास सहायता (DAH) देते थे, उसमें भारी कटौती हुई है। अमेरिका ने अपने विदेशी सहायता कार्यक्रम में 67% की कटौती की है, जबकि ब्रिटेन, फ्रांस और जर्मनी ने भी क्रमशः 39%, 35% और 12% की कटौती की है।",
+                            "विकासशील देशों पर कर्ज: विकासशील देशों पर कर्ज का बोझ बढ़कर 31 ट्रिलियन डॉलर हो गया है, जिसके ब्याज के भुगतान के कारण स्वास्थ्य पर खर्च कम हो रहा है।",
+                            "भारत की स्थिति: भारत में स्वास्थ्य संरचना मिशन के लिए आवंटित बजट का केवल दो-तिहाई ही खर्च हो पाया (प्रशासनिक क्षमता की कमी)। इसके अलावा, भारत अपने स्वास्थ्य बजट का 25% से भी कम हिस्सा 'प्रिवेंटिव हेल्थकेयर' (बीमारी से बचाव) पर खर्च करता है।"
+                        ] 
+                    },
+                    { 
+                        heading: "4. इसरो और अन्य संस्थानों से वैज्ञानिकों का पलायन (Brain Drain)", 
+                        details: [
+                            "हाल ही में इसरो (ISRO) से लगभग 120 वैज्ञानिकों ने इस्तीफा दे दिया है। सरकार ने अब नियम बनाया है कि इस्तीफे सीधे मंजूर नहीं होंगे, बल्कि मंत्रालय की मंजूरी जरूरी होगी।",
+                            "वेतन में अंतर: सरकारी संस्थानों का वेतनमान प्राइवेट कंपनियों और ग्लोबल स्टैंडर्ड (जैसे Google आदि) की तुलना में बहुत कम है।",
+                            "नौकरशाही का दखल: इन रिसर्च संस्थानों में आईएएस अधिकारियों और नौकरशाही का अत्यधिक प्रभाव है, जिससे वैज्ञानिकों को पेशेवर गरिमा और आजादी महसूस नहीं होती।",
+                            "सुझाव: वैज्ञानिक संस्थानों को प्रशासनिक जकड़न से मुक्त करना चाहिए और बाजारตาม प्रतिस्पर्धी वेतन देना चाहिए।"
+                        ] 
+                    },
+                    { 
+                        heading: "5. सेक्स वर्क पर सुप्रीम कोर्ट का अहम फैसला", 
+                        details: [
+                            "सुप्रीम कोर्ट ने सेक्स वर्क (यौनकर्म) से जुड़ी वर्षों पुरानी धारणा को चुनौती देते हुए महत्वपूर्ण फैसला सुनाया है।",
+                            "सहमति को प्राथमिकता: कोर्ट ने कहा कि स्वेच्छा से सेक्स वर्क करने वाले वयस्क यौनकर्मियों को 'रेस्क्यू' (बचाव) के नाम पर जबरन नहीं उठाया जा सकता।",
+                            "पुलिस को निर्देश: पुलिस को किसी भी हस्तक्षेप या छापे की शुरुआत सबसे पहले 'सहमति की जांच' से करनी चाहिए।",
+                            "एनजीओ (NGO) की भूमिका पर सवाल: कोर्ट ने उन रेस्क्यू एनजीओ की कार्यप्रणाली पर सवाल उठाए हैं जिन्होंने बचाव को एक 'उद्योग' बना लिया है और महिलाओं को जबरन आश्रय गृहों में भेजकर आर्थिक लाभ कमाते हैं।",
+                            "चूक: हालाँकि, इस फैसले में कोर्ट ने सेक्स वर्कर्स द्वारा खुद बनाए गए संगठनों को मान्यता देने से इनकार कर दिया और पुलिस व अदालतों पर ही भरोसा जताया है।"
+                        ] 
+                    },
+                    { 
+                        heading: "6. नीति आयोग की रिपोर्ट: एक दशक में 94,000 सरकारी स्कूल बंद", 
+                        details: [
+                            "नीति आयोग की रिपोर्ट के अनुसार, पिछले 10 वर्षों में देश भर में 94,000 सरकारी स्कूल बंद कर दिए गए हैं (प्रतिदिन औसतन 25 स्कूल)।",
+                            "छात्रों की संख्या में गिरावट: सरकारी स्कूलों में दाखिला लेने वाले बच्चों का प्रतिशत 2005 के 71% से गिरकर अब 49.24% रह गया है।",
+                            "कारण: राष्ट्रीय शिक्षा नीति (NEP) में छोटे स्कूलों के 'रैशनलाइजेशन' (विलय) की बात कही गई है। इसके कारण आस-पड़ोस के छोटे स्कूल बंद हो गए हैं और बच्चों को दूर जाना पड़ रहा है।",
+                            "प्राइवेटाइजेशन: इसी दौरान निजी स्कूलों की संख्या 2.88 लाख से बढ़कर 3.31 लाख हो गई है, जो शिक्षा के बढ़ते व्यवसायीकरण को दर्शाता है।"
+                        ] 
+                    },
+                    { 
+                        heading: "7. केरल में लेप्टोस्पायरोसिस (Leptospirosis) का बढ़ता खतरा", 
+                        details: [
+                            "केरल में लेप्टोस्पायरोसिस (चूहों और जानवरों से फैलने वाली जूनोटिक बीमारी) का बोझ बढ़ रहा है।",
+                            "कारण: केरल की जलवायु (साल भर की नमी, भारी बारिश और गर्मी) लेप्टोस्पायरा बैक्टीरिया के पनपने के लिए अनुकूल है। खेती-किसानी, डेयरी उद्योग और नाली सफाई से जुड़े लोग इससे ज्यादा प्रभावित होते हैं।",
+                            "निदान में देरी: इस बीमारी का शुरुआती निदान मुश्किल होता है क्योंकि 'एलिसा' (ELISA) जांच केवल तभी काम करती है जब शरीर में एंटीबॉडी का स्तर बहुत ज्यादा हो।",
+                            "बचाव: जोखिम वाले समूहों को बचाव के लिए 'डॉक्सीसाइक्लिन' (Doxycycline) दवा (कीमोप्रोफिलेक्सिस) दी जाती है, लेकिन लोगों द्वारा इसका सही से पालन नहीं किया जा रहा है।"
+                        ] 
+                    },
+                    { 
+                        heading: "8. रुपये में गिरावट और बढ़ता व्यापार घाटा", 
+                        details: [
+                            "जुलाई 2025 से जुलाई 2026 के बीच अमेरिकी डॉलर के मुकाबले भारतीय रुपये में करीब 9% की गिरावट आई है।",
+                            "कारण: अमेरिका के टैरिफ, मध्य-पूर्व का संघर्ष, कच्चे तेल की बढ़ती कीमतें और वैश्विक अस्थिरता के कारण निवेशक डॉलर को सुरक्षित मान रहे हैं।",
+                            "अर्थव्यवस्था पर प्रभाव: रुपये की गिरावट से आयात महंगा हो गया है। भारत का व्यापार घाटा 2026 की पहली तिमाही में बढ़कर 86.9 अरब डॉलर हो गया है। अकेले मई 2026 में विदेशी निवेशकों ने भारतीय शेयर बाजार से 13.1 अरब डॉलर निकाल लिए।"
+                        ] 
+                    },
+                    { 
+                        heading: "9. ग्लासगो कॉमनवेल्थ गेम्स 2026 में भारत का शानदार प्रदर्शन", 
+                        details: [
+                            "स्कॉटलैंड के ग्लासगो में संपन्न हुए कॉमनवेल्थ गेम्स में भारत ने बेहतरीन प्रदर्शन करते हुए कुल 39 पदक (13 स्वर्ण, 17 रजत, 9 कांस्य) जीते और पदक तालिका में चौथा स्थान हासिल किया।",
+                            "बॉक्सिंग में जलवा: भारत को सबसे ज्यादा 10 मेडल बॉक्सिंग में मिले (7 गोल्ड, 3 सिल्वर)।",
+                            "जूडो में इतिहास: अस्मिता डे और हर्ष सिंह ने पहली बार भारत को कॉमनवेल्थ के जूडो में गोल्ड मेडल दिलाया।",
+                            "एथलेटिक्स और वेटलिफ्टिंग: एथलीट गुलवीर सिंह ने 5000 मीटर और 10,000 मीटर में दो पदक जीते। वहीं मीराबाई चानू ने लगातार तीसरी बार वेटलिफ्टिंग में गोल्ड मेडल अपने नाम किया।",
+                            "आगामी गेम्स: अगला कॉमनवेल्थ गेम्स 2030 में भारत (अहमदाबाद) में आयोजित किया जाएगा।"
+                        ] 
+                    }
+                ]
             }
-        ]
-    }
-];
+        ];
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+
+    <!-- Main Full Screen Container -->
+    
+    <!-- ================= AUTHENTICATION (LOGIN/SIGNUP) SYSTEM ================= -->
+    <div id="auth-screen" class="fixed inset-0 z-[200] bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center p-4 transition-opacity duration-500 overflow-y-auto hidden">
+        <div class="w-full max-w-md flex flex-col items-center mb-8">
+            <i class="fa-solid fa-headphones text-5xl text-orange-500 mb-3 shadow-orange-500/50 drop-shadow-lg"></i>
+            <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight text-center">UPSC <span class="text-orange-500">CSE</span></h1>
+            <p class="text-xs font-bold text-orange-500 tracking-widest uppercase mt-1">Audio Book</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-3xl shadow-2xl p-6 md:p-8 border border-gray-100 dark:border-gray-700">
+            
+            <!-- EMAIL LOGIN/SIGNUP SECTION -->
+            <div id="email-section" class="block">
+                <h2 id="email-title" class="text-xl font-bold text-gray-900 dark:text-white mb-1">लॉगिन करें</h2>
+                <p id="email-subtitle" class="text-xs text-gray-500 mb-4">अगर अकाउंट नहीं है, तो पहले नीचे "Sign Up" पर क्लिक करें।</p>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1.5">Email Address</label>
+                        <div class="relative">
+                            <i class="fa-regular fa-envelope absolute left-4 top-3.5 text-gray-400"></i>
+                            <input type="email" id="auth-email" placeholder="example@gmail.com" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-xl py-3 pl-11 pr-4 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400">Password</label>
+                            <button onclick="window.handleForgotPassword()" class="text-xs font-semibold text-orange-500 hover:text-orange-600">Forgot?</button>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-4 top-3.5 text-gray-400"></i>
+                            <input type="password" id="auth-pass" placeholder="••••••••" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-xl py-3 pl-11 pr-10 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all">
+                            <i class="fa-regular fa-eye absolute right-4 top-3.5 text-gray-400 cursor-pointer hover:text-gray-600" onclick="window.togglePasswordVisibility()"></i>
+                        </div>
+                    </div>
+                    
+                    <button id="email-action-btn" onclick="window.handleEmailAuth()" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-orange-600 hover:to-orange-700 transition-all flex items-center justify-center gap-2 mt-2">
+                        <i class="fa-solid fa-right-to-bracket"></i> <span>Login</span>
+                    </button>
+                    
+                    <p class="text-center text-sm text-gray-500 mt-4">
+                        <span id="email-toggle-text">नया अकाउंट बनाएं?</span> 
+                        <button onclick="window.toggleEmailMode()" class="text-orange-500 font-bold ml-1 hover:underline" id="email-toggle-btn">Sign Up</button>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="flex items-center my-6">
+                <div class="flex-1 border-t border-gray-200 dark:border-gray-700"></div>
+                <span class="px-3 text-xs font-semibold text-gray-400 uppercase">OR</span>
+                <div class="flex-1 border-t border-gray-200 dark:border-gray-700"></div>
+            </div>
+
+            <!-- Google Login -->
+            <div id="google-login-container">
+                <button onclick="window.loginWithGoogle()" class="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 font-bold py-3.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shadow-sm text-base flex items-center justify-center gap-3">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+                    Continue with Google
+                </button>
+            </div>
+            <p class="text-[10px] text-center text-gray-400 mt-3 font-medium leading-tight">
+                * यदि App में Google काम न करे, तो ऊपर Email और नया Password डालकर 'Sign Up' करें।
+            </p>
+            
+        </div>
+    </div>
+
+    <!-- Main Full Screen Container (Hidden by default until logged in) -->
+    <div id="main-app-container" class="app-container relative overflow-hidden flex flex-col hidden">
+
+        
+        <audio id="audio-player"></audio>
+
+        <!-- Toast Message -->
+        <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs md:text-sm px-6 py-3 rounded-full z-[90] shadow-2xl whitespace-nowrap transition-opacity duration-300 opacity-0 pointer-events-none hidden">
+        </div>
+
+        <!-- ================= HEADER (Fixed at Top) ================= -->
+        <div class="bg-white dark:bg-gray-800 z-20 shrink-0 shadow-sm w-full transition-colors duration-200" id="header-container">
+            <div class="max-w-7xl mx-auto w-full">
+                <!-- Top Navbar -->
+                <header class="px-4 py-3 flex items-center justify-between">
+                    <i class="fa-solid fa-bars text-xl text-gray-700 dark:text-gray-200 cursor-pointer hover:text-orange-500 transition-colors" onclick="window.openDrawer()"></i>
+                    
+                    <div class="flex items-center gap-2 cursor-pointer" onclick="window.changeTab('Home')">
+                        <i class="fa-solid fa-headphones text-2xl text-orange-500"></i>
+                        <div class="flex flex-col items-start leading-none mt-1">
+                            <span class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">UPSC <span class="text-orange-500">CSE</span></span>
+                            <span class="text-[10px] md:text-xs font-bold text-orange-500 tracking-wider">AUDIO BOOK</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="relative cursor-pointer w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" onclick="window.openNotificationsModal()">
+                            <i class="fa-regular fa-bell text-gray-700 dark:text-gray-200 text-xl"></i>
+                            <span class="absolute top-1.5 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></span>
+                        </div>
+                        <div id="header-user-icon" onclick="window.changeTab('Profile')" class="w-9 h-9 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-300 transition-colors overflow-hidden">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Search Bar -->
+                <div id="search-container" class="px-4 pb-2 relative">
+                    <div id="search-box" class="bg-gray-100 dark:bg-gray-700 rounded-full flex items-center px-4 py-2 md:py-3 transition-all max-w-2xl mx-auto border border-transparent focus-within:border-orange-300 focus-within:bg-white dark:focus-within:bg-gray-800 focus-within:shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3"></i>
+                        <input 
+                            type="text" 
+                            id="search-input"
+                            placeholder="Search for topics, subjects or podcasts..." 
+                            class="bg-transparent border-none outline-none w-full text-sm md:text-base text-gray-700 dark:text-gray-200 placeholder:text-gray-400 h-8"
+                            oninput="window.handleSearch(event)"
+                        />
+                        <button onclick="window.startVoiceSearch()" id="mic-btn" class="ml-2 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-300 transition-colors">
+                            <i id="mic-icon" class="fa-solid fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category Tabs -->
+                <div id="category-container" class="flex overflow-x-auto hide-scrollbar px-4 pt-2 border-b border-gray-100 dark:border-gray-700 gap-6 md:gap-8 max-w-7xl mx-auto">
+                    <!-- Categories injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MAIN CONTENT (Scrollable) ================= -->
+        <main id="main-content" class="flex-1 overflow-y-auto hide-scrollbar bg-gray-50 dark:bg-gray-900 pb-28 pt-4 w-full relative transition-colors duration-200">
+            <!-- Content injected here -->
+        </main>
+
+        <!-- ================= MINI PLAYER (Fixed Bottom, Above Nav) ================= -->
+        <div id="mini-player-wrapper" class="absolute bottom-[65px] left-0 right-0 w-full z-40 hidden px-2 md:px-6 pointer-events-none">
+            <div id="mini-player" class="bg-[#F96D15] px-4 py-3 flex-col justify-center shadow-xl rounded-xl animate-slide-up max-w-4xl mx-auto pointer-events-auto flex w-full text-white cursor-pointer" onclick="window.openPlayerModal()">
+                <!-- Player HTML injected here -->
+            </div>
+        </div>
+
+        <!-- ================= BOTTOM NAVIGATION (Fixed Bottom) ================= -->
+        <nav id="bottom-nav" class="shrink-0 h-[65px] bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 w-full z-50 shadow-[0_-5px_20px_-5px_rgba(0,0,0,0.1)] transition-colors duration-200">
+            <div class="max-w-md md:max-w-3xl mx-auto w-full h-full flex justify-between items-center px-2 md:px-8" id="nav-items-container">
+                <!-- Nav buttons injected here -->
+            </div>
+        </nav>
+
+        <!-- ================= FULL SCREEN NOW PLAYING MODAL ================= -->
+        <div id="player-modal" class="fixed inset-0 bg-gray-900/90 dark:bg-black/95 z-[100] hidden flex flex-col justify-between p-4 md:p-8 backdrop-blur-md animate-slide-up text-white overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between w-full max-w-2xl mx-auto pt-2">
+                <button onclick="window.closePlayerModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                    <i class="fa-solid fa-chevron-down text-lg"></i>
+                </button>
+                <span class="text-base font-bold tracking-wide">Now Playing</span>
+                <div class="relative">
+                    <button onclick="window.togglePlayerMenu(event)" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                        <i class="fa-solid fa-ellipsis-vertical text-lg"></i>
+                    </button>
+                    <!-- Player Dropdown Menu -->
+                    <div id="player-dropdown" class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 hidden z-50 py-2">
+                        <div onclick="window.openNotificationsModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium">
+                            <div class="flex items-center gap-3"><i class="fa-regular fa-bell text-gray-500"></i> Notifications</div>
+                            <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                        </div>
+                        <div onclick="window.openShareModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-share-nodes text-gray-500"></i> Share</div>
+                            <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium border-t border-gray-100 dark:border-gray-700">
+                            <div class="flex items-center gap-3"><i class="fa-regular fa-moon text-gray-500"></i> Dark Mode</div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="dark-mode-toggle" class="sr-only peer" onchange="window.toggleDarkMode()">
+                                <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Body Content -->
+            <div id="player-modal-content" class="flex flex-col items-center justify-center max-w-md mx-auto w-full my-auto py-4">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+
+        
+        <!-- ================= SIDEBAR MENU ================= -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-[120] hidden opacity-0 transition-opacity duration-300" onclick="window.closeDrawer()"></div>
+        <div id="sidebar-menu" class="fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-800 z-[130] transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+            <!-- Sidebar Header -->
+            <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between mt-2">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-headphones text-2xl text-orange-500"></i>
+                    <div class="flex flex-col items-start leading-none mt-1">
+                        <span class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">UPSC <span class="text-orange-500">CSE</span></span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark text-2xl text-gray-500 dark:text-gray-400 cursor-pointer hover:text-red-500" onclick="window.closeDrawer()"></i>
+            </div>
+            
+            <!-- Sidebar Links -->
+            <div class="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-3">
+                <!-- Upgrade Premium -->
+                <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl p-4 text-white shadow-lg cursor-pointer mb-2 transform hover:scale-[1.02] transition-transform" onclick="window.openUpgradeModal(); window.closeDrawer();">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-crown mr-1.5"></i> Premium</span>
+                        <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold">₹599/mo</span>
+                    </div>
+                    <p class="text-xs text-white/90 leading-tight">Unlock all audiobooks & downloads.</p>
+                </div>
+                
+                <!-- Quiz -->
+                <div class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700" onclick="window.changeTab('Quiz'); window.closeDrawer();">
+                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
+                        <i class="fa-solid fa-list-check text-xl w-6 text-center text-orange-500"></i>
+                        <span class="font-bold text-sm">UPSC Quiz</span>
+                    </div>
+                </div>
+                <!-- Dark Mode Toggle -->
+                <div class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700" onclick="document.getElementById('sidebar-dark-toggle').click()">
+                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
+                        <i class="fa-solid fa-moon text-xl w-6 text-center"></i>
+                        <span class="font-bold text-sm">Dark Mode</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer" onclick="event.stopPropagation()">
+                        <input type="checkbox" id="sidebar-dark-toggle" class="sr-only peer" onchange="window.toggleDarkMode()">
+                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                    </label>
+                </div>
+
+                <!-- Join Telegram -->
+                <a href="https://t.me/pyqforupscinhindi" target="_blank" class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700 group">
+                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
+                        <i class="fa-brands fa-telegram text-[#229ED9] text-2xl w-6 text-center group-hover:scale-110 transition-transform"></i>
+                        <span class="font-bold text-sm">Join Telegram</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-sm text-gray-400"></i>
+                </a>
+            </div>
+            
+            <div class="p-4 text-center border-t border-gray-100 dark:border-gray-700">
+                <p class="text-xs text-gray-400 dark:text-gray-500 font-medium">UPSC CSE Audio Book v1.0</p>
+            </div>
+        </div>
+
+        <!-- ================= NOTIFICATIONS MODAL ================= -->
+        <div id="notifications-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
+            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-lg rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up max-h-[85vh] overflow-y-auto">
+                <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700 mb-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-chevron-left cursor-pointer text-lg" onclick="window.closeNotificationsModal()"></i>
+                        <h3 class="text-lg font-bold">Notifications</h3>
+                    </div>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeNotificationsModal()"></i>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
+                        <span class="font-medium text-sm">All Notifications</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
+                        <span class="font-medium text-sm">New Podcasts</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
+                        <span class="font-medium text-sm">Test & Quizzes</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
+                        <span class="font-medium text-sm">Offers & Updates</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                    <div class="flex items-center justify-between py-3">
+                        <span class="font-medium text-sm">Important Announcements</span>
+                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SHARE MODAL ================= -->
+        <div id="share-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
+            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-lg rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up">
+                <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700 mb-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-chevron-left cursor-pointer text-lg" onclick="window.closeShareModal()"></i>
+                        <h3 class="text-lg font-bold">Share</h3>
+                    </div>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeShareModal()"></i>
+                </div>
+                <div class="space-y-3">
+                    <div onclick="window.shareTo('WhatsApp')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-whatsapp"></i></div><span class="font-semibold">WhatsApp</span></div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                    <div onclick="window.shareTo('Telegram')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-telegram"></i></div><span class="font-semibold">Telegram</span></div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                    <div onclick="window.shareTo('Facebook')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-facebook-f"></i></div><span class="font-semibold">Facebook</span></div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                    <div onclick="window.copyLink()" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-200 text-lg"><i class="fa-solid fa-link"></i></div><span class="font-semibold">Copy Link</span></div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+        <!-- ================= UPGRADE MODAL ================= -->
+        <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
+            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
+                <!-- Decor -->
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
+                
+                <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
+                    <h3 class="text-xl font-extrabold flex items-center gap-2">
+                        <i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium
+                    </h3>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
+                </div>
+                
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                            <div>
+                                <h4 class="font-bold text-sm">Access All Audiobooks</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Listen to premium, expertly curated content.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                            <div>
+                                <h4 class="font-bold text-sm">Unlimited Offline Downloads</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Download and listen anywhere, anytime without internet.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                            <div>
+                                <h4 class="font-bold text-sm">Ad-Free Experience</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Zero interruptions during your focus time.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-6 flex justify-between items-center">
+                        <div>
+                            <span class="block text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider mb-1">Monthly Plan</span>
+                            <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹599<span class="text-sm font-medium text-gray-500">/mo</span></span>
+                        </div>
+                        <div class="bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded">Popular</div>
+                    </div>
+                    
+                    <button onclick="window.processPayment()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3.5 rounded-xl hover:from-amber-600 hover:to-orange-600 transition-colors shadow-lg text-base flex items-center justify-center gap-2">
+                        Upgrade Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        const FALLBACK_IMG = "https://placehold.co/400x400/f3f4f6/9ca3af?text=UPSC+Audio";
+
+        const CATEGORIES = ["All", "History", "Polity", "Geography", "Economy", "Environment", "Science", "Current Affairs", "Ethics"];
+
+        const PODCAST_LIST = [
+            { id: 1, category: "Geography", title: "एल नीनो और ला नीना का खेल", desc: "एल नीनो और ला नीना का भारतीय मानसून पर प्रभाव।", plays: "12.4K Plays", date: "01 Jun 2025", episode: "Episode 01", duration: "32:45", image: "IMG_20260801_215005_232.jpg", audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a", isPremium: false },
+            { id: 2, category: "Geography", title: "भारत का आकार, स्थिति, समय और पड़ोस", desc: "भारत का आकार, स्थिति, मानक समय और पड़ोसी देशों का विवरण।", plays: "9.8K Plays", date: "01 Aug 2025", episode: "Episode 02", duration: "Full Audio", image: "IMG_20260801_223530_539.jpg", audioUrl: "भारत_का_आकार_स्थिति_समय_और_पड़ोस_compressed.m4a", isPremium: false },
+            { id: 3, category: "Geography", title: "पृथ्वी का इंजन: प्लेट विवर्तनिकी", desc: "प्लेट विवर्तनिकी (Plate Tectonics) और भू-आकृति विज्ञान का विस्तृत अध्ययन।", plays: "New", date: "02 Aug 2026", episode: "Episode 03", duration: "Full Audio", image: "File_00000000928c81fa83b7e8a0a2355421.png", audioUrl: "पृथ्वी_का_इंजन_प्लेट_विवर्तनिकी_और_भू_आकृति_विज्ञान_compressed.m4a", isPremium: false },
+            { id: 4, category: "Economy", title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", desc: "बैंकिंग प्रणाली, RBI के कार्य और डिजिटल रुपये की संपूर्ण जानकारी।", plays: "New", date: "02 Aug 2026", episode: "Episode 04", duration: "Full Audio", image: "IMG_20260802_142802_943.jpg", audioUrl: "पैसे_का_सफ़र_बैंकिंग_RBI_और_डिजिटल_रुपया.m4a", isPremium: false },
+            { id: 5, category: "Polity", title: "भारतीय संविधान के छह मौलिक अधिकार", desc: "समानता, स्वतंत्रता, शोषण के विरुद्ध अधिकार और अन्य मौलिक अधिकारों की विस्तृत व्याख्या।", plays: "Premium", date: "03 Aug 2026", episode: "Episode 05", duration: "Full Audio", image: "file_0000000053888207920345384bbfc299.png", audioUrl: "भारतीय_संविधान_के_छह_मौलिक_अधिकार_compressed.m4a", isPremium: true }
+        ];
+
+        const QUIZ_DB = {
+  geography: [{"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}],
+  history: [{"hi": {"q": "सिंधु घाटी सभ्यता (Indus Valley Civilization) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. यह मुख्यतः एक लौकिक सभ्यता थी और इसमें धार्मिक तत्व मौजूद होने पर भी वर्चस्वशाली नहीं थे।<br>2. उस काल में भारत में कपास से वस्त्र बनाए जाते थे।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "With reference to the Indus Valley Civilization, consider the following statements:<br>1. It was predominantly a secular civilization and the religious element, though present, did not dominate.<br>2. During this period, cotton was used for manufacturing textiles in India.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}],
+  polity: [{"hi": {"q": "भारतीय संविधान की प्रस्तावना (Preamble) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. इसे अदालत में लागू नहीं किया जा सकता (Non-justiciable)।<br>2. इसे 42वें संशोधन द्वारा संशोधित किया गया था।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding the Preamble of the Indian Constitution:<br>1. It is non-justiciable in nature.<br>2. It was amended by the 42nd Amendment.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}]
+};
+
+        window.state = {
+            activeTab: 'Home',
+            activeCategory: 'All',
+            searchQuery: '',
+            bookmarks: new Set([1]),
+            downloads: new Set([1, 2]),
+            currentTrackId: null,
+            isPlaying: false,
+            playbackSpeed: 1.0,
+            darkMode: false,
+            isPremiumUser: false,
+            isLoggedIn: false,
+            userName: 'Guest User',
+            userEmail: '',
+            userImage: null,
+            uid: null,
+            quizState: { activeQuizId: null, currentQ: 0, answers: {}, score: 0, lang: 'hi', timeLeft: 0 }
+        };
+
+        const audioElement = document.getElementById('audio-player');
+
+        function init() {
+            renderHeaderExtras();
+            renderMainContent();
+            renderBottomNav();
+            audioElement.addEventListener('ended', window.handleNextTrack);
+            
+            audioElement.addEventListener('timeupdate', () => {
+                const seekBar = document.getElementById('seek-bar');
+                const modalSeekBar = document.getElementById('modal-seek-bar');
+                const currentTimeDisp = document.getElementById('current-time-disp');
+                const modalCurrentDisp = document.getElementById('modal-current-time');
+                const totalTimeDisp = document.getElementById('total-time-disp');
+                const modalTotalDisp = document.getElementById('modal-total-time');
+                
+                if (!isNaN(audioElement.duration)) {
+                    const formatTime = (seconds) => {
+                        const m = Math.floor(seconds / 60);
+                        const s = Math.floor(seconds % 60);
+                        return `${m}:${s < 10 ? '0' : ''}${s}`;
+                    };
+                    const curText = formatTime(audioElement.currentTime);
+                    const totText = formatTime(audioElement.duration);
+
+                    if (seekBar) {
+                        seekBar.max = audioElement.duration;
+                        seekBar.value = audioElement.currentTime;
+                    }
+                    if (modalSeekBar) {
+                        modalSeekBar.max = audioElement.duration;
+                        modalSeekBar.value = audioElement.currentTime;
+                    }
+                    if (currentTimeDisp) currentTimeDisp.textContent = curText;
+                    if (modalCurrentDisp) modalCurrentDisp.textContent = curText;
+                    if (totalTimeDisp) totalTimeDisp.textContent = totText;
+                    if (modalTotalDisp) modalTotalDisp.textContent = totText;
+                    
+                    }
+            });
+            setTimeout(() => {
+                if (!sessionStorage.getItem('upgradePopShown') && !window.state.isPremiumUser) {
+                    window.openUpgradeModal();
+                    sessionStorage.setItem('upgradePopShown', 'true');
+                }
+            }, 1500);
+        }
+
+        
+        window.toggleScriptOverlay = function() {
+            const overlay = document.getElementById('script-overlay');
+            if (!overlay) return;
+            
+            window.state.isScriptOpen = !window.state.isScriptOpen;
+            
+            if (window.state.isScriptOpen) {
+                overlay.classList.remove('hidden');
+                // Render content first
+                renderScriptContent();
+                // small timeout to let display:block apply before translating
+                setTimeout(() => {
+                    overlay.classList.remove('translate-y-full');
+                }, 10);
+            } else {
+                overlay.classList.add('translate-y-full');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        };
+
+        function renderScriptContent() {
+            const container = document.getElementById('script-content');
+            if (!container || !window.state.currentTrackId) return;
+            
+            const track = PODCAST_LIST.find(p => p.id === window.state.currentTrackId);
+            if (!track || !track.script) {
+                container.innerHTML = '<p class="text-center text-gray-500 mt-10">Script not available for this episode.</p>';
+                return;
+            }
+            
+            // Reset active index when rendering
+            window.state.activeScriptIndex = -1;
+            
+            container.innerHTML = track.script.map((line, index) => 
+                `<p class="script-line text-lg md:text-xl transition-all duration-300 transform origin-left cursor-pointer" onclick="window.seekAudio(${line.time})">${line.text}</p>`
+            ).join('');
+        }
+
+        window.openUpgradeModal = function() {
+            const modal = document.getElementById('upgrade-modal');
+            if(modal) modal.classList.remove('hidden');
+        };
+        
+        window.closeUpgradeModal = function() {
+            const modal = document.getElementById('upgrade-modal');
+            if(modal) modal.classList.add('hidden');
+        };
+        
+        // ==========================================
+        // NEW DIRECT LINK PAYMENT CODE (Razorpay.me)
+        // ==========================================
+        window.processPayment = function() {
+            // चेक करें कि यूजर लॉगिन है या नहीं
+            if (!window.state.isLoggedIn) {
+                window.showToast("पेमेंट करने के लिए पहले लॉगिन करें!");
+                window.changeTab('Profile');
+                window.closeUpgradeModal();
+                return;
+            }
+
+            // आपका नया असली Razorpay Payment Link
+            var paymentUrl = "https://rzp.io/rzp/mQmuz9Lp";
+            
+            // पेमेंट लिंक को एक नए टैब में खोलें
+            window.open(paymentUrl, "_blank");
+
+            window.showToast("पेमेंट पेज खुल रहा है...");
+            
+            // डेमो के लिए: लिंक खुलने के 2 सेकंड बाद यूजर को अपने आप प्रीमियम बना दें
+            setTimeout(() => {
+                window.state.isPremiumUser = true;
+                window.showToast("बधाई हो! आपका Premium चालू कर दिया गया है।");
+                window.closeUpgradeModal();
+                window.renderMainContent(); // ताले हटाने के लिए स्क्रीन रिफ्रेश करें
+            }, 2000);
+        };
+        // ==========================================
+
+        window.handlePlayClick = function(id) {
+            const track = PODCAST_LIST.find(p => p.id === id);
+            if (track && track.isPremium && !window.state.isPremiumUser) {
+                window.openUpgradeModal();
+            } else {
+                window.togglePlay(id);
+            }
+        };
+
+        window.handleDownloadClick = function(id) {
+            const track = PODCAST_LIST.find(p => p.id === id);
+            if (track && track.isPremium && !window.state.isPremiumUser) {
+                window.openUpgradeModal();
+            } else {
+                window.toggleDownload(id);
+            }
+        };
+
+
+        window.seekAudio = function(value) {
+            audioElement.currentTime = value;
+        };
+
+        window.skipTime = function(seconds) {
+            audioElement.currentTime = Math.max(0, Math.min(audioElement.duration || 0, audioElement.currentTime + seconds));
+        };
+
+        window.changeSpeed = function() {
+            const speeds = [1.0, 1.25, 1.5, 2.0, 0.75];
+            const nextIdx = (speeds.indexOf(window.state.playbackSpeed) + 1) % speeds.length;
+            window.state.playbackSpeed = speeds[nextIdx];
+            audioElement.playbackRate = window.state.playbackSpeed;
+            const btn = document.getElementById('speed-btn');
+            if (btn) btn.textContent = window.state.playbackSpeed + 'x';
+            showToast(`Speed: ${window.state.playbackSpeed}x`);
+        };
+
+        window.openSleepTimer = function() {
+            showToast("Sleep Timer: Playing for 30 mins");
+        };
+
+        window.toggleDarkMode = function() {
+            window.state.darkMode = !window.state.darkMode;
+            document.documentElement.classList.toggle('dark', window.state.darkMode);
+            const toggle1 = document.getElementById('dark-mode-toggle');
+            const toggle2 = document.getElementById('sidebar-dark-toggle');
+            if (toggle1) toggle1.checked = window.state.darkMode;
+            if (toggle2) toggle2.checked = window.state.darkMode;
+            showToast(window.state.darkMode ? "Dark Mode Enabled" : "Light Mode Enabled");
+        };
+
+        window.togglePlayerMenu = function(e) {
+            if (e) e.stopPropagation();
+            const dropdown = document.getElementById('player-dropdown');
+            if (dropdown) dropdown.classList.toggle('hidden');
+        };
+
+        window.openNotificationsModal = function() {
+            const modal = document.getElementById('notifications-modal');
+            if (modal) modal.classList.remove('hidden');
+        };
+        window.closeNotificationsModal = function() {
+            const modal = document.getElementById('notifications-modal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        window.openShareModal = function() {
+            const modal = document.getElementById('share-modal');
+            if (modal) modal.classList.remove('hidden');
+        };
+        window.closeShareModal = function() {
+            const modal = document.getElementById('share-modal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        window.shareTo = function(platform) {
+            showToast(`Shared via ${platform}!`);
+            window.closeShareModal();
+        };
+
+        window.copyLink = function() {
+            navigator.clipboard?.writeText(window.location.href);
+            showToast("Link copied to clipboard!");
+            window.closeShareModal();
+        };
+
+        window.openDrawer = function() {
+            const overlay = document.getElementById('sidebar-overlay');
+            const menu = document.getElementById('sidebar-menu');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                menu.classList.remove('-translate-x-full');
+            }, 10);
+            
+            const toggle = document.getElementById('sidebar-dark-toggle');
+            if(toggle) toggle.checked = window.state.darkMode;
+        };
+
+        window.closeDrawer = function() {
+            const overlay = document.getElementById('sidebar-overlay');
+            const menu = document.getElementById('sidebar-menu');
+            overlay.classList.add('opacity-0');
+            menu.classList.add('-translate-x-full');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        };
+
+        function renderHeaderExtras() {
+            const searchContainer = document.getElementById('search-container');
+            const categoryContainer = document.getElementById('category-container');
+
+            if (window.state.activeTab === 'Home') {
+                searchContainer.style.display = 'block';
+                categoryContainer.style.display = 'flex';
+
+                categoryContainer.innerHTML = CATEGORIES.map(cat => `
+                    <button
+                        onclick="window.changeCategory('${cat}')"
+                        class="pb-3 text-sm md:text-base font-semibold whitespace-nowrap border-b-2 transition-colors ${
+                            window.state.activeCategory === cat 
+                                ? 'border-orange-500 text-orange-500' 
+                                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                        }"
+                    >
+                        ${cat}
+                    </button>
+                `).join('');
+            } else {
+                searchContainer.style.display = 'none';
+                categoryContainer.style.display = 'none';
+            }
+        }
+
+        function renderMainContent() {
+            const mainEl = document.getElementById('main-content');
+            
+            if (window.state.activeTab === 'Home') {
+                const searchLower = window.state.searchQuery.toLowerCase();
+                const filtered = PODCAST_LIST.filter(p => {
+                    const matchCat = window.state.activeCategory === 'All' || p.category.includes(window.state.activeCategory);
+                    const matchSearch = p.title.toLowerCase().includes(searchLower) || p.category.toLowerCase().includes(searchLower);
+                    return matchCat && matchSearch;
+                });
+
+                let html = ``;
+                
+                // Check if CURRENT_AFFAIRS_DATA exists from the external file
+                if (typeof CURRENT_AFFAIRS_DATA !== 'undefined' && CURRENT_AFFAIRS_DATA.length > 0) {
+                    CURRENT_AFFAIRS_DATA.forEach((ca, index) => {
+                        let topicsHtml = '';
+                        const colors = ['blue', 'red', 'green', 'purple', 'pink', 'yellow', 'indigo'];
+                        
+                        ca.topics.forEach((topic, i) => {
+                            let color = colors[i % colors.length];
+                            let listItems = topic.details.map(d => `<li>${d}</li>`).join('');
+                            topicsHtml += `
+                                <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-${color}-500">
+                                    <h4 class="font-black text-lg mb-2">${topic.heading}</h4>
+                                    <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
+                                        ${listItems}
+                                    </ul>
+                                </div>
+                            `;
+                        });
+
+                        html += `
+                        <div class="max-w-7xl mx-auto px-4 w-full mb-6 mt-2 animate-slide-up">
+                            <div id="ca-card-${index}" class="rounded-2xl overflow-hidden shadow-lg cursor-pointer transition-transform hover:scale-[1.01] relative group border border-gray-200 dark:border-gray-700" onclick="window.toggleCurrentAffairs(${index})">
+                                <img src="e63fabb1400648cca2351de305880b6d.jpg" alt="The Hindu Current Affairs" class="w-full h-auto object-cover max-h-[180px]" />
+                                <div class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow">
+                                    <span>${ca.date}</span>
+                                    <i id="ca-chevron-${index}" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                                </div>
+                            </div>
+                            <div id="ca-content-${index}" class="hidden bg-white dark:bg-gray-800 mt-2 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                                <div class="space-y-6 text-gray-900 dark:text-gray-100">
+                                    ${topicsHtml}
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    });
+                }
+
+                html += `
+                    <div class="max-w-7xl mx-auto px-4 w-full">
+                        <div class="py-2 mb-2 flex justify-between items-end">
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-none">
+                                ${window.state.searchQuery ? 'Search Results' : 'Latest Podcasts'}
+                            </h2>
+                            ${!window.state.searchQuery ? `<span class="text-sm font-semibold text-orange-500 cursor-pointer hover:underline">View All</span>` : ''}
+                        </div>
+                `;
+
+                if (filtered.length === 0) {
+                    html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm">कोई पॉडकास्ट नहीं मिला।</div>`;
+                } else {
+                    html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 pb-6 w-full">`;
+                    
+                    filtered.forEach(podcast => {
+                        const isThisPlaying = window.state.currentTrackId === podcast.id && window.state.isPlaying;
+                        const isBookmarked = window.state.bookmarks.has(podcast.id);
+                        const isDownloaded = window.state.downloads.has(podcast.id);
+
+                                                const isLocked = podcast.isPremium && !window.state.isPremiumUser;
+                        html += `
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40 dark:bg-orange-950/20' : 'border-gray-100 dark:border-gray-700'} w-full">
+                            
+                            <!-- Image Area -->
+                            <div class="relative w-[110px] md:w-[130px] h-[130px] md:h-[150px] rounded-xl overflow-hidden shrink-0 cursor-pointer group" onclick="window.handlePlayClick(${podcast.id})">
+                                <img src="${podcast.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover bg-gray-200 transition-transform duration-500 group-hover:scale-110" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                
+                                ${isLocked ? `
+                                <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center backdrop-blur-[2px]">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center text-white mb-1 shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+                                        <i class="fa-solid fa-lock text-lg"></i>
+                                    </div>
+                                    <span class="text-white text-[9px] font-bold tracking-widest uppercase">Premium</span>
+                                </div>` 
+                                : (isThisPlaying ? `
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[1px]">
+                                    <div class="flex gap-1.5 items-end h-5 playing-bars">
+                                        <span class="w-1.5 h-full bg-orange-500 rounded-t-sm"></span>
+                                        <span class="w-1.5 h-2/3 bg-orange-500 rounded-t-sm"></span>
+                                        <span class="w-1.5 h-full bg-orange-500 rounded-t-sm"></span>
+                                    </div>
+                                </div>` : `
+                                <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="fa-solid fa-play text-white text-3xl opacity-80 shadow-lg"></i>
+                                </div>
+                                `)}
+                                
+                                <span class="absolute bottom-2 left-2 bg-orange-600 text-white text-[9px] md:text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">${podcast.episode}</span>
+                                <span class="absolute top-2 right-2 bg-black/70 text-white text-[9px] md:text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm backdrop-blur-sm"><i class="fa-regular fa-clock mr-1"></i>${podcast.duration}</span>
+                            </div>
+
+                            <!-- Content Area -->
+                            <div class="flex flex-col flex-1 py-1 overflow-hidden justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start mb-1.5">
+                                        <span class="text-[10px] md:text-[11px] font-bold text-orange-600 bg-orange-50 dark:bg-orange-900/40 px-2.5 py-0.5 rounded-full">${podcast.category}</span>
+                                        <i class="fa-solid fa-ellipsis-vertical text-gray-400 cursor-pointer px-2 hover:text-gray-700 dark:hover:text-gray-200" onclick="window.openShareModal()"></i>
+                                    </div>
+                                    
+                                    <h3 class="font-bold text-sm md:text-base text-gray-900 dark:text-white leading-tight mb-1.5 line-clamp-2 cursor-pointer hover:text-orange-600 transition-colors" onclick="window.handlePlayClick(${podcast.id})">${podcast.title}</h3>
+                                    <p class="text-[11px] md:text-xs text-gray-500 dark:text-gray-400 leading-snug line-clamp-2 hidden sm:block mb-2">${podcast.desc}</p>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex items-center gap-4 text-[10px] md:text-xs font-medium text-gray-400 mb-2.5">
+                                        <div class="flex items-center gap-1.5"><i class="fa-solid fa-headphones"></i><span>${podcast.plays}</span></div>
+                                        <div class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i><span>${podcast.date}</span></div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
+                                        <button onclick="window.handlePlayClick(${podcast.id})" class="flex items-center gap-1.5 font-bold text-xs md:text-sm transition-colors ${isLocked ? 'text-amber-500 dark:text-amber-400' : (isThisPlaying ? 'text-orange-600 dark:text-orange-400' : 'text-gray-700 dark:text-gray-200 hover:text-orange-500')}">
+                                            <i class="fa-solid ${isLocked ? 'fa-crown text-amber-500' : (isThisPlaying ? 'fa-circle-pause text-orange-500' : 'fa-circle-play text-orange-500')} text-lg md:text-xl"></i>
+                                            ${isLocked ? 'Unlock' : (isThisPlaying ? 'Playing' : 'Play Now')}
+                                        </button>
+                                        <div class="flex items-center gap-4">
+                                            <button onclick="window.handleDownloadClick(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isDownloaded ? 'text-green-500' : 'text-gray-400 hover:text-gray-200'}">
+                                                <i class="fa-solid ${isDownloaded ? 'fa-circle-check' : 'fa-download'}"></i>
+                                            </button>
+                                            <button onclick="window.toggleBookmark(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isBookmarked ? 'text-orange-500' : 'text-gray-400 hover:text-gray-200'}">
+                                                <i class="fa-solid fa-bookmark"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                    html += `</div></div>`;
+                    html += `</div></div>`;
+                }
+                mainEl.innerHTML = html;
+            } 
+            else if (window.state.activeTab === 'Downloads') {
+                mainEl.innerHTML = generateListScreenHTML('My Downloads', window.state.downloads, 'अभी तक कुछ भी डाउनलोड नहीं किया गया है।', 'fa-trash', window.toggleDownload);
+            }
+            else if (window.state.activeTab === 'Bookmarks') {
+                mainEl.innerHTML = generateListScreenHTML('Saved Bookmarks', window.state.bookmarks, 'आपने कोई पॉडकास्ट बुकमार्क नहीं किया है।', 'fa-bookmark', window.toggleBookmark);
+            }
+            else if (window.state.activeTab === 'Library') {
+                const libCats = CATEGORIES.filter(c => c !== 'All').map(cat => `
+                    <div onclick="window.changeCategory('${cat}'); window.changeTab('Home');" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-orange-500 hover:shadow-md transition-all group">
+                        <i class="fa-solid fa-book-open text-3xl text-gray-300 dark:text-gray-600 group-hover:text-orange-400 mb-3 transition-colors"></i>
+                        <span class="font-bold text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white">${cat}</span>
+                    </div>
+                `).join('');
+                
+                mainEl.innerHTML = `
+                    <div class="max-w-7xl mx-auto px-4">
+                        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Library Categories</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">${libCats}</div>
+                    </div>
+                `;
+            }
+            else if (window.state.activeTab === 'Quiz') {
+            mainEl.innerHTML = `
+                <div class="max-w-md mx-auto px-4 w-full py-4 space-y-4">
+                    
+                    <!-- Geography Card -->
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#2E7D32] flex p-3 relative overflow-hidden transition-all hover:shadow-md">
+                        <div class="w-[85px] h-[85px] shrink-0 bg-[#E8F5E9] dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4">
+                             <i class="fa-solid fa-earth-americas text-4xl text-[#2E7D32] dark:text-green-400"></i>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between">
+                             <h3 class="text-[17px] font-bold text-[#2E7D32] dark:text-green-400 mb-1">भूगोल (Geography)</h3>
+                             <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 p-1.5 rounded-lg mb-2 border border-gray-100 dark:border-gray-600">
+                                 <div class="flex items-center gap-1.5 border-r border-gray-200 dark:border-gray-600 pr-2 w-1/2 justify-center">
+                                     <i class="fa-regular fa-file-lines text-[#2E7D32] dark:text-green-400 text-sm"></i>
+                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">50</span><br><span class="text-[9px] text-gray-500 font-medium">प्रश्न</span></div>
+                                 </div>
+                                 <div class="flex items-center gap-1.5 w-1/2 justify-center">
+                                     <i class="fa-regular fa-clock text-[#2E7D32] dark:text-green-400 text-sm"></i>
+                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">60</span><br><span class="text-[9px] text-gray-500 font-medium">मिनट</span></div>
+                                 </div>
+                             </div>
+                             <button onclick="window.startQuiz('geography')" class="w-full bg-[#2E7D32] hover:bg-green-800 text-white font-bold py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm shadow-sm">
+                                 <i class="fa-solid fa-play-circle text-lg"></i> क्विज शुरू करें
+                             </button>
+                        </div>
+                    </div>
+
+                    <!-- History Card -->
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#E65100] flex p-3 relative overflow-hidden transition-all hover:shadow-md">
+                        <div class="w-[85px] h-[85px] shrink-0 bg-[#FFF3E0] dark:bg-orange-900/30 rounded-full flex items-center justify-center mr-4">
+                             <i class="fa-solid fa-building-columns text-4xl text-[#E65100] dark:text-orange-400"></i>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between">
+                             <h3 class="text-[17px] font-bold text-[#E65100] dark:text-orange-400 mb-1">इतिहास (History)</h3>
+                             <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 p-1.5 rounded-lg mb-2 border border-gray-100 dark:border-gray-600">
+                                 <div class="flex items-center gap-1.5 border-r border-gray-200 dark:border-gray-600 pr-2 w-1/2 justify-center">
+                                     <i class="fa-regular fa-file-lines text-[#E65100] dark:text-orange-400 text-sm"></i>
+                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">30</span><br><span class="text-[9px] text-gray-500 font-medium">प्रश्न</span></div>
+                                 </div>
+                                 <div class="flex items-center gap-1.5 w-1/2 justify-center">
+                                     <i class="fa-regular fa-clock text-[#E65100] dark:text-orange-400 text-sm"></i>
+                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">60</span><br><span class="text-[9px] text-gray-500 font-medium">मिनट</span></div>
+                                 </div>
+                             </div>
+                             <button onclick="window.startQuiz('history')" class="w-full bg-[#E65100] hover:bg-orange-800 text-white font-bold py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm shadow-sm">
+                                 <i class="fa-solid fa-play-circle text-lg"></i> क्विज शुरू करें
+                             </button>
+                        </div>
+                    </div>
+
+                    <!-- Polity Card -->
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#6A1B9A] flex p-3 relative overflow-hidden transition-all hover:shadow-md">
+                        <div class="w-[85px] h-[85px] shrink-0 bg-[#F3E5F5] dark:bg-purple-900/30 rounded-full flex items-center justify-center mr-4">
+                             <i class="fa-solid fa-scale-balanced text-4xl text-[#6A1B9A] dark:text-purple-400"></i>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between">
+                             <h3 class="text-[17px] font-bold text-[#6A1B9A] dark:text-purple-400 mb-1">राजनीति (Polity)</h3>
+                             <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 p-1.5 rounded-lg mb-2 border border-gray-100 dark:border-gray-600">
+                                 <div class="flex items-center gap-1.5 border-r border-gray-200 dark:border-gray-600 pr-2 w-1/2 justify-center">
+                                     <i class="fa-regular fa-file-lines text-[#6A1B9A] dark:text-purple-400 text-sm"></i>
+                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">30</span><br><span class="text-[9px] text-gray-500 font-medium">प्रश्न</span></div>
+                                 </div>
+                                 <div class="flex items-center gap-1.5 w-1/2 justify-center">
+                                     <i class="fa-regular fa-clock text-[#6A1B9A] dark:text-purple-400 text-sm"></i>
+                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">60</span><br><span class="text-[9px] text-gray-500 font-medium">मिनट</span></div>
+                                 </div>
+                             </div>
+                             <button onclick="window.startQuiz('polity')" class="w-full bg-[#6A1B9A] hover:bg-purple-900 text-white font-bold py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm shadow-sm">
+                                 <i class="fa-solid fa-play-circle text-lg"></i> क्विज शुरू करें
+                             </button>
+                        </div>
+                    </div>
+
+                    <!-- Economy Card (Placeholder) -->
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#1565C0] flex p-3 relative overflow-hidden transition-all hover:shadow-md opacity-75">
+                        <div class="w-[85px] h-[85px] shrink-0 bg-[#E3F2FD] dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-4">
+                             <i class="fa-solid fa-chart-line text-4xl text-[#1565C0] dark:text-blue-400"></i>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between">
+                             <h3 class="text-[17px] font-bold text-[#1565C0] dark:text-blue-400 mb-1">अर्थव्यवस्था (Economy)</h3>
+                             <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 p-1.5 rounded-lg mb-2 border border-gray-100 dark:border-gray-600">
+                                 <div class="flex items-center gap-1.5 border-r border-gray-200 dark:border-gray-600 pr-2 w-1/2 justify-center">
+                                     <i class="fa-regular fa-file-lines text-[#1565C0] dark:text-blue-400 text-sm"></i>
+                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">50</span><br><span class="text-[9px] text-gray-500 font-medium">प्रश्न</span></div>
+                                 </div>
+                                 <div class="flex items-center gap-1.5 w-1/2 justify-center">
+                                     <i class="fa-regular fa-clock text-[#1565C0] dark:text-blue-400 text-sm"></i>
+                                     <div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">60</span><br><span class="text-[9px] text-gray-500 font-medium">मिनट</span></div>
+                                 </div>
+                             </div>
+                             <button disabled class="w-full bg-[#1565C0] text-white font-bold py-2 rounded-lg flex items-center justify-center gap-2 text-sm shadow-sm opacity-50 cursor-not-allowed">
+                                 <i class="fa-solid fa-lock text-sm"></i> Coming Soon
+                             </button>
+                        </div>
+                    </div>
+
+                </div>
+            `;
+        } else if (window.state.activeTab === 'ActiveQuiz') {
+                window.renderActiveQuiz();
+            } else if (window.state.activeTab === 'QuizResult') {
+                window.renderQuizResult();
+            }
+            else if (window.state.activeTab === 'Profile') {
+                if (!window.state.isLoggedIn) {
+                    mainEl.innerHTML = `
+                        <div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-20 w-full">
+                            <div class="w-32 h-32 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-700 mb-6">
+                                <i class="fa-solid fa-user-lock text-6xl text-gray-400"></i>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">लॉगिन करें</h2>
+                            <p class="text-gray-500 dark:text-gray-400 text-center mb-8 text-sm md:text-base">अपनी प्रोफाइल देखने और प्रीमियम ऑडियो सुनने के लिए Google से लॉगिन करें।</p>
+                            <button onclick="window.loginWithGoogle()" class="w-full max-w-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-bold py-3.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-md text-lg flex items-center justify-center gap-3">
+                                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google">
+                                Login with Google
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    const userImgHtml = window.state.userImage 
+                        ? `<img src="${window.state.userImage}" class="w-full h-full object-cover" referrerpolicy="no-referrer" />` 
+                        : `<i class="fa-solid fa-user text-6xl text-orange-500"></i>`;
+                        
+                    mainEl.innerHTML = `
+                        <div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10 md:mt-16 w-full">
+                            <div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 dark:bg-orange-950/40 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-800 overflow-hidden relative transition-transform hover:scale-105 mb-4">
+                                ${userImgHtml}
+                            </div>
+                            
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 text-center">${window.state.userName}</h2>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base text-center">${window.state.userEmail}</p>
+                            
+                            <div class="mt-4 mb-10">
+                                ${window.state.isPremiumUser 
+                                    ? '<span class="bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-200 dark:border-amber-800"><i class="fa-solid fa-crown mr-1"></i> Premium Member</span>' 
+                                    : '<span class="bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 dark:border-gray-700">Free Account</span>'}
+                            </div>
+                            
+                            <button onclick="window.logoutUser()" class="w-full max-w-sm bg-red-50 dark:bg-red-900/20 text-red-500 font-bold py-3.5 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors shadow-sm text-base border border-red-100 dark:border-red-800 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </button>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function generateListScreenHTML(title, itemSet, emptyMsg, removeIconClass, removeFunc) {
+            let html = `<div class="max-w-7xl mx-auto px-4"><h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">${title} <span class="text-gray-400 text-lg">(${itemSet.size})</span></h2>`;
+            
+            if (itemSet.size === 0) {
+                html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white dark:bg-gray-800 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-col items-center">
+                    <i class="fa-solid fa-box-open text-4xl mb-4 text-gray-300"></i>
+                    <p class="text-lg">${emptyMsg}</p>
+                </div>`;
+            } else {
+                html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">`;
+                itemSet.forEach(id => {
+                    const item = PODCAST_LIST.find(p => p.id === id);
+                    if (!item) return;
+                    const isThisPlaying = window.state.currentTrackId === item.id && window.state.isPlaying;
+                    
+                    html += `
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-4 flex-1 overflow-hidden cursor-pointer" onclick="window.handlePlayClick(${item.id})">
+                            <img src="${item.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-16 h-16 rounded-xl object-cover bg-gray-200" />
+                            <div class="flex flex-col flex-1 truncate pr-2">
+                                <span class="font-bold text-sm md:text-base text-gray-900 dark:text-white truncate mb-1">${item.title}</span>
+                                <span class="text-xs font-semibold text-orange-500 bg-orange-50 dark:bg-orange-900/40 inline-block px-2 py-0.5 rounded w-max">${item.category}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <button onclick="window.handlePlayClick(${item.id})" class="w-10 h-10 flex items-center justify-center bg-orange-50 dark:bg-orange-900/40 text-orange-500 rounded-full hover:bg-orange-100 transition-colors">
+                                <i class="fa-solid ${isThisPlaying ? 'fa-pause' : 'fa-play'}"></i>
+                            </button>
+                            <button onclick="window.removeItemFromList('${title}', ${item.id})" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-red-500 bg-gray-50 dark:bg-gray-700 rounded-full transition-colors">
+                                <i class="fa-solid ${removeIconClass} ${removeIconClass==='fa-bookmark'?'text-orange-500':''}"></i>
+                            </button>
+                        </div>
+                    </div>`;
+                });
+                html += `</div>`;
+            }
+            html += `</div>`;
+            return html;
+        }
+
+        function renderMiniPlayer() {
+            const playerWrapper = document.getElementById('mini-player-wrapper');
+            const playerEl = document.getElementById('mini-player');
+            
+            if (!window.state.currentTrackId) {
+                playerWrapper.classList.add('hidden');
+                return;
+            }
+
+            const track = PODCAST_LIST.find(p => p.id === window.state.currentTrackId);
+            playerWrapper.classList.remove('hidden');
+
+            playerEl.innerHTML = `
+                <div class="flex items-center justify-between w-full">
+                    <div class="flex items-center gap-4 w-[70%]">
+                        <img src="${track.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-12 h-12 rounded-lg border-2 border-white/20 object-cover shrink-0 ${window.state.isPlaying ? 'animate-[spin_4s_linear_infinite] rounded-full' : ''}" />
+                        <div class="flex flex-col overflow-hidden">
+                            <span class="text-[14px] font-bold text-white truncate">${track.title}</span>
+                            <span class="text-[11px] font-medium text-white/90 truncate">${track.category} • Episode ${track.id}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6 text-white pr-2">
+                        <i class="fa-solid fa-backward-step cursor-pointer text-xl hover:text-white/70 transition-colors hidden sm:block" onclick="event.stopPropagation(); window.handlePrevTrack()"></i>
+                        <button onclick="event.stopPropagation(); window.togglePlay(${track.id})" class="w-11 h-11 bg-white rounded-full flex items-center justify-center text-[#F96D15] shadow-lg hover:scale-105 transition-transform shrink-0">
+                            <i class="fa-solid ${window.state.isPlaying ? 'fa-pause' : 'fa-play text-lg ml-0.5'}"></i>
+                        </button>
+                        <i class="fa-solid fa-forward-step cursor-pointer text-xl hover:text-white/70 transition-colors" onclick="event.stopPropagation(); window.handleNextTrack()"></i>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 mt-2.5 w-full" onclick="event.stopPropagation()">
+                    <span id="current-time-disp" class="text-[10px] font-medium text-white w-8">0:00</span>
+                    <input type="range" id="seek-bar" class="w-full h-1 bg-white/30 rounded-lg appearance-none cursor-pointer accent-white" value="0" min="0" step="1" oninput="window.seekAudio(this.value)">
+                    <span id="total-time-disp" class="text-[10px] font-medium text-white w-8 text-right">0:00</span>
+                </div>
+            `;
+        }
+
+        function renderBottomNav() {
+            const navEl = document.getElementById('nav-items-container');
+            const tabs = [
+                { id: 'Home', label: 'Home', icon: 'fa-house', badge: false },
+                { id: 'Library', label: 'Library', icon: 'fa-book-open', badge: false },
+                { id: 'Downloads', label: 'Downloads', icon: 'fa-download', badge: window.state.downloads.size > 0 },
+                { id: 'Bookmarks', label: 'Bookmarks', icon: 'fa-bookmark', badge: window.state.bookmarks.size > 0 },
+                { id: 'Profile', label: 'Profile', icon: 'fa-user', badge: false }
+            ];
+
+            navEl.innerHTML = tabs.map(t => `
+                <button onclick="window.changeTab('${t.id}')" class="flex flex-col items-center justify-center flex-1 h-full gap-1.5 relative group">
+                    <div class="relative">
+                        <i class="fa-solid ${t.icon} text-xl md:text-2xl transition-colors duration-300 ${window.state.activeTab === t.id ? 'text-orange-500 transform -translate-y-1' : 'text-gray-400 dark:text-gray-400 group-hover:text-gray-600'}"></i>
+                        ${t.badge ? `<span class="absolute -top-1 -right-2 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></span>` : ''}
+                    </div>
+                    <span class="text-[10px] md:text-xs transition-colors font-medium ${window.state.activeTab === t.id ? 'text-orange-600 font-bold' : 'text-gray-500 dark:text-gray-400'}">${t.label}</span>
+                </button>
+            `).join('');
+        }
+
+        window.openPlayerModal = function() {
+            if (!window.state.currentTrackId) return;
+            renderPlayerModalContent();
+            const modal = document.getElementById('player-modal');
+            if (modal) modal.classList.remove('hidden');
+        };
+
+        window.closePlayerModal = function() {
+            const modal = document.getElementById('player-modal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        function renderPlayerModalContent() {
+            const container = document.getElementById('player-modal-content');
+            if (!container || !window.state.currentTrackId) return;
+            const track = PODCAST_LIST.find(p => p.id === window.state.currentTrackId);
+            if (!track) return;
+
+            const isBookmarked = window.state.bookmarks.has(track.id);
+            const isDownloaded = window.state.downloads.has(track.id);
+
+            container.innerHTML = `
+                <!-- Album Art -->
+                <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl mb-6 relative group border-4 border-white/10">
+                    <img src="${track.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <span class="absolute bottom-3 left-3 bg-orange-600 text-white text-xs font-bold px-2.5 py-1 rounded shadow">${track.episode}</span>
+                </div>
+
+                <!-- Title & Subtitle -->
+                <div class="text-center mb-6 w-full px-4">
+                    <h2 class="text-xl md:text-2xl font-bold mb-1 truncate">${track.title}</h2>
+                    <p class="text-sm text-white/70">${track.category} • UPSC CSE Audio Book</p>
+                </div>
+
+                <!-- Scrubber / Seek Bar -->
+                <div class="w-full px-2 mb-8">
+                    <div class="flex items-center gap-3 w-full mb-1">
+                        <span id="modal-current-time" class="text-xs text-white/80 w-10">0:00</span>
+                        <input type="range" id="modal-seek-bar" class="w-full h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-orange-500" value="0" min="0" step="1" oninput="window.seekAudio(this.value)">
+                        <span id="modal-total-time" class="text-xs text-white/80 w-10 text-right">0:00</span>
+                    </div>
+                </div>
+
+                <!-- Play Controls -->
+                <div class="flex items-center justify-center gap-8 mb-10 w-full">
+                    <button onclick="window.skipTime(-10)" class="flex flex-col items-center text-white/80 hover:text-white transition-colors">
+                        <div class="relative flex items-center justify-center">
+                            <i class="fa-solid fa-rotate-left text-2xl"></i>
+                            <span class="absolute text-[9px] font-bold mt-0.5">10</span>
+                        </div>
+                    </button>
+
+                    <button onclick="window.togglePlay(${track.id})" class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-105 transition-transform">
+                        <i class="fa-solid ${window.state.isPlaying ? 'fa-pause text-3xl' : 'fa-play text-3xl ml-1'}"></i>
+                    </button>
+
+                    <button onclick="window.skipTime(10)" class="flex flex-col items-center text-white/80 hover:text-white transition-colors">
+                        <div class="relative flex items-center justify-center">
+                            <i class="fa-solid fa-rotate-right text-2xl"></i>
+                            <span class="absolute text-[9px] font-bold mt-0.5">10</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Bottom Action Toolbar -->
+                <div class="flex items-center justify-between w-full max-w-md px-2 md:px-4 text-white/80 text-xs font-semibold">
+                    <button onclick="window.changeSpeed()" id="speed-btn" class="flex flex-col items-center gap-1 hover:text-white transition-colors">
+                        <span class="text-sm font-bold border border-white/40 px-2 py-0.5 rounded-md">1.0x</span>
+                        <span class="text-[10px]">Speed</span>
+                    </button>
+                    <button onclick="window.openSleepTimer()" class="flex flex-col items-center gap-1 hover:text-white transition-colors">
+                        <i class="fa-regular fa-clock text-lg"></i>
+                        <span class="text-[10px]">Timer</span>
+                    </button>
+                    <button onclick="window.showToast('Playlist')" class="flex flex-col items-center gap-1 hover:text-white transition-colors">
+                        <i class="fa-solid fa-list text-lg"></i>
+                        <span class="text-[10px]">Playlist</span>
+                    </button>
+                    
+                    <button onclick="window.toggleBookmark(${track.id}); renderPlayerModalContent();" class="flex flex-col items-center gap-1 hover:text-white transition-colors ${isBookmarked ? 'text-orange-500' : ''}">
+                        <i class="fa-solid fa-bookmark text-lg"></i>
+                        <span class="text-[10px]">Save</span>
+                    </button>
+                    <button onclick="window.toggleDownload(${track.id}); renderPlayerModalContent();" class="flex flex-col items-center gap-1 hover:text-white transition-colors ${isDownloaded ? 'text-green-400' : ''}">
+                        <i class="fa-solid fa-download text-lg"></i>
+                        <span class="text-[10px]">Download</span>
+                    </button>
+                </div>
+            `;
+        }
+
+                window.handleImageUpload = function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    window.state.userImage = e.target.result;
+                    localStorage.setItem('userImage', window.state.userImage);
+                    window.showToast('Profile Photo Updated!');
+                    renderMainContent(); 
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        window.saveProfileName = function(name) {
+            if(name.trim() !== "") {
+                window.state.userName = name.trim();
+                localStorage.setItem('userName', window.state.userName);
+                window.showToast('Profile Updated!');
+            } else {
+                document.getElementById('profile-name-input').value = window.state.userName; 
+            }
+        };
+
+        
+        // ================= QUIZ LOGIC =================
+        let quizTimerInterval = null;
+
+        window.startQuiz = function(quizId) {
+            window.state.quizState = {
+                activeQuizId: quizId,
+                currentQ: 0,
+                answers: {},
+                score: 0,
+                lang: 'hi',
+                timeLeft: 60 * 60 // 60 minutes
+            };
+            window.changeTab('ActiveQuiz');
+            
+            if(quizTimerInterval) clearInterval(quizTimerInterval);
+            quizTimerInterval = setInterval(() => {
+                if(window.state.activeTab !== 'ActiveQuiz') {
+                    clearInterval(quizTimerInterval);
+                    return;
+                }
+                window.state.quizState.timeLeft--;
+                const timerEl = document.getElementById('quiz-timer-display');
+                if (timerEl) {
+                    let m = Math.floor(window.state.quizState.timeLeft / 60);
+                    let s = window.state.quizState.timeLeft % 60;
+                    timerEl.textContent = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+                }
+                if (window.state.quizState.timeLeft <= 0) {
+                    clearInterval(quizTimerInterval);
+                    window.showToast("समय समाप्त! (Time Up!)");
+                    window.submitQuiz();
+                }
+            }, 1000);
+        };
+
+        window.toggleQuizLang = function() {
+            window.state.quizState.lang = window.state.quizState.lang === 'hi' ? 'en' : 'hi';
+            window.renderActiveQuiz();
+        };
+
+        window.renderActiveQuiz = function() {
+            const qIndex = window.state.quizState.currentQ;
+            const activeDb = QUIZ_DB[window.state.quizState.activeQuizId];
+            const rawData = activeDb[qIndex];
+            const qData = rawData[window.state.quizState.lang]; // Get language specific data
+            
+            const mainEl = document.getElementById('main-content');
+            
+            const isLast = qIndex === activeDb.length - 1;
+            const hasAnswered = window.state.quizState.answers[qIndex] !== undefined;
+            
+            let optionsHtml = '';
+            qData.options.forEach((opt, idx) => {
+                let bgClass = "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:border-blue-500";
+                if (hasAnswered) {
+                    if (idx === rawData.correct) {
+                        bgClass = "bg-green-500 text-white border-green-500 shadow-md transform scale-[1.01]";
+                    } else if (idx === window.state.quizState.answers[qIndex]) {
+                        bgClass = "bg-red-500 text-white border-red-500 shadow-md";
+                    } else {
+                        bgClass = "bg-gray-50 dark:bg-gray-900 text-gray-400 border-gray-100 dark:border-gray-800 opacity-50";
+                    }
+                }
+                
+                optionsHtml += `
+                    <button 
+                        ${hasAnswered ? 'disabled' : `onclick="window.selectOption(${idx})"`} 
+                        class="w-full text-left p-4 rounded-xl border-2 ${bgClass} font-semibold transition-all mb-3 flex items-center justify-between"
+                    >
+                        <span class="text-sm md:text-base">${opt}</span>
+                        ${hasAnswered && idx === rawData.correct ? '<i class="fa-solid fa-circle-check text-xl"></i>' : ''}
+                        ${hasAnswered && idx === window.state.quizState.answers[qIndex] && idx !== rawData.correct ? '<i class="fa-solid fa-circle-xmark text-xl"></i>' : ''}
+                    </button>
+                `;
+            });
+            
+            let m = Math.floor(window.state.quizState.timeLeft / 60);
+            let s = window.state.quizState.timeLeft % 60;
+            let timeStr = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+
+            mainEl.innerHTML = `
+                <div class="max-w-3xl mx-auto px-4 w-full h-full flex flex-col pt-2 pb-6">
+                    <!-- Top Bar: Timer and Language -->
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                            <i class="fa-regular fa-clock text-red-500 animate-pulse text-lg"></i>
+                            <span id="quiz-timer-display" class="font-mono font-bold text-gray-900 dark:text-white text-lg tracking-widest">${timeStr}</span>
+                        </div>
+                        <button onclick="window.toggleQuizLang()" class="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-4 py-2 rounded-xl shadow-sm border border-indigo-100 dark:border-indigo-800 font-bold transition-transform hover:scale-105 active:scale-95">
+                            <i class="fa-solid fa-language text-lg"></i> ${window.state.quizState.lang === 'hi' ? 'English' : 'हिंदी'}
+                        </button>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mb-4 bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                         <div class="bg-blue-600 h-full rounded-full transition-all duration-500" style="width: ${((qIndex) / activeDb.length) * 100}%"></div>
+                    </div>
+                    <span class="text-xs font-bold text-gray-500 dark:text-gray-400 mb-4 text-center">Question ${qIndex + 1} of ${activeDb.length}</span>
+                    
+                    <div class="bg-white dark:bg-gray-800 p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6">
+                        <h3 class="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-relaxed">
+                            ${qData.q}
+                        </h3>
+                    </div>
+                    
+                    <div class="flex-1">
+                        ${optionsHtml}
+                    </div>
+                    
+                    <div class="mt-8">
+                        ${hasAnswered ? (
+                            isLast ? `
+                                <button onclick="window.submitQuiz()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2 text-lg transform hover:scale-[1.02]">
+                                    Submit Quiz <i class="fa-solid fa-flag-checkered"></i>
+                                </button>
+                            ` : `
+                                <button onclick="window.nextQuestion()" class="w-full bg-[#2E7D32] hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2 text-lg transform hover:scale-[1.02] shadow-green-500/30">
+                                    Next Question <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            `
+                        ) : `
+                            <button disabled class="w-full bg-gray-200 dark:bg-gray-700 text-gray-400 font-bold py-4 rounded-xl transition-all cursor-not-allowed text-lg border border-gray-300 dark:border-gray-600">
+                                ${isLast ? 'Submit Quiz' : 'Next Question'}
+                            </button>
+                        `}
+                    </div>
+                </div>
+            `;
+        };
+
+        window.selectOption = function(optIdx) {
+            const qIndex = window.state.quizState.currentQ;
+            const activeDb = QUIZ_DB[window.state.quizState.activeQuizId];
+            window.state.quizState.answers[qIndex] = optIdx;
+            
+            if (optIdx === activeDb[qIndex].correct) {
+                window.state.quizState.score += 1;
+            }
+            window.renderActiveQuiz();
+        };
+
+        window.nextQuestion = function() {
+            window.state.quizState.currentQ += 1;
+            window.scrollTo(0,0);
+            window.renderActiveQuiz();
+        };
+
+        window.submitQuiz = function() {
+            if(quizTimerInterval) clearInterval(quizTimerInterval);
+            window.scrollTo(0,0);
+            window.changeTab('QuizResult');
+        };
+
+        window.renderQuizResult = function() {
+            const score = window.state.quizState.score;
+            const activeDb = QUIZ_DB[window.state.quizState.activeQuizId];
+            const total = activeDb.length;
+            const correctPercent = Math.round((score / total) * 100);
+            
+            let titleStr = '';
+            if(window.state.quizState.activeQuizId === 'geography') titleStr = 'Geography UPSC Level';
+            else if(window.state.quizState.activeQuizId === 'history') titleStr = 'History UPSC Level';
+            else titleStr = 'Polity UPSC Level';
+            
+            const mainEl = document.getElementById('main-content');
+            mainEl.innerHTML = `
+                <div class="max-w-3xl mx-auto px-4 w-full pt-10 flex flex-col items-center pb-20">
+                    <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-4xl mb-6 shadow-inner border-4 border-white dark:border-gray-800">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Quiz Completed!</h2>
+                    <p class="text-gray-500 dark:text-gray-400 mb-10 font-medium bg-gray-100 dark:bg-gray-800 px-4 py-1.5 rounded-full text-sm">${titleStr}</p>
+                    
+                    <!-- Circular Graph -->
+                    <div class="relative w-56 h-56 mb-12">
+                        <svg viewBox="0 0 36 36" class="w-full h-full transform -rotate-90 drop-shadow-xl">
+                            <!-- Background Circle (Wrong) -->
+                            <path
+                                class="text-red-500 dark:text-red-600"
+                                stroke-width="3"
+                                stroke="currentColor"
+                                fill="none"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <!-- Foreground Circle (Correct) -->
+                            <path
+                                class="text-green-500 dark:text-green-400 transition-all duration-1000 ease-out"
+                                stroke-dasharray="${correctPercent}, 100"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                                stroke="currentColor"
+                                fill="none"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <span class="text-5xl font-black text-gray-900 dark:text-white">${correctPercent}%</span>
+                            <span class="text-xs text-gray-500 font-bold uppercase tracking-widest mt-1">Accuracy</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-10">
+                        <div class="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 rounded-2xl p-4 text-center shadow-sm">
+                            <i class="fa-solid fa-check text-green-600 text-xl mb-1"></i>
+                            <span class="block text-3xl font-black text-green-700 dark:text-green-400">${score}</span>
+                            <span class="text-[10px] font-extrabold text-green-600/70 uppercase tracking-wider mt-1 block">Correct</span>
+                        </div>
+                        <div class="bg-red-50 dark:bg-red-900/20 border-2 border-red-500 rounded-2xl p-4 text-center shadow-sm">
+                            <i class="fa-solid fa-xmark text-red-600 text-xl mb-1"></i>
+                            <span class="block text-3xl font-black text-red-700 dark:text-red-400">${total - score}</span>
+                            <span class="text-[10px] font-extrabold text-red-600/70 uppercase tracking-wider mt-1 block">Incorrect</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="window.changeTab('Quiz')" class="w-full max-w-sm bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-extrabold py-4 rounded-xl shadow-xl transition-all hover:scale-105 text-lg flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-house"></i> Back to Quizzes
+                    </button>
+                </div>
+            `;
+        };
+        // ==============================================
+
+
+        
+        window.toggleCurrentAffairs = function(index) {
+            const content = document.getElementById(`ca-content-${index}`);
+            const chevron = document.getElementById(`ca-chevron-${index}`);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                chevron.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
+            }
+        };
+
+        // --- Event Handlers ---
+
+        window.changeTab = function(tab) {
+            window.state.activeTab = tab;
+            renderHeaderExtras();
+            renderMainContent();
+            renderBottomNav();
+            window.scrollTo(0,0);
+        };
+
+        window.changeCategory = function(cat) {
+            window.state.activeCategory = cat;
+            renderHeaderExtras();
+            renderMainContent();
+        };
+
+        window.handleSearch = function(e) {
+            window.state.searchQuery = e.target.value;
+            renderMainContent();
+        };
+
+        window.toggleBookmark = function(id) {
+            if (window.state.bookmarks.has(id)) {
+                window.state.bookmarks.delete(id);
+                showToast("बुकमार्क से हटा दिया गया!");
+            } else {
+                window.state.bookmarks.add(id);
+                showToast("बुकमार्क में सेव कर लिया गया!");
+            }
+            renderMainContent();
+            renderBottomNav();
+        };
+
+        window.toggleDownload = function(id) {
+            if (window.state.downloads.has(id)) {
+                window.state.downloads.delete(id);
+                showToast("डाउनलोड से डिलीट कर दिया गया!");
+            } else {
+                window.state.downloads.add(id);
+                showToast("सफलतापूर्वक डाउनलोड हो गया!");
+            }
+            renderMainContent();
+            renderBottomNav();
+        };
+
+        window.removeItemFromList = function(title, id) {
+            if(title === 'My Downloads') window.toggleDownload(id);
+            if(title === 'Saved Bookmarks') window.toggleBookmark(id);
+        };
+
+        window.togglePlay = function(id) {
+            if (window.state.currentTrackId === id) {
+                window.state.isPlaying = !window.state.isPlaying;
+                window.state.isPlaying ? audioElement.play() : audioElement.pause();
+            } else {
+                window.state.currentTrackId = id;
+                window.state.isPlaying = true;
+                const track = PODCAST_LIST.find(p => p.id === id);
+                audioElement.src = track.audioUrl;
+                audioElement.playbackRate = window.state.playbackSpeed;
+                audioElement.play().catch(e => console.log("Play interrupted"));
+            }
+            renderMainContent();
+            renderMiniPlayer();
+            if (!document.getElementById('player-modal').classList.contains('hidden')) {
+                renderPlayerModalContent();
+            }
+        };
+
+        window.handleNextTrack = function() {
+            if (!window.state.currentTrackId) return;
+            const currentIndex = PODCAST_LIST.findIndex(p => p.id === window.state.currentTrackId);
+            const nextIndex = (currentIndex + 1) % PODCAST_LIST.length;
+            window.togglePlay(PODCAST_LIST[nextIndex].id);
+        };
+
+        window.handlePrevTrack = function() {
+            if (!window.state.currentTrackId) return;
+            const currentIndex = PODCAST_LIST.findIndex(p => p.id === window.state.currentTrackId);
+            const prevIndex = (currentIndex - 1 + PODCAST_LIST.length) % PODCAST_LIST.length;
+            window.togglePlay(PODCAST_LIST[prevIndex].id);
+        };
+
+        // --- Voice Search ---
+        window.startVoiceSearch = function() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                showToast("क्षमा करें, आपका ब्राउज़र वॉइस सर्च सपोर्ट नहीं करता। Chrome उपयोग करें।");
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'hi-IN';
+            recognition.continuous = false;
+            
+            const micIcon = document.getElementById('mic-icon');
+            const searchBox = document.getElementById('search-box');
+            const micBtn = document.getElementById('mic-btn');
+
+            recognition.onstart = () => {
+                showToast("बोलिए, हम सुन रहे हैं...");
+                micIcon.classList.replace('text-gray-500', 'text-orange-600');
+                searchBox.classList.add('ring-2', 'ring-orange-400', 'bg-orange-50');
+                micBtn.classList.add('bg-orange-200', 'animate-pulse');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                window.state.searchQuery = transcript;
+                document.getElementById('search-input').value = transcript;
+                showToast(`आपने कहा: "${transcript}"`);
+                renderMainContent();
+            };
+
+            recognition.onerror = () => {
+                showToast("आवाज़ पहचानने में समस्या हुई। कृपया दोबारा प्रयास करें।");
+            };
+
+            recognition.onend = () => {
+                micIcon.classList.replace('text-orange-600', 'text-gray-500');
+                searchBox.classList.remove('ring-2', 'ring-orange-400', 'bg-orange-50');
+                micBtn.classList.remove('bg-orange-200', 'animate-pulse');
+            };
+
+            recognition.start();
+        };
+
+        // --- Toast ---
+        let toastTimeout;
+        window.showToast = function(msg) {
+            const toastEl = document.getElementById('toast');
+            toastEl.textContent = msg;
+            toastEl.classList.remove('hidden', 'opacity-0');
+            toastEl.classList.add('opacity-100');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toastEl.classList.remove('opacity-100');
+                toastEl.classList.add('opacity-0');
+                setTimeout(() => toastEl.classList.add('hidden'), 300);
+            }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+
+    <!-- ================= FIREBASE LOGIN & DB MODULE ================= -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsa9eNrn5UDK4ShPFvDIxyd5cmWLuHsEQ",
+            authDomain: "only-hindi-ias-64e90.firebaseapp.com",
+            projectId: "only-hindi-ias-64e90",
+            storageBucket: "only-hindi-ias-64e90.firebasestorage.app",
+            messagingSenderId: "1039198714535",
+            appId: "1:1039198714535:web:55d1c9365ac11ec08fb982",
+            measurementId: "G-SG2DL15EB1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        let isSignupMode = false;
+
+        window.toggleEmailMode = () => {
+            isSignupMode = !isSignupMode;
+            document.getElementById('email-title').innerText = isSignupMode ? "नया अकाउंट बनाएं" : "लॉगिन करें";
+            document.querySelector('#email-action-btn span').innerText = isSignupMode ? "अकाउंट बनाएं (Sign Up)" : "Login";
+            document.getElementById('email-subtitle').innerText = isSignupMode ? "नया पासवर्ड बनाएं (अपनी जीमेल का असली पासवर्ड न डालें)" : "अगर अकाउंट नहीं है, तो पहले नीचे 'Sign Up' पर क्लिक करें।";
+            document.getElementById('email-toggle-text').innerText = isSignupMode ? "पहले से अकाउंट है?" : "नया अकाउंट बनाएं?";
+            document.getElementById('email-toggle-btn').innerText = isSignupMode ? "Login" : "Sign Up";
+        };
+
+        window.togglePasswordVisibility = () => {
+            const passInput = document.getElementById('auth-pass');
+            if (passInput.type === "password") {
+                passInput.type = "text";
+            } else {
+                passInput.type = "password";
+            }
+        };
+
+        window.handleEmailAuth = () => {
+            const email = document.getElementById('auth-email').value;
+            const pass = document.getElementById('auth-pass').value;
+            if(!email || !pass) return window.showToast("Email और Password दर्ज करें!");
+
+            window.showToast("Processing...");
+            if(isSignupMode) {
+                createUserWithEmailAndPassword(auth, email, pass).then((userCredential) => {
+                    window.showToast("अकाउंट सफलतापूर्वक बन गया!");
+                }).catch((error) => {
+                    window.showToast("Error: " + error.message);
+                });
+            } else {
+                signInWithEmailAndPassword(auth, email, pass).then((userCredential) => {
+                    window.showToast("लॉगिन सफल!");
+                }).catch((error) => {
+                    window.showToast("पासवर्ड या ईमेल गलत है!");
+                });
+            }
+        };
+
+        window.handleForgotPassword = () => {
+            const email = document.getElementById('auth-email').value;
+            if(!email) return window.showToast("पहले ऊपर अपना Email डालें!");
+            
+            sendPasswordResetEmail(auth, email).then(() => {
+                window.showToast("पासवर्ड रिसेट लिंक ईमेल पर भेज दिया गया है!");
+            }).catch((error) => {
+                window.showToast("Error: " + error.message);
+            });
+        };
+
+        window.loginWithGoogle = () => {
+            window.showToast("Google Login शुरू हो रहा है...");
+            signInWithRedirect(auth, provider);
+        };
+
+        getRedirectResult(auth).then((result) => {
+            if (result) {
+                window.showToast("लॉगिन सफल हुआ!");
+            }
+        }).catch((error) => {
+            console.error("Redirect Error:", error);
+        });
+
+        window.logoutUser = () => {
+            signOut(auth).then(() => {
+                window.showToast("लॉगआउट हो गए!");
+            });
+        };
+
+        onAuthStateChanged(auth, async (user) => {
+            const headerIcon = document.getElementById('header-user-icon');
+            const authScreen = document.getElementById('auth-screen');
+            const mainAppScreen = document.getElementById('main-app-container');
+            
+            if (user) {
+                window.state.isLoggedIn = true;
+                authScreen.classList.add("hidden");
+                mainAppScreen.classList.remove("hidden");
+                window.state.userName = user.displayName || user.email.split('@')[0];
+                window.state.userImage = user.photoURL;
+                window.state.userEmail = user.email;
+                window.state.uid = user.uid;
+
+                if(headerIcon) {
+                    if(user.photoURL) {
+                        headerIcon.innerHTML = `<img src="${user.photoURL}" class="w-full h-full object-cover" referrerpolicy="no-referrer">`;
+                    } else {
+                        headerIcon.innerHTML = `<div class="w-full h-full bg-orange-500 text-white flex items-center justify-center font-bold text-sm">${window.state.userName.charAt(0).toUpperCase()}</div>`;
+                    }
+                }
+
+                const userRef = doc(db, "users", user.uid);
+                try {
+                    const docSnap = await getDoc(userRef);
+                    if (docSnap.exists()) {
+                        window.state.isPremiumUser = docSnap.data().isPremium || false;
+                    } else {
+                        await setDoc(userRef, {
+                            name: window.state.userName,
+                            email: user.email,
+                            isPremium: false,
+                            createdAt: new Date()
+                        });
+                        window.state.isPremiumUser = false;
+                    }
+                } catch(e) {
+                    console.error("Firestore Error: ", e);
+                }
+            } else {
+                window.state.isLoggedIn = false;
+                authScreen.classList.remove('hidden');
+                mainAppScreen.classList.add('hidden');
+                window.state.userName = 'Guest User';
+                window.state.userImage = null;
+                window.state.userEmail = '';
+                window.state.uid = null;
+                window.state.isPremiumUser = false;
+                
+                if(headerIcon) {
+                    headerIcon.innerHTML = `<i class="fa-solid fa-user"></i>`;
+                }
+            }
+            
+            if(window.renderMainContent) window.renderMainContent();
+            if(window.renderPlayerModalContent && document.getElementById('player-modal') && !document.getElementById('player-modal').classList.contains('hidden')) {
+                window.renderPlayerModalContent();
+            }
+        });
+    </script>
+</body>
+</html>
