@@ -65,38 +65,13 @@
             50% { height: 30%; }
         }
     </style>
-    
     <!-- Current Affairs Data File -->
     <script src="current-affairs.js"></script>
-
-    <!-- ================= HIGH-LEVEL SECURITY PROTOCOL ================= -->
-    <script>
-        // Anti-Copy & Anti-Right Click (Disable Context Menu)
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // DevTools Blocking (Block F12, Ctrl+Shift+I/J/C, Ctrl+U)
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || 
-               (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
-               (e.ctrlKey && e.key === 'U')) {
-                e.preventDefault();
-            }
-        });
-
-        // Anti-Debugging Logic (Freeze browser if DevTools is opened forcefully)
-        setInterval(function() {
-            (function() {
-                return false;
-            }['constructor']('debugger')());
-        }, 100);
-    </script>
 </head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
-<!-- Anti-Select, Anti-Drag Attributes applied to Body -->
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200" oncopy="return false" oncut="return false" onpaste="return false" onselectstart="return false" draggable="false">
-
+    <!-- Main Full Screen Container -->
+    
     <!-- ================= AUTHENTICATION (LOGIN/SIGNUP) SYSTEM ================= -->
     <div id="auth-screen" class="fixed inset-0 z-[200] bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center p-4 transition-opacity duration-500 overflow-y-auto hidden">
         <div class="w-full max-w-md flex flex-col items-center mb-8">
@@ -165,6 +140,7 @@
 
     <!-- Main Full Screen Container (Hidden by default until logged in) -->
     <div id="main-app-container" class="app-container relative overflow-hidden flex flex-col hidden">
+
         
         <audio id="audio-player"></audio>
 
@@ -408,52 +384,61 @@
 
     </div>
 
-    <!-- ================= UPGRADE MODAL (NEW DESIGN WITH QR CODE) ================= -->
-    <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm overflow-y-auto">
-        <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden my-auto border border-gray-200 dark:border-gray-700">
-            <!-- Close Button -->
-            <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600 absolute top-4 right-4 z-20" onclick="window.closeUpgradeModal()"></i>
-
-            <!-- Header -->
-            <h3 class="text-xl font-extrabold flex items-center justify-center gap-2 mb-4 text-amber-500">
-                <i class="fa-solid fa-crown"></i> Go Premium
-            </h3>
-
-            <!-- Features List -->
-            <ul class="space-y-2.5 mb-5 text-sm font-semibold px-2">
-                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-green-500 text-lg"></i> Premium access</li>
-                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-green-500 text-lg"></i> All audio podcast</li>
-                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-green-500 text-lg"></i> Download podcast</li>
-                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-green-500 text-lg"></i> UPSC PYQS quiz</li>
-                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-green-500 text-lg"></i> All attempt quiz</li>
-                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-green-500 text-lg"></i> New and trending podcast</li>
-            </ul>
-
-            <!-- QR Code Section -->
-            <div class="bg-gray-50 dark:bg-gray-700/40 rounded-2xl p-4 flex flex-col items-center border border-gray-200 dark:border-gray-600 mb-5 shadow-sm">
-                <!-- यहाँ आपका दिया हुआ QR कोड लगाया गया है -->
-                <img src="IMG_20260803_213224_326~2.jpg" alt="Payment QR" class="w-48 h-48 object-contain rounded-xl shadow-sm mb-3 bg-white p-2 border border-gray-100">
+    
+        <!-- ================= UPGRADE MODAL ================= -->
+        <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
+            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
+                <!-- Decor -->
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
                 
-                <p class="text-[11px] md:text-xs text-center font-bold text-gray-600 dark:text-gray-300 leading-snug">
-                    पेमेंट करने के बाद स्क्रीनशॉट WhatsApp पर भेजें <br> और प्रीमियम एक्सेस कोड पाएं।
-                </p>
+                <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
+                    <h3 class="text-xl font-extrabold flex items-center gap-2">
+                        <i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium
+                    </h3>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
+                </div>
                 
-                <!-- WhatsApp Button -->
-                <a href="https://wa.me/919685026772" target="_blank" class="mt-4 bg-[#25D366] text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-[#1ebe5a] transition-all shadow-md transform hover:scale-105 w-full justify-center text-sm">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> +91 9685026772
-                </a>
-            </div>
-
-            <!-- Access Code Input Logic (Polity9977) -->
-            <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
-                <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Have an Access Code?</label>
-                <div class="flex gap-2">
-                    <input type="text" id="premium-access-code" placeholder="Enter code (e.g. Polity9977)" class="flex-1 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-4 py-2.5 text-sm font-semibold outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all placeholder:font-normal">
-                    <button onclick="window.verifyAccessCode()" class="bg-amber-500 text-white font-bold px-5 py-2.5 rounded-xl hover:bg-amber-600 transition-colors shadow-md">Unlock</button>
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                            <div>
+                                <h4 class="font-bold text-sm">Access All Audiobooks</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Listen to premium, expertly curated content.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                            <div>
+                                <h4 class="font-bold text-sm">Unlimited Offline Downloads</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Download and listen anywhere, anytime without internet.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                            <div>
+                                <h4 class="font-bold text-sm">Ad-Free Experience</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Zero interruptions during your focus time.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-6 flex justify-between items-center">
+                        <div>
+                            <span class="block text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider mb-1">Monthly Plan</span>
+                            <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹599<span class="text-sm font-medium text-gray-500">/mo</span></span>
+                        </div>
+                        <div class="bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded">Popular</div>
+                    </div>
+                    
+                    <button onclick="window.processPayment()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3.5 rounded-xl hover:from-amber-600 hover:to-orange-600 transition-colors shadow-lg text-base flex items-center justify-center gap-2">
+                        Upgrade Now
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
@@ -470,10 +455,10 @@
         ];
 
         const QUIZ_DB = {
-            geography: [{"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}, {"hi": {"q": "'अल नीनो' (El Nino) घटना के संबंध में कौन-सा कथन सही है?", "options": ["पेरू के तट पर गर्म पानी का जमाव", "भारतीय मानसून में वृद्धि", "अटलांटिक महासागर की घटना", "भूमध्य सागर की घटना"]}, "en": {"q": "Which statement is correct regarding the 'El Nino' phenomenon?", "options": ["Accumulation of warm water off the coast of Peru", "Increase in Indian monsoon", "Phenomenon of the Atlantic Ocean", "Phenomenon of the Mediterranean Sea"]}, "correct": 0}],
-            history: [{"hi": {"q": "सिंधु घाटी सभ्यता (Indus Valley Civilization) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. यह मुख्यतः एक लौकिक सभ्यता थी और इसमें धार्मिक तत्व मौजूद होने पर भी वर्चस्वशाली नहीं थे।<br>2. उस काल में भारत में कपास से वस्त्र बनाए जाते थे।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "With reference to the Indus Valley Civilization, consider the following statements:<br>1. It was predominantly a secular civilization and the religious element, though present, did not dominate.<br>2. During this period, cotton was used for manufacturing textiles in India.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "गुप्त काल के दौरान, 'सार्थवाह' शब्द का अर्थ क्या था?", "options": ["ग्राम प्रधान", "व्यापारियों के कारवां का नेता", "मुख्य न्यायिक अधिकारी", "शाही अंगरक्षक"]}, "en": {"q": "During the Gupta period, what was the meaning of the word 'Sarthavaha'?", "options": ["Village Headman", "Leader of the merchant caravan", "Chief Judicial Officer", "Royal Bodyguard"]}, "correct": 1}],
-            polity: [{"hi": {"q": "भारतीय संविधान की प्रस्तावना (Preamble) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. इसे अदालत में लागू नहीं किया जा सकता (Non-justiciable)।<br>2. इसे 42वें संशोधन द्वारा संशोधित किया गया था।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding the Preamble of the Indian Constitution:<br>1. It is non-justiciable in nature.<br>2. It was amended by the 42nd Amendment.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "अनुच्छेद 21 (Article 21) के तहत 'प्राण और दैहिक स्वतंत्रता का संरक्षण' में क्या शामिल है?", "options": ["केवल मनमानी कार्यकारी कार्रवाई से सुरक्षा", "कार्यकारी और विधायी दोनों कार्यवाहियों से सुरक्षा", "केवल भारतीय नागरिकों के लिए उपलब्ध", "आपातकाल के दौरान निलंबित किया जा सकता है"]}, "en": {"q": "Protection of Life and Personal Liberty under Article 21 includes:", "options": ["Protection only against arbitrary executive action", "Protection against both executive and legislative actions", "Available only to Indian citizens", "Can be suspended during an emergency"]}, "correct": 1}, {"hi": {"q": "राज्य के नीति निदेशक तत्वों (DPSP) का मुख्य उद्देश्य क्या है?", "options": ["राजनीतिक लोकतंत्र की स्थापना", "सामाजिक और आर्थिक लोकतंत्र की स्थापना", "गांधीवादी राज्य की स्थापना", "पूंजीवादी राज्य की स्थापना"]}, "en": {"q": "What is the main objective of the Directive Principles of State Policy (DPSP)?", "options": ["Establishment of Political Democracy", "Establishment of Social and Economic Democracy", "Establishment of a Gandhian State", "Establishment of a Capitalist State"]}, "correct": 1}]
-        };
+  geography: [{"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}],
+  history: [{"hi": {"q": "सिंधु घाटी सभ्यता (Indus Valley Civilization) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. यह मुख्यतः एक लौकिक सभ्यता थी और इसमें धार्मिक तत्व मौजूद होने पर भी वर्चस्वशाली नहीं थे।<br>2. उस काल में भारत में कपास से वस्त्र बनाए जाते थे।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "With reference to the Indus Valley Civilization, consider the following statements:<br>1. It was predominantly a secular civilization and the religious element, though present, did not dominate.<br>2. During this period, cotton was used for manufacturing textiles in India.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}],
+  polity: [{"hi": {"q": "भारतीय संविधान की प्रस्तावना (Preamble) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. इसे अदालत में लागू नहीं किया जा सकता (Non-justiciable)।<br>2. इसे 42वें संशोधन द्वारा संशोधित किया गया था।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding the Preamble of the Indian Constitution:<br>1. It is non-justiciable in nature.<br>2. It was amended by the 42nd Amendment.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}]
+};
 
         window.state = {
             activeTab: 'Home',
@@ -482,7 +467,6 @@
             bookmarks: new Set([1]),
             downloads: new Set([1, 2]),
             currentTrackId: null,
-            pendingTrackId: null, // न्यू: एक्सेस कोड डालने के बाद तुरंत प्ले करने के लिए
             isPlaying: false,
             playbackSpeed: 1.0,
             darkMode: false,
@@ -543,6 +527,7 @@
             }, 1500);
         }
 
+        
         window.toggleScriptOverlay = function() {
             const overlay = document.getElementById('script-overlay');
             if (!overlay) return;
@@ -551,7 +536,9 @@
             
             if (window.state.isScriptOpen) {
                 overlay.classList.remove('hidden');
+                // Render content first
                 renderScriptContent();
+                // small timeout to let display:block apply before translating
                 setTimeout(() => {
                     overlay.classList.remove('translate-y-full');
                 }, 10);
@@ -573,6 +560,7 @@
                 return;
             }
             
+            // Reset active index when rendering
             window.state.activeScriptIndex = -1;
             
             container.innerHTML = track.script.map((line, index) => 
@@ -580,8 +568,7 @@
             ).join('');
         }
 
-        window.openUpgradeModal = function(trackId = null) {
-            window.state.pendingTrackId = trackId; // स्टोर करें कि कौनसी ऑडियो पर क्लिक किया गया था
+        window.openUpgradeModal = function() {
             const modal = document.getElementById('upgrade-modal');
             if(modal) modal.classList.remove('hidden');
         };
@@ -591,36 +578,43 @@
             if(modal) modal.classList.add('hidden');
         };
         
-        // ================= ACCESS CODE VERIFICATION =================
-        window.verifyAccessCode = function() {
-            const inputField = document.getElementById('premium-access-code');
-            const code = inputField.value.trim();
-            
-            // अगर बच्चा 'Polity9977' डालता है
-            if (code === "Polity9977") {
-                window.showToast("एक्सेस कोड सही है! प्रीमियम अनलॉक हो गया।");
-                window.state.isPremiumUser = true; // प्रीमियम चालू
-                window.closeUpgradeModal(); // पॉप-अप बंद
-                window.renderMainContent(); // लॉक वाले बटन हटाने के लिए रीफ्रेश
-                
-                // अगर उसने किसी पर्टिकुलर ऑडियो पर क्लिक करके बॉक्स खोला था, तो उसे प्ले कर दो
-                if (window.state.pendingTrackId) {
-                    window.togglePlay(window.state.pendingTrackId);
-                    window.state.pendingTrackId = null;
-                }
-            } else if (code === "") {
-                window.showToast("कृपया एक्सेस कोड डालें!");
-            } else {
-                window.showToast("गलत एक्सेस कोड! कृपया WhatsApp पर सही कोड मांगें।");
-                inputField.value = ""; // गलत कोड मिटा दें
+        // ==========================================
+        // NEW DIRECT LINK PAYMENT CODE (Razorpay.me)
+        // ==========================================
+        window.processPayment = function() {
+            // चेक करें कि यूजर लॉगिन है या नहीं
+            if (!window.state.isLoggedIn) {
+                window.showToast("पेमेंट करने के लिए पहले लॉगिन करें!");
+                window.changeTab('Profile');
+                window.closeUpgradeModal();
+                return;
             }
+
+            // आपका Razorpay Me लिंक, जिसमें amount (पैसे) भी जोड़ा गया है
+            // ध्यान दें: कुछ razorpay.me लिंक amount पैरामीटर सपोर्ट करते हैं (?amount=599)
+            // अगर यह काम न करे तो आप सीधे "https://razorpay.me/@upsccscaudiobook" भी रख सकते हैं।
+            var paymentUrl = "https://razorpay.me/@upsccscaudiobook?amount=599";
+            
+            // पेमेंट लिंक को एक नए टैब में खोलें
+            window.open(paymentUrl, "_blank");
+
+            window.showToast("पेमेंट पेज खुल रहा है...");
+            
+            // डेमो के लिए: लिंक खुलने के 2 सेकंड बाद यूजर को अपने आप प्रीमियम बना दें
+            // (रियल वेबसाइट में आपको पेमेंट वेरिफाई करना होगा)
+            setTimeout(() => {
+                window.state.isPremiumUser = true;
+                window.showToast("बधाई हो! आपका Premium चालू कर दिया गया है।");
+                window.closeUpgradeModal();
+                window.renderMainContent(); // ताले हटाने के लिए स्क्रीन रिफ्रेश करें
+            }, 2000);
         };
+        // ==========================================
 
         window.handlePlayClick = function(id) {
             const track = PODCAST_LIST.find(p => p.id === id);
             if (track && track.isPremium && !window.state.isPremiumUser) {
-                // अगर ट्रैक प्रीमियम है, तो सीधे हमारा नया Upgrade Modal (QR Code) खुलेगा
-                window.openUpgradeModal(id);
+                window.openUpgradeModal();
             } else {
                 window.togglePlay(id);
             }
@@ -629,7 +623,7 @@
         window.handleDownloadClick = function(id) {
             const track = PODCAST_LIST.find(p => p.id === id);
             if (track && track.isPremium && !window.state.isPremiumUser) {
-                window.openUpgradeModal(id);
+                window.openUpgradeModal();
             } else {
                 window.toggleDownload(id);
             }
@@ -651,11 +645,11 @@
             audioElement.playbackRate = window.state.playbackSpeed;
             const btn = document.getElementById('speed-btn');
             if (btn) btn.textContent = window.state.playbackSpeed + 'x';
-            window.showToast(`Speed: ${window.state.playbackSpeed}x`);
+            showToast(`Speed: ${window.state.playbackSpeed}x`);
         };
 
         window.openSleepTimer = function() {
-            window.showToast("Sleep Timer: Playing for 30 mins");
+            showToast("Sleep Timer: Playing for 30 mins");
         };
 
         window.toggleDarkMode = function() {
@@ -665,7 +659,7 @@
             const toggle2 = document.getElementById('sidebar-dark-toggle');
             if (toggle1) toggle1.checked = window.state.darkMode;
             if (toggle2) toggle2.checked = window.state.darkMode;
-            window.showToast(window.state.darkMode ? "Dark Mode Enabled" : "Light Mode Enabled");
+            showToast(window.state.darkMode ? "Dark Mode Enabled" : "Light Mode Enabled");
         };
 
         window.togglePlayerMenu = function(e) {
@@ -693,13 +687,13 @@
         };
 
         window.shareTo = function(platform) {
-            window.showToast(`Shared via ${platform}!`);
+            showToast(`Shared via ${platform}!`);
             window.closeShareModal();
         };
 
         window.copyLink = function() {
             navigator.clipboard?.writeText(window.location.href);
-            window.showToast("Link copied to clipboard!");
+            showToast("Link copied to clipboard!");
             window.closeShareModal();
         };
 
@@ -765,6 +759,7 @@
 
                 let html = ``;
                 
+                // Check if CURRENT_AFFAIRS_DATA exists from the external file
                 if (typeof CURRENT_AFFAIRS_DATA !== 'undefined' && CURRENT_AFFAIRS_DATA.length > 0) {
                     CURRENT_AFFAIRS_DATA.forEach((ca, index) => {
                         let topicsHtml = '';
@@ -821,10 +816,12 @@
                         const isThisPlaying = window.state.currentTrackId === podcast.id && window.state.isPlaying;
                         const isBookmarked = window.state.bookmarks.has(podcast.id);
                         const isDownloaded = window.state.downloads.has(podcast.id);
-                        const isLocked = podcast.isPremium && !window.state.isPremiumUser;
+
+                                                const isLocked = podcast.isPremium && !window.state.isPremiumUser;
                         html += `
                         <div class="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40 dark:bg-orange-950/20' : 'border-gray-100 dark:border-gray-700'} w-full">
                             
+                            <!-- Image Area -->
                             <div class="relative w-[110px] md:w-[130px] h-[130px] md:h-[150px] rounded-xl overflow-hidden shrink-0 cursor-pointer group" onclick="window.handlePlayClick(${podcast.id})">
                                 <img src="${podcast.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover bg-gray-200 transition-transform duration-500 group-hover:scale-110" />
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
@@ -853,6 +850,7 @@
                                 <span class="absolute top-2 right-2 bg-black/70 text-white text-[9px] md:text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm backdrop-blur-sm"><i class="fa-regular fa-clock mr-1"></i>${podcast.duration}</span>
                             </div>
 
+                            <!-- Content Area -->
                             <div class="flex flex-col flex-1 py-1 overflow-hidden justify-between">
                                 <div>
                                     <div class="flex justify-between items-start mb-1.5">
