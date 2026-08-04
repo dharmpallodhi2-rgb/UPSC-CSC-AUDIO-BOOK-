@@ -590,10 +590,8 @@
                 return;
             }
 
-            // आपका Razorpay Me लिंक, जिसमें amount (पैसे) भी जोड़ा गया है
-            // ध्यान दें: कुछ razorpay.me लिंक amount पैरामीटर सपोर्ट करते हैं (?amount=599)
-            // अगर यह काम न करे तो आप सीधे "https://razorpay.me/@upsccscaudiobook" भी रख सकते हैं।
-            var paymentUrl = "https://razorpay.me/@upsccscaudiobook?amount=599";
+            // आपका नया असली Razorpay Payment Link
+            var paymentUrl = "https://rzp.io/rzp/xru5Uai";
             
             // पेमेंट लिंक को एक नए टैब में खोलें
             window.open(paymentUrl, "_blank");
@@ -601,7 +599,6 @@
             window.showToast("पेमेंट पेज खुल रहा है...");
             
             // डेमो के लिए: लिंक खुलने के 2 सेकंड बाद यूजर को अपने आप प्रीमियम बना दें
-            // (रियल वेबसाइट में आपको पेमेंट वेरिफाई करना होगा)
             setTimeout(() => {
                 window.state.isPremiumUser = true;
                 window.showToast("बधाई हो! आपका Premium चालू कर दिया गया है।");
