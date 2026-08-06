@@ -10,7 +10,7 @@ const PODCAST_LIST = [
         duration: "Full Audio", 
         image: "file_00000000fd7481faac51cd57a3070f5c.png", 
         audioUrl: "एथिक्स_केस_स्टडी_हल_करने_का_तरीका_compressed.m4a", 
-        isPremium: false
+        isPremium: true 
     },
     { id: 6, category: "Economy", title: "GDP का गणित और अर्थव्यवस्था की हकीकत", desc: "जीडीपी की गणना और अर्थव्यवस्था की वास्तविक स्थिति का विस्तृत विश्लेषण।", plays: "New", date: "06 Aug 2026", episode: "Episode 06", duration: "Full Audio", image: "file_000000005394820881e19440753f77bc.png", audioUrl: "GDP_का_गणित_और_अर्थव्यवस्था_की_हकीकत_compressed.m4a", isPremium: false },
     { id: 1, category: "Geography", title: "एल नीनो और ला नीना का खेल", desc: "एल नीनो और ला नीना का भारतीय मानसून पर प्रभाव।", plays: "12.4K Plays", date: "01 Jun 2025", episode: "Episode 01", duration: "32:45", image: "IMG_20260801_215005_232.jpg", audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a", isPremium: false },
