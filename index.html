@@ -794,6 +794,31 @@
             }
         }
 
+        // --- Banner Event Handler ---
+        window.goToBanner = function(index) {
+            window.currentBannerIndex = index;
+            const track = document.getElementById('banner-track');
+            const dots = document.querySelectorAll('.banner-dot');
+            if (track) {
+                track.style.transform = `translateX(-${index * 100}%)`;
+            }
+            if (dots && dots.length > 0) {
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.className = "h-2 rounded-full bg-orange-500 w-4 transition-all duration-300 banner-dot cursor-pointer";
+                    } else {
+                        dot.className = "h-2 rounded-full bg-gray-300 dark:bg-gray-600 w-2 transition-all duration-300 banner-dot cursor-pointer";
+                    }
+                });
+            }
+            if (window.bannerInterval && typeof BANNERS_DATA !== 'undefined') {
+                clearInterval(window.bannerInterval);
+                window.bannerInterval = setInterval(() => {
+                    window.goToBanner((window.currentBannerIndex + 1) % window.totalBanners);
+                }, 3500);
+            }
+        };
+
         function renderMainContent() {
             const mainEl = document.getElementById('main-content');
             
@@ -988,7 +1013,7 @@
                 // ======================================================
             } 
             else if (window.state.activeTab === 'Downloads') {
-                mainEl.innerHTML = generateListScreenHTML('My Downloads', window.state.downloads, 'अभी तक कुछ भी डाउनलोड नहीं किया गया है।', 'fa-trash', window.toggleDownload);
+                mainEl.innerHTML = generateListScreenHTML('My Downloads', window.state.downloads, 'अभी तक कुछ भी डाउनलोड প্রজাতন্ত্র नहीं किया गया है।', 'fa-trash', window.toggleDownload);
             }
             else if (window.state.activeTab === 'Bookmarks') {
                 mainEl.innerHTML = generateListScreenHTML('Saved Bookmarks', window.state.bookmarks, 'आपने कोई पॉडकास्ट बुकमार्क नहीं किया है।', 'fa-bookmark', window.toggleBookmark);
@@ -1154,31 +1179,6 @@
                 }
             }
         }
-
-        // --- Banner Event Handler ---
-        window.goToBanner = function(index) {
-            window.currentBannerIndex = index;
-            const track = document.getElementById('banner-track');
-            const dots = document.querySelectorAll('.banner-dot');
-            if (track) {
-                track.style.transform = `translateX(-${index * 100}%)`;
-            }
-            if (dots && dots.length > 0) {
-                dots.forEach((dot, i) => {
-                    if (i === index) {
-                        dot.className = "h-2 rounded-full bg-orange-500 w-4 transition-all duration-300 banner-dot cursor-pointer";
-                    } else {
-                        dot.className = "h-2 rounded-full bg-gray-300 dark:bg-gray-600 w-2 transition-all duration-300 banner-dot cursor-pointer";
-                    }
-                });
-            }
-            if (window.bannerInterval && typeof BANNERS_DATA !== 'undefined') {
-                clearInterval(window.bannerInterval);
-                window.bannerInterval = setInterval(() => {
-                    window.goToBanner((window.currentBannerIndex + 1) % window.totalBanners);
-                }, 3500);
-            }
-        };
 
         function generateListScreenHTML(title, itemSet, emptyMsg, removeIconClass, removeFunc) {
             let html = `<div class="max-w-7xl mx-auto px-4"><h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">${title} <span class="text-gray-400 text-lg">(${itemSet.size})</span></h2>`;
@@ -1826,7 +1826,7 @@
             isSignupMode = !isSignupMode;
             document.getElementById('email-title').innerText = isSignupMode ? "नया अकाउंट बनाएं" : "लॉगिन करें";
             document.querySelector('#email-action-btn span').innerText = isSignupMode ? "अकाउंट बनाएं (Sign Up)" : "Login";
-            document.getElementById('email-subtitle').innerText = isSignupMode ? "नया पासवर्ड बनाएं (अपनी जीमेल का असली पासवर्ड न डालें)" : "अगर अकाउंट नहीं है, तो पहले नीचे 'Sign Up' पर क्लिक करें।";
+            document.getElementById('email-subtitle').innerText = isSignupMode ? "नया पासवर्ड बनाएं (अपनी जीमेल का असली पासवर्ड न डालें)" : "अगर अकाउंट नहीं है, तो पहले নিচে 'Sign Up' पर क्लिक करें।";
             document.getElementById('email-toggle-text').innerText = isSignupMode ? "पहले से अकाउंट है?" : "नया अकाउंट बनाएं?";
             document.getElementById('email-toggle-btn').innerText = isSignupMode ? "Login" : "Sign Up";
         };
@@ -1913,8 +1913,8 @@
                     }
                 }
 
-                const userRef = doc(db, "users", user.uid);
                 try {
+                    const userRef = doc(db, "users", user.uid);
                     const docSnap = await getDoc(userRef);
                     if (docSnap.exists()) {
                         window.state.isPremiumUser = docSnap.data().isPremium || false;
