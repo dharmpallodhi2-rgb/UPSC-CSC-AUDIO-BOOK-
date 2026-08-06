@@ -67,6 +67,7 @@
     </style>
     
     <!-- ================= EXTERNAL DATA FILES ================= -->
+    <script src="banners.js"></script>
     <script src="current-affairs.js"></script>
     <script src="podcasts.js"></script>
 
@@ -805,6 +806,38 @@
                 });
 
                 let html = ``;
+
+                // ================= NEW BANNER SLIDER LOGIC =================
+                if (!window.state.searchQuery && window.state.activeCategory === 'All') {
+                    if (typeof BANNERS_DATA !== 'undefined' && BANNERS_DATA.length > 0) {
+                        const activeBanners = BANNERS_DATA.filter(b => b.isActive !== false);
+                        if(activeBanners.length > 0) {
+                            let trackHtml = activeBanners.map(b => `
+                                <div class="w-full flex-shrink-0 relative aspect-[21/9] md:aspect-[21/8] bg-orange-50 dark:bg-gray-800">
+                                    <img src="${b.imageUrl}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x340/ffedd5/f97316?text=Coming+Soon'" />
+                                </div>
+                            `).join('');
+
+                            let dotsHtml = activeBanners.map((_, i) => `
+                                <div class="h-2 rounded-full ${i === 0 ? 'bg-orange-500 w-4' : 'bg-gray-300 dark:bg-gray-600 w-2'} transition-all duration-300 banner-dot cursor-pointer" onclick="window.goToBanner(${i})"></div>
+                            `).join('');
+
+                            html += `
+                            <div class="max-w-7xl mx-auto px-4 w-full mb-2 mt-2">
+                                <div class="relative w-full rounded-2xl overflow-hidden shadow-sm">
+                                    <div class="flex transition-transform duration-500 ease-in-out" id="banner-track">
+                                        ${trackHtml}
+                                    </div>
+                                </div>
+                                <div class="flex justify-center gap-1.5 mt-3 mb-6" id="banner-indicators">
+                                    ${dotsHtml}
+                                </div>
+                            </div>
+                            `;
+                        }
+                    }
+                }
+                // ============================================================
                 
                 // Check if CURRENT_AFFAIRS_DATA exists from the external file
                 if (typeof CURRENT_AFFAIRS_DATA !== 'undefined' && CURRENT_AFFAIRS_DATA.length > 0) {
@@ -937,6 +970,22 @@
                     html += `</div></div>`;
                 }
                 mainEl.innerHTML = html;
+
+                // ================= BANNER SLIDER INIT =================
+                if (window.bannerInterval) clearInterval(window.bannerInterval);
+                if (window.state.activeTab === 'Home' && !window.state.searchQuery && window.state.activeCategory === 'All') {
+                    if (typeof BANNERS_DATA !== 'undefined') {
+                        const activeBanners = BANNERS_DATA.filter(b => b.isActive !== false);
+                        if (activeBanners.length > 1) {
+                            window.currentBannerIndex = 0;
+                            window.totalBanners = activeBanners.length;
+                            window.bannerInterval = setInterval(() => {
+                                window.goToBanner((window.currentBannerIndex + 1) % window.totalBanners);
+                            }, 3500);
+                        }
+                    }
+                }
+                // ======================================================
             } 
             else if (window.state.activeTab === 'Downloads') {
                 mainEl.innerHTML = generateListScreenHTML('My Downloads', window.state.downloads, 'अभी तक कुछ भी डाउनलोड नहीं किया गया है।', 'fa-trash', window.toggleDownload);
@@ -1105,6 +1154,31 @@
                 }
             }
         }
+
+        // --- Banner Event Handler ---
+        window.goToBanner = function(index) {
+            window.currentBannerIndex = index;
+            const track = document.getElementById('banner-track');
+            const dots = document.querySelectorAll('.banner-dot');
+            if (track) {
+                track.style.transform = `translateX(-${index * 100}%)`;
+            }
+            if (dots && dots.length > 0) {
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.className = "h-2 rounded-full bg-orange-500 w-4 transition-all duration-300 banner-dot cursor-pointer";
+                    } else {
+                        dot.className = "h-2 rounded-full bg-gray-300 dark:bg-gray-600 w-2 transition-all duration-300 banner-dot cursor-pointer";
+                    }
+                });
+            }
+            if (window.bannerInterval && typeof BANNERS_DATA !== 'undefined') {
+                clearInterval(window.bannerInterval);
+                window.bannerInterval = setInterval(() => {
+                    window.goToBanner((window.currentBannerIndex + 1) % window.totalBanners);
+                }, 3500);
+            }
+        };
 
         function generateListScreenHTML(title, itemSet, emptyMsg, removeIconClass, removeFunc) {
             let html = `<div class="max-w-7xl mx-auto px-4"><h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">${title} <span class="text-gray-400 text-lg">(${itemSet.size})</span></h2>`;
