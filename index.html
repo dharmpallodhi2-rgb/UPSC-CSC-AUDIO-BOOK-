@@ -67,16 +67,12 @@
     </style>
     
     <!-- ================= EXTERNAL DATA FILES ================= -->
-    <!-- करंट अफेयर्स का डेटा यहाँ से आएगा -->
     <script src="current-affairs.js"></script>
-    <!-- ऑडियो (पॉडकास्ट) का डेटा अब यहाँ से आएगा -->
     <script src="podcasts.js"></script>
 
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
-    <!-- Main Full Screen Container -->
-    
     <!-- ================= AUTHENTICATION (LOGIN/SIGNUP) SYSTEM ================= -->
     <div id="auth-screen" class="fixed inset-0 z-[200] bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center p-4 transition-opacity duration-500 overflow-y-auto hidden">
         <div class="w-full max-w-md flex flex-col items-center mb-8">
@@ -143,10 +139,9 @@
         </div>
     </div>
 
-    <!-- Main Full Screen Container (Hidden by default until logged in) -->
+    <!-- Main Full Screen Container -->
     <div id="main-app-container" class="app-container relative overflow-hidden flex flex-col hidden">
 
-        
         <audio id="audio-player"></audio>
 
         <!-- Toast Message -->
@@ -403,73 +398,99 @@
 
     </div>
 
-    
-        <!-- ================= UPGRADE MODAL ================= -->
-        <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
-            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
-                <!-- Decor -->
-                <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
+    <!-- ================= PROMO VIDEO MODAL ================= -->
+    <div id="promo-video-modal" class="fixed inset-0 bg-black/80 z-[300] hidden flex flex-col justify-center items-center backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-3xl shadow-2xl overflow-hidden relative transform scale-95 transition-transform duration-300" id="promo-modal-content">
+            <!-- Close Button -->
+            <button onclick="window.closePromoModal()" class="absolute top-3 right-3 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <!-- Video Container -->
+            <div class="w-full aspect-video bg-black relative">
+                <!-- यहाँ 'Thumb (1).png' और 'promo_video.mp4' को अपनी फाइल के असली नाम से बदल लें -->
+                <video id="promo-video" class="w-full h-full object-cover" controls poster="Thumb (1).png" controlsList="nodownload">
+                    <source src="promo_video.mp4" type="video/mp4">
+                    आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।
+                </video>
+            </div>
+            
+            <!-- Promo Text -->
+            <div class="p-6 text-center">
+                <h3 class="text-lg md:text-xl font-extrabold text-gray-900 dark:text-white mb-3 leading-tight">
+                    क्या आप भी याद कर कर के थक गए हो? <span class="text-orange-500 text-2xl">🤯</span>
+                </h3>
+                <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 font-medium mb-5">
+                    तो आपको अब चिंता करने की कोई जरूरत नहीं है। अभी डाउनलोड कीजिए <span class="font-bold text-orange-500">UPSC CSE Audio Book App</span> को और सभी विषय सुनकर याद कीजिए! 🎧📚
+                </p>
                 
-                <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
-                    <h3 class="text-xl font-extrabold flex items-center gap-2">
-                        <i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium
-                    </h3>
-                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
-                </div>
-                
-                <div class="relative z-10">
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
-                    
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
-                            <div>
-                                <h4 class="font-bold text-sm">Access All Audiobooks</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Listen to premium, expertly curated content.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
-                            <div>
-                                <h4 class="font-bold text-sm">Unlimited Offline Downloads</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Download and listen anywhere, anytime without internet.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
-                            <div>
-                                <h4 class="font-bold text-sm">Ad-Free Experience</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Zero interruptions during your focus time.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    
-                    <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-6 flex justify-between items-center">
-                        <div>
-                            <span class="block text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider mb-1">Monthly Plan</span>
-                            <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹599<span class="text-sm font-medium text-gray-500">/mo</span></span>
-                        </div>
-                        <div class="bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded">Popular</div>
-                    </div>
-                    
-                    <button onclick="window.processPayment()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3.5 rounded-xl hover:from-amber-600 hover:to-orange-600 transition-colors shadow-lg text-base flex items-center justify-center gap-2">
-                        Upgrade Now
-                    </button>
-                </div>
+                <button onclick="window.closePromoModal()" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3.5 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-headphones"></i> अभी सुनना शुरू करें
+                </button>
             </div>
         </div>
+    </div>
+
+    <!-- ================= UPGRADE MODAL ================= -->
+    <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
+        <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
+            <!-- Decor -->
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
+            
+            <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
+                <h3 class="text-xl font-extrabold flex items-center gap-2">
+                    <i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium
+                </h3>
+                <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
+            </div>
+            
+            <div class="relative z-10">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
+                
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                        <div>
+                            <h4 class="font-bold text-sm">Access All Audiobooks</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Listen to premium, expertly curated content.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                        <div>
+                            <h4 class="font-bold text-sm">Unlimited Offline Downloads</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Download and listen anywhere, anytime without internet.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
+                        <div>
+                            <h4 class="font-bold text-sm">Ad-Free Experience</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Zero interruptions during your focus time.</p>
+                        </div>
+                    </li>
+                </ul>
+                
+                <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-6 flex justify-between items-center">
+                    <div>
+                        <span class="block text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider mb-1">Monthly Plan</span>
+                        <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹599<span class="text-sm font-medium text-gray-500">/mo</span></span>
+                    </div>
+                    <div class="bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded">Popular</div>
+                </div>
+                
+                <button onclick="window.processPayment()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3.5 rounded-xl hover:from-amber-600 hover:to-orange-600 transition-colors shadow-lg text-base flex items-center justify-center gap-2">
+                    Upgrade Now
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
         const FALLBACK_IMG = "https://placehold.co/400x400/f3f4f6/9ca3af?text=UPSC+Audio";
 
         const CATEGORIES = ["All", "History", "Polity", "Geography", "Economy", "Environment", "Science", "Current Affairs", "Ethics"];
-
-        const QUIZ_DB = {
-  geography: [{"hi": {"q": "महासागरीय धाराओं (Ocean Currents) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन महासागरीय धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएं आमतौर पर उष्णकटिबंधीय क्षेत्रों में महाद्वीपों के पश्चिमी तटों पर बहती हैं।<br>उपर्युक्त कथनों में से कौन-सा/से सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding Ocean Currents:<br>1. The rotation of the Earth affects the direction of ocean currents.<br>2. Cold currents generally flow on the western coasts of continents in tropical regions.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}, {"hi": {"q": "भारत की लेटराइट (Laterite) मिट्टी के बारे में निम्नलिखित कथनों पर विचार करें:<br>1. वे आम तौर पर लाल रंग की होती हैं।<br>2. वे नाइट्रोजन और पोटाश से भरपूर होती हैं।<br>सही कूट चुनें:", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "इनमें से कोई नहीं"]}, "en": {"q": "Consider the following statements about Laterite soils of India:<br>1. They are generally red in colour.<br>2. They are rich in nitrogen and potash.<br>Select the correct code:", "options": ["1 only", "2 only", "Both 1 and 2", "None of these"]}, "correct": 0}],
-  history: [{"hi": {"q": "सिंधु घाटी सभ्यता (Indus Valley Civilization) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. यह मुख्यतः एक लौकिक सभ्यता थी और इसमें धार्मिक तत्व मौजूद होने पर भी वर्चस्वशाली नहीं थे।<br>2. उस काल में भारत में कपास से वस्त्र बनाए जाते थे।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "With reference to the Indus Valley Civilization, consider the following statements:<br>1. It was predominantly a secular civilization and the religious element, though present, did not dominate.<br>2. During this period, cotton was used for manufacturing textiles in India.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}],
-  polity: [{"hi": {"q": "भारतीय संविधान की प्रस्तावना (Preamble) के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. इसे अदालत में लागू नहीं किया जा सकता (Non-justiciable)।<br>2. इसे 42वें संशोधन द्वारा संशोधित किया गया था।<br>उपर्युक्त में से कौन-सा/से कथन सही है/हैं?", "options": ["केवल 1", "केवल 2", "1 और 2 दोनों", "न तो 1 न ही 2"]}, "en": {"q": "Consider the following statements regarding the Preamble of the Indian Constitution:<br>1. It is non-justiciable in nature.<br>2. It was amended by the 42nd Amendment.<br>Which of the statements given above is/are correct?", "options": ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"]}, "correct": 2}]
-};
 
         window.state = {
             activeTab: 'Home',
@@ -528,7 +549,7 @@
                     if (totalTimeDisp) totalTimeDisp.textContent = totText;
                     if (modalTotalDisp) modalTotalDisp.textContent = totText;
                     
-                    }
+                }
             });
             setTimeout(() => {
                 if (!sessionStorage.getItem('upgradePopShown') && !window.state.isPremiumUser) {
@@ -536,7 +557,48 @@
                     sessionStorage.setItem('upgradePopShown', 'true');
                 }
             }, 1500);
+
+            // ================= PROMO VIDEO LOGIC =================
+            // 10 सेकंड बाद वीडियो पॉपअप दिखाना
+            setTimeout(() => {
+                const promoModal = document.getElementById('promo-video-modal');
+                const promoContent = document.getElementById('promo-modal-content');
+                if(promoModal) {
+                    promoModal.classList.remove('hidden');
+                    // ट्रांजीशन (एनीमेशन) के लिए हल्का सा डिले
+                    setTimeout(() => {
+                        promoModal.classList.remove('opacity-0');
+                        promoContent.classList.remove('scale-95');
+                        promoContent.classList.add('scale-100');
+                    }, 10);
+                    
+                    // ब्राउज़र की पालिसी के अनुसार वीडियो को प्ले करने की कोशिश
+                    const video = document.getElementById('promo-video');
+                    if(video) {
+                        video.play().catch(e => console.log("Autoplay blocked by browser. User must click play."));
+                    }
+                }
+            }, 10000); // 10000 milliseconds = 10 seconds
         }
+
+        // प्रोमो वीडियो को क्लोज़ करने का फंक्शन
+        window.closePromoModal = function() {
+            const promoModal = document.getElementById('promo-video-modal');
+            const promoContent = document.getElementById('promo-modal-content');
+            const video = document.getElementById('promo-video');
+            
+            if(video) video.pause(); // बंद करते ही वीडियो रुक जाएगा
+            
+            if(promoModal) {
+                promoModal.classList.add('opacity-0');
+                promoContent.classList.remove('scale-100');
+                promoContent.classList.add('scale-95');
+                setTimeout(() => {
+                    promoModal.classList.add('hidden');
+                }, 300);
+            }
+        };
+        // =====================================================
 
         
         window.toggleScriptOverlay = function() {
@@ -620,21 +682,11 @@
         // ==========================================
 
         window.handlePlayClick = function(id) {
-            const track = PODCAST_LIST.find(p => p.id === id);
-            if (track && track.isPremium && !window.state.isPremiumUser) {
-                window.openUpgradeModal();
-            } else {
-                window.togglePlay(id);
-            }
+            window.togglePlay(id);
         };
 
         window.handleDownloadClick = function(id) {
-            const track = PODCAST_LIST.find(p => p.id === id);
-            if (track && track.isPremium && !window.state.isPremiumUser) {
-                window.openUpgradeModal();
-            } else {
-                window.toggleDownload(id);
-            }
+            window.toggleDownload(id);
         };
 
 
@@ -825,7 +877,7 @@
                         const isBookmarked = window.state.bookmarks.has(podcast.id);
                         const isDownloaded = window.state.downloads.has(podcast.id);
 
-                                                const isLocked = podcast.isPremium && !window.state.isPremiumUser;
+                        const isLocked = podcast.isPremium && !window.state.isPremiumUser;
                         html += `
                         <div class="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40 dark:bg-orange-950/20' : 'border-gray-100 dark:border-gray-700'} w-full">
                             
