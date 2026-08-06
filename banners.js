@@ -1,7 +1,7 @@
 const BANNERS_DATA = [
     {
         id: 1,
-        imageUrl: "1000017147_2.png", // 👈 यहाँ आपकी उस फोटो का नाम होना चाहिए जो आपने GitHub पर डाली है
+        imageUrl: "File_00000000ab1c81fa8bbaaded2eaed436.png",
         link: "#",
         isActive: true
     }
