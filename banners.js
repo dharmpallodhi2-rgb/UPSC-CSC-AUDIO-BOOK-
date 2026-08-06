@@ -1,7 +1,13 @@
 const BANNERS_DATA = [
     {
         id: 1,
-        imageUrl: "File_00000000ab1c81fa8bbaaded2eaed436.png",
+        imageUrl: "https://placehold.co/800x300/ffedd5/f97316?text=सुनो,+समझो+और+सफलता+की+ओर+बढ़ो!",
+        link: "#",
+        isActive: true
+    },
+    {
+        id: 2,
+        imageUrl: "coming_soon.png", // आपकी कमिंग सून वाली फोटो
         link: "#",
         isActive: true
     }
