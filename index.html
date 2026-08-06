@@ -57,7 +57,7 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
-    <!-- AUTHENTICATION SCREEN (Hidden by default in this preview, handled by JS) -->
+    <!-- AUTHENTICATION SCREEN -->
     <div id="auth-screen" class="fixed inset-0 z-[200] bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center p-4 transition-opacity duration-500 overflow-y-auto hidden">
         <div class="w-full max-w-md flex flex-col items-center mb-8">
             <i class="fa-solid fa-headphones text-5xl text-orange-500 mb-3 drop-shadow-lg"></i>
@@ -65,6 +65,45 @@
             <p class="text-xs font-bold text-orange-500 tracking-widest uppercase mt-1">Audio Book</p>
         </div>
         <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-3xl shadow-2xl p-6 border border-gray-100 dark:border-gray-700">
+            <!-- Email Login Section -->
+            <div id="email-section" class="block">
+                <h2 id="email-title" class="text-xl font-bold text-gray-900 dark:text-white mb-1">लॉगिन करें</h2>
+                <p id="email-subtitle" class="text-xs text-gray-500 mb-4">अगर अकाउंट नहीं है, तो पहले नीचे "Sign Up" पर क्लिक करें।</p>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-500 mb-1.5">Email Address</label>
+                        <div class="relative">
+                            <i class="fa-regular fa-envelope absolute left-4 top-3.5 text-gray-400"></i>
+                            <input type="email" id="auth-email" placeholder="example@gmail.com" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-xl py-3 pl-11 pr-4 outline-none focus:border-orange-500 transition-all">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-500">Password</label>
+                            <button onclick="window.handleForgotPassword()" class="text-xs font-semibold text-orange-500 hover:text-orange-600">Forgot?</button>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-4 top-3.5 text-gray-400"></i>
+                            <input type="password" id="auth-pass" placeholder="••••••••" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-xl py-3 pl-11 pr-10 outline-none focus:border-orange-500 transition-all">
+                            <i class="fa-regular fa-eye absolute right-4 top-3.5 text-gray-400 cursor-pointer" onclick="window.togglePasswordVisibility()"></i>
+                        </div>
+                    </div>
+                    <button id="email-action-btn" onclick="window.handleEmailAuth()" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 mt-2">
+                        <i class="fa-solid fa-right-to-bracket"></i> <span>Login</span>
+                    </button>
+                    <p class="text-center text-sm text-gray-500 mt-4">
+                        <span id="email-toggle-text">नया अकाउंट बनाएं?</span> 
+                        <button onclick="window.toggleEmailMode()" class="text-orange-500 font-bold ml-1 hover:underline" id="email-toggle-btn">Sign Up</button>
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center my-6">
+                <div class="flex-1 border-t border-gray-200 dark:border-gray-700"></div>
+                <span class="px-3 text-xs font-semibold text-gray-400 uppercase">OR</span>
+                <div class="flex-1 border-t border-gray-200 dark:border-gray-700"></div>
+            </div>
+
             <button onclick="window.loginWithGoogle()" class="w-full bg-gray-50 dark:bg-gray-900 border font-bold py-3.5 rounded-xl hover:bg-gray-100 transition-colors shadow-sm flex items-center justify-center gap-3">
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5"> Login with Google
             </button>
@@ -194,6 +233,28 @@
                 <button onclick="window.processPayment()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3.5 rounded-xl">Pay with Razorpay</button>
             </div>
         </div>
+        
+        <!-- PROMO VIDEO MODAL -->
+        <div id="promo-video-modal" class="fixed inset-0 bg-black/90 z-[300] hidden flex flex-col justify-center items-center backdrop-blur-md p-4 transition-opacity duration-300 opacity-0">
+            <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="promo-modal-content">
+                <button onclick="window.closePromoModal()" class="absolute top-3 right-3 z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="w-full bg-black relative flex-1 flex items-center justify-center overflow-hidden">
+                    <video id="promo-video" class="w-full h-full max-h-[55vh] object-contain" controls poster="Thumb (1).png" controlsList="nodownload">
+                        <source src="Untitled%202026-08-06%2012.35.45.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="p-5 text-center shrink-0 overflow-y-auto">
+                    <h3 class="text-lg font-extrabold text-gray-900 dark:text-white mb-2 leading-tight">क्या आप भी याद कर कर के थक गए हो? <span class="text-orange-500 text-xl">🤯</span></h3>
+                    <p class="text-[13px] md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-4">तो आपको अब चिंता करने की कोई जरूरत नहीं है। अभी डाउनलोड कीजिए <span class="font-bold text-orange-500">UPSC CSE Audio Book App</span> को और सभी विषय सुनकर याद कीजिए! 🎧📚</p>
+                    <button onclick="window.closePromoModal()" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3.5 rounded-xl hover:from-orange-600 hover:to-orange-700 shadow-lg flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-headphones"></i> अभी सुनना शुरू करें
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
@@ -214,7 +275,33 @@
             renderHeaderExtras(); renderMainContent(); renderBottomNav();
             audioElement.addEventListener('ended', window.handleNextTrack);
             audioElement.addEventListener('timeupdate', updateProgress);
+            
+            setTimeout(() => {
+                const pModal = document.getElementById('promo-video-modal');
+                const pContent = document.getElementById('promo-modal-content');
+                if(pModal && window.state.isLoggedIn) {
+                    pModal.classList.remove('hidden');
+                    setTimeout(() => {
+                        pModal.classList.remove('opacity-0');
+                        pContent.classList.remove('scale-95');
+                        pContent.classList.add('scale-100');
+                    }, 10);
+                    const vid = document.getElementById('promo-video');
+                    if(vid) vid.play().catch(e=>{});
+                }
+            }, 10000);
         }
+
+        window.closePromoModal = function() {
+            const m = document.getElementById('promo-video-modal');
+            const c = document.getElementById('promo-modal-content');
+            const v = document.getElementById('promo-video');
+            if(v) v.pause();
+            if(m) {
+                m.classList.add('opacity-0'); c.classList.remove('scale-100'); c.classList.add('scale-95');
+                setTimeout(() => m.classList.add('hidden'), 300);
+            }
+        };
 
         function updateProgress() {
             const seekBar = document.getElementById('seek-bar');
@@ -253,12 +340,13 @@
             if(!document.getElementById('player-modal').classList.contains('hidden')) renderPlayerModalContent();
         };
 
-        window.seekAudio = function(val) { audioElement.currentTime = value; };
+        window.seekAudio = function(val) { audioElement.currentTime = val; };
         window.skipTime = function(sec) { audioElement.currentTime = Math.max(0, Math.min(audioElement.duration || 0, audioElement.currentTime + sec)); };
         
         window.toggleBookmark = function(id) { window.state.bookmarks.has(id) ? window.state.bookmarks.delete(id) : window.state.bookmarks.add(id); window.showToast("Bookmark updated!"); renderMainContent(); renderBottomNav(); };
         window.toggleDownload = function(id) { 
-            const track = PODCAST_LIST.find(p=>p.id===id); 
+            const track = typeof PODCAST_LIST !== 'undefined' ? PODCAST_LIST.find(p=>p.id===id) : null; 
+            if(!track) return;
             if(track.isPremium && !window.state.isPremiumUser) return window.openUpgradeModal();
             window.state.downloads.has(id) ? window.state.downloads.delete(id) : window.state.downloads.add(id); 
             window.showToast("Download status updated!"); renderMainContent(); renderBottomNav(); 
@@ -309,7 +397,7 @@
                 
                 let filtered = typeof PODCAST_LIST !== 'undefined' ? PODCAST_LIST.filter(p => (window.state.activeCategory === 'All' || p.category === window.state.activeCategory) && p.title.toLowerCase().includes(window.state.searchQuery.toLowerCase())) : [];
                 
-                if(filtered.length===0) html += `<div class="text-center p-10 text-gray-500">No content found.</div>`;
+                if(filtered.length===0) html += `<div class="text-center p-10 text-gray-500">No content found. Please check if podcasts.js is created correctly.</div>`;
                 else {
                     html += `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6 w-full">`;
                     filtered.forEach(p => {
@@ -362,7 +450,7 @@
                 }
                 mainEl.innerHTML = html;
             } else if (window.state.activeTab === 'Profile') {
-                mainEl.innerHTML = `<div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10"><div class="w-32 h-32 bg-orange-100 rounded-full flex items-center justify-center text-5xl text-orange-500 mb-4 shadow"><i class="fa-solid fa-user"></i></div><h2 class="text-2xl font-bold">${window.state.userName}</h2><p class="text-gray-500">${window.state.isPremiumUser?'Premium Member':'Free Account'}</p><button onclick="window.openUpgradeModal()" class="mt-8 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg flex items-center gap-2"><i class="fa-solid fa-crown"></i> Get Premium</button></div>`;
+                mainEl.innerHTML = `<div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10"><div class="w-32 h-32 bg-orange-100 rounded-full flex items-center justify-center text-5xl text-orange-500 mb-4 shadow"><i class="fa-solid fa-user"></i></div><h2 class="text-2xl font-bold">${window.state.userName}</h2><p class="text-gray-500">${window.state.isPremiumUser?'Premium Member':'Free Account'}</p><button onclick="window.logoutUser()" class="mt-4 border border-red-500 text-red-500 font-bold py-2 px-6 rounded-xl">Logout</button><button onclick="window.openUpgradeModal()" class="mt-8 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg flex items-center gap-2"><i class="fa-solid fa-crown"></i> Get Premium</button></div>`;
             } else {
                 mainEl.innerHTML = `<div class="text-center p-10 mt-10 text-gray-500"><i class="fa-solid fa-tools text-4xl mb-3"></i><br>Feature coming soon</div>`;
             }
@@ -397,7 +485,7 @@
                 </div>
                 <h2 class="text-2xl font-bold text-center px-4 mb-1 line-clamp-2">${track.title}</h2>
                 <p class="text-sm text-white/70 mb-8">${track.category}</p>
-                <div class="w-full px-4 mb-8 flex items-center gap-3"><span id="modal-current-time" class="text-xs w-10">0:00</span><input type="range" id="modal-seek-bar" class="flex-1 h-1.5 bg-white/30 rounded-lg accent-orange-500" value="0"><span id="modal-total-time" class="text-xs w-10 text-right">0:00</span></div>
+                <div class="w-full px-4 mb-8 flex items-center gap-3"><span id="modal-current-time" class="text-xs w-10">0:00</span><input type="range" id="modal-seek-bar" class="flex-1 h-1.5 bg-white/30 rounded-lg accent-orange-500" value="0" oninput="window.seekAudio(this.value)"><span id="modal-total-time" class="text-xs w-10 text-right">0:00</span></div>
                 <div class="flex items-center justify-center gap-8 mb-10"><i class="fa-solid fa-backward-step text-3xl text-white/80 cursor-pointer" onclick="window.handlePrevTrack()"></i><button onclick="window.togglePlay(${track.id})" class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center shadow-lg"><i class="fa-solid ${window.state.isPlaying?'fa-pause':'fa-play pl-1'} text-3xl"></i></button><i class="fa-solid fa-forward-step text-3xl text-white/80 cursor-pointer" onclick="window.handleNextTrack()"></i></div>
             `;
         }
@@ -408,6 +496,106 @@
         }
 
         document.addEventListener('DOMContentLoaded', init);
+    </script>
+
+    <!-- ================= FIREBASE LOGIN & DB MODULE (CRITICAL FOR UI TO LOAD) ================= -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsa9eNrn5UDK4ShPFvDIxyd5cmWLuHsEQ",
+            authDomain: "only-hindi-ias-64e90.firebaseapp.com",
+            projectId: "only-hindi-ias-64e90",
+            storageBucket: "only-hindi-ias-64e90.firebasestorage.app",
+            messagingSenderId: "1039198714535",
+            appId: "1:1039198714535:web:55d1c9365ac11ec08fb982",
+            measurementId: "G-SG2DL15EB1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        let isSignupMode = false;
+        window.toggleEmailMode = () => {
+            isSignupMode = !isSignupMode;
+            document.getElementById('email-title').innerText = isSignupMode ? "नया अकाउंट बनाएं" : "लॉगिन करें";
+            document.querySelector('#email-action-btn span').innerText = isSignupMode ? "अकाउंट बनाएं (Sign Up)" : "Login";
+            document.getElementById('email-subtitle').innerText = isSignupMode ? "नया पासवर्ड बनाएं (अपनी जीमेल का असली पासवर्ड न डालें)" : "अगर अकाउंट नहीं है, तो पहले नीचे 'Sign Up' पर क्लिक करें।";
+            document.getElementById('email-toggle-text').innerText = isSignupMode ? "पहले से अकाउंट है?" : "नया अकाउंट बनाएं?";
+            document.getElementById('email-toggle-btn').innerText = isSignupMode ? "Login" : "Sign Up";
+        };
+
+        window.togglePasswordVisibility = () => {
+            const passInput = document.getElementById('auth-pass');
+            passInput.type = passInput.type === "password" ? "text" : "password";
+        };
+
+        window.handleEmailAuth = () => {
+            const email = document.getElementById('auth-email').value;
+            const pass = document.getElementById('auth-pass').value;
+            if(!email || !pass) return window.showToast("Email और Password दर्ज करें!");
+
+            window.showToast("Processing...");
+            if(isSignupMode) {
+                createUserWithEmailAndPassword(auth, email, pass).then(() => window.showToast("अकाउंट सफलतापूर्वक बन गया!")).catch((error) => window.showToast("Error: " + error.message));
+            } else {
+                signInWithEmailAndPassword(auth, email, pass).then(() => window.showToast("लॉगिन सफल!")).catch(() => window.showToast("पासवर्ड या ईमेल गलत है!"));
+            }
+        };
+
+        window.handleForgotPassword = () => {
+            const email = document.getElementById('auth-email').value;
+            if(!email) return window.showToast("पहले ऊपर अपना Email डालें!");
+            sendPasswordResetEmail(auth, email).then(() => window.showToast("पासवर्ड रिसेट लिंक ईमेल पर भेज दिया गया है!")).catch((error) => window.showToast("Error: " + error.message));
+        };
+
+        window.loginWithGoogle = () => {
+            window.showToast("Google Login शुरू हो रहा है...");
+            signInWithRedirect(auth, provider);
+        };
+
+        getRedirectResult(auth).then((result) => { if (result) window.showToast("लॉगिन सफल हुआ!"); }).catch((error) => console.error(error));
+
+        window.logoutUser = () => {
+            signOut(auth).then(() => window.showToast("लॉगआउट हो गए!"));
+        };
+
+        // THIS IS CRITICAL FOR SHOWING THE SCREEN
+        onAuthStateChanged(auth, async (user) => {
+            const authScreen = document.getElementById('auth-screen');
+            const mainAppScreen = document.getElementById('main-app-container');
+            
+            if (user) {
+                window.state.isLoggedIn = true;
+                authScreen.classList.add("hidden");
+                mainAppScreen.classList.remove("hidden");
+                window.state.userName = user.displayName || user.email.split('@')[0];
+                window.state.userEmail = user.email;
+                window.state.uid = user.uid;
+
+                try {
+                    const userRef = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(userRef);
+                    if (docSnap.exists()) {
+                        window.state.isPremiumUser = docSnap.data().isPremium || false;
+                    } else {
+                        await setDoc(userRef, { name: window.state.userName, email: user.email, isPremium: false, createdAt: new Date() });
+                        window.state.isPremiumUser = false;
+                    }
+                } catch(e) {}
+            } else {
+                window.state.isLoggedIn = false;
+                authScreen.classList.remove('hidden');
+                mainAppScreen.classList.add('hidden');
+                window.state.userName = 'Guest User';
+                window.state.isPremiumUser = false;
+            }
+            if(window.renderMainContent) window.renderMainContent();
+        });
     </script>
 </body>
 </html>
