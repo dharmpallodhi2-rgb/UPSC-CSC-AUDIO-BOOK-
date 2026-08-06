@@ -399,28 +399,28 @@
     </div>
 
     <!-- ================= PROMO VIDEO MODAL ================= -->
-    <div id="promo-video-modal" class="fixed inset-0 bg-black/80 z-[300] hidden flex flex-col justify-center items-center backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
-        <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-3xl shadow-2xl overflow-hidden relative transform scale-95 transition-transform duration-300" id="promo-modal-content">
+    <div id="promo-video-modal" class="fixed inset-0 bg-black/90 z-[300] hidden flex flex-col justify-center items-center backdrop-blur-md p-4 transition-opacity duration-300 opacity-0">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="promo-modal-content">
             <!-- Close Button -->
-            <button onclick="window.closePromoModal()" class="absolute top-3 right-3 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors">
+            <button onclick="window.closePromoModal()" class="absolute top-3 right-3 z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-colors backdrop-blur-sm">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             
-            <!-- Video Container -->
-            <div class="w-full aspect-video bg-black relative">
-                <!-- यहाँ 'Thumb (1).png' और 'promo_video.mp4' को अपनी फाइल के असली नाम से बदल लें -->
-                <video id="promo-video" class="w-full h-full object-cover" controls poster="Thumb (1).png" controlsList="nodownload">
-                    <source src="promo_video.mp4" type="video/mp4">
+            <!-- Video Container (Full screen style within Modal) -->
+            <div class="w-full bg-black relative flex-1 flex items-center justify-center overflow-hidden">
+                <!-- %20 is used below to safely handle spaces in filename -->
+                <video id="promo-video" class="w-full h-full max-h-[55vh] object-contain" controls poster="Thumb (1).png" controlsList="nodownload">
+                    <source src="Untitled%202026-08-06%2012.35.45.mp4" type="video/mp4">
                     आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।
                 </video>
             </div>
             
             <!-- Promo Text -->
-            <div class="p-6 text-center">
-                <h3 class="text-lg md:text-xl font-extrabold text-gray-900 dark:text-white mb-3 leading-tight">
-                    क्या आप भी याद कर कर के थक गए हो? <span class="text-orange-500 text-2xl">🤯</span>
+            <div class="p-5 text-center shrink-0 overflow-y-auto">
+                <h3 class="text-lg font-extrabold text-gray-900 dark:text-white mb-2 leading-tight">
+                    क्या आप भी याद कर कर के थक गए हो? <span class="text-orange-500 text-xl">🤯</span>
                 </h3>
-                <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 font-medium mb-5">
+                <p class="text-[13px] md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-4">
                     तो आपको अब चिंता करने की कोई जरूरत नहीं है। अभी डाउनलोड कीजिए <span class="font-bold text-orange-500">UPSC CSE Audio Book App</span> को और सभी विषय सुनकर याद कीजिए! 🎧📚
                 </p>
                 
@@ -565,20 +565,18 @@
                 const promoContent = document.getElementById('promo-modal-content');
                 if(promoModal) {
                     promoModal.classList.remove('hidden');
-                    // ट्रांजीशन (एनीमेशन) के लिए हल्का सा डिले
                     setTimeout(() => {
                         promoModal.classList.remove('opacity-0');
                         promoContent.classList.remove('scale-95');
                         promoContent.classList.add('scale-100');
                     }, 10);
                     
-                    // ब्राउज़र की पालिसी के अनुसार वीडियो को प्ले करने की कोशिश
                     const video = document.getElementById('promo-video');
                     if(video) {
                         video.play().catch(e => console.log("Autoplay blocked by browser. User must click play."));
                     }
                 }
-            }, 10000); // 10000 milliseconds = 10 seconds
+            }, 10000); 
         }
 
         // प्रोमो वीडियो को क्लोज़ करने का फंक्शन
@@ -587,7 +585,7 @@
             const promoContent = document.getElementById('promo-modal-content');
             const video = document.getElementById('promo-video');
             
-            if(video) video.pause(); // बंद करते ही वीडियो रुक जाएगा
+            if(video) video.pause(); 
             
             if(promoModal) {
                 promoModal.classList.add('opacity-0');
@@ -651,11 +649,7 @@
             if(modal) modal.classList.add('hidden');
         };
         
-        // ==========================================
-        // NEW DIRECT LINK PAYMENT CODE (Razorpay.me)
-        // ==========================================
         window.processPayment = function() {
-            // चेक करें कि यूजर लॉगिन है या नहीं
             if (!window.state.isLoggedIn) {
                 window.showToast("पेमेंट करने के लिए पहले लॉगिन करें!");
                 window.changeTab('Profile');
@@ -663,23 +657,17 @@
                 return;
             }
 
-            // आपका नया असली Razorpay Payment Link
             var paymentUrl = "https://rzp.io/rzp/mQmuz9Lp";
-            
-            // पेमेंट लिंक को एक नए टैब में खोलें
             window.open(paymentUrl, "_blank");
-
             window.showToast("पेमेंट पेज खुल रहा है...");
             
-            // डेमो के लिए: लिंक खुलने के 2 सेकंड बाद यूजर को अपने आप प्रीमियम बना दें
             setTimeout(() => {
                 window.state.isPremiumUser = true;
                 window.showToast("बधाई हो! आपका Premium चालू कर दिया गया है।");
                 window.closeUpgradeModal();
-                window.renderMainContent(); // ताले हटाने के लिए स्क्रीन रिफ्रेश करें
+                window.renderMainContent(); 
             }, 2000);
         };
-        // ==========================================
 
         window.handlePlayClick = function(id) {
             window.togglePlay(id);
@@ -688,7 +676,6 @@
         window.handleDownloadClick = function(id) {
             window.toggleDownload(id);
         };
-
 
         window.seekAudio = function(value) {
             audioElement.currentTime = value;
