@@ -9,7 +9,7 @@ const PODCAST_LIST = [
         episode: "Episode 07", 
         duration: "Full Audio", 
         image: "file_00000000fd7481faac51cd57a3070f5c.png", 
-        audioUrl: "ethics_case_study.m4a", 
+        audioUrl: "एथिक्स_केस_स्टडी_हल_करने_का_तरीका_compressed.m4a", 
         isPremium: true 
     },
     { 
@@ -22,7 +22,7 @@ const PODCAST_LIST = [
         episode: "Episode 06", 
         duration: "48:12", 
         image: "file_00000000a3b48211ae12fa2946dcbd7d.png", 
-        audioUrl: "gdp_math.m4a", 
+        audioUrl: "GDP_ka_ganit_compressed.m4a", 
         isPremium: false 
     },
     { 
@@ -35,7 +35,7 @@ const PODCAST_LIST = [
         episode: "Episode 01", 
         duration: "35:20", 
         image: "file_00000000123481fa8d6b66edbf7d2bd.png", 
-        audioUrl: "el_nino.m4a", 
+        audioUrl: "El_Nino_La_Nina_compressed.m4a", 
         isPremium: false 
     },
     { 
@@ -48,7 +48,7 @@ const PODCAST_LIST = [
         episode: "Episode 02", 
         duration: "40:05", 
         image: "file_00000000234582ab8d6b66edbf7d2bd.png", 
-        audioUrl: "india_geography.m4a", 
+        audioUrl: "Bharat_ka_akar_compressed.m4a", 
         isPremium: false 
     },
     { 
@@ -61,7 +61,7 @@ const PODCAST_LIST = [
         episode: "Episode 03", 
         duration: "29:10", 
         image: "file_00000000345683cd8d6b66edbf7d2bd.png", 
-        audioUrl: "plate_tectonics.m4a", 
+        audioUrl: "Plate_Tectonics_compressed.m4a", 
         isPremium: false 
     },
     { 
@@ -74,7 +74,7 @@ const PODCAST_LIST = [
         episode: "Episode 04", 
         duration: "42:00", 
         image: "file_00000000456784ef8d6b66edbf7d2bd.png", 
-        audioUrl: "banking_rbi.m4a", 
+        audioUrl: "Banking_RBI_DigitalRupee_compressed.m4a", 
         isPremium: false 
     },
     { 
@@ -87,9 +87,10 @@ const PODCAST_LIST = [
         episode: "Episode 05", 
         duration: "33:45", 
         image: "file_00000000567885gh8d6b66edbf7d2bd.png", 
-        audioUrl: "fundamental_rights.m4a", 
+        audioUrl: "Fundamental_Rights_compressed.m4a", 
         isPremium: false 
     }
 ];
 
+// Expose to global scope so index.html script can use it
 window.PODCAST_LIST = PODCAST_LIST;
