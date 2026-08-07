@@ -23,73 +23,43 @@
     <style>
         body, html {
             font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
+            margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
+            -webkit-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none;
         }
         
         .app-container {
-            height: 100dvh;
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
+            height: 100dvh; height: 100vh; width: 100%; display: flex; flex-direction: column;
         }
 
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        .animate-slide-up {
-            animation: slideUp 0.3s ease-out forwards;
-        }
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+        .animate-slide-up { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .playing-bars span {
-            animation: bounce 1s infinite;
-        }
+        .playing-bars span { animation: bounce 1s infinite; }
         .playing-bars span:nth-child(2) { animation-delay: 0.2s; }
         .playing-bars span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes bounce {
-            0%, 100% { height: 100%; }
-            50% { height: 30%; }
-        }
+        @keyframes bounce { 0%, 100% { height: 100%; } 50% { height: 30%; } }
     </style>
     
-    <!-- ================= EXTERNAL DATA FILES ================= -->
-    <script src="banners.js?v=5.0"></script>
-    <script src="current-affairs.js?v=5.0"></script>
-    <script src="podcasts.js?v=5.0"></script>
-    <script src="quizzes.js?v=5.0"></script>
+    <!-- ================= EXTERNAL DATA FILES (CACHE BUSTING) ================= -->
+    <script src="banners.js?v=6.0"></script>
+    <script src="current-affairs.js?v=6.0"></script>
+    <script src="podcasts.js?v=6.0"></script>
+    <script src="quizzes.js?v=6.0"></script>
 
     <!-- Security Settings -->
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('copy', event => {
-            event.preventDefault();
-            window.showToast("Security: Copying text is disabled!");
-        });
+        document.addEventListener('copy', event => { event.preventDefault(); window.showToast("Security: Copying is disabled!"); });
         document.addEventListener('cut', event => event.preventDefault());
         document.addEventListener('paste', event => event.preventDefault());
     </script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
-    <!-- ================= AUTHENTICATION (LOGIN/SIGNUP) SYSTEM ================= -->
+    <!-- ================= AUTHENTICATION SCREEN ================= -->
     <div id="auth-screen" class="fixed inset-0 z-[200] bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center p-4 transition-opacity duration-500 overflow-y-auto">
         <div class="w-full max-w-md flex flex-col items-center mb-8">
             <i class="fa-solid fa-headphones text-5xl text-orange-500 mb-3 shadow-orange-500/50 drop-shadow-lg"></i>
@@ -98,8 +68,6 @@
         </div>
 
         <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-3xl shadow-2xl p-6 md:p-8 border border-gray-100 dark:border-gray-700">
-            
-            <!-- EMAIL LOGIN/SIGNUP SECTION -->
             <div id="email-section" class="block">
                 <h2 id="email-title" class="text-xl font-bold text-gray-900 dark:text-white mb-1">लॉगिन करें</h2>
                 <p id="email-subtitle" class="text-xs text-gray-500 mb-4">अगर अकाउंट नहीं है, तो पहले नीचे "Sign Up" पर क्लिक करें।</p>
@@ -134,43 +102,31 @@
                 </div>
             </div>
 
-            <!-- Divider -->
             <div class="flex items-center my-6">
                 <div class="flex-1 border-t border-gray-200 dark:border-gray-700"></div>
                 <span class="px-3 text-xs font-semibold text-gray-400 uppercase">OR</span>
                 <div class="flex-1 border-t border-gray-200 dark:border-gray-700"></div>
             </div>
 
-            <!-- Google Login -->
-            <div id="google-login-container">
-                <button onclick="window.loginWithGoogle()" class="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 font-bold py-3.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shadow-sm text-base flex items-center justify-center gap-3">
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
-                    Continue with Google
-                </button>
-            </div>
+            <button onclick="window.loginWithGoogle()" class="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 font-bold py-3.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shadow-sm text-base flex items-center justify-center gap-3">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google"> Continue with Google
+            </button>
             <p class="text-[10px] text-center text-gray-400 mt-3 font-medium leading-tight">
                 * यदि App में Google काम न करे, तो ऊपर Email और नया Password डालकर 'Sign Up' करें।
             </p>
-            
         </div>
     </div>
 
-    <!-- Main Full Screen Container -->
+    <!-- ================= MAIN APP CONTAINER ================= -->
     <div id="main-app-container" class="app-container relative overflow-hidden flex flex-col hidden">
-
         <audio id="audio-player"></audio>
+        <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs md:text-sm px-6 py-3 rounded-full z-[90] shadow-2xl whitespace-nowrap transition-opacity duration-300 opacity-0 pointer-events-none hidden"></div>
 
-        <!-- Toast Message -->
-        <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs md:text-sm px-6 py-3 rounded-full z-[90] shadow-2xl whitespace-nowrap transition-opacity duration-300 opacity-0 pointer-events-none hidden">
-        </div>
-
-        <!-- ================= HEADER (Fixed at Top) ================= -->
+        <!-- HEADER -->
         <div class="bg-white dark:bg-gray-800 z-20 shrink-0 shadow-sm w-full transition-colors duration-200" id="header-container">
             <div class="max-w-7xl mx-auto w-full">
-                <!-- Top Navbar -->
                 <header class="px-4 py-3 flex items-center justify-between">
                     <i class="fa-solid fa-bars text-xl text-gray-700 dark:text-gray-200 cursor-pointer hover:text-orange-500 transition-colors" onclick="window.openDrawer()"></i>
-                    
                     <div class="flex items-center gap-2 cursor-pointer" onclick="window.changeTab('Home')">
                         <i class="fa-solid fa-headphones text-2xl text-orange-500"></i>
                         <div class="flex flex-col items-start leading-none mt-1">
@@ -178,7 +134,6 @@
                             <span class="text-[10px] md:text-xs font-bold text-orange-500 tracking-wider">AUDIO BOOK</span>
                         </div>
                     </div>
-
                     <div class="flex items-center gap-3">
                         <div class="relative cursor-pointer w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" onclick="window.openNotificationsModal()">
                             <i class="fa-regular fa-bell text-gray-700 dark:text-gray-200 text-xl"></i>
@@ -190,93 +145,52 @@
                     </div>
                 </header>
 
-                <!-- Search Bar -->
                 <div id="search-container" class="px-4 pb-2 relative">
                     <div id="search-box" class="bg-gray-100 dark:bg-gray-700 rounded-full flex items-center px-4 py-2 md:py-3 transition-all max-w-2xl mx-auto border border-transparent focus-within:border-orange-300 focus-within:bg-white dark:focus-within:bg-gray-800 focus-within:shadow-sm">
                         <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3"></i>
-                        <input 
-                            type="text" 
-                            id="search-input"
-                            placeholder="Search for topics, subjects or podcasts..." 
-                            class="bg-transparent border-none outline-none w-full text-sm md:text-base text-gray-700 dark:text-gray-200 placeholder:text-gray-400 h-8"
-                            oninput="window.handleSearch(event)"
-                        />
+                        <input type="text" id="search-input" placeholder="Search for topics, subjects or podcasts..." class="bg-transparent border-none outline-none w-full text-sm md:text-base text-gray-700 dark:text-gray-200 placeholder:text-gray-400 h-8" oninput="window.handleSearch(event)" />
                         <button onclick="window.startVoiceSearch()" id="mic-btn" class="ml-2 w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-300 transition-colors">
                             <i id="mic-icon" class="fa-solid fa-microphone"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Category Tabs -->
-                <div id="category-container" class="flex overflow-x-auto hide-scrollbar px-4 pt-2 border-b border-gray-100 dark:border-gray-700 gap-6 md:gap-8 max-w-7xl mx-auto">
-                    <!-- Categories injected here -->
-                </div>
+                <div id="category-container" class="flex overflow-x-auto hide-scrollbar px-4 pt-2 border-b border-gray-100 dark:border-gray-700 gap-6 md:gap-8 max-w-7xl mx-auto"></div>
             </div>
         </div>
 
-        <!-- ================= MAIN CONTENT (Scrollable) ================= -->
-        <main id="main-content" class="flex-1 overflow-y-auto hide-scrollbar bg-gray-50 dark:bg-gray-900 pb-28 pt-4 w-full relative transition-colors duration-200">
-            <!-- Content injected here -->
-        </main>
+        <main id="main-content" class="flex-1 overflow-y-auto hide-scrollbar bg-gray-50 dark:bg-gray-900 pb-28 pt-4 w-full relative transition-colors duration-200"></main>
 
-        <!-- ================= MINI PLAYER (Fixed Bottom, Above Nav) ================= -->
+        <!-- MINI PLAYER -->
         <div id="mini-player-wrapper" class="absolute bottom-[65px] left-0 right-0 w-full z-40 hidden px-2 md:px-6 pointer-events-none">
-            <div id="mini-player" class="bg-[#F96D15] px-4 py-3 flex-col justify-center shadow-xl rounded-xl animate-slide-up max-w-4xl mx-auto pointer-events-auto flex w-full text-white cursor-pointer" onclick="window.openPlayerModal()">
-                <!-- Player HTML injected here -->
-            </div>
+            <div id="mini-player" class="bg-[#F96D15] px-4 py-3 flex-col justify-center shadow-xl rounded-xl animate-slide-up max-w-4xl mx-auto pointer-events-auto flex w-full text-white cursor-pointer" onclick="window.openPlayerModal()"></div>
         </div>
 
-        <!-- ================= BOTTOM NAVIGATION (Fixed Bottom) ================= -->
+        <!-- BOTTOM NAV -->
         <nav id="bottom-nav" class="shrink-0 h-[65px] bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 w-full z-50 shadow-[0_-5px_20px_-5px_rgba(0,0,0,0.1)] transition-colors duration-200">
-            <div class="max-w-md md:max-w-3xl mx-auto w-full h-full flex justify-between items-center px-2 md:px-8" id="nav-items-container">
-                <!-- Nav buttons injected here -->
-            </div>
+            <div class="max-w-md md:max-w-3xl mx-auto w-full h-full flex justify-between items-center px-2 md:px-8" id="nav-items-container"></div>
         </nav>
 
-        <!-- ================= FULL SCREEN NOW PLAYING MODAL ================= -->
+        <!-- PLAYER MODAL -->
         <div id="player-modal" class="fixed inset-0 bg-gray-900/90 dark:bg-black/95 z-[100] hidden flex flex-col justify-between p-4 md:p-8 backdrop-blur-md animate-slide-up text-white overflow-y-auto">
-            <!-- Modal Header -->
             <div class="flex items-center justify-between w-full max-w-2xl mx-auto pt-2">
-                <button onclick="window.closePlayerModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                    <i class="fa-solid fa-chevron-down text-lg"></i>
-                </button>
+                <button onclick="window.closePlayerModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-solid fa-chevron-down text-lg"></i></button>
                 <span class="text-base font-bold tracking-wide">Now Playing</span>
                 <div class="relative">
-                    <button onclick="window.togglePlayerMenu(event)" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                        <i class="fa-solid fa-ellipsis-vertical text-lg"></i>
-                    </button>
-                    <!-- Player Dropdown Menu -->
+                    <button onclick="window.togglePlayerMenu(event)" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-solid fa-ellipsis-vertical text-lg"></i></button>
                     <div id="player-dropdown" class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 hidden z-50 py-2">
-                        <div onclick="window.openNotificationsModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium">
-                            <div class="flex items-center gap-3"><i class="fa-regular fa-bell text-gray-500"></i> Notifications</div>
-                            <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
-                        </div>
-                        <div onclick="window.openShareModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium">
-                            <div class="flex items-center gap-3"><i class="fa-solid fa-share-nodes text-gray-500"></i> Share</div>
-                            <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
-                        </div>
-                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium border-t border-gray-100 dark:border-gray-700">
-                            <div class="flex items-center gap-3"><i class="fa-regular fa-moon text-gray-500"></i> Dark Mode</div>
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="dark-mode-toggle" class="sr-only peer" onchange="window.toggleDarkMode()">
-                                <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div>
-                            </label>
-                        </div>
+                        <div onclick="window.openNotificationsModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium"><div class="flex items-center gap-3"><i class="fa-regular fa-bell text-gray-500"></i> Notifications</div><i class="fa-solid fa-chevron-right text-xs text-gray-400"></i></div>
+                        <div onclick="window.openShareModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium"><div class="flex items-center gap-3"><i class="fa-solid fa-share-nodes text-gray-500"></i> Share</div><i class="fa-solid fa-chevron-right text-xs text-gray-400"></i></div>
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium border-t border-gray-100 dark:border-gray-700"><div class="flex items-center gap-3"><i class="fa-regular fa-moon text-gray-500"></i> Dark Mode</div><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" id="dark-mode-toggle" class="sr-only peer" onchange="window.toggleDarkMode()"><div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label></div>
                     </div>
                 </div>
             </div>
-
-            <!-- Modal Body Content -->
-            <div id="player-modal-content" class="flex flex-col items-center justify-center max-w-md mx-auto w-full my-auto py-4">
-                <!-- Injected dynamically -->
-            </div>
+            <div id="player-modal-content" class="flex flex-col items-center justify-center max-w-md mx-auto w-full my-auto py-4"></div>
         </div>
 
-        
-        <!-- ================= SIDEBAR MENU ================= -->
+        <!-- SIDEBAR MENU -->
         <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-[120] hidden opacity-0 transition-opacity duration-300" onclick="window.closeDrawer()"></div>
         <div id="sidebar-menu" class="fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-800 z-[130] transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
-            <!-- Sidebar Header -->
             <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between mt-2">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-headphones text-2xl text-orange-500"></i>
@@ -286,10 +200,7 @@
                 </div>
                 <i class="fa-solid fa-xmark text-2xl text-gray-500 dark:text-gray-400 cursor-pointer hover:text-red-500" onclick="window.closeDrawer()"></i>
             </div>
-            
-            <!-- Sidebar Links -->
             <div class="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-3">
-                <!-- Upgrade Premium -->
                 <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl p-4 text-white shadow-lg cursor-pointer mb-2 transform hover:scale-[1.02] transition-transform" onclick="window.openUpgradeModal(); window.closeDrawer();">
                     <div class="flex items-center justify-between mb-2">
                         <span class="font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-crown mr-1.5"></i> Premium</span>
@@ -297,673 +208,317 @@
                     </div>
                     <p class="text-xs text-white/90 leading-tight">Unlock all audiobooks & downloads.</p>
                 </div>
-                
-                <!-- Quiz -->
                 <div class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700" onclick="window.changeTab('Quiz'); window.closeDrawer();">
-                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
-                        <i class="fa-solid fa-list-check text-xl w-6 text-center text-orange-500"></i>
-                        <span class="font-bold text-sm">UPSC Quiz</span>
-                    </div>
+                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200"><i class="fa-solid fa-list-check text-xl w-6 text-center text-orange-500"></i><span class="font-bold text-sm">UPSC Quiz</span></div>
                 </div>
-                <!-- Dark Mode Toggle -->
                 <div class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700" onclick="document.getElementById('sidebar-dark-toggle').click()">
-                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
-                        <i class="fa-solid fa-moon text-xl w-6 text-center"></i>
-                        <span class="font-bold text-sm">Dark Mode</span>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer" onclick="event.stopPropagation()">
-                        <input type="checkbox" id="sidebar-dark-toggle" class="sr-only peer" onchange="window.toggleDarkMode()">
-                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
-                    </label>
+                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200"><i class="fa-solid fa-moon text-xl w-6 text-center"></i><span class="font-bold text-sm">Dark Mode</span></div>
+                    <label class="relative inline-flex items-center cursor-pointer" onclick="event.stopPropagation()"><input type="checkbox" id="sidebar-dark-toggle" class="sr-only peer" onchange="window.toggleDarkMode()"><div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div></label>
                 </div>
-
-                <!-- Join Telegram -->
                 <a href="https://t.me/pyqforupscinhindi" target="_blank" class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700 group">
-                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
-                        <i class="fa-brands fa-telegram text-[#229ED9] text-2xl w-6 text-center group-hover:scale-110 transition-transform"></i>
-                        <span class="font-bold text-sm">Join Telegram</span>
-                    </div>
+                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200"><i class="fa-brands fa-telegram text-[#229ED9] text-2xl w-6 text-center group-hover:scale-110 transition-transform"></i><span class="font-bold text-sm">Join Telegram</span></div>
                     <i class="fa-solid fa-arrow-up-right-from-square text-sm text-gray-400"></i>
                 </a>
-
-                <!-- Contact Us -->
-                <a href="mailto:upsccseaudiobook@gmail.com" class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700 group">
-                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
-                        <i class="fa-solid fa-envelope text-blue-500 text-xl w-6 text-center"></i>
-                        <span class="font-bold text-sm">Contact Us</span>
-                    </div>
-                </a>
-                
-                <!-- Privacy Policy -->
-                <div onclick="window.showToast('Privacy Policy: All content is secured and protected.'); window.closeDrawer();" class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700 group">
-                    <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
-                        <i class="fa-solid fa-shield-halved text-green-500 text-xl w-6 text-center"></i>
-                        <span class="font-bold text-sm">Privacy Policy</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="p-4 text-center border-t border-gray-100 dark:border-gray-700">
-                <p class="text-xs text-gray-400 dark:text-gray-500 font-medium">UPSC CSE Audio Book v1.0</p>
             </div>
         </div>
 
-        <!-- ================= NOTIFICATIONS MODAL ================= -->
+        <!-- NOTIFICATIONS MODAL -->
         <div id="notifications-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
             <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-lg rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up max-h-[85vh] overflow-y-auto">
                 <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700 mb-4">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-chevron-left cursor-pointer text-lg" onclick="window.closeNotificationsModal()"></i>
-                        <h3 class="text-lg font-bold">Notifications</h3>
-                    </div>
+                    <h3 class="text-lg font-bold">Notifications</h3>
                     <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeNotificationsModal()"></i>
                 </div>
                 <div class="space-y-4">
-                    
-                    <!-- NEW AUDIO ALERT -->
                     <div class="bg-orange-50 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-800 rounded-xl p-4 mb-4 flex gap-3 items-start">
-                        <div class="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center shrink-0 shadow-md">
-                            <i class="fa-solid fa-music"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center shrink-0 shadow-md"><i class="fa-solid fa-music"></i></div>
                         <div>
                             <span class="text-[10px] font-bold text-orange-500 tracking-wider uppercase">New Update • Today</span>
                             <h4 class="text-sm font-bold text-gray-900 dark:text-white mt-0.5">नया ऑडियो आ गया है!</h4>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">"एथिक्स केस स्टडी हल करने का तरीका" अब सुनने के लिए उपलब्ध है। अभी 'Ethics' सेक्शन में जाकर सुनें।</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">"GDP का गणित और अर्थव्यवस्था की हकीकत" अब सुनने के लिए उपलब्ध है।</p>
                         </div>
-                    </div>
-
-                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Notification Settings</h4>
-                    <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
-                        <span class="font-medium text-sm">All Notifications</span>
-                        <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= SHARE MODAL ================= -->
+        <!-- SHARE MODAL -->
         <div id="share-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
             <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-lg rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up">
                 <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700 mb-4">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-chevron-left cursor-pointer text-lg" onclick="window.closeShareModal()"></i>
-                        <h3 class="text-lg font-bold">Share</h3>
-                    </div>
-                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeShareModal()"></i>
+                    <h3 class="text-lg font-bold">Share</h3>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400" onclick="window.closeShareModal()"></i>
                 </div>
                 <div class="space-y-3">
-                    <div onclick="window.shareTo('WhatsApp')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
-                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-whatsapp"></i></div><span class="font-semibold">WhatsApp</span></div>
-                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
-                    </div>
-                    <div onclick="window.shareTo('Telegram')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
-                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-telegram"></i></div><span class="font-semibold">Telegram</span></div>
-                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
-                    </div>
-                    <div onclick="window.shareTo('Facebook')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
-                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-facebook-f"></i></div><span class="font-semibold">Facebook</span></div>
-                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
-                    </div>
-                    <div onclick="window.copyLink()" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
-                        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-200 text-lg"><i class="fa-solid fa-link"></i></div><span class="font-semibold">Copy Link</span></div>
-                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
-                    </div>
+                    <div onclick="window.shareTo('WhatsApp')" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-lg"><i class="fa-brands fa-whatsapp"></i></div><span class="font-semibold">WhatsApp</span></div></div>
+                    <div onclick="window.copyLink()" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-200 text-lg"><i class="fa-solid fa-link"></i></div><span class="font-semibold">Copy Link</span></div></div>
                 </div>
             </div>
         </div>
 
-    </div>
-
-    <!-- ================= PROMO VIDEO MODAL ================= -->
-    <div id="promo-video-modal" class="fixed inset-0 bg-black/90 z-[300] hidden flex flex-col justify-center items-center backdrop-blur-md p-4 transition-opacity duration-300 opacity-0">
-        <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="promo-modal-content">
-            <!-- Close Button -->
-            <button onclick="window.closePromoModal()" class="absolute top-3 right-3 z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-colors backdrop-blur-sm">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            
-            <!-- Video Container -->
-            <div class="w-full bg-black relative flex-1 flex items-center justify-center overflow-hidden">
-                <video id="promo-video" class="w-full h-full max-h-[55vh] object-contain" controls poster="Thumb (1).png" controlsList="nodownload">
-                    <source src="Untitled%202026-08-06%2012.35.45.mp4" type="video/mp4">
-                    आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।
-                </video>
-            </div>
-            
-            <!-- Promo Text -->
-            <div class="p-5 text-center shrink-0 overflow-y-auto">
-                <h3 class="text-lg font-extrabold text-gray-900 dark:text-white mb-2 leading-tight">
-                    क्या आप भी याद कर कर के थक गए हो? <span class="text-orange-500 text-xl">🤯</span>
-                </h3>
-                <p class="text-[13px] md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-4">
-                    तो आपको अब चिंता करने की कोई जरूरत नहीं है। अभी डाउनलोड कीजिए <span class="font-bold text-orange-500">UPSC CSE Audio Book App</span> को और सभी विषय सुनकर याद कीजिए! 🎧📚
-                </p>
-                
-                <button onclick="window.closePromoModal()" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3.5 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-headphones"></i> अभी सुनना शुरू करें
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= UPGRADE MODAL ================= -->
-    <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
-        <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
-            <!-- Decor -->
-            <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
-            
-            <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
-                <h3 class="text-xl font-extrabold flex items-center gap-2">
-                    <i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium
-                </h3>
-                <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
-            </div>
-            
-            <div class="relative z-10">
-                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
-                
-                <ul class="space-y-4 mb-8">
-                    <li class="flex items-start gap-3">
-                        <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
-                        <div>
-                            <h4 class="font-bold text-sm">Access All Audiobooks</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Listen to premium, expertly curated content.</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
-                        <div>
-                            <h4 class="font-bold text-sm">Unlimited Offline Downloads</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Download and listen anywhere, anytime without internet.</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fa-solid fa-circle-check text-green-500 mt-0.5 text-lg"></i>
-                        <div>
-                            <h4 class="font-bold text-sm">Ad-Free Experience</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Zero interruptions during your focus time.</p>
-                        </div>
-                    </li>
-                </ul>
-                
-                <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-6 flex justify-between items-center">
-                    <div>
-                        <span class="block text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider mb-1">Monthly Plan</span>
-                        <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹599<span class="text-sm font-medium text-gray-500">/mo</span></span>
-                    </div>
-                    <div class="bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded">Popular</div>
+        <!-- PROMO VIDEO MODAL -->
+        <div id="promo-video-modal" class="fixed inset-0 bg-black/90 z-[300] hidden flex flex-col justify-center items-center backdrop-blur-md p-4 transition-opacity duration-300 opacity-0">
+            <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="promo-modal-content">
+                <button onclick="window.closePromoModal()" class="absolute top-3 right-3 z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"><i class="fa-solid fa-xmark"></i></button>
+                <div class="w-full bg-black relative flex-1 flex items-center justify-center overflow-hidden">
+                    <video id="promo-video" class="w-full h-full max-h-[55vh] object-contain" controls poster="Thumb (1).png" controlsList="nodownload"><source src="Untitled%202026-08-06%2012.35.45.mp4" type="video/mp4"></video>
                 </div>
-                
-                <button onclick="window.processPayment()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3.5 rounded-xl hover:from-amber-600 hover:to-orange-600 transition-colors shadow-lg text-base flex items-center justify-center gap-2">
-                    Upgrade Now
-                </button>
+                <div class="p-5 text-center shrink-0 overflow-y-auto">
+                    <h3 class="text-lg font-extrabold text-gray-900 dark:text-white mb-2 leading-tight">क्या आप भी याद कर कर के थक गए हो? <span class="text-orange-500 text-xl">🤯</span></h3>
+                    <p class="text-[13px] md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-4">तो आपको अब चिंता करने की कोई जरूरत नहीं है। अभी डाउनलोड कीजिए <span class="font-bold text-orange-500">UPSC CSE Audio Book App</span> को और सभी विषय सुनकर याद कीजिए! 🎧📚</p>
+                    <button onclick="window.closePromoModal()" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3.5 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg flex items-center justify-center gap-2"><i class="fa-solid fa-headphones"></i> अभी सुनना शुरू करें</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- ================= JAVASCRIPT ================= -->
+        <!-- UPGRADE MODAL -->
+        <div id="upgrade-modal" class="fixed inset-0 bg-black/80 z-[150] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm">
+            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
+                <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
+                    <h3 class="text-xl font-extrabold flex items-center gap-2"><i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium</h3>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
+                </div>
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
+                    <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-6 flex justify-between items-center">
+                        <div>
+                            <span class="block text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider mb-1">Monthly Plan</span>
+                            <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹599<span class="text-sm font-medium text-gray-500">/mo</span></span>
+                        </div>
+                        <div class="bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded">Popular</div>
+                    </div>
+                    <button onclick="window.processPayment()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2">Upgrade Now</button>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- END MAIN APP CONTAINER -->
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
-        const FALLBACK_IMG = "https://placehold.co/400x400/f3f4f6/9ca3af?text=UPSC+Audio";
-
+        const FALLBACK_IMG = "https://placehold.co/800x450/f3f4f6/9ca3af?text=UPSC+Audio";
         const CATEGORIES = ["All", "History", "Polity", "Geography", "Economy", "Environment", "Science", "Current Affairs", "Ethics"];
 
         window.state = {
-            activeTab: 'Home',
-            activeCategory: 'All',
-            searchQuery: '',
-            bookmarks: new Set([1]),
-            downloads: new Set([1, 2]),
-            currentTrackId: null,
-            isPlaying: false,
-            playbackSpeed: 1.0,
-            darkMode: false,
-            isPremiumUser: false,
-            isLoggedIn: false,
-            userName: 'Guest User',
-            userEmail: '',
-            userImage: null,
-            uid: null,
+            activeTab: 'Home', activeCategory: 'All', searchQuery: '',
+            bookmarks: new Set(), downloads: new Set(), currentTrackId: null,
+            isPlaying: false, playbackSpeed: 1.0, darkMode: false,
+            isPremiumUser: false, isLoggedIn: false, userName: 'Guest User',
+            userEmail: '', userImage: null, uid: null,
             quizState: { activeQuizId: null, currentQ: 0, answers: {}, score: 0, lang: 'hi', timeLeft: 0 }
         };
 
         const audioElement = document.getElementById('audio-player');
+
+        // ======== ROBUST DATA FETCHERS (PREVENTS CRASHES) ========
+        function getPodcasts() { return typeof PODCAST_LIST !== 'undefined' ? PODCAST_LIST : (window.PODCAST_LIST || []); }
+        function getBanners() { return typeof BANNERS_DATA !== 'undefined' ? BANNERS_DATA : (window.BANNERS_DATA || []); }
+        function getQuizzes() { return typeof QUIZ_DB !== 'undefined' ? QUIZ_DB : (window.QUIZ_DB || {}); }
+        function getCurrentAffairs() { return typeof CURRENT_AFFAIRS_DATA !== 'undefined' ? CURRENT_AFFAIRS_DATA : (window.CURRENT_AFFAIRS_DATA || []); }
 
         function init() {
             renderHeaderExtras();
             renderMainContent();
             renderBottomNav();
             audioElement.addEventListener('ended', window.handleNextTrack);
+            audioElement.addEventListener('timeupdate', updateProgress);
             
-            audioElement.addEventListener('timeupdate', () => {
-                const seekBar = document.getElementById('seek-bar');
-                const modalSeekBar = document.getElementById('modal-seek-bar');
-                const currentTimeDisp = document.getElementById('current-time-disp');
-                const modalCurrentDisp = document.getElementById('modal-current-time');
-                const totalTimeDisp = document.getElementById('total-time-disp');
-                const modalTotalDisp = document.getElementById('modal-total-time');
-                
-                if (!isNaN(audioElement.duration)) {
-                    const formatTime = (seconds) => {
-                        const m = Math.floor(seconds / 60);
-                        const s = Math.floor(seconds % 60);
-                        return `${m}:${s < 10 ? '0' : ''}${s}`;
-                    };
-                    const curText = formatTime(audioElement.currentTime);
-                    const totText = formatTime(audioElement.duration);
-
-                    if (seekBar) {
-                        seekBar.max = audioElement.duration;
-                        seekBar.value = audioElement.currentTime;
-                    }
-                    if (modalSeekBar) {
-                        modalSeekBar.max = audioElement.duration;
-                        modalSeekBar.value = audioElement.currentTime;
-                    }
-                    if (currentTimeDisp) currentTimeDisp.textContent = curText;
-                    if (modalCurrentDisp) modalCurrentDisp.textContent = curText;
-                    if (totalTimeDisp) totalTimeDisp.textContent = totText;
-                    if (modalTotalDisp) modalTotalDisp.textContent = totText;
-                }
-            });
-
             setTimeout(() => {
-                if (!sessionStorage.getItem('upgradePopShown') && !window.state.isPremiumUser && window.state.isLoggedIn) {
-                    window.openUpgradeModal();
-                    sessionStorage.setItem('upgradePopShown', 'true');
-                }
-            }, 1500);
-
-            // ================= PROMO VIDEO LOGIC =================
-            setTimeout(() => {
-                if(window.state.isLoggedIn) {
+                if (window.state.isLoggedIn) {
                     const promoModal = document.getElementById('promo-video-modal');
                     const promoContent = document.getElementById('promo-modal-content');
-                    if(promoModal) {
+                    if(promoModal && promoContent) {
                         promoModal.classList.remove('hidden');
-                        setTimeout(() => {
-                            promoModal.classList.remove('opacity-0');
-                            promoContent.classList.remove('scale-95');
-                            promoContent.classList.add('scale-100');
-                        }, 10);
-                        
+                        setTimeout(() => { promoModal.classList.remove('opacity-0'); promoContent.classList.remove('scale-95'); promoContent.classList.add('scale-100'); }, 10);
                         const video = document.getElementById('promo-video');
-                        if(video) {
-                            video.play().catch(e => console.log("Autoplay blocked by browser. User must click play."));
-                        }
+                        if(video) video.play().catch(e => console.log("Autoplay blocked by browser."));
                     }
                 }
             }, 10000); 
         }
 
-        window.closePromoModal = function() {
-            const promoModal = document.getElementById('promo-video-modal');
-            const promoContent = document.getElementById('promo-modal-content');
-            const video = document.getElementById('promo-video');
+        function updateProgress() {
+            const seekBar = document.getElementById('seek-bar');
+            const modalSeekBar = document.getElementById('modal-seek-bar');
+            const curT = document.getElementById('current-time-disp');
+            const modCurT = document.getElementById('modal-current-time');
+            const totT = document.getElementById('total-time-disp');
+            const modTotT = document.getElementById('modal-total-time');
             
-            if(video) video.pause(); 
-            
-            if(promoModal) {
-                promoModal.classList.add('opacity-0');
-                promoContent.classList.remove('scale-100');
-                promoContent.classList.add('scale-95');
-                setTimeout(() => {
-                    promoModal.classList.add('hidden');
-                }, 300);
+            if (!isNaN(audioElement.duration)) {
+                const formatTime = (s) => { let m = Math.floor(s/60); let sec = Math.floor(s%60); return `${m}:${sec<10?'0':''}${sec}`; };
+                const curText = formatTime(audioElement.currentTime);
+                const totText = formatTime(audioElement.duration);
+                if (seekBar) { seekBar.max = audioElement.duration; seekBar.value = audioElement.currentTime; }
+                if (modalSeekBar) { modalSeekBar.max = audioElement.duration; modalSeekBar.value = audioElement.currentTime; }
+                if (curT) curT.textContent = curText;
+                if (modCurT) modCurT.textContent = curText;
+                if (totT) totT.textContent = totText;
+                if (modTotT) modTotT.textContent = totText;
             }
+        }
+
+        window.closePromoModal = function() {
+            const m = document.getElementById('promo-video-modal');
+            const c = document.getElementById('promo-modal-content');
+            const v = document.getElementById('promo-video');
+            if(v) v.pause(); 
+            if(m && c) { m.classList.add('opacity-0'); c.classList.remove('scale-100'); c.classList.add('scale-95'); setTimeout(() => m.classList.add('hidden'), 300); }
         };
 
-        window.openUpgradeModal = function() {
-            const modal = document.getElementById('upgrade-modal');
-            if(modal) modal.classList.remove('hidden');
-        };
-        
-        window.closeUpgradeModal = function() {
-            const modal = document.getElementById('upgrade-modal');
-            if(modal) modal.classList.add('hidden');
-        };
+        window.openUpgradeModal = () => document.getElementById('upgrade-modal').classList.remove('hidden');
+        window.closeUpgradeModal = () => document.getElementById('upgrade-modal').classList.add('hidden');
         
         window.processPayment = function() {
-            if (!window.state.isLoggedIn) {
-                window.showToast("पेमेंट करने के लिए पहले लॉगिन करें!");
-                window.changeTab('Profile');
-                window.closeUpgradeModal();
-                return;
-            }
-
-            var paymentUrl = "https://rzp.io/rzp/mQmuz9Lp";
-            window.open(paymentUrl, "_blank");
-
-            window.showToast("पेमेंट पेज खुल रहा है...");
-            
-            setTimeout(() => {
-                window.state.isPremiumUser = true;
-                window.showToast("बधाई हो! आपका Premium चालू कर दिया गया है।");
-                window.closeUpgradeModal();
-                window.renderMainContent(); 
-            }, 2000);
+            if (!window.state.isLoggedIn) { window.showToast("पहले लॉगिन करें!"); window.changeTab('Profile'); window.closeUpgradeModal(); return; }
+            window.open("https://rzp.io/rzp/mQmuz9Lp", "_blank");
+            window.showToast("Payment processing...");
+            setTimeout(() => { window.state.isPremiumUser = true; window.showToast("Premium Activated!"); window.closeUpgradeModal(); renderMainContent(); }, 2000);
         };
 
-        window.handlePlayClick = function(id) {
-            window.togglePlay(id);
-        };
-
-        window.handleDownloadClick = function(id) {
-            window.toggleDownload(id);
-        };
-
-        window.seekAudio = function(value) {
-            audioElement.currentTime = value;
-        };
-
-        window.skipTime = function(seconds) {
-            audioElement.currentTime = Math.max(0, Math.min(audioElement.duration || 0, audioElement.currentTime + seconds));
-        };
-
+        window.handlePlayClick = (id) => window.togglePlay(id);
+        window.handleDownloadClick = (id) => window.toggleDownload(id);
+        window.seekAudio = (val) => audioElement.currentTime = val;
+        window.skipTime = (sec) => audioElement.currentTime = Math.max(0, Math.min(audioElement.duration || 0, audioElement.currentTime + sec));
+        
         window.changeSpeed = function() {
             const speeds = [1.0, 1.25, 1.5, 2.0, 0.75];
-            const nextIdx = (speeds.indexOf(window.state.playbackSpeed) + 1) % speeds.length;
-            window.state.playbackSpeed = speeds[nextIdx];
+            window.state.playbackSpeed = speeds[(speeds.indexOf(window.state.playbackSpeed) + 1) % speeds.length];
             audioElement.playbackRate = window.state.playbackSpeed;
             const btn = document.getElementById('speed-btn');
             if (btn) btn.textContent = window.state.playbackSpeed + 'x';
-            showToast(`Speed: ${window.state.playbackSpeed}x`);
-        };
-
-        window.openSleepTimer = function() {
-            showToast("Sleep Timer: Playing for 30 mins");
+            window.showToast(`Speed: ${window.state.playbackSpeed}x`);
         };
 
         window.toggleDarkMode = function() {
             window.state.darkMode = !window.state.darkMode;
             document.documentElement.classList.toggle('dark', window.state.darkMode);
-            const toggle1 = document.getElementById('dark-mode-toggle');
-            const toggle2 = document.getElementById('sidebar-dark-toggle');
-            if (toggle1) toggle1.checked = window.state.darkMode;
-            if (toggle2) toggle2.checked = window.state.darkMode;
-            showToast(window.state.darkMode ? "Dark Mode Enabled" : "Light Mode Enabled");
+            const t1 = document.getElementById('dark-mode-toggle'), t2 = document.getElementById('sidebar-dark-toggle');
+            if (t1) t1.checked = window.state.darkMode; if (t2) t2.checked = window.state.darkMode;
         };
 
-        window.togglePlayerMenu = function(e) {
-            if (e) e.stopPropagation();
-            const dropdown = document.getElementById('player-dropdown');
-            if (dropdown) dropdown.classList.toggle('hidden');
+        window.openPlayerModal = () => { if(window.state.currentTrackId){ renderPlayerModalContent(); document.getElementById('player-modal').classList.remove('hidden'); }};
+        window.closePlayerModal = () => document.getElementById('player-modal').classList.add('hidden');
+        window.togglePlayerMenu = (e) => { if(e)e.stopPropagation(); document.getElementById('player-dropdown')?.classList.toggle('hidden'); };
+        window.openNotificationsModal = () => document.getElementById('notifications-modal')?.classList.remove('hidden');
+        window.closeNotificationsModal = () => document.getElementById('notifications-modal')?.classList.add('hidden');
+        window.openShareModal = () => document.getElementById('share-modal')?.classList.remove('hidden');
+        window.closeShareModal = () => document.getElementById('share-modal')?.classList.add('hidden');
+        window.shareTo = (p) => { window.showToast(`Shared via ${p}!`); window.closeShareModal(); };
+        window.copyLink = () => { navigator.clipboard?.writeText(window.location.href); window.showToast("Link copied!"); window.closeShareModal(); };
+
+        window.openDrawer = () => {
+            document.getElementById('sidebar-overlay').classList.remove('hidden', 'opacity-0');
+            document.getElementById('sidebar-menu').classList.remove('-translate-x-full');
+        };
+        window.closeDrawer = () => {
+            document.getElementById('sidebar-overlay').classList.add('opacity-0');
+            document.getElementById('sidebar-menu').classList.add('-translate-x-full');
+            setTimeout(() => document.getElementById('sidebar-overlay').classList.add('hidden'), 300);
         };
 
-        window.openNotificationsModal = function() {
-            const modal = document.getElementById('notifications-modal');
-            if (modal) modal.classList.remove('hidden');
-        };
-        window.closeNotificationsModal = function() {
-            const modal = document.getElementById('notifications-modal');
-            if (modal) modal.classList.add('hidden');
+        window.showToast = function(msg) {
+            const t = document.getElementById('toast'); t.textContent = msg;
+            t.classList.remove('hidden', 'opacity-0'); t.classList.add('opacity-100');
+            clearTimeout(window.toastTimeout);
+            window.toastTimeout = setTimeout(() => { t.classList.remove('opacity-100'); t.classList.add('opacity-0'); setTimeout(()=>t.classList.add('hidden'), 300); }, 2500);
         };
 
-        window.openShareModal = function() {
-            const modal = document.getElementById('share-modal');
-            if (modal) modal.classList.remove('hidden');
-        };
-        window.closeShareModal = function() {
-            const modal = document.getElementById('share-modal');
-            if (modal) modal.classList.add('hidden');
-        };
-
-        window.shareTo = function(platform) {
-            showToast(`Shared via ${platform}!`);
-            window.closeShareModal();
-        };
-
-        window.copyLink = function() {
-            navigator.clipboard?.writeText(window.location.href);
-            showToast("Link copied to clipboard!");
-            window.closeShareModal();
-        };
-
-        window.openDrawer = function() {
-            const overlay = document.getElementById('sidebar-overlay');
-            const menu = document.getElementById('sidebar-menu');
-            overlay.classList.remove('hidden');
-            setTimeout(() => {
-                overlay.classList.remove('opacity-0');
-                menu.classList.remove('-translate-x-full');
-            }, 10);
-            
-            const toggle = document.getElementById('sidebar-dark-toggle');
-            if(toggle) toggle.checked = window.state.darkMode;
-        };
-
-        window.closeDrawer = function() {
-            const overlay = document.getElementById('sidebar-overlay');
-            const menu = document.getElementById('sidebar-menu');
-            overlay.classList.add('opacity-0');
-            menu.classList.add('-translate-x-full');
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-            }, 300);
-        };
+        window.changeTab = (tab) => { window.state.activeTab = tab; renderHeaderExtras(); renderMainContent(); renderBottomNav(); window.scrollTo(0,0); };
+        window.changeCategory = (cat) => { window.state.activeCategory = cat; renderHeaderExtras(); renderMainContent(); };
+        window.handleSearch = (e) => { window.state.searchQuery = e.target.value; renderMainContent(); };
 
         function renderHeaderExtras() {
-            const searchContainer = document.getElementById('search-container');
-            const categoryContainer = document.getElementById('category-container');
-
+            const sBox = document.getElementById('search-container'), cBox = document.getElementById('category-container');
             if (window.state.activeTab === 'Home') {
-                searchContainer.style.display = 'block';
-                categoryContainer.style.display = 'flex';
-
-                categoryContainer.innerHTML = CATEGORIES.map(cat => `
-                    <button
-                        onclick="window.changeCategory('${cat}')"
-                        class="pb-3 text-sm md:text-base font-semibold whitespace-nowrap border-b-2 transition-colors ${
-                            window.state.activeCategory === cat 
-                                ? 'border-orange-500 text-orange-500' 
-                                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                        }"
-                    >
-                        ${cat}
-                    </button>
-                `).join('');
-            } else {
-                searchContainer.style.display = 'none';
-                categoryContainer.style.display = 'none';
-            }
+                sBox.style.display = 'block'; cBox.style.display = 'flex';
+                cBox.innerHTML = CATEGORIES.map(c => `<button onclick="window.changeCategory('${c}')" class="pb-3 text-sm md:text-base font-semibold whitespace-nowrap border-b-2 transition-colors ${window.state.activeCategory===c ? 'border-orange-500 text-orange-500' : 'border-transparent text-gray-500 hover:text-gray-900 dark:hover:text-white'}">${c}</button>`).join('');
+            } else { sBox.style.display = 'none'; cBox.style.display = 'none'; }
         }
 
-        // ================= BANNER LOGIC =================
         window.goToBanner = function(index) {
             window.currentBannerIndex = index;
             const track = document.getElementById('banner-track');
             const dots = document.querySelectorAll('.banner-dot');
-            if (track) {
-                track.style.transform = `translateX(-${index * 100}%)`;
-            }
-            if (dots && dots.length > 0) {
-                dots.forEach((dot, i) => {
-                    if (i === index) {
-                        dot.className = "h-2 rounded-full bg-orange-500 w-4 transition-all duration-300 banner-dot cursor-pointer";
-                    } else {
-                        dot.className = "h-2 rounded-full bg-gray-300 dark:bg-gray-600 w-2 transition-all duration-300 banner-dot cursor-pointer";
-                    }
-                });
-            }
-            if (window.bannerInterval && typeof BANNERS_DATA !== 'undefined') {
+            if (track) track.style.transform = `translateX(-${index * 100}%)`;
+            if (dots) dots.forEach((d, i) => d.className = i === index ? "h-2 rounded-full bg-orange-500 w-4 transition-all duration-300 banner-dot cursor-pointer" : "h-2 rounded-full bg-gray-300 dark:bg-gray-600 w-2 transition-all duration-300 banner-dot cursor-pointer");
+            if (window.bannerInterval) {
+                const activeBanners = getBanners().filter(b => b.isActive !== false);
                 clearInterval(window.bannerInterval);
-                window.bannerInterval = setInterval(() => {
-                    window.goToBanner((window.currentBannerIndex + 1) % window.totalBanners);
-                }, 3500);
+                window.bannerInterval = setInterval(() => window.goToBanner((window.currentBannerIndex + 1) % window.totalBanners), 3500);
             }
         };
 
-        // ================= MAIN CONTENT & PODCAST RENDER LOGIC =================
+        // --- CORE UI RENDERING ---
         function renderMainContent() {
             const mainEl = document.getElementById('main-content');
-            
             if (window.state.activeTab === 'Home') {
+                let html = '';
                 const searchLower = window.state.searchQuery.toLowerCase();
-                
-                // 👉 यहाँ हमने फ़िल्टर को सुरक्षित (Robust) बना दिया है
-                let podcastSource = (typeof PODCAST_LIST !== 'undefined') ? PODCAST_LIST : (window.PODCAST_LIST || []);
-                
-                const filtered = podcastSource.filter(p => {
-                    const matchCat = window.state.activeCategory === 'All' || p.category.includes(window.state.activeCategory);
-                    const matchSearch = p.title.toLowerCase().includes(searchLower) || p.category.toLowerCase().includes(searchLower);
+                const allPodcasts = getPodcasts();
+                const filtered = allPodcasts.filter(p => {
+                    const matchCat = window.state.activeCategory === 'All' || (p.category && p.category.includes(window.state.activeCategory));
+                    const matchSearch = (p.title && p.title.toLowerCase().includes(searchLower)) || (p.category && p.category.toLowerCase().includes(searchLower));
                     return matchCat && matchSearch;
                 });
 
-                let html = ``;
-
-                // ================= BANNERS =================
-                if (!window.state.searchQuery && window.state.activeCategory === 'All') {
-                    if (typeof BANNERS_DATA !== 'undefined' && BANNERS_DATA.length > 0) {
-                        const activeBanners = BANNERS_DATA.filter(b => b.isActive !== false);
-                        if(activeBanners.length > 0) {
-                            let trackHtml = activeBanners.map(b => `
-                                <div class="w-full flex-shrink-0 relative aspect-[21/9] md:aspect-[21/8] bg-orange-50 dark:bg-gray-800">
-                                    <img src="${b.imageUrl}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x340/ffedd5/f97316?text=Coming+Soon'" />
-                                </div>
-                            `).join('');
-
-                            let dotsHtml = activeBanners.map((_, i) => `
-                                <div class="h-2 rounded-full ${i === 0 ? 'bg-orange-500 w-4' : 'bg-gray-300 dark:bg-gray-600 w-2'} transition-all duration-300 banner-dot cursor-pointer" onclick="window.goToBanner(${i})"></div>
-                            `).join('');
-
-                            html += `
-                            <div class="max-w-7xl mx-auto px-4 w-full mb-2 mt-2">
-                                <div class="relative w-full rounded-2xl overflow-hidden shadow-sm">
-                                    <div class="flex transition-transform duration-500 ease-in-out" id="banner-track">
-                                        ${trackHtml}
-                                    </div>
-                                </div>
-                                <div class="flex justify-center gap-1.5 mt-3 mb-6" id="banner-indicators">
-                                    ${dotsHtml}
-                                </div>
-                            </div>
-                            `;
-                        }
+                // BANNER SLIDER
+                const allBanners = getBanners();
+                if (!window.state.searchQuery && window.state.activeCategory === 'All' && allBanners.length > 0) {
+                    const activeBanners = allBanners.filter(b => b.isActive !== false);
+                    if(activeBanners.length > 0) {
+                        let trackHtml = activeBanners.map(b => `<div class="w-full flex-shrink-0 relative aspect-[21/9] md:aspect-[21/8] bg-orange-50 dark:bg-gray-800"><img src="${b.imageUrl}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x340/ffedd5/f97316?text=UPSC+Audio'" /></div>`).join('');
+                        let dotsHtml = activeBanners.map((_, i) => `<div class="h-2 rounded-full ${i === 0 ? 'bg-orange-500 w-4' : 'bg-gray-300 dark:bg-gray-600 w-2'} transition-all duration-300 banner-dot cursor-pointer" onclick="window.goToBanner(${i})"></div>`).join('');
+                        html += `<div class="max-w-7xl mx-auto px-4 w-full mb-2 mt-2"><div class="relative w-full rounded-2xl overflow-hidden shadow-sm"><div class="flex transition-transform duration-500 ease-in-out" id="banner-track">${trackHtml}</div></div><div class="flex justify-center gap-1.5 mt-3 mb-6" id="banner-indicators">${dotsHtml}</div></div>`;
                     }
                 }
-                
-                // ================= CURRENT AFFAIRS =================
-                if (typeof CURRENT_AFFAIRS_DATA !== 'undefined' && CURRENT_AFFAIRS_DATA.length > 0) {
-                    CURRENT_AFFAIRS_DATA.forEach((ca, index) => {
+
+                // CURRENT AFFAIRS
+                const allCA = getCurrentAffairs();
+                if (allCA.length > 0) {
+                    allCA.forEach((ca, index) => {
                         let topicsHtml = '';
                         const colors = ['blue', 'red', 'green', 'purple', 'pink', 'yellow', 'indigo'];
-                        
                         ca.topics.forEach((topic, i) => {
                             let color = colors[i % colors.length];
                             let listItems = topic.details.map(d => `<li>${d}</li>`).join('');
-                            topicsHtml += `
-                                <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-${color}-500 mb-4">
-                                    <h4 class="font-black text-lg mb-2">${topic.heading}</h4>
-                                    <ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">
-                                        ${listItems}
-                                    </ul>
-                                </div>
-                            `;
+                            topicsHtml += `<div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border-l-4 border-${color}-500 mb-4"><h4 class="font-black text-lg mb-2">${topic.heading}</h4><ul class="list-disc pl-5 font-bold space-y-1 text-sm md:text-base">${listItems}</ul></div>`;
                         });
-
-                        html += `
-                        <div class="max-w-7xl mx-auto px-4 w-full mb-6 mt-2 animate-slide-up">
-                            <div id="ca-card-${index}" class="rounded-2xl overflow-hidden shadow-sm cursor-pointer transition-transform hover:scale-[1.01] relative group border border-gray-200 dark:border-gray-700" onclick="window.toggleCurrentAffairs(${index})">
-                                <img src="e63fabb1400648cca2351de305880b6d.jpg" alt="The Hindu Current Affairs" class="w-full h-auto object-cover max-h-[140px]" />
-                                <div class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow">
-                                    <span>${ca.date}</span>
-                                    <i id="ca-chevron-${index}" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
-                                </div>
-                            </div>
-                            <div id="ca-content-${index}" class="hidden bg-white dark:bg-gray-800 mt-2 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                                <div class="space-y-2 text-gray-900 dark:text-gray-100">
-                                    ${topicsHtml}
-                                </div>
-                            </div>
-                        </div>
-                        `;
+                        html += `<div class="max-w-7xl mx-auto px-4 w-full mb-6 mt-2 animate-slide-up"><div id="ca-card-${index}" class="rounded-2xl overflow-hidden shadow-sm cursor-pointer transition-transform hover:scale-[1.01] relative group border border-gray-200 dark:border-gray-700" onclick="window.toggleCurrentAffairs(${index})"><img src="e63fabb1400648cca2351de305880b6d.jpg" alt="Current Affairs" class="w-full h-auto object-cover max-h-[140px]" /><div class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow"><span>${ca.date}</span><i id="ca-chevron-${index}" class="fa-solid fa-chevron-down transition-transform duration-300"></i></div></div><div id="ca-content-${index}" class="hidden bg-white dark:bg-gray-800 mt-2 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700"><div class="space-y-2 text-gray-900 dark:text-gray-100">${topicsHtml}</div></div></div>`;
                     });
                 }
 
-                // ================= PODCASTS LIST =================
-                html += `
-                    <div class="max-w-7xl mx-auto px-4 w-full">
-                        <div class="py-2 mb-2 flex justify-between items-end">
-                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-none">
-                                ${window.state.searchQuery ? 'Search Results' : 'Latest Podcasts'}
-                            </h2>
-                            ${!window.state.searchQuery ? `<span class="text-sm font-semibold text-orange-500 cursor-pointer hover:underline">View All</span>` : ''}
-                        </div>
-                `;
-
+                // PODCAST LIST
+                html += `<div class="max-w-7xl mx-auto px-4 w-full"><div class="py-2 mb-2 flex justify-between items-end"><h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">${window.state.searchQuery ? 'Search Results' : 'Latest Podcasts'}</h2></div>`;
+                
                 if (filtered.length === 0) {
-                    html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-dashed border-gray-300">कोई पॉडकास्ट नहीं मिला।</div></div>`;
+                    html += `<div class="text-center p-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm text-gray-500 border border-dashed border-gray-300 dark:border-gray-700">कोई डेटा नहीं मिला।</div>`;
                 } else {
-                    html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-6 w-full">`;
-                    
-                    filtered.forEach(podcast => {
-                        const isThisPlaying = window.state.currentTrackId === podcast.id && window.state.isPlaying;
-                        const isBookmarked = window.state.bookmarks.has(podcast.id);
-                        const isDownloaded = window.state.downloads.has(podcast.id);
-                        const isLocked = podcast.isPremium && !window.state.isPremiumUser;
-                        
+                    html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-6 w-full">`;
+                    filtered.forEach(p => {
+                        const isPlay = window.state.currentTrackId === p.id && window.state.isPlaying;
+                        const isLocked = p.isPremium && !window.state.isPremiumUser;
                         html += `
-                        <div class="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-sm border hover:shadow-md transition-shadow flex gap-3 ${isThisPlaying ? 'border-orange-400 bg-orange-50/40 dark:bg-orange-950/20' : 'border-gray-100 dark:border-gray-700'} w-full">
-                            
-                            <!-- Image Area -->
-                            <div class="relative w-[110px] md:w-[130px] h-[130px] md:h-[150px] rounded-xl overflow-hidden shrink-0 cursor-pointer group" onclick="window.handlePlayClick(${podcast.id})">
-                                <img src="${podcast.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover bg-gray-200 transition-transform duration-500 group-hover:scale-110" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                                
-                                ${isLocked ? `
-                                <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center backdrop-blur-[2px]">
-                                    <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center text-white mb-1 shadow-[0_0_15px_rgba(249,115,22,0.5)]">
-                                        <i class="fa-solid fa-lock text-lg"></i>
-                                    </div>
-                                    <span class="text-white text-[9px] font-bold tracking-widest uppercase">Premium</span>
-                                </div>` 
-                                : (isThisPlaying ? `
-                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[1px]">
-                                    <div class="flex gap-1.5 items-end h-5 playing-bars">
-                                        <span class="w-1.5 h-full bg-orange-500 rounded-t-sm"></span>
-                                        <span class="w-1.5 h-2/3 bg-orange-500 rounded-t-sm"></span>
-                                        <span class="w-1.5 h-full bg-orange-500 rounded-t-sm"></span>
-                                    </div>
-                                </div>` : `
-                                <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <i class="fa-solid fa-play text-white text-3xl opacity-80 shadow-lg"></i>
-                                </div>
-                                `)}
-                                
-                                <span class="absolute bottom-2 left-2 bg-orange-600 text-white text-[9px] md:text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">${podcast.episode}</span>
-                                <span class="absolute top-2 right-2 bg-black/70 text-white text-[9px] md:text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm backdrop-blur-sm"><i class="fa-regular fa-clock mr-1"></i>${podcast.duration}</span>
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col relative group hover:shadow-md transition-shadow">
+                            <div class="relative w-full aspect-video bg-gray-200 dark:bg-gray-700 cursor-pointer overflow-hidden" onclick="window.handlePlayClick(${p.id})">
+                                <img src="${p.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                                <span class="absolute top-3 right-3 bg-black/70 text-white text-xs font-semibold px-2 py-1 rounded-md backdrop-blur-sm"><i class="fa-regular fa-clock"></i> ${p.duration}</span>
+                                <span class="absolute bottom-3 left-3 bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-md">${p.episode}</span>
+                                ${isLocked ? `<div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center"><div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center text-white mb-2 shadow-[0_0_15px_rgba(249,115,22,0.5)]"><i class="fa-solid fa-lock text-xl"></i></div><span class="text-white text-[10px] font-bold tracking-widest uppercase bg-amber-500/80 px-2 py-0.5 rounded">Premium</span></div>` : (isPlay ? `<div class="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-[1px]"><div class="flex gap-1.5 items-end h-8 playing-bars"><span class="w-2 h-full bg-orange-500 rounded-t-sm"></span><span class="w-2 h-2/3 bg-orange-500 rounded-t-sm"></span><span class="w-2 h-full bg-orange-500 rounded-t-sm"></span></div></div>` : `<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><i class="fa-solid fa-circle-play text-white/90 text-6xl shadow-lg rounded-full"></i></div>`)}
                             </div>
-
-                            <!-- Content Area -->
-                            <div class="flex flex-col flex-1 py-1 overflow-hidden justify-between">
+                            <div class="p-4 flex flex-col justify-between flex-1">
                                 <div>
-                                    <div class="flex justify-between items-start mb-1.5">
-                                        <span class="text-[10px] md:text-[11px] font-bold text-orange-600 bg-orange-50 dark:bg-orange-900/40 px-2.5 py-0.5 rounded-full">${podcast.category}</span>
-                                        <i class="fa-solid fa-ellipsis-vertical text-gray-400 cursor-pointer px-2 hover:text-gray-700 dark:hover:text-gray-200" onclick="window.openShareModal()"></i>
-                                    </div>
-                                    
-                                    <h3 class="font-bold text-sm md:text-base text-gray-900 dark:text-white leading-tight mb-1.5 line-clamp-2 cursor-pointer hover:text-orange-600 transition-colors" onclick="window.handlePlayClick(${podcast.id})">${podcast.title}</h3>
-                                    <p class="text-[11px] md:text-xs text-gray-500 dark:text-gray-400 leading-snug line-clamp-2 hidden sm:block mb-2">${podcast.desc}</p>
+                                    <div class="flex justify-between items-start mb-2"><span class="text-[11px] font-bold text-orange-600">${p.category}</span><i class="fa-solid fa-ellipsis-vertical text-gray-400 cursor-pointer px-2 hover:text-gray-700 dark:hover:text-gray-200" onclick="window.openShareModal()"></i></div>
+                                    <h3 class="font-bold text-base text-gray-900 dark:text-white leading-tight mb-2 line-clamp-2 cursor-pointer hover:text-orange-600 transition-colors" onclick="window.handlePlayClick(${p.id})">${p.title}</h3>
+                                    <div class="flex items-center gap-4 text-xs font-medium text-gray-500 mb-4"><span><i class="fa-solid fa-headphones"></i> ${p.plays}</span><span><i class="fa-regular fa-calendar"></i> ${p.date}</span></div>
                                 </div>
-                                
-                                <div>
-                                    <div class="flex items-center gap-4 text-[10px] md:text-xs font-medium text-gray-400 mb-2.5">
-                                        <div class="flex items-center gap-1.5"><i class="fa-solid fa-headphones"></i><span>${podcast.plays}</span></div>
-                                        <div class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i><span>${podcast.date}</span></div>
-                                    </div>
-
-                                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
-                                        <button onclick="window.handlePlayClick(${podcast.id})" class="flex items-center gap-1.5 font-bold text-xs md:text-sm transition-colors ${isLocked ? 'text-amber-500 dark:text-amber-400' : (isThisPlaying ? 'text-orange-600 dark:text-orange-400' : 'text-gray-700 dark:text-gray-200 hover:text-orange-500')}">
-                                            <i class="fa-solid ${isLocked ? 'fa-crown text-amber-500' : (isThisPlaying ? 'fa-circle-pause text-orange-500' : 'fa-circle-play text-orange-500')} text-lg md:text-xl"></i>
-                                            ${isLocked ? 'Unlock' : (isThisPlaying ? 'Playing' : 'Play Now')}
-                                        </button>
-                                        <div class="flex items-center gap-4">
-                                            <button onclick="window.handleDownloadClick(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isDownloaded ? 'text-green-500' : 'text-gray-400 hover:text-gray-200'}">
-                                                <i class="fa-solid ${isDownloaded ? 'fa-circle-check' : 'fa-download'}"></i>
-                                            </button>
-                                            <button onclick="window.toggleBookmark(${podcast.id})" class="text-[15px] md:text-[16px] transition-transform hover:scale-110 ${isBookmarked ? 'text-orange-500' : 'text-gray-400 hover:text-gray-200'}">
-                                                <i class="fa-solid fa-bookmark"></i>
-                                            </button>
-                                        </div>
+                                <div class="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700">
+                                    <button onclick="window.handlePlayClick(${p.id})" class="flex items-center gap-2 font-bold text-sm transition-colors ${isLocked?'text-amber-500 dark:text-amber-400':(isPlay?'text-orange-600 dark:text-orange-400':'text-gray-800 dark:text-gray-200 hover:text-orange-500')}"><i class="fa-solid ${isLocked?'fa-crown text-amber-500':(isPlay?'fa-circle-pause text-orange-500':'fa-circle-play text-orange-500')} text-2xl"></i> ${isLocked?'Unlock Premium':(isPlay?'Playing':'Play Now')}</button>
+                                    <div class="flex gap-4">
+                                        <button onclick="window.handleDownloadClick(${p.id})" class="text-[18px] transition-transform hover:scale-110 ${window.state.downloads.has(p.id)?'text-green-500':'text-gray-300 dark:text-gray-600 hover:text-green-400'}"><i class="fa-solid ${window.state.downloads.has(p.id)?'fa-circle-check':'fa-circle-down'}"></i></button>
+                                        <button onclick="window.toggleBookmark(${p.id})" class="text-[18px] transition-transform hover:scale-110 ${window.state.bookmarks.has(p.id)?'text-orange-500':'text-gray-300 dark:text-gray-600 hover:text-orange-400'}"><i class="fa-solid fa-bookmark"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -973,86 +528,41 @@
                 }
                 mainEl.innerHTML = html;
 
-                // INIT BANNERS
                 if (window.bannerInterval) clearInterval(window.bannerInterval);
-                if (window.state.activeTab === 'Home' && !window.state.searchQuery && window.state.activeCategory === 'All') {
-                    if (typeof BANNERS_DATA !== 'undefined') {
-                        const activeBanners = BANNERS_DATA.filter(b => b.isActive !== false);
-                        if (activeBanners.length > 1) {
-                            window.currentBannerIndex = 0;
-                            window.totalBanners = activeBanners.length;
-                            window.bannerInterval = setInterval(() => {
-                                window.goToBanner((window.currentBannerIndex + 1) % window.totalBanners);
-                            }, 3500);
-                        }
-                    }
+                if (!window.state.searchQuery && window.state.activeCategory === 'All' && allBanners.length > 1) {
+                    const ab = allBanners.filter(b => b.isActive !== false);
+                    if (ab.length > 1) { window.currentBannerIndex = 0; window.totalBanners = ab.length; window.bannerInterval = setInterval(() => window.goToBanner((window.currentBannerIndex + 1) % window.totalBanners), 3500); }
                 }
-            } 
-            else if (window.state.activeTab === 'Downloads') {
+
+            } else if (window.state.activeTab === 'Downloads') {
                 mainEl.innerHTML = generateListScreenHTML('My Downloads', window.state.downloads, 'अभी तक कुछ भी डाउनलोड नहीं किया गया है।', 'fa-trash', window.toggleDownload);
-            }
-            else if (window.state.activeTab === 'Bookmarks') {
+            } else if (window.state.activeTab === 'Bookmarks') {
                 mainEl.innerHTML = generateListScreenHTML('Saved Bookmarks', window.state.bookmarks, 'आपने कोई पॉडकास्ट बुकमार्क नहीं किया है।', 'fa-bookmark', window.toggleBookmark);
-            }
-            else if (window.state.activeTab === 'Library') {
-                const libCats = CATEGORIES.filter(c => c !== 'All').map(cat => `
-                    <div onclick="window.changeCategory('${cat}'); window.changeTab('Home');" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-orange-500 hover:shadow-md transition-all group">
-                        <i class="fa-solid fa-book-open text-3xl text-gray-300 dark:text-gray-600 group-hover:text-orange-400 mb-3 transition-colors"></i>
-                        <span class="font-bold text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white">${cat}</span>
-                    </div>
-                `).join('');
+            } else if (window.state.activeTab === 'Library') {
+                const libCats = CATEGORIES.filter(c => c !== 'All').map(c => `<div onclick="window.changeCategory('${c}'); window.changeTab('Home');" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center cursor-pointer hover:border-orange-500 hover:shadow-md transition-all group"><i class="fa-solid fa-book-open text-3xl text-gray-300 dark:text-gray-600 group-hover:text-orange-400 mb-3 transition-colors"></i><span class="font-bold text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white">${c}</span></div>`).join('');
                 mainEl.innerHTML = `<div class="max-w-7xl mx-auto px-4"><h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Library Categories</h2><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">${libCats}</div></div>`;
-            }
-            else if (window.state.activeTab === 'Quiz') {
-            mainEl.innerHTML = `
-                <div class="max-w-md mx-auto px-4 w-full py-4 space-y-4">
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#2E7D32] flex p-3 relative overflow-hidden transition-all hover:shadow-md">
-                        <div class="w-[85px] h-[85px] shrink-0 bg-[#E8F5E9] dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4"><i class="fa-solid fa-earth-americas text-4xl text-[#2E7D32] dark:text-green-400"></i></div>
-                        <div class="flex-1 flex flex-col justify-between">
-                             <h3 class="text-[17px] font-bold text-[#2E7D32] dark:text-green-400 mb-1">भूगोल (Geography)</h3>
-                             <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 p-1.5 rounded-lg mb-2 border border-gray-100 dark:border-gray-600">
-                                 <div class="flex items-center gap-1.5 border-r border-gray-200 dark:border-gray-600 pr-2 w-1/2 justify-center"><i class="fa-regular fa-file-lines text-[#2E7D32] dark:text-green-400 text-sm"></i><div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">50</span><br><span class="text-[9px] text-gray-500 font-medium">प्रश्न</span></div></div>
-                                 <div class="flex items-center gap-1.5 w-1/2 justify-center"><i class="fa-regular fa-clock text-[#2E7D32] dark:text-green-400 text-sm"></i><div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">60</span><br><span class="text-[9px] text-gray-500 font-medium">मिनट</span></div></div>
-                             </div>
-                             <button onclick="window.startQuiz('geography')" class="w-full bg-[#2E7D32] hover:bg-green-800 text-white font-bold py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm shadow-sm"><i class="fa-solid fa-play-circle text-lg"></i> क्विज शुरू करें</button>
-                        </div>
+            } else if (window.state.activeTab === 'Quiz') {
+                mainEl.innerHTML = `
+                <div class="max-w-md mx-auto px-4 py-4 space-y-4">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border-l-4 border-[#2E7D32] flex p-3 cursor-pointer hover:shadow-md" onclick="window.startQuiz('geography')">
+                        <div class="w-16 h-16 bg-[#E8F5E9] dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4"><i class="fa-solid fa-earth-americas text-3xl text-[#2E7D32] dark:text-green-400"></i></div>
+                        <div class="flex-1 flex flex-col justify-center"><h3 class="text-lg font-bold text-[#2E7D32] dark:text-green-400">भूगोल (Geography)</h3><p class="text-xs text-gray-500 dark:text-gray-400">UPSC Level MCQs</p></div>
                     </div>
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 border-l-4 border-l-[#E65100] flex p-3 relative overflow-hidden transition-all hover:shadow-md">
-                        <div class="w-[85px] h-[85px] shrink-0 bg-[#FFF3E0] dark:bg-orange-900/30 rounded-full flex items-center justify-center mr-4"><i class="fa-solid fa-building-columns text-4xl text-[#E65100] dark:text-orange-400"></i></div>
-                        <div class="flex-1 flex flex-col justify-between">
-                             <h3 class="text-[17px] font-bold text-[#E65100] dark:text-orange-400 mb-1">इतिहास (History)</h3>
-                             <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 p-1.5 rounded-lg mb-2 border border-gray-100 dark:border-gray-600">
-                                 <div class="flex items-center gap-1.5 border-r border-gray-200 dark:border-gray-600 pr-2 w-1/2 justify-center"><i class="fa-regular fa-file-lines text-[#E65100] dark:text-orange-400 text-sm"></i><div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">30</span><br><span class="text-[9px] text-gray-500 font-medium">प्रश्न</span></div></div>
-                                 <div class="flex items-center gap-1.5 w-1/2 justify-center"><i class="fa-regular fa-clock text-[#E65100] dark:text-orange-400 text-sm"></i><div class="leading-none text-center"><span class="font-bold text-gray-900 dark:text-white text-sm">60</span><br><span class="text-[9px] text-gray-500 font-medium">मिनट</span></div></div>
-                             </div>
-                             <button onclick="window.startQuiz('history')" class="w-full bg-[#E65100] hover:bg-orange-800 text-white font-bold py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm shadow-sm"><i class="fa-solid fa-play-circle text-lg"></i> क्विज शुरू करें</button>
-                        </div>
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border-l-4 border-[#E65100] flex p-3 cursor-pointer hover:shadow-md" onclick="window.startQuiz('history')">
+                        <div class="w-16 h-16 bg-[#FFF3E0] dark:bg-orange-900/30 rounded-full flex items-center justify-center mr-4"><i class="fa-solid fa-building-columns text-3xl text-[#E65100] dark:text-orange-400"></i></div>
+                        <div class="flex-1 flex flex-col justify-center"><h3 class="text-lg font-bold text-[#E65100] dark:text-orange-400">इतिहास (History)</h3><p class="text-xs text-gray-500 dark:text-gray-400">UPSC Level MCQs</p></div>
                     </div>
-                </div>
-            `;
-            } else if (window.state.activeTab === 'ActiveQuiz') { window.renderActiveQuiz(); } 
-            else if (window.state.activeTab === 'QuizResult') { window.renderQuizResult(); }
-            else if (window.state.activeTab === 'Profile') {
+                </div>`;
+            } else if (window.state.activeTab === 'ActiveQuiz') {
+                window.renderActiveQuiz();
+            } else if (window.state.activeTab === 'QuizResult') {
+                window.renderQuizResult();
+            } else if (window.state.activeTab === 'Profile') {
                 if (!window.state.isLoggedIn) {
-                    mainEl.innerHTML = `
-                        <div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-20 w-full">
-                            <div class="w-32 h-32 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-700 mb-6"><i class="fa-solid fa-user-lock text-6xl text-gray-400"></i></div>
-                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">लॉगिन करें</h2>
-                            <p class="text-gray-500 dark:text-gray-400 text-center mb-8 text-sm md:text-base">अपनी प्रोफाइल देखने और प्रीमियम ऑडियो सुनने के लिए Google से लॉगिन करें।</p>
-                            <button onclick="window.loginWithGoogle()" class="w-full max-w-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-bold py-3.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-md text-lg flex items-center justify-center gap-3"><img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6"> Login with Google</button>
-                        </div>
-                    `;
+                    mainEl.innerHTML = `<div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-20 w-full"><div class="w-32 h-32 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-700 mb-6"><i class="fa-solid fa-user-lock text-6xl text-gray-400"></i></div><h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">लॉगिन करें</h2><p class="text-gray-500 dark:text-gray-400 text-center mb-8 text-sm md:text-base">अपनी प्रोफाइल देखने और प्रीमियम ऑडियो सुनने के लिए Google से लॉगिन करें।</p><button onclick="window.loginWithGoogle()" class="w-full max-w-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-bold py-3.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-md text-lg flex items-center justify-center gap-3"><img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6"> Login with Google</button></div>`;
                 } else {
                     const userImgHtml = window.state.userImage ? `<img src="${window.state.userImage}" class="w-full h-full object-cover" referrerpolicy="no-referrer" />` : `<i class="fa-solid fa-user text-6xl text-orange-500"></i>`;
-                    mainEl.innerHTML = `
-                        <div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10 md:mt-16 w-full">
-                            <div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 dark:bg-orange-950/40 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-800 overflow-hidden relative transition-transform hover:scale-105 mb-4">${userImgHtml}</div>
-                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 text-center">${window.state.userName}</h2>
-                            <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base text-center">${window.state.userEmail}</p>
-                            <div class="mt-4 mb-10">${window.state.isPremiumUser ? '<span class="bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-200 dark:border-amber-800"><i class="fa-solid fa-crown mr-1"></i> Premium Member</span>' : '<span class="bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 dark:border-gray-700">Free Account</span>'}</div>
-                            <button onclick="window.logoutUser()" class="w-full max-w-sm bg-red-50 dark:bg-red-900/20 text-red-500 font-bold py-3.5 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors shadow-sm text-base border border-red-100 dark:border-red-800 flex items-center justify-center gap-2"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-                        </div>
-                    `;
+                    mainEl.innerHTML = `<div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10 md:mt-16 w-full"><div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 dark:bg-orange-950/40 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-800 overflow-hidden relative transition-transform hover:scale-105 mb-4">${userImgHtml}</div><h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 text-center">${window.state.userName}</h2><p class="text-gray-500 dark:text-gray-400 text-sm md:text-base text-center">${window.state.userEmail}</p><div class="mt-4 mb-10">${window.state.isPremiumUser ? '<span class="bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-200 dark:border-amber-800"><i class="fa-solid fa-crown mr-1"></i> Premium Member</span>' : '<span class="bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 dark:border-gray-700">Free Account</span>'}</div><button onclick="window.logoutUser()" class="w-full max-w-sm bg-red-50 dark:bg-red-900/20 text-red-500 font-bold py-3.5 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors shadow-sm text-base border border-red-100 dark:border-red-800 flex items-center justify-center gap-2"><i class="fa-solid fa-right-from-bracket"></i> Logout</button></div>`;
                 }
             }
         }
@@ -1062,10 +572,10 @@
             if (itemSet.size === 0) {
                 html += `<div class="text-center text-gray-500 mt-10 p-10 bg-white dark:bg-gray-800 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-col items-center"><i class="fa-solid fa-box-open text-4xl mb-4 text-gray-300"></i><p class="text-lg">${emptyMsg}</p></div>`;
             } else {
-                let pSource = (typeof PODCAST_LIST !== 'undefined') ? PODCAST_LIST : (window.PODCAST_LIST || []);
+                const allPodcasts = getPodcasts();
                 html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">`;
                 itemSet.forEach(id => {
-                    const item = pSource.find(p => p.id === id);
+                    const item = allPodcasts.find(p => p.id === id);
                     if (!item) return;
                     const isThisPlaying = window.state.currentTrackId === item.id && window.state.isPlaying;
                     html += `
@@ -1094,8 +604,9 @@
             const playerWrapper = document.getElementById('mini-player-wrapper');
             const playerEl = document.getElementById('mini-player');
             if (!window.state.currentTrackId) { playerWrapper.classList.add('hidden'); return; }
-            let pSource = (typeof PODCAST_LIST !== 'undefined') ? PODCAST_LIST : (window.PODCAST_LIST || []);
-            const track = pSource.find(p => p.id === window.state.currentTrackId);
+            
+            const allPodcasts = getPodcasts();
+            const track = allPodcasts.find(p => p.id === window.state.currentTrackId);
             if(!track) return;
             
             playerWrapper.classList.remove('hidden');
@@ -1128,41 +639,18 @@
         function renderPlayerModalContent() {
             const container = document.getElementById('player-modal-content');
             if (!container || !window.state.currentTrackId) return;
-            let pSource = (typeof PODCAST_LIST !== 'undefined') ? PODCAST_LIST : (window.PODCAST_LIST || []);
-            const track = pSource.find(p => p.id === window.state.currentTrackId);
+            const allPodcasts = getPodcasts();
+            const track = allPodcasts.find(p => p.id === window.state.currentTrackId);
             if (!track) return;
 
             const isBookmarked = window.state.bookmarks.has(track.id);
             const isDownloaded = window.state.downloads.has(track.id);
 
             container.innerHTML = `
-                <div class="w-full aspect-video rounded-2xl overflow-hidden shadow-2xl mb-8 relative border border-white/10">
-                    <img src="${track.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <span class="absolute bottom-3 left-3 bg-orange-600 text-white text-xs font-bold px-2.5 py-1 rounded shadow">${track.episode}</span>
-                </div>
-                <div class="text-center mb-6 w-full px-4">
-                    <h2 class="text-2xl font-bold mb-1 line-clamp-2 leading-tight">${track.title}</h2>
-                    <p class="text-sm text-white/70">${track.category} • UPSC CSE</p>
-                </div>
-                <div class="w-full px-2 mb-8">
-                    <div class="flex items-center gap-3 w-full mb-1">
-                        <span id="modal-current-time" class="text-xs text-white/80 w-10">0:00</span>
-                        <input type="range" id="modal-seek-bar" class="flex-1 h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-orange-500" value="0" min="0" step="1" oninput="window.seekAudio(this.value)">
-                        <span id="modal-total-time" class="text-xs text-white/80 w-10 text-right">0:00</span>
-                    </div>
-                </div>
-                <div class="flex items-center justify-center gap-8 mb-10 w-full">
-                    <button onclick="window.skipTime(-10)" class="flex flex-col items-center text-white/80 hover:text-white transition-colors">
-                        <div class="relative flex items-center justify-center"><i class="fa-solid fa-rotate-left text-2xl"></i><span class="absolute text-[9px] font-bold mt-0.5">10</span></div>
-                    </button>
-                    <button onclick="window.togglePlay(${track.id})" class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-105 transition-transform">
-                        <i class="fa-solid ${window.state.isPlaying ? 'fa-pause text-3xl' : 'fa-play text-3xl ml-1'}"></i>
-                    </button>
-                    <button onclick="window.skipTime(10)" class="flex flex-col items-center text-white/80 hover:text-white transition-colors">
-                        <div class="relative flex items-center justify-center"><i class="fa-solid fa-rotate-right text-2xl"></i><span class="absolute text-[9px] font-bold mt-0.5">10</span></div>
-                    </button>
-                </div>
+                <div class="w-full aspect-video rounded-2xl overflow-hidden shadow-2xl mb-8 relative border border-white/10"><img src="${track.image}" onerror="this.src='${FALLBACK_IMG}'" class="w-full h-full object-cover" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div><span class="absolute bottom-3 left-3 bg-orange-600 text-white text-xs font-bold px-2.5 py-1 rounded shadow">${track.episode}</span></div>
+                <div class="text-center mb-6 w-full px-4"><h2 class="text-2xl font-bold mb-1 leading-tight line-clamp-2">${track.title}</h2><p class="text-sm text-white/70">${track.category} • UPSC CSE</p></div>
+                <div class="w-full px-2 mb-8"><div class="flex items-center gap-3 w-full mb-1"><span id="modal-current-time" class="text-xs text-white/80 w-10">0:00</span><input type="range" id="modal-seek-bar" class="flex-1 h-1.5 bg-white/30 rounded-lg accent-orange-500" value="0" min="0" step="1" oninput="window.seekAudio(this.value)"><span id="modal-total-time" class="text-xs text-white/80 w-10 text-right">0:00</span></div></div>
+                <div class="flex items-center justify-center gap-8 mb-10 w-full"><button onclick="window.skipTime(-10)" class="text-white/80 hover:text-white"><i class="fa-solid fa-rotate-left text-2xl"></i></button><button onclick="window.togglePlay(${track.id})" class="w-20 h-20 bg-orange-500 rounded-full text-white shadow-2xl hover:scale-105"><i class="fa-solid ${window.state.isPlaying?'fa-pause':'fa-play pl-1'} text-3xl"></i></button><button onclick="window.skipTime(10)" class="text-white/80 hover:text-white"><i class="fa-solid fa-rotate-right text-2xl"></i></button></div>
                 <div class="flex items-center justify-between w-full max-w-md px-4 text-white/80 text-xs font-semibold">
                     <button onclick="window.changeSpeed()" id="speed-btn" class="flex flex-col items-center gap-1 hover:text-white transition-colors"><span class="text-sm font-bold border border-white/40 px-2 py-0.5 rounded-md">1.0x</span><span class="text-[10px]">Speed</span></button>
                     <button onclick="window.openSleepTimer()" class="flex flex-col items-center gap-1 hover:text-white transition-colors"><i class="fa-regular fa-clock text-lg"></i><span class="text-[10px]">Timer</span></button>
@@ -1175,13 +663,15 @@
 
         function renderBottomNav() {
             const tabs = [{id:'Home', i:'fa-house', l:'Home'},{id:'Library', i:'fa-book-open', l:'Library'},{id:'Downloads', i:'fa-download', l:'Downloads'},{id:'Bookmarks', i:'fa-bookmark', l:'Bookmarks'},{id:'Profile', i:'fa-user', l:'Profile'}];
-            document.getElementById('nav-items-container').innerHTML = tabs.map(t=>`<button onclick="window.changeTab('${t.id}')" class="flex flex-col items-center flex-1 gap-1 ${window.state.activeTab===t.id?'text-orange-500':'text-gray-400'}"><i class="fa-solid ${t.i} text-xl"></i><span class="text-[10px] font-bold">${t.l}</span></button>`).join('');
+            document.getElementById('nav-items-container').innerHTML = tabs.map(t=>`<button onclick="window.changeTab('${t.id}')" class="flex flex-col items-center flex-1 gap-1.5 ${window.state.activeTab===t.id?'text-orange-600 font-bold':'text-gray-500'}"><i class="fa-solid ${t.i} text-xl transition-transform ${window.state.activeTab===t.id?'-translate-y-1':''}"></i><span class="text-[10px]">${t.l}</span></button>`).join('');
         }
 
         // ================= QUIZ LOGIC =================
         let quizTimerInterval = null;
 
         window.startQuiz = function(quizId) {
+            const allQuizzes = getQuizzes();
+            if(!allQuizzes[quizId]) return window.showToast("Quiz data not available!");
             window.state.quizState = { activeQuizId: quizId, currentQ: 0, answers: {}, score: 0, lang: 'hi', timeLeft: 60 * 60 };
             window.changeTab('ActiveQuiz');
             if(quizTimerInterval) clearInterval(quizTimerInterval);
@@ -1201,7 +691,8 @@
 
         window.renderActiveQuiz = function() {
             const qIndex = window.state.quizState.currentQ;
-            const activeDb = typeof QUIZ_DB !== 'undefined' ? QUIZ_DB[window.state.quizState.activeQuizId] : [];
+            const allQuizzes = getQuizzes();
+            const activeDb = allQuizzes[window.state.quizState.activeQuizId];
             if(!activeDb || activeDb.length === 0) return;
             const rawData = activeDb[qIndex];
             const qData = rawData[window.state.quizState.lang]; 
@@ -1240,9 +731,10 @@
 
         window.selectOption = function(optIdx) {
             const qIndex = window.state.quizState.currentQ;
-            const activeDb = typeof QUIZ_DB !== 'undefined' ? QUIZ_DB[window.state.quizState.activeQuizId] : [];
+            const allQuizzes = getQuizzes();
+            const activeDb = allQuizzes[window.state.quizState.activeQuizId];
             window.state.quizState.answers[qIndex] = optIdx;
-            if (optIdx === activeDb[qIndex].correct) { window.state.quizState.score += 1; }
+            if (optIdx === activeDb[qIndex].correct) window.state.quizState.score += 1;
             window.renderActiveQuiz();
         };
 
@@ -1251,8 +743,9 @@
 
         window.renderQuizResult = function() {
             const score = window.state.quizState.score;
-            const activeDb = typeof QUIZ_DB !== 'undefined' ? QUIZ_DB[window.state.quizState.activeQuizId] : [];
-            const total = activeDb.length || 1;
+            const allQuizzes = getQuizzes();
+            const activeDb = allQuizzes[window.state.quizState.activeQuizId];
+            const total = activeDb ? activeDb.length : 1;
             const correctPercent = Math.round((score / total) * 100);
             let titleStr = window.state.quizState.activeQuizId === 'geography' ? 'Geography UPSC Level' : (window.state.quizState.activeQuizId === 'history' ? 'History UPSC Level' : 'Polity UPSC Level');
             
@@ -1274,18 +767,27 @@
             `;
         };
 
-        window.toggleCurrentAffairs = function(index) {
-            const content = document.getElementById(`ca-content-${index}`), chevron = document.getElementById(`ca-chevron-${index}`);
-            if (content.classList.contains('hidden')) { content.classList.remove('hidden'); chevron.classList.add('rotate-180'); } 
-            else { content.classList.add('hidden'); chevron.classList.remove('rotate-180'); }
+        window.togglePlay = function(id) {
+            const allPodcasts = getPodcasts();
+            const track = allPodcasts.find(p => p.id === id);
+            if (!track) return;
+            
+            if (track.isPremium && !window.state.isPremiumUser) { window.openUpgradeModal(); return; }
+            if (window.state.currentTrackId === id) { window.state.isPlaying = !window.state.isPlaying; window.state.isPlaying ? audioElement.play() : audioElement.pause(); } 
+            else { window.state.currentTrackId = id; window.state.isPlaying = true; audioElement.src = track.audioUrl; audioElement.playbackRate = window.state.playbackSpeed; audioElement.play().catch(e=>console.log("Play interrupted")); }
+            renderMainContent(); renderMiniPlayer(); if(!document.getElementById('player-modal').classList.contains('hidden')) renderPlayerModalContent();
         };
+
+        window.handleNextTrack = () => { if(!window.state.currentTrackId)return; const allPodcasts=getPodcasts(); const curr = allPodcasts.findIndex(p=>p.id===window.state.currentTrackId); window.togglePlay(allPodcasts[(curr+1)%allPodcasts.length].id); };
+        window.handlePrevTrack = () => { if(!window.state.currentTrackId)return; const allPodcasts=getPodcasts(); const curr = allPodcasts.findIndex(p=>p.id===window.state.currentTrackId); window.togglePlay(allPodcasts[(curr-1+allPodcasts.length)%allPodcasts.length].id); };
+        window.toggleDownload = (id) => { const allPodcasts=getPodcasts(); const track = allPodcasts.find(p=>p.id===id); if(!track)return; if(track.isPremium && !window.state.isPremiumUser)return window.openUpgradeModal(); window.state.downloads.has(id)?window.state.downloads.delete(id):window.state.downloads.add(id); window.showToast("Download list updated!"); renderMainContent(); };
+        window.toggleBookmark = (id) => { window.state.bookmarks.has(id)?window.state.bookmarks.delete(id):window.state.bookmarks.add(id); window.showToast("Bookmarks updated!"); renderMainContent(); };
 
         window.startVoiceSearch = function() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) return window.showToast("आपका ब्राउज़र वॉइस सर्च सपोर्ट नहीं करता।");
+            if (!SpeechRecognition) return window.showToast("आपका ब्राउज़र वॉइस सर्च सपोर्ट नहीं करता। Chrome उपयोग करें।");
             const recognition = new SpeechRecognition();
             recognition.lang = 'hi-IN'; recognition.continuous = false;
-            
             const micIcon = document.getElementById('mic-icon'), searchBox = document.getElementById('search-box'), micBtn = document.getElementById('mic-btn');
             recognition.onstart = () => { window.showToast("बोलिए..."); micIcon.classList.replace('text-gray-500', 'text-orange-600'); searchBox.classList.add('ring-2', 'ring-orange-400', 'bg-orange-50'); micBtn.classList.add('bg-orange-200', 'animate-pulse'); };
             recognition.onresult = (event) => { const t = event.results[0][0].transcript; window.state.searchQuery = t; document.getElementById('search-input').value = t; window.showToast(`आपने कहा: "${t}"`); renderMainContent(); };
@@ -1297,19 +799,16 @@
         document.addEventListener('DOMContentLoaded', init);
     </script>
 
-    <!-- ================= FIREBASE LOGIN & DB MODULE ================= -->
+    <!-- ================= FIREBASE AUTHENTICATION ================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCsa9eNrn5UDK4ShPFvDIxyd5cmWLuHsEQ",
-            authDomain: "only-hindi-ias-64e90.firebaseapp.com",
-            projectId: "only-hindi-ias-64e90",
-            storageBucket: "only-hindi-ias-64e90.firebasestorage.app",
-            messagingSenderId: "1039198714535",
-            appId: "1:1039198714535:web:55d1c9365ac11ec08fb982"
+            apiKey: "AIzaSyCsa9eNrn5UDK4ShPFvDIxyd5cmWLuHsEQ", authDomain: "only-hindi-ias-64e90.firebaseapp.com",
+            projectId: "only-hindi-ias-64e90", storageBucket: "only-hindi-ias-64e90.firebasestorage.app",
+            messagingSenderId: "1039198714535", appId: "1:1039198714535:web:55d1c9365ac11ec08fb982"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -1322,94 +821,51 @@
         window.toggleEmailMode = () => {
             window.isSignupMode = !window.isSignupMode;
             document.getElementById('email-title').innerText = window.isSignupMode ? "नया अकाउंट बनाएं" : "लॉगिन करें";
-            document.querySelector('#email-action-btn span').innerText = window.isSignupMode ? "अकाउंट बनाएं (Sign Up)" : "Login";
+            document.querySelector('#email-action-btn span').innerText = window.isSignupMode ? "Sign Up" : "Login";
             document.getElementById('email-subtitle').innerText = window.isSignupMode ? "नया पासवर्ड बनाएं (अपनी जीमेल का असली पासवर्ड न डालें)" : "अगर अकाउंट नहीं है, तो पहले नीचे 'Sign Up' पर क्लिक करें।";
             document.getElementById('email-toggle-text').innerText = window.isSignupMode ? "पहले से अकाउंट है?" : "नया अकाउंट बनाएं?";
             document.getElementById('email-toggle-btn').innerText = window.isSignupMode ? "Login" : "Sign Up";
         };
 
         window.togglePasswordVisibility = () => {
-            const passInput = document.getElementById('auth-pass');
-            passInput.type = passInput.type === "password" ? "text" : "password";
+            const p = document.getElementById('auth-pass'); p.type = p.type === "password" ? "text" : "password";
         };
 
         window.handleEmailAuth = () => {
-            const email = document.getElementById('auth-email').value;
-            const pass = document.getElementById('auth-pass').value;
+            const email = document.getElementById('auth-email').value, pass = document.getElementById('auth-pass').value;
             if(!email || !pass) return window.showToast("Email और Password दर्ज करें!");
-
             window.showToast("Processing...");
-            if(window.isSignupMode) {
-                createUserWithEmailAndPassword(auth, email, pass).then((userCredential) => {
-                    window.showToast("अकाउंट सफलतापूर्वक बन गया!");
-                }).catch((error) => window.showToast("Error: " + error.message));
-            } else {
-                signInWithEmailAndPassword(auth, email, pass).then((userCredential) => {
-                    window.showToast("लॉगिन सफल!");
-                }).catch((error) => window.showToast("पासवर्ड या ईमेल गलत है!"));
-            }
+            if(window.isSignupMode) { createUserWithEmailAndPassword(auth, email, pass).then(()=>window.showToast("अकाउंट बन गया!")).catch(e=>window.showToast("Error: " + e.message)); } 
+            else { signInWithEmailAndPassword(auth, email, pass).then(()=>window.showToast("लॉगिन सफल!")).catch(()=>window.showToast("पासवर्ड या ईमेल गलत है!")); }
         };
 
         window.handleForgotPassword = () => {
             const email = document.getElementById('auth-email').value;
             if(!email) return window.showToast("पहले ऊपर अपना Email डालें!");
-            sendPasswordResetEmail(auth, email).then(() => window.showToast("पासवर्ड रिसेट लिंक ईमेल पर भेज दिया गया है!")).catch((error) => window.showToast("Error: " + error.message));
+            sendPasswordResetEmail(auth, email).then(()=>window.showToast("पासवर्ड रिसेट लिंक भेज दिया गया है!")).catch(e=>window.showToast("Error: " + e.message));
         };
 
-        window.loginWithGoogle = () => {
-            window.showToast("Google Login शुरू हो रहा है...");
-            signInWithRedirect(auth, provider);
-        };
-
-        getRedirectResult(auth).then((result) => { if (result) window.showToast("लॉगिन सफल हुआ!"); }).catch((error) => console.error("Redirect Error:", error));
-
-        window.logoutUser = () => signOut(auth).then(() => window.showToast("लॉगआउट हो गए!"));
+        window.loginWithGoogle = () => { window.showToast("Google Login शुरू हो रहा है..."); signInWithRedirect(auth, provider); };
+        window.logoutUser = () => signOut(auth).then(()=>window.showToast("लॉगआउट हो गए!"));
 
         onAuthStateChanged(auth, async (user) => {
-            const headerIcon = document.getElementById('header-user-icon');
-            const authScreen = document.getElementById('auth-screen');
-            const mainAppScreen = document.getElementById('main-app-container');
-            
+            const as = document.getElementById('auth-screen'), ms = document.getElementById('main-app-container'), hIcon = document.getElementById('header-user-icon');
             if (user) {
-                window.state.isLoggedIn = true;
-                authScreen.classList.add("hidden");
-                mainAppScreen.classList.remove("hidden");
-                window.state.userName = user.displayName || user.email.split('@')[0];
-                window.state.userImage = user.photoURL;
-                window.state.userEmail = user.email;
-                window.state.uid = user.uid;
-
-                if(headerIcon) {
-                    if(user.photoURL) headerIcon.innerHTML = `<img src="${user.photoURL}" class="w-full h-full object-cover" referrerpolicy="no-referrer">`;
-                    else headerIcon.innerHTML = `<div class="w-full h-full bg-orange-500 text-white flex items-center justify-center font-bold text-sm">${window.state.userName.charAt(0).toUpperCase()}</div>`;
-                }
-
+                window.state.isLoggedIn = true; window.state.userName = user.displayName || user.email.split('@')[0];
+                window.state.userImage = user.photoURL; window.state.userEmail = user.email; window.state.uid = user.uid;
+                as.classList.add("hidden"); ms.classList.remove("hidden");
+                if(hIcon) hIcon.innerHTML = user.photoURL ? `<img src="${user.photoURL}" class="w-full h-full object-cover">` : `<div class="w-full h-full bg-orange-500 text-white flex items-center justify-center font-bold text-sm">${window.state.userName.charAt(0).toUpperCase()}</div>`;
                 try {
-                    const userRef = doc(db, "users", user.uid);
-                    const docSnap = await getDoc(userRef);
-                    if (docSnap.exists()) window.state.isPremiumUser = docSnap.data().isPremium || false;
-                    else {
-                        await setDoc(userRef, { name: window.state.userName, email: user.email, isPremium: false, createdAt: new Date() });
-                        window.state.isPremiumUser = false;
-                    }
-                } catch(e) { console.error("Firestore Error: ", e); }
+                    const uRef = doc(db, "users", user.uid); const snap = await getDoc(uRef);
+                    if (snap.exists()) window.state.isPremiumUser = snap.data().isPremium || false;
+                    else { await setDoc(uRef, { name: window.state.userName, email: user.email, isPremium: false }); window.state.isPremiumUser = false; }
+                } catch(e) {}
             } else {
-                window.state.isLoggedIn = false;
-                authScreen.classList.remove('hidden');
-                mainAppScreen.classList.add('hidden');
-                window.state.userName = 'Guest User';
-                window.state.userImage = null;
-                window.state.userEmail = '';
-                window.state.uid = null;
-                window.state.isPremiumUser = false;
-                
-                if(headerIcon) headerIcon.innerHTML = `<i class="fa-solid fa-user"></i>`;
+                window.state.isLoggedIn = false; window.state.userName = 'Guest User'; window.state.userImage = null;
+                as.classList.remove('hidden'); ms.classList.add('hidden');
+                if(hIcon) hIcon.innerHTML = `<i class="fa-solid fa-user"></i>`;
             }
-            
             if(window.renderMainContent) window.renderMainContent();
-            if(window.renderPlayerModalContent && document.getElementById('player-modal') && !document.getElementById('player-modal').classList.contains('hidden')) {
-                window.renderPlayerModalContent();
-            }
         });
     </script>
 </body>
