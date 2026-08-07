@@ -3,7 +3,7 @@ const PODCAST_LIST = [
         id: 7, 
         category: "Ethics", 
         title: "एथिक्स केस स्टडी हल करने का तरीका", 
-        desc: "यूपीएससी परीक्षा में एथिक्स केस स्टडी को सही तरीके से हल करने की संपूर्ण रणनीति और तरीका।", 
+        desc: "यूपीएससी परीक्षा में एथिक्स केस स्टडी को सही तरीके से हल करने की संपू�[...]",
         plays: "New", 
         date: "06 Aug 2026", 
         episode: "Episode 07", 
@@ -12,10 +12,83 @@ const PODCAST_LIST = [
         audioUrl: "एथिक्स_केस_स्टडी_हल_करने_का_तरीका_compressed.m4a", 
         isPremium: true 
     },
-    { id: 6, category: "Economy", title: "GDP का गणित और अर्थव्यवस्था की हकीकत", desc: "जीडीपी की गणना और अर्थव्यवस्था की वास्तविक स्थिति का विस्तृत विश्लेषण।", plays: "New", date: "06 Aug 2026", episode: "Episode 06", duration: "Full Audio", image: "file_000000005394820881e19440753f77bc.png", audioUrl: "GDP_का_गणित_और_अर्थव्यवस्था_की_हकीकत_compressed.m4a", isPremium: false },
-    { id: 1, category: "Geography", title: "एल नीनो और ला नीना का खेल", desc: "एल नीनो और ला नीना का भारतीय मानसून पर प्रभाव।", plays: "12.4K Plays", date: "01 Jun 2025", episode: "Episode 01", duration: "32:45", image: "IMG_20260801_215005_232.jpg", audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a", isPremium: false },
-    { id: 2, category: "Geography", title: "भारत का आकार, स्थिति, समय और पड़ोस", desc: "भारत का आकार, स्थिति, मानक समय और पड़ोसी देशों का विवरण।", plays: "9.8K Plays", date: "01 Aug 2025", episode: "Episode 02", duration: "Full Audio", image: "IMG_20260801_223530_539.jpg", audioUrl: "भारत_का_आकार_स्थिति_समय_और_पड़ोस_compressed.m4a", isPremium: false },
-    { id: 3, category: "Geography", title: "पृथ्वी का इंजन: प्लेट विवर्तनिकी", desc: "प्लेट विवर्तनिकी (Plate Tectonics) और भू-आकृति विज्ञान का विस्तृत अध्ययन।", plays: "New", date: "02 Aug 2026", episode: "Episode 03", duration: "Full Audio", image: "File_00000000928c81fa83b7e8a0a2355421.png", audioUrl: "पृथ्वी_का_इंजन_प्लेट_विवर्तनिकी_और_भू_आकृति_विज्ञान_compressed.m4a", isPremium: false },
-    { id: 4, category: "Economy", title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", desc: "बैंकिंग प्रणाली, RBI के कार्य और डिजिटल रुपये की संपूर्ण जानकारी।", plays: "New", date: "02 Aug 2026", episode: "Episode 04", duration: "Full Audio", image: "IMG_20260802_142802_943.jpg", audioUrl: "पैसे_का_सफ़र_बैंकिंग_RBI_और_डिजिटल_रुपया.m4a", isPremium: false },
-    { id: 5, category: "Polity", title: "भारतीय संविधान के छह मौलिक अधिकार", desc: "समानता, स्वतंत्रता, शोषण के विरुद्ध अधिकार और अन्य मौलिक अधिकारों की विस्तृत व्याख्या।", plays: "Premium", date: "03 Aug 2026", episode: "Episode 05", duration: "Full Audio", image: "file_0000000053888207920345384bbfc299.png", audioUrl: "भारतीय_संविधान_के_छह_मौलिक_अधिकार_compressed.m4a", isPremium: true }
+    { id: 6, category: "Economy", title: "GDP का गणित और अर्थव्यवस्था की हकीकत", desc: "जीडीपी की गणना और अर��[...]",
+    { id: 1, category: "Geography", title: "एल नीनो और ला नीना का खेल", desc: "एल नीनो और ला नीना का भारतीय मा[...]
+    { id: 2, category: "Geography", title: "भारत का आकार, स्थिति, समय और पड़ोस", desc: "भारत का आकार, स्थिति, ��[...]
+    { id: 3, category: "Geography", title: "पृथ्वी का इंजन: प्लेट विवर्तनिकी", desc: "प्लेट विवर्तनिकी (Plate Te[...]
+    { id: 4, category: "Economy", title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", desc: "बैंकिंग प्रणाल��[...]
+    { id: 5, category: "Polity", title: "भारतीय संविधान के छह मौलिक अधिकार", desc: "समानता, स्वतंत्रता, श�[...]",
 ];
+
+
+// Auto-load quizzes.js and wire up the sidebar "UPSC Quiz" button so questions from quizzes.js show in the app
+(function(){
+  // Create and append script tag for quizzes.js (so index.html doesn't need to be edited)
+  try {
+    const s = document.createElement('script');
+    s.src = 'quizzes.js';
+    s.onload = function(){
+      // Render function: reads QUIZ_DB and injects a simple quiz UI into #main-content
+      window.renderQuiz = window.renderQuiz || function(){
+        const mainEl = document.getElementById('main-content');
+        if (!mainEl) return;
+        if (typeof QUIZ_DB === 'undefined' || !QUIZ_DB) {
+          mainEl.innerHTML = '<div class="max-w-7xl mx-auto p-6">Quiz data not loaded. Upload questions in quizzes.js or check the file path.</div>';
+          return;
+        }
+
+        let html = `<div class="max-w-7xl mx-auto px-4 py-6"><h2 class="text-2xl font-bold mb-4">UPSC Quiz</h2>`;
+
+        Object.keys(QUIZ_DB).forEach(cat => {
+          html += `<h3 class="font-bold mt-4 mb-2 text-lg">${cat}</h3>`;
+          const list = QUIZ_DB[cat];
+          if (!Array.isArray(list) || list.length === 0) {
+            html += `<div class="text-sm text-gray-500 mb-3">No questions in this category.</div>`;
+            return;
+          }
+
+          list.forEach((qObj, idx) => {
+            const langKey = Object.keys(qObj)[0];
+            const qdata = qObj[langKey] || {};
+            const qText = qdata.q || '';
+            const options = qdata.options || [];
+
+            html += `<div class="bg-white dark:bg-gray-800 p-4 rounded-xl mb-3 border">
+                       <div class="font-medium">${idx+1}. ${qText}</div>
+                       <ul class="mt-2 space-y-2">`;
+            options.forEach((opt, i) => {
+              html += `<li><button class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 transition">${String.fromCharCode(65+i)}. ${opt}</button></li>`;
+            });
+            html += `</ul></div>`;
+          });
+        });
+
+        html += `</div>`;
+        mainEl.innerHTML = html;
+      };
+
+      // Attach click handler to the sidebar Quiz element (looks for the list-check icon and uses its container)
+      const icon = document.querySelector('.fa-list-check');
+      if (icon) {
+        const container = icon.closest('div');
+        if (container) {
+          container.style.cursor = 'pointer';
+          container.addEventListener('click', function(e){
+            e.preventDefault();
+            // Close drawer if open
+            const overlay = document.getElementById('sidebar-overlay');
+            const menu = document.getElementById('sidebar-menu');
+            if (overlay) overlay.classList.add('opacity-0');
+            if (menu) menu.classList.add('-translate-x-full');
+
+            // Render the quiz content
+            window.renderQuiz();
+          });
+        }
+      }
+    };
+    document.head.appendChild(s);
+  } catch (err) {
+    console.error('Failed to auto-load quizzes.js', err);
+  }
+})();
