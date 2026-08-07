@@ -11,7 +11,7 @@ const BANNERS_DATA = [
     {
         id: 2,
         // दूसरा बैनर - अगर दूसरी image upload करें तो यहाँ URL डालें
-        imageUrl: "https://placehold.co/800x300/ffedd5/f97316?text=UPSC+Audio+Book+Premium", 
+        imageUrl: "file_00000000dbe88211b7d5e2cccc350716.png", 
         link: "#",
         isActive: true
     }
