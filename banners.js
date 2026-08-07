@@ -2,7 +2,9 @@ const BANNERS_DATA = [
     {
         id: 1,
         // GitHub से direct image URL - अपनी image file का correct नाम डालें
-        imageUrl: "https://raw.githubusercontent.com/dharmpallodhi2-rgb/UPSC-CSC-AUDIO-BOOK-/main/File_00000000ab1c81fa8bbaaded2eaed436.png", 
+        // Filename in repo is lowercase: file_00000000ab1c81fa8bbaaded2eaed436.png
+        // Use relative path so it works both locally and on GitHub Pages
+        imageUrl: "file_00000000ab1c81fa8bbaaded2eaed436.png", 
         link: "#",
         isActive: true
     },
