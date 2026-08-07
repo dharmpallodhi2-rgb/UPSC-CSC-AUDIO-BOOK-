@@ -11,7 +11,7 @@ const BANNERS_DATA = [
     {
         id: 2,
         // दूसरा बैनर - अगर दूसरी image upload करें तो यहाँ URL डालें
-        imageUrl: "file_00000000dbe88211b7d5e2cccc350716.png", 
+        imageUrl: "file_0000000003408211ae12fa2946dcbd7d.png", 
         link: "#",
         isActive: true
     }
