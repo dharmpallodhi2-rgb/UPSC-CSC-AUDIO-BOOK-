@@ -1,24 +1,26 @@
 const BANNERS_DATA = [
     {
         id: 1,
-        // GitHub से direct image URL - अपनी image file का correct नाम डालें
-        // Filename in repo is lowercase: file_00000000ab1c81fa8bbaaded2eaed436.png
-        // Use relative path so it works both locally and on GitHub Pages
         imageUrl: "file_00000000ab1c81fa8bbaaded2eaed436.png", 
         link: "#",
         isActive: true
     },
     {
         id: 2,
-        // दूसरा बैनर - अगर दूसरी image upload करें तो यहाँ URL डालें
         imageUrl: "file_0000000003408211ae12fa2946dcbd7d.png", 
         link: "#",
         isActive: true
     },
     {
         id: 3,
-        // तीसरा बैनर
         imageUrl: "file_0000000007308211a8d6b66edbf7d2bd.png", 
+        link: "#",
+        isActive: true
+    },
+    {
+        id: 4,
+        // यह आपकी नई जोड़ी गई बैनर इमेज है
+        imageUrl: "file_0000000038ec82118c56fbfe3cdaa684.png", 
         link: "#",
         isActive: true
     }
