@@ -19,8 +19,13 @@ const BANNERS_DATA = [
     },
     {
         id: 4,
-        // यह आपकी नई जोड़ी गई बैनर इमेज है
-        imageUrl: "file_0000000038ec82118c56fbfe3cdaa684.png", 
+        imageUrl: "File_00000000347c82118fa0440f3338c36a.png", 
+        link: "#",
+        isActive: true
+    },
+    {
+        id: 5,
+        imageUrl: "file_00000000199c82119f3dd010a3f72d21.png", 
         link: "#",
         isActive: true
     }
