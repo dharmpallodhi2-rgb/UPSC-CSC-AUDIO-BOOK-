@@ -92,3 +92,4 @@ const PODCAST_LIST = [
     }
 ];
 
+window.PODCAST_LIST = PODCAST_LIST;
