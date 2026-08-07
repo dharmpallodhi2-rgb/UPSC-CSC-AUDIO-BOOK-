@@ -19,8 +19,7 @@ const BANNERS_DATA = [
     },
     {
         id: 4,
-        // यह आपकी अपडेट की हुई नई इमेज है
-        imageUrl: "File_00000000347c82118fa0440f3338c36a.png", 
+        imageUrl: "file_00000000347c82118fa0440f3338c36a.png", 
         link: "#",
         isActive: true
     },
@@ -32,7 +31,6 @@ const BANNERS_DATA = [
     }
 ];
 
-// --- Inject CSS to force banner slides to 16:9 ---
 (function() {
   function inject() {
     if (document.getElementById('banner-track')) {
