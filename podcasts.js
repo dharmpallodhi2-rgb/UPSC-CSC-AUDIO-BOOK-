@@ -8,8 +8,8 @@ const PODCAST_LIST = [
         date: "06 Aug 2026", 
         episode: "Episode 07", 
         duration: "Full Audio", 
-        image: "file_00000000fd7481faac51cd57a3070f5c.png", 
-        audioUrl: "ethics_case_study.m4a", // 👈 फाइल का नाम इंग्लिश में कर दिया है
+        image: "file_00000000fd7481faac51cd57a3070f5c.png", // चेक करें कि गिटहब पर यही नाम हो
+        audioUrl: "ethics_case_study.m4a", // 👈 इसे इंग्लिश में कर दिया है (गिटहब पर ऑडियो का नाम भी यही रखें)
         isPremium: true 
     },
     { 
@@ -22,7 +22,7 @@ const PODCAST_LIST = [
         episode: "Episode 06", 
         duration: "48:12", 
         image: "file_00000000a3b48211ae12fa2946dcbd7d.png", 
-        audioUrl: "gdp_economy.m4a", // 👈 आसान नाम 
+        audioUrl: "gdp_economy.m4a", // 👈 इंग्लिश नाम 
         isPremium: false 
     },
     { 
@@ -35,7 +35,7 @@ const PODCAST_LIST = [
         episode: "Episode 01", 
         duration: "35:20", 
         image: "file_00000000123481fa8d6b66edbf7d2bd.png", 
-        audioUrl: "el_nino.m4a", 
+        audioUrl: "el_nino_la_nina.m4a", // 👈 इंग्लिश नाम 
         isPremium: false 
     },
     { 
@@ -48,7 +48,7 @@ const PODCAST_LIST = [
         episode: "Episode 02", 
         duration: "40:05", 
         image: "file_00000000234582ab8d6b66edbf7d2bd.png", 
-        audioUrl: "bharat_geography.m4a", 
+        audioUrl: "bharat_ka_akar.m4a", // 👈 इंग्लिश नाम 
         isPremium: false 
     },
     { 
@@ -61,7 +61,7 @@ const PODCAST_LIST = [
         episode: "Episode 03", 
         duration: "29:10", 
         image: "file_00000000345683cd8d6b66edbf7d2bd.png", 
-        audioUrl: "plate_tectonics.m4a", 
+        audioUrl: "plate_tectonics.m4a", // 👈 इंग्लिश नाम 
         isPremium: false 
     },
     { 
@@ -74,7 +74,7 @@ const PODCAST_LIST = [
         episode: "Episode 04", 
         duration: "42:00", 
         image: "file_00000000456784ef8d6b66edbf7d2bd.png", 
-        audioUrl: "banking_rbi.m4a", 
+        audioUrl: "banking_rbi.m4a", // 👈 इंग्लिश नाम 
         isPremium: false 
     },
     { 
@@ -87,7 +87,7 @@ const PODCAST_LIST = [
         episode: "Episode 05", 
         duration: "33:45", 
         image: "file_00000000567885gh8d6b66edbf7d2bd.png", 
-        audioUrl: "fundamental_rights.m4a", 
+        audioUrl: "fundamental_rights.m4a", // 👈 इंग्लिश नाम 
         isPremium: false 
     }
 ];
