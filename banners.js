@@ -14,6 +14,13 @@ const BANNERS_DATA = [
         imageUrl: "file_0000000003408211ae12fa2946dcbd7d.png", 
         link: "#",
         isActive: true
+    },
+    {
+        id: 3,
+        // तीसरा बैनर
+        imageUrl: "file_0000000007308211a8d6b66edbf7d2bd.png", 
+        link: "#",
+        isActive: true
     }
 ];
 
