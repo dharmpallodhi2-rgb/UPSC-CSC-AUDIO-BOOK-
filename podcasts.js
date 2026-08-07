@@ -9,7 +9,7 @@ const PODCAST_LIST = [
         episode: "Episode 07", 
         duration: "Full Audio", 
         image: "file_00000000fd7481faac51cd57a3070f5c.png", 
-        audioUrl: "ethics_case_study.m4a", 
+        audioUrl: "एथिक्स_केस_स्टडी_हल_करने_का_तरीका_compressed.m4a", 
         isPremium: true 
     },
     { 
@@ -26,70 +26,71 @@ const PODCAST_LIST = [
         isPremium: false 
     },
     { 
-        id: 1, 
+        id: 5, 
         category: "Geography", 
         title: "एल नीनो और ला नीना का खेल", 
         desc: "एल नीनो-ला नीना की क्रियावली और भारत पर प्रभाव।",
         plays: "3.4K", 
         date: "12 Jun 2026", 
-        episode: "Episode 01", 
+        episode: "Episode 05", 
         duration: "35:20", 
-        image: "file_00000000123481fa8d6b66edbf7d2bd.png", 
-        audioUrl: "el_nino.m4a", 
+        image: "IMG_20260801_215005_232.jpg", 
+        audioUrl: "एल_नीनो_और_ला_नीना_का_खेल_compressed.m4a", 
         isPremium: false 
     },
     { 
-        id: 2, 
-        category: "Geography", 
-        title: "भारत का आकार, स्थिति, समय और पड़ोस", 
-        desc: "Bharat ki geographical स्थिति, time zones और पड़ोसी देशों का संक्षिप्त परिचय।",
-        plays: "2.1K", 
-        date: "18 Jun 2026", 
-        episode: "Episode 02", 
-        duration: "40:05", 
-        image: "file_00000000234582ab8d6b66edbf7d2bd.png", 
-        audioUrl: "india_geography.m4a", 
-        isPremium: false 
-    },
-    { 
-        id: 3, 
+        id: 4, 
         category: "Geography", 
         title: "पृथ्वी का इंजन: प्लेट विवर्तनिकी", 
         desc: "प्लेट टैक्टोनिक्स के सिद्धांत और भौगोलिक प्रभाव।",
         plays: "980", 
         date: "24 Jun 2026", 
-        episode: "Episode 03", 
-        duration: "29:10", 
-        image: "file_00000000345683cd8d6b66edbf7d2bd.png", 
-        audioUrl: "plate_tectonics.m4a", 
-        isPremium: false 
-    },
-    { 
-        id: 4, 
-        category: "Economy", 
-        title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", 
-        desc: "बैंकिंग सिस्टम, RBI की भूमिका और डिजिटल रुपया क्या है—सरल भाषा में।",
-        plays: "1.5K", 
-        date: "02 Jul 2026", 
         episode: "Episode 04", 
-        duration: "42:00", 
-        image: "file_00000000456784ef8d6b66edbf7d2bd.png", 
-        audioUrl: "banking_rbi.m4a", 
+        duration: "29:10", 
+        image: "file_00000000928c81fa83b7e8a0a2355421.png", 
+        audioUrl: "पृथ्वी_का_इंजन_प्लेट_विवर्तनिकी_और_भू_आकृति_विज्ञान_compressed.m4a", 
         isPremium: false 
     },
     { 
-        id: 5, 
+        id: 3, 
+        category: "Geography", 
+        title: "भारत का आकार, स्थिति, समय और पड़ोस", 
+        desc: "Bharat ki geographical स्थिति, time zones और पड़ोसी देशों का संक्षिप्त परिचय।",
+        plays: "2.1K", 
+        date: "18 Jun 2026", 
+        episode: "Episode 03", 
+        duration: "40:05", 
+        image: "IMG_20260801_223530_539.jpg", 
+        audioUrl: "भारत_का_आकार_स्थिति_समय_और_पड़ोस_compressed.m4a", 
+        isPremium: false 
+    },
+    { 
+        id: 2, 
         category: "Polity", 
         title: "भारतीय संविधान के छह मौलिक अधिकार", 
         desc: "मौलिक अधिकारों का महत्व और UPSC के लिए उपयोगी बिंदु।",
         plays: "2.8K", 
         date: "15 Jul 2026", 
-        episode: "Episode 05", 
+        episode: "Episode 02", 
         duration: "33:45", 
-        image: "file_00000000567885gh8d6b66edbf7d2bd.png", 
-        audioUrl: "fundamental_rights.m4a", 
+        image: "file_0000000053888207920345384bbfc299.png", 
+        audioUrl: "भारतीय_संविधान_के_छह_मौलिक_अधिकार_compressed.m4a", 
+        isPremium: false 
+    },
+    { 
+        id: 1, 
+        category: "Economy", 
+        title: "पैसे का सफ़र: बैंकिंग, RBI और डिजिटल रुपया", 
+        desc: "बैंकिंग सिस्टम, RBI की भूमिका और डिजिटल रुपया क्या है—सरल भाषा में।",
+        plays: "1.5K", 
+        date: "02 Jul 2026", 
+        episode: "Episode 01", 
+        duration: "42:00", 
+        image: "IMG_20260802_142802_943.jpg", 
+        audioUrl: "पैसे_का_सफ़र_बैंकिंग_RBI_और_डिजिटल_रुपया.m4a", 
         isPremium: false 
     }
 ];
 
+// Expose to global scope so index.html script can use it
 window.PODCAST_LIST = PODCAST_LIST;
