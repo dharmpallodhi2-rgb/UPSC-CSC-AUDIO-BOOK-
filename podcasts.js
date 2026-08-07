@@ -94,16 +94,3 @@ const PODCAST_LIST = [
 
 // Expose to global scope so index.html script can use it
 window.PODCAST_LIST = PODCAST_LIST;
-
-// Ensure app initializes after DOM is ready (safety hook) — index.html defines init() later, but DOMContentLoaded fires after inline scripts execute
-document.addEventListener('DOMContentLoaded', function() {
-  try {
-    if (typeof init === 'function') {
-      console.log('Calling init() from podcasts.js
-');
-      init();
-    }
-  } catch (e) {
-    console.error('Error calling init():', e);
-  }
-});
