@@ -19,6 +19,7 @@ const BANNERS_DATA = [
     },
     {
         id: 4,
+        // यह आपकी अपडेट की हुई नई इमेज है
         imageUrl: "File_00000000347c82118fa0440f3338c36a.png", 
         link: "#",
         isActive: true
@@ -31,17 +32,14 @@ const BANNERS_DATA = [
     }
 ];
 
-// --- Inject CSS to force banner slides to 16:9 (applies where #banner-track is rendered) ---
+// --- Inject CSS to force banner slides to 16:9 ---
 (function() {
   function inject() {
-    // If banner-track already present, add style immediately
     if (document.getElementById('banner-track')) {
       if (document.getElementById('banners-16-9-style')) return;
       const css = `
-        /* Force each slide to 16:9 and make images cover the slide area */
         #banner-track > div { aspect-ratio: 16/9; }
         #banner-track img { width:100%; height:100%; object-fit:cover; display:block; }
-        /* Ensure the track stretches slides correctly */
         #banner-track { align-items: stretch; }
       `;
       const style = document.createElement('style');
@@ -50,13 +48,7 @@ const BANNERS_DATA = [
       document.head.appendChild(style);
       return;
     }
-
-    // Otherwise wait for DOMContentLoaded and try again
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(inject, 50);
-    });
-
-    // Fallback retry after a short delay in case banner markup is injected later
+    document.addEventListener('DOMContentLoaded', () => setTimeout(inject, 50));
     setTimeout(inject, 500);
   }
   inject();
