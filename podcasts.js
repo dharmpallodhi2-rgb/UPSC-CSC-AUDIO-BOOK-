@@ -4,7 +4,7 @@ const PODCAST_LIST = [
         category: "History", 
         title: "सिंधु घाटी सभ्यता का रहस्य और पतन", 
         desc: "सिंधु घाटी सभ्यता की विशेषताएं, नगरीय नियोजन और उसके पतन के मुख्य कारणों का विश्लेषण।",
-        plays: "New", 
+        plays: "755", 
         date: "08 Aug 2026", 
         episode: "Episode 08", 
         duration: "Full Audio", 
