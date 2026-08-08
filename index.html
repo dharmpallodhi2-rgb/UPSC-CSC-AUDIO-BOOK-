@@ -59,12 +59,12 @@
 </head>
 <body class="bg-[#FFF8F3] dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
-    <!-- ================= NEW DESIGNED AUTHENTICATION SCREEN ================= -->
+    <!-- ================= AUTHENTICATION SCREEN ================= -->
     <div id="auth-screen" class="fixed inset-0 z-[200] bg-[#FFF8F3] dark:bg-gray-900 flex flex-col items-center justify-start p-4 transition-opacity duration-500 overflow-y-auto">
         
-        <!-- Top Cartoon Illustration -->
+        <!-- Top Custom Cartoon Illustration -->
         <div class="w-full max-w-md flex flex-col items-center my-4">
-            <img src="File_00000000236881fa96c7966300c55e95.jpg" alt="Login Illustration" class="w-full max-h-[240px] object-contain rounded-2xl">
+            <img src="File_00000000236881fa96c7966300c55e95.jpg" alt="Login Illustration" class="w-full max-h-[220px] object-contain rounded-2xl" onerror="this.style.display='none'">
         </div>
 
         <!-- Main Card Container -->
@@ -78,7 +78,7 @@
                     <div>
                         <div class="relative flex items-center">
                             <i class="fa-regular fa-user absolute left-4 text-orange-500 text-base"></i>
-                            <input type="email" id="auth-email" placeholder="Email or Mobile Number" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-2xl py-3.5 pl-12 pr-4 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all text-sm font-medium placeholder:text-gray-400">
+                            <input type="text" id="auth-email" placeholder="Email or Mobile Number" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-2xl py-3.5 pl-12 pr-4 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all text-sm font-medium placeholder:text-gray-400">
                         </div>
                     </div>
 
@@ -493,7 +493,7 @@
                     });
                 }
 
-                // PODCAST LIST (Updated Grid Layout to match screenshot)
+                // PODCAST LIST
                 html += `<div class="max-w-7xl mx-auto px-4 w-full"><div class="py-2 mb-2 flex justify-between items-end"><h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">${window.state.searchQuery ? 'Search Results' : 'Latest Podcasts'}</h2></div>`;
                 
                 if (filtered.length === 0) {
