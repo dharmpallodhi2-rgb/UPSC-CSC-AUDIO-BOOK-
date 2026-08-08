@@ -1,5 +1,18 @@
 const PODCAST_LIST = [
     { 
+        id: 8, 
+        category: "History", 
+        title: "सिंधु घाटी सभ्यता का रहस्य और पतन", 
+        desc: "सिंधु घाटी सभ्यता की विशेषताएं, नगरीय नियोजन और उसके पतन के मुख्य कारणों का विश्लेषण।",
+        plays: "New", 
+        date: "08 Aug 2026", 
+        episode: "Episode 08", 
+        duration: "Full Audio", 
+        image: "file_00000000267882118f657cd0d3bb25cb.png", 
+        audioUrl: "सिंधु_घाटी_सभ्यता_का_रहस्य_और_पतन_compressed.m4a", 
+        isPremium: false 
+    },
+    { 
         id: 7, 
         category: "Ethics", 
         title: "एथिक्स केस स्टडी हल करने का तरीका", 
