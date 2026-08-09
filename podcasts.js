@@ -1,10 +1,36 @@
 const PODCAST_LIST = [
     { 
+        id: 10, 
+        category: "Geography", 
+        title: "एवरेस्ट पर समुद्री जीवाश्म और पर्वत निर्माण", 
+        desc: "हिमालय के उत्थान और एवरेस्ट पर समुद्री जीवाश्म मिलने के वैज्ञानिक रहस्यों का विश्लेषण।",
+        plays: "New", 
+        date: "09 Aug 2026", 
+        episode: "Episode 10", 
+        duration: "Full Audio", 
+        image: "file_000000003edc81fa966ef3ffd65d92fd.png", 
+        audioUrl: "एवरेस्ट_पर_समुद्री_जीवाश्म_और_पर्वत_निर्माण_compressed.m4a", 
+        isPremium: false 
+    },
+    { 
+        id: 9, 
+        category: "History", 
+        title: "1905 का बंगाल विभाजन और स्वदेशी आंदोलन", 
+        desc: "बंगाल विभाजन की पृष्ठभूमि, ब्रिटिश नीति और स्वदेशी एवं बहिष्कार आंदोलन का ऐतिहासिक महत्व।",
+        plays: "New", 
+        date: "09 Aug 2026", 
+        episode: "Episode 09", 
+        duration: "Full Audio", 
+        image: "file_00000000a28081fa82d19125feb4b26d.png", 
+        audioUrl: "1905_का_बंगाल_विभाजन_और_स्वदेशी_आंदोलन_compressed.m4a", 
+        isPremium: false 
+    },
+    { 
         id: 8, 
         category: "History", 
         title: "सिंधु घाटी सभ्यता का रहस्य और पतन", 
         desc: "सिंधु घाटी सभ्यता की विशेषताएं, नगरीय नियोजन और उसके पतन के मुख्य कारणों का विश्लेषण।",
-        plays: "1.9k", 
+        plays: "755", 
         date: "08 Aug 2026", 
         episode: "Episode 08", 
         duration: "Full Audio", 
