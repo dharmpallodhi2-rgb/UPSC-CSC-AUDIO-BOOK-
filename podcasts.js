@@ -1,5 +1,18 @@
 const PODCAST_LIST = [
     { 
+        id: 11, 
+        category: "Current Affairs", 
+        title: "एफसीआरए 2026 और एनजीओ संपत्तियों का अधिग्रहण", 
+        desc: "हालिया एफसीआरए संशोधनों, विदेशी फंडिंग के नियमों और एनजीओ संपत्तियों के अधिग्रहण से जुड़े प्रावधानों का विश्लेषण।",
+        plays: "New", 
+        date: "10 Aug 2026", 
+        episode: "Episode 11", 
+        duration: "Full Audio", 
+        image: "https://raw.githubusercontent.com/dharmpallodhi2-rgb/UPSC-CSC-AUDIO-BOOK-/main/file_000000005fd482118fd4b2d059a36899.png", 
+        audioUrl: "एफसीआरए_2026_और_एनजीओ_संपत्तियों_का_अधिग्रहण_compressed.m4a", 
+        isPremium: false 
+    },
+    { 
         id: 10, 
         category: "Geography", 
         title: "एवरेस्ट पर समुद्री जीवाश्म और पर्वत निर्माण", 
