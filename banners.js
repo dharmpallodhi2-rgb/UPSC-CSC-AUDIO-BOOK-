@@ -28,16 +28,26 @@ const BANNERS_DATA = [
         imageUrl: "file_00000000199c82119f3dd010a3f72d21.png", 
         link: "#",
         isActive: true
+    },
+    {
+        id: 6,
+        imageUrl: "file_00000000e90c82118653231773dd235e.png", 
+        link: "#",
+        isActive: true
     }
 ];
 
+// --- Inject CSS to force banner slides to 16:9 (applies where #banner-track is rendered) ---
 (function() {
   function inject() {
+    // If banner-track already present, add style immediately
     if (document.getElementById('banner-track')) {
       if (document.getElementById('banners-16-9-style')) return;
       const css = `
+        /* Force each slide to 16:9 and make images cover the slide area */
         #banner-track > div { aspect-ratio: 16/9; }
         #banner-track img { width:100%; height:100%; object-fit:cover; display:block; }
+        /* Ensure the track stretches slides correctly */
         #banner-track { align-items: stretch; }
       `;
       const style = document.createElement('style');
@@ -46,7 +56,13 @@ const BANNERS_DATA = [
       document.head.appendChild(style);
       return;
     }
-    document.addEventListener('DOMContentLoaded', () => setTimeout(inject, 50));
+
+    // Otherwise wait for DOMContentLoaded and try again
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(inject, 50);
+    });
+
+    // Fallback retry after a short delay in case banner markup is injected later
     setTimeout(inject, 500);
   }
   inject();
