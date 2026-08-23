@@ -178,7 +178,7 @@
             <div class="max-w-md md:max-w-3xl mx-auto w-full h-full flex justify-between items-center px-2 md:px-8" id="nav-items-container"></div>
         </nav>
 
-        <!-- ================= REAL AI CHATBOT FEATURE (GEMINI API) ================= -->
+        <!-- ================= REAL AI CHATBOT FEATURE (GEMINI PRO API) ================= -->
         <button onclick="window.toggleAIChat()" class="fixed bottom-20 right-4 z-[100] w-14 h-14 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform">
             <i class="fa-solid fa-robot text-2xl"></i>
         </button>
@@ -353,7 +353,7 @@
 
         const audioElement = document.getElementById('audio-player');
 
-        // ======== REAL AI CHATBOT LOGIC (GEMINI API INTEGRATED) ========
+        // ======== REAL AI CHATBOT LOGIC (GEMINI PRO API INTEGRATED) ========
         window.toggleAIChat = function() {
             const modal = document.getElementById('ai-chat-modal');
             if(modal) { modal.classList.toggle('hidden'); }
@@ -386,9 +386,9 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
             try {
-                // YOUR NEW API KEY INTEGRATED HERE
+                // CHANGED MODEL TO "gemini-pro" FOR MAXIMUM COMPATIBILITY
                 const apiKey = "AQ.Ab8RN6K_rZztndtWWDeEtcHDAI2d6KjiNoqmsrRdvppMj1wt1Q";
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
 
                 const response = await fetch(url, {
                     method: "POST",
@@ -401,7 +401,7 @@
                 });
 
                 const data = await response.json();
-                document.getElementById(loadingId).remove();
+                document.getElementById(loadingId)?.remove();
 
                 if (!response.ok) {
                     messagesContainer.innerHTML += `
