@@ -178,6 +178,41 @@
             <div class="max-w-md md:max-w-3xl mx-auto w-full h-full flex justify-between items-center px-2 md:px-8" id="nav-items-container"></div>
         </nav>
 
+        <!-- ================= AI CHATBOT FEATURE ================= -->
+        <button onclick="window.toggleAIChat()" class="fixed bottom-20 right-4 z-[100] w-14 h-14 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform">
+            <i class="fa-solid fa-robot text-2xl"></i>
+        </button>
+
+        <div id="ai-chat-modal" class="fixed inset-0 bg-black/60 z-[250] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm p-0 md:p-4">
+            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md h-[80vh] md:h-[600px] rounded-t-3xl md:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-slide-up">
+                <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between bg-orange-50 dark:bg-gray-900">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-base">UPSC AI Assistant</h3>
+                            <p class="text-[10px] text-green-500 font-semibold">● Online (Doubt Solver)</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark text-xl text-gray-500 cursor-pointer hover:text-red-500" onclick="window.toggleAIChat()"></i>
+                </div>
+                <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-gray-50 dark:bg-gray-900/50">
+                    <div class="flex items-start gap-2">
+                        <div class="bg-orange-500 text-white text-xs px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
+                            नमस्ते! मैं आपका UPSC AI सहायक हूँ। आप मुझसे किसी भी विषय या टॉपिक से जुड़ा सवाल पूछ सकते हैं। 📚
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 flex items-center gap-2">
+                    <input type="text" id="chat-input" placeholder="अपना सवाल यहाँ लिखें..." class="flex-1 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-orange-500">
+                    <button onclick="window.sendAIChatMessage()" class="w-12 h-12 bg-orange-500 text-white rounded-xl flex items-center justify-center hover:bg-orange-600 transition-colors shadow-md">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- PLAYER MODAL -->
         <div id="player-modal" class="fixed inset-0 bg-gray-900/90 dark:bg-black/95 z-[100] hidden flex flex-col justify-between p-4 md:p-8 backdrop-blur-md animate-slide-up text-white overflow-y-auto">
             <div class="flex items-center justify-between w-full max-w-2xl mx-auto pt-2">
@@ -317,6 +352,38 @@
         };
 
         const audioElement = document.getElementById('audio-player');
+
+        // ======== AI CHATBOT LOGIC ========
+        window.toggleAIChat = function() {
+            const modal = document.getElementById('ai-chat-modal');
+            if(modal) { modal.classList.toggle('hidden'); }
+        };
+
+        window.sendAIChatMessage = function() {
+            const inputField = document.getElementById('chat-input');
+            const messagesContainer = document.getElementById('chat-messages');
+            const userText = inputField.value.trim();
+            if(!userText) return;
+
+            messagesContainer.innerHTML += `
+                <div class="flex items-end justify-end gap-2">
+                    <div class="bg-blue-600 text-white text-xs px-4 py-2.5 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm">${userText}</div>
+                </div>
+            `;
+            inputField.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            setTimeout(() => {
+                messagesContainer.innerHTML += `
+                    <div class="flex items-start gap-2">
+                        <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-gray-700 text-xs px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
+                            यह UPSC से जुड़ा बेहतरीन सवाल है। इस विषय पर और अधिक अध्ययन करने के लिए आप हमारे ऑडियो पॉडकास्ट सेक्शन की मदद ले सकते हैं! 📖
+                        </div>
+                    </div>
+                `;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+        };
 
         // ======== ROBUST DATA FETCHERS (PREVENTS CRASHES) ========
         function getPodcasts() { return typeof PODCAST_LIST !== 'undefined' ? PODCAST_LIST : (window.PODCAST_LIST || []); }
