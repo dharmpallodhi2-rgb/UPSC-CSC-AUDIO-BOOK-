@@ -178,7 +178,7 @@
             <div class="max-w-md md:max-w-3xl mx-auto w-full h-full flex justify-between items-center px-2 md:px-8" id="nav-items-container"></div>
         </nav>
 
-        <!-- ================= AI CHATBOT FEATURE ================= -->
+        <!-- ================= REAL AI CHATBOT FEATURE (GEMINI API) ================= -->
         <button onclick="window.toggleAIChat()" class="fixed bottom-20 right-4 z-[100] w-14 h-14 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform">
             <i class="fa-solid fa-robot text-2xl"></i>
         </button>
@@ -200,7 +200,7 @@
                 <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-gray-50 dark:bg-gray-900/50">
                     <div class="flex items-start gap-2">
                         <div class="bg-orange-500 text-white text-xs px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
-                            नमस्ते! मैं आपका UPSC AI सहायक हूँ। आप मुझसे किसी भी विषय या टॉपिक से जुड़ा सवाल पूछ सकते हैं। 📚
+                            नमस्ते! मैं आपका UPSC AI सहायक हूँ। आप मुझसे किसी भी विषय, सिलेबस या टॉपिक से जुड़ा सवाल पूछ सकते हैं। 📚
                         </div>
                     </div>
                 </div>
@@ -319,7 +319,7 @@
                 <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
                 <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
                     <h3 class="text-xl font-extrabold flex items-center gap-2"><i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium</h3>
-                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.openUpgradeModal()"></i>
                 </div>
                 <div class="relative z-10">
                     <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
@@ -353,18 +353,19 @@
 
         const audioElement = document.getElementById('audio-player');
 
-        // ======== AI CHATBOT LOGIC ========
+        // ======== REAL AI CHATBOT LOGIC (GEMINI API INTEGRATED) ========
         window.toggleAIChat = function() {
             const modal = document.getElementById('ai-chat-modal');
             if(modal) { modal.classList.toggle('hidden'); }
         };
 
-        window.sendAIChatMessage = function() {
+        window.sendAIChatMessage = async function() {
             const inputField = document.getElementById('chat-input');
             const messagesContainer = document.getElementById('chat-messages');
             const userText = inputField.value.trim();
             if(!userText) return;
 
+            // Display User Message
             messagesContainer.innerHTML += `
                 <div class="flex items-end justify-end gap-2">
                     <div class="bg-blue-600 text-white text-xs px-4 py-2.5 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm">${userText}</div>
@@ -373,16 +374,53 @@
             inputField.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            setTimeout(() => {
+            // Loading state
+            const loadingId = 'loading-' + Date.now();
+            messagesContainer.innerHTML += `
+                <div id="${loadingId}" class="flex items-start gap-2">
+                    <div class="bg-white dark:bg-gray-800 text-gray-500 text-xs px-4 py-2.5 rounded-2xl rounded-tl-none shadow-sm animate-pulse">
+                        सोच रहा हूँ... 🤔
+                    </div>
+                </div>
+            `;
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            try {
+                const apiKey = "AIzaSyADiokZNFWg7ai0fJGvyiGszxpV00P2yB8";
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: "आप एक UPSC के बेहतरीन मेंटर और असिस्टेंट हैं। छात्र के इस सवाल का सरल, स्पष्ट और सटीक हिंदी में जवाब दें: " + userText }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "क्षमा करें, अभी मैं इसका उत्तर देने में असमर्थ हूँ। कृपया दोबारा प्रयास करें।";
+
+                document.getElementById(loadingId).remove();
                 messagesContainer.innerHTML += `
                     <div class="flex items-start gap-2">
-                        <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-gray-700 text-xs px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
-                            यह UPSC से जुड़ा बेहतरीन सवाल है। इस विषय पर और अधिक अध्ययन करने के लिए आप हमारे ऑडियो पॉडकास्ट सेक्शन की मदद ले सकते हैं! 📖
+                        <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-gray-700 text-xs px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm leading-relaxed">
+                            ${aiReply.replace(/\n/g, '<br>')}
                         </div>
                     </div>
                 `;
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 1000);
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                messagesContainer.innerHTML += `
+                    <div class="flex items-start gap-2">
+                        <div class="bg-red-50 text-red-600 text-xs px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
+                            नेटवर्क या API में कुछ गड़बड़ है। कृपया इंटरनेट कनेक्शन जांचें।
+                        </div>
+                    </div>
+                `;
+            }
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
         };
 
         // ======== ROBUST DATA FETCHERS (PREVENTS CRASHES) ========
