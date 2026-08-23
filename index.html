@@ -319,7 +319,7 @@
                 <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl"></div>
                 <div class="flex items-center justify-between pb-4 mb-2 relative z-10">
                     <h3 class="text-xl font-extrabold flex items-center gap-2"><i class="fa-solid fa-crown text-amber-500 text-2xl"></i> Go Premium</h3>
-                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.openUpgradeModal()"></i>
+                    <i class="fa-solid fa-xmark cursor-pointer text-xl text-gray-400 hover:text-gray-600" onclick="window.closeUpgradeModal()"></i>
                 </div>
                 <div class="relative z-10">
                     <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Upgrade to our premium plan and unlock the full potential of your UPSC preparation journey.</p>
@@ -367,8 +367,8 @@
 
             // Display User Message
             messagesContainer.innerHTML += `
-                <div class="flex items-end justify-end gap-2">
-                    <div class="bg-blue-600 text-white text-xs px-4 py-2.5 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm">${userText}</div>
+                <div class="flex items-end justify-end gap-2 mt-2">
+                    <div class="bg-blue-600 text-white text-sm px-4 py-2.5 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm">${userText}</div>
                 </div>
             `;
             inputField.value = '';
@@ -377,8 +377,8 @@
             // Loading state
             const loadingId = 'loading-' + Date.now();
             messagesContainer.innerHTML += `
-                <div id="${loadingId}" class="flex items-start gap-2">
-                    <div class="bg-white dark:bg-gray-800 text-gray-500 text-xs px-4 py-2.5 rounded-2xl rounded-tl-none shadow-sm animate-pulse">
+                <div id="${loadingId}" class="flex items-start gap-2 mt-2">
+                    <div class="bg-white dark:bg-gray-800 text-gray-500 text-sm px-4 py-2.5 rounded-2xl rounded-tl-none shadow-sm animate-pulse">
                         सोच रहा हूँ... 🤔
                     </div>
                 </div>
@@ -386,7 +386,8 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
             try {
-                const apiKey = "AIzaSyADiokZNFWg7ai0fJGvyiGszxpV00P2yB8";
+                // YOUR NEW API KEY INTEGRATED HERE
+                const apiKey = "AQ.Ab8RN6K_rZztndtWWDeEtcHDAI2d6KjiNoqmsrRdvppMj1wt1Q";
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(url, {
@@ -400,22 +401,32 @@
                 });
 
                 const data = await response.json();
-                const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "क्षमा करें, अभी मैं इसका उत्तर देने में असमर्थ हूँ। कृपया दोबारा प्रयास करें।";
+                document.getElementById(loadingId).remove();
 
-                document.getElementById(loadingId).remove();
-                messagesContainer.innerHTML += `
-                    <div class="flex items-start gap-2">
-                        <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-gray-700 text-xs px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm leading-relaxed">
-                            ${aiReply.replace(/\n/g, '<br>')}
+                if (!response.ok) {
+                    messagesContainer.innerHTML += `
+                        <div class="flex items-start gap-2 mt-2">
+                            <div class="bg-red-50 text-red-600 text-sm px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm border border-red-200">
+                                <b>Error:</b> ${data.error?.message || "API Key में समस्या है।"}
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                } else {
+                    const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "क्षमा करें, मुझे समझ नहीं आया।";
+                    messagesContainer.innerHTML += `
+                        <div class="flex items-start gap-2 mt-2">
+                            <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-gray-700 text-sm px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm leading-relaxed">
+                                ${aiReply.replace(/\n/g, '<br>')}
+                            </div>
+                        </div>
+                    `;
+                }
             } catch (error) {
-                document.getElementById(loadingId).remove();
+                document.getElementById(loadingId)?.remove();
                 messagesContainer.innerHTML += `
-                    <div class="flex items-start gap-2">
-                        <div class="bg-red-50 text-red-600 text-xs px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
-                            नेटवर्क या API में कुछ गड़बड़ है। कृपया इंटरनेट कनेक्शन जांचें।
+                    <div class="flex items-start gap-2 mt-2">
+                        <div class="bg-red-50 text-red-600 text-sm px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm border border-red-200">
+                            नेटवर्क या इंटरनेट में समस्या है। कृपया अपना कनेक्शन चेक करें।
                         </div>
                     </div>
                 `;
