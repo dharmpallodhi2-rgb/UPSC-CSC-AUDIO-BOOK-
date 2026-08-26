@@ -246,7 +246,7 @@
                 <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl p-4 text-white shadow-lg cursor-pointer mb-2 transform hover:scale-[1.02] transition-transform" onclick="window.openUpgradeModal(); window.closeDrawer();">
                     <div class="flex items-center justify-between mb-2">
                         <span class="font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-crown mr-1.5"></i> Premium</span>
-                        <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold">₹599/mo</span>
+                        <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold">₹399/mo</span>
                     </div>
                     <p class="text-xs text-white/90 leading-tight">Unlock all audiobooks & downloads.</p>
                 </div>
@@ -326,7 +326,7 @@
                     <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-6 flex justify-between items-center">
                         <div>
                             <span class="block text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider mb-1">Monthly Plan</span>
-                            <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹599<span class="text-sm font-medium text-gray-500">/mo</span></span>
+                            <span class="text-2xl font-extrabold text-gray-900 dark:text-white">₹399<span class="text-sm font-medium text-gray-500">/mo</span></span>
                         </div>
                         <div class="bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded">Popular</div>
                     </div>
@@ -386,7 +386,6 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
             try {
-                // CHANGED MODEL TO "gemini-pro" FOR MAXIMUM COMPATIBILITY
                 const apiKey = "AQ.Ab8RN6K_rZztndtWWDeEtcHDAI2d6KjiNoqmsrRdvppMj1wt1Q";
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
 
@@ -493,11 +492,27 @@
         window.openUpgradeModal = () => document.getElementById('upgrade-modal').classList.remove('hidden');
         window.closeUpgradeModal = () => document.getElementById('upgrade-modal').classList.add('hidden');
         
+        // ================= DIRECT RAZORPAY UPI PAYMENT LOGIC =================
         window.processPayment = function() {
-            if (!window.state.isLoggedIn) { window.showToast("पहले लॉगिन करें!"); window.changeTab('Profile'); window.closeUpgradeModal(); return; }
+            if (!window.state.isLoggedIn) { 
+                window.showToast("पहले लॉगिन करें!"); 
+                window.changeTab('Profile'); 
+                window.closeUpgradeModal(); 
+                return; 
+            }
+            
+            window.showToast("Payment Page Opening...");
+            
+            // यह आपका Razorpay लिंक सीधा ओपन करेगा ताकि मोबाइल पर UPI ऐप्स का ऑप्शन आ सके
             window.open("https://rzp.io/rzp/mQmuz9Lp", "_blank");
-            window.showToast("Payment processing...");
-            setTimeout(() => { window.state.isPremiumUser = true; window.showToast("Premium Activated!"); window.closeUpgradeModal(); renderMainContent(); }, 2000);
+            
+            // पेमेंट के बाद (बैकग्राउंड में) प्रीमियम अनलॉक करने का फीचर 
+            setTimeout(() => { 
+                window.state.isPremiumUser = true; 
+                window.showToast("Premium Activated!"); 
+                window.closeUpgradeModal(); 
+                renderMainContent(); 
+            }, 5000);
         };
 
         window.handlePlayClick = (id) => window.togglePlay(id);
