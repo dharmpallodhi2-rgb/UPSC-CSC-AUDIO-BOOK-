@@ -62,19 +62,21 @@
 </head>
 <body class="bg-[#FFF8F3] dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
-    <!-- ================= AUTHENTICATION SCREEN ================= -->
-    <div id="auth-screen" class="fixed inset-0 z-[200] bg-[#FFF8F3] dark:bg-gray-900 flex flex-col items-center justify-start p-4 transition-opacity duration-500 overflow-y-auto">
-        
-        <!-- Top Cartoon Illustration with Direct GitHub Link -->
-        <div class="w-full max-w-md flex flex-col items-center my-3">
-            <img src="https://raw.githubusercontent.com/dharmpallodhi2-rgb/UPSC-CSC-AUDIO-BOOK-/main/file_00000000236881fa96c7966300c55e95.jpg" alt="Login Illustration" class="w-full max-h-[210px] object-contain rounded-2xl shadow-sm">
-        </div>
+    <!-- ================= AUTHENTICATION POPUP MODAL (AdSense Fix) ================= -->
+    <div id="auth-screen" class="fixed inset-0 z-[300] bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-4 transition-opacity duration-300 hidden">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-[30px] shadow-2xl p-6 md:p-8 relative animate-slide-up">
+            
+            <!-- Close Button -->
+            <i class="fa-solid fa-xmark absolute top-5 right-5 text-2xl text-gray-400 hover:text-gray-700 cursor-pointer" onclick="document.getElementById('auth-screen').classList.add('hidden')"></i>
+            
+            <!-- Top Cartoon Illustration with Direct GitHub Link -->
+            <div class="w-full flex justify-center mb-4">
+                <img src="https://raw.githubusercontent.com/dharmpallodhi2-rgb/UPSC-CSC-AUDIO-BOOK-/main/file_00000000236881fa96c7966300c55e95.jpg" alt="Login Illustration" class="w-full max-h-[160px] object-contain rounded-2xl">
+            </div>
 
-        <!-- Main Card Container -->
-        <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-t-[35px] shadow-[0_-10px_30px_rgba(0,0,0,0.05)] p-6 md:p-8 border-t border-gray-100 dark:border-gray-700 mb-6">
             <div id="email-section" class="block">
-                <h2 id="email-title" class="text-2xl font-extrabold text-gray-900 dark:text-white mb-1">Welcome Back!</h2>
-                <p id="email-subtitle" class="text-xs text-gray-500 dark:text-gray-400 mb-6">Login to continue your learning journey</p>
+                <h2 id="email-title" class="text-2xl font-extrabold text-gray-900 dark:text-white mb-1">Welcome!</h2>
+                <p id="email-subtitle" class="text-xs text-gray-500 dark:text-gray-400 mb-6">लॉगिन करें ताकि आप पॉडकास्ट सुन सकें</p>
                 
                 <div class="space-y-4">
                     <!-- Email / Mobile Input -->
@@ -103,7 +105,7 @@
                     </button>
                     
                     <!-- OR Divider -->
-                    <div class="flex items-center my-5">
+                    <div class="flex items-center my-4">
                         <div class="flex-1 border-t border-gray-200 dark:border-gray-700"></div>
                         <span class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">OR</span>
                         <div class="flex-1 border-t border-gray-200 dark:border-gray-700"></div>
@@ -115,7 +117,7 @@
                     </button>
                     
                     <!-- Bottom Signup Toggle -->
-                    <p class="text-center text-xs text-gray-500 mt-6">
+                    <p class="text-center text-xs text-gray-500 mt-4">
                         <span id="email-toggle-text">Don't have an account?</span> 
                         <button onclick="window.toggleEmailMode()" class="text-orange-500 font-bold ml-1 hover:underline" id="email-toggle-btn">Sign Up</button>
                     </p>
@@ -124,8 +126,8 @@
         </div>
     </div>
 
-    <!-- ================= MAIN APP CONTAINER ================= -->
-    <div id="main-app-container" class="app-container relative overflow-hidden flex flex-col hidden">
+    <!-- ================= MAIN APP CONTAINER (Now Visible by Default) ================= -->
+    <div id="main-app-container" class="app-container relative overflow-hidden flex flex-col">
         <audio id="audio-player"></audio>
         <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs md:text-sm px-6 py-3 rounded-full z-[90] shadow-2xl whitespace-nowrap transition-opacity duration-300 opacity-0 pointer-events-none hidden"></div>
 
@@ -178,59 +180,7 @@
             <div class="max-w-md md:max-w-3xl mx-auto w-full h-full flex justify-between items-center px-2 md:px-8" id="nav-items-container"></div>
         </nav>
 
-        <!-- ================= REAL AI CHATBOT FEATURE (GEMINI PRO API) ================= -->
-        <button onclick="window.toggleAIChat()" class="fixed bottom-20 right-4 z-[100] w-14 h-14 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform">
-            <i class="fa-solid fa-robot text-2xl"></i>
-        </button>
-
-        <div id="ai-chat-modal" class="fixed inset-0 bg-black/60 z-[250] hidden flex flex-col justify-end md:justify-center items-center backdrop-blur-sm p-0 md:p-4">
-            <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full md:max-w-md h-[80vh] md:h-[600px] rounded-t-3xl md:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-slide-up">
-                <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between bg-orange-50 dark:bg-gray-900">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-base">UPSC AI Assistant</h3>
-                            <p class="text-[10px] text-green-500 font-semibold">● Online (Doubt Solver)</p>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-xmark text-xl text-gray-500 cursor-pointer hover:text-red-500" onclick="window.toggleAIChat()"></i>
-                </div>
-                <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-gray-50 dark:bg-gray-900/50">
-                    <div class="flex items-start gap-2">
-                        <div class="bg-orange-500 text-white text-xs px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
-                            नमस्ते! मैं आपका UPSC AI सहायक हूँ। आप मुझसे किसी भी विषय, सिलेबस या टॉपिक से जुड़ा सवाल पूछ सकते हैं। 📚
-                        </div>
-                    </div>
-                </div>
-                <div class="p-3 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 flex items-center gap-2">
-                    <input type="text" id="chat-input" placeholder="अपना सवाल यहाँ लिखें..." class="flex-1 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-orange-500">
-                    <button onclick="window.sendAIChatMessage()" class="w-12 h-12 bg-orange-500 text-white rounded-xl flex items-center justify-center hover:bg-orange-600 transition-colors shadow-md">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- PLAYER MODAL -->
-        <div id="player-modal" class="fixed inset-0 bg-gray-900/90 dark:bg-black/95 z-[100] hidden flex flex-col justify-between p-4 md:p-8 backdrop-blur-md animate-slide-up text-white overflow-y-auto">
-            <div class="flex items-center justify-between w-full max-w-2xl mx-auto pt-2">
-                <button onclick="window.closePlayerModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-solid fa-chevron-down text-lg"></i></button>
-                <span class="text-base font-bold tracking-wide">Now Playing</span>
-                <div class="relative">
-                    <button onclick="window.togglePlayerMenu(event)" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-solid fa-ellipsis-vertical text-lg"></i></button>
-                    <div id="player-dropdown" class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 hidden z-50 py-2">
-                        <div onclick="window.openNotificationsModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium"><div class="flex items-center gap-3"><i class="fa-regular fa-bell text-gray-500"></i> Notifications</div><i class="fa-solid fa-chevron-right text-xs text-gray-400"></i></div>
-                        <div onclick="window.openShareModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium"><div class="flex items-center gap-3"><i class="fa-solid fa-share-nodes text-gray-500"></i> Share</div><i class="fa-solid fa-chevron-right text-xs text-gray-400"></i></div>
-                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium border-t border-gray-100 dark:border-gray-700"><div class="flex items-center gap-3"><i class="fa-regular fa-moon text-gray-500"></i> Dark Mode</div><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" id="dark-mode-toggle" class="sr-only peer" onchange="window.toggleDarkMode()"><div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label></div>
-                    </div>
-                </div>
-            </div>
-            <div id="player-modal-content" class="flex flex-col items-center justify-center max-w-md mx-auto w-full my-auto py-4"></div>
-        </div>
-
-        <!-- SIDEBAR MENU -->
+        <!-- SIDEBAR MENU WITH LEGAL LINKS ADDED -->
         <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-[120] hidden opacity-0 transition-opacity duration-300" onclick="window.closeDrawer()"></div>
         <div id="sidebar-menu" class="fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-800 z-[130] transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
             <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between mt-2">
@@ -242,7 +192,7 @@
                 </div>
                 <i class="fa-solid fa-xmark text-2xl text-gray-500 dark:text-gray-400 cursor-pointer hover:text-red-500" onclick="window.closeDrawer()"></i>
             </div>
-            <div class="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-3">
+            <div class="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-2">
                 <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl p-4 text-white shadow-lg cursor-pointer mb-2 transform hover:scale-[1.02] transition-transform" onclick="window.openUpgradeModal(); window.closeDrawer();">
                     <div class="flex items-center justify-between mb-2">
                         <span class="font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-crown mr-1.5"></i> Premium</span>
@@ -261,6 +211,13 @@
                     <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200"><i class="fa-brands fa-telegram text-[#229ED9] text-2xl w-6 text-center group-hover:scale-110 transition-transform"></i><span class="font-bold text-sm">Join Telegram</span></div>
                     <i class="fa-solid fa-arrow-up-right-from-square text-sm text-gray-400"></i>
                 </a>
+
+                <!-- LEGAL PAGES LINKS (MANDATORY FOR ADSENSE) -->
+                <div class="border-t border-gray-100 dark:border-gray-700 mt-2 pt-2 space-y-1">
+                    <a href="privacy-policy.html" class="flex items-center gap-3 p-3.5 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm text-gray-600 dark:text-gray-300 rounded-xl transition-colors"><i class="fa-solid fa-shield-halved w-6 text-center text-gray-400"></i> Privacy Policy</a>
+                    <a href="terms-conditions.html" class="flex items-center gap-3 p-3.5 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm text-gray-600 dark:text-gray-300 rounded-xl transition-colors"><i class="fa-solid fa-file-contract w-6 text-center text-gray-400"></i> Terms & Conditions</a>
+                    <a href="contact-us.html" class="flex items-center gap-3 p-3.5 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm text-gray-600 dark:text-gray-300 rounded-xl transition-colors"><i class="fa-solid fa-envelope w-6 text-center text-gray-400"></i> Contact Us</a>
+                </div>
             </div>
         </div>
 
@@ -335,6 +292,23 @@
             </div>
         </div>
 
+        <!-- PLAYER MODAL -->
+        <div id="player-modal" class="fixed inset-0 bg-gray-900/90 dark:bg-black/95 z-[100] hidden flex flex-col justify-between p-4 md:p-8 backdrop-blur-md animate-slide-up text-white overflow-y-auto">
+            <div class="flex items-center justify-between w-full max-w-2xl mx-auto pt-2">
+                <button onclick="window.closePlayerModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-solid fa-chevron-down text-lg"></i></button>
+                <span class="text-base font-bold tracking-wide">Now Playing</span>
+                <div class="relative">
+                    <button onclick="window.togglePlayerMenu(event)" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-solid fa-ellipsis-vertical text-lg"></i></button>
+                    <div id="player-dropdown" class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 hidden z-50 py-2">
+                        <div onclick="window.openNotificationsModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium"><div class="flex items-center gap-3"><i class="fa-regular fa-bell text-gray-500"></i> Notifications</div><i class="fa-solid fa-chevron-right text-xs text-gray-400"></i></div>
+                        <div onclick="window.openShareModal(); window.togglePlayerMenu();" class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium"><div class="flex items-center gap-3"><i class="fa-solid fa-share-nodes text-gray-500"></i> Share</div><i class="fa-solid fa-chevron-right text-xs text-gray-400"></i></div>
+                        <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm font-medium border-t border-gray-100 dark:border-gray-700"><div class="flex items-center gap-3"><i class="fa-regular fa-moon text-gray-500"></i> Dark Mode</div><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" id="dark-mode-toggle" class="sr-only peer" onchange="window.toggleDarkMode()"><div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div></label></div>
+                    </div>
+                </div>
+            </div>
+            <div id="player-modal-content" class="flex flex-col items-center justify-center max-w-md mx-auto w-full my-auto py-4"></div>
+        </div>
+
     </div> <!-- END MAIN APP CONTAINER -->
 
     <!-- ================= JAVASCRIPT LOGIC ================= -->
@@ -353,87 +327,7 @@
 
         const audioElement = document.getElementById('audio-player');
 
-        // ======== REAL AI CHATBOT LOGIC (GEMINI PRO API INTEGRATED) ========
-        window.toggleAIChat = function() {
-            const modal = document.getElementById('ai-chat-modal');
-            if(modal) { modal.classList.toggle('hidden'); }
-        };
-
-        window.sendAIChatMessage = async function() {
-            const inputField = document.getElementById('chat-input');
-            const messagesContainer = document.getElementById('chat-messages');
-            const userText = inputField.value.trim();
-            if(!userText) return;
-
-            // Display User Message
-            messagesContainer.innerHTML += `
-                <div class="flex items-end justify-end gap-2 mt-2">
-                    <div class="bg-blue-600 text-white text-sm px-4 py-2.5 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm">${userText}</div>
-                </div>
-            `;
-            inputField.value = '';
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-            // Loading state
-            const loadingId = 'loading-' + Date.now();
-            messagesContainer.innerHTML += `
-                <div id="${loadingId}" class="flex items-start gap-2 mt-2">
-                    <div class="bg-white dark:bg-gray-800 text-gray-500 text-sm px-4 py-2.5 rounded-2xl rounded-tl-none shadow-sm animate-pulse">
-                        सोच रहा हूँ... 🤔
-                    </div>
-                </div>
-            `;
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-            try {
-                const apiKey = "AQ.Ab8RN6K_rZztndtWWDeEtcHDAI2d6KjiNoqmsrRdvppMj1wt1Q";
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
-
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{ text: "आप एक UPSC के बेहतरीन मेंटर और असिस्टेंट हैं। छात्र के इस सवाल का सरल, स्पष्ट और सटीक हिंदी में जवाब दें: " + userText }]
-                        }]
-                    })
-                });
-
-                const data = await response.json();
-                document.getElementById(loadingId)?.remove();
-
-                if (!response.ok) {
-                    messagesContainer.innerHTML += `
-                        <div class="flex items-start gap-2 mt-2">
-                            <div class="bg-red-50 text-red-600 text-sm px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm border border-red-200">
-                                <b>Error:</b> ${data.error?.message || "API Key में समस्या है।"}
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "क्षमा करें, मुझे समझ नहीं आया।";
-                    messagesContainer.innerHTML += `
-                        <div class="flex items-start gap-2 mt-2">
-                            <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-gray-700 text-sm px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm leading-relaxed">
-                                ${aiReply.replace(/\n/g, '<br>')}
-                            </div>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                document.getElementById(loadingId)?.remove();
-                messagesContainer.innerHTML += `
-                    <div class="flex items-start gap-2 mt-2">
-                        <div class="bg-red-50 text-red-600 text-sm px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm border border-red-200">
-                            नेटवर्क या इंटरनेट में समस्या है। कृपया अपना कनेक्शन चेक करें।
-                        </div>
-                    </div>
-                `;
-            }
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        };
-
-        // ======== ROBUST DATA FETCHERS (PREVENTS CRASHES) ========
+        // ======== DATA FETCHERS ========
         function getPodcasts() { return typeof PODCAST_LIST !== 'undefined' ? PODCAST_LIST : (window.PODCAST_LIST || []); }
         function getBanners() { return typeof BANNERS_DATA !== 'undefined' ? BANNERS_DATA : (window.BANNERS_DATA || []); }
         function getQuizzes() { return typeof QUIZ_DB !== 'undefined' ? QUIZ_DB : (window.QUIZ_DB || {}); }
@@ -445,19 +339,6 @@
             renderBottomNav();
             audioElement.addEventListener('ended', window.handleNextTrack);
             audioElement.addEventListener('timeupdate', updateProgress);
-            
-            setTimeout(() => {
-                if (window.state.isLoggedIn) {
-                    const promoModal = document.getElementById('promo-video-modal');
-                    const promoContent = document.getElementById('promo-modal-content');
-                    if(promoModal && promoContent) {
-                        promoModal.classList.remove('hidden');
-                        setTimeout(() => { promoModal.classList.remove('opacity-0'); promoContent.classList.remove('scale-95'); promoContent.classList.add('scale-100'); }, 10);
-                        const video = document.getElementById('promo-video');
-                        if(video) video.play().catch(e => console.log("Autoplay blocked by browser."));
-                    }
-                }
-            }, 10000); 
         }
 
         function updateProgress() {
@@ -481,42 +362,38 @@
             }
         }
 
-        window.closePromoModal = function() {
-            const m = document.getElementById('promo-video-modal');
-            const c = document.getElementById('promo-modal-content');
-            const v = document.getElementById('promo-video');
-            if(v) v.pause(); 
-            if(m && c) { m.classList.add('opacity-0'); c.classList.remove('scale-100'); c.classList.add('scale-95'); setTimeout(() => m.classList.add('hidden'), 300); }
+        window.openUpgradeModal = () => {
+            if(!window.state.isLoggedIn) { window.showToast("पहले लॉगिन करें"); document.getElementById('auth-screen').classList.remove('hidden'); return; }
+            document.getElementById('upgrade-modal').classList.remove('hidden');
         };
-
-        window.openUpgradeModal = () => document.getElementById('upgrade-modal').classList.remove('hidden');
         window.closeUpgradeModal = () => document.getElementById('upgrade-modal').classList.add('hidden');
         
-        // ================= DIRECT RAZORPAY UPI PAYMENT LOGIC =================
         window.processPayment = function() {
-            if (!window.state.isLoggedIn) { 
-                window.showToast("पहले लॉगिन करें!"); 
-                window.changeTab('Profile'); 
-                window.closeUpgradeModal(); 
-                return; 
-            }
-            
+            if (!window.state.isLoggedIn) { window.showToast("पहले लॉगिन करें!"); document.getElementById('auth-screen').classList.remove('hidden'); window.closeUpgradeModal(); return; }
             window.showToast("Payment Page Opening...");
-            
-            // यह आपका Razorpay लिंक सीधा ओपन करेगा ताकि मोबाइल पर UPI ऐप्स का ऑप्शन आ सके
             window.open("https://rzp.io/rzp/mQmuz9Lp", "_blank");
-            
-            // पेमेंट के बाद (बैकग्राउंड में) प्रीमियम अनलॉक करने का फीचर 
-            setTimeout(() => { 
-                window.state.isPremiumUser = true; 
-                window.showToast("Premium Activated!"); 
-                window.closeUpgradeModal(); 
-                renderMainContent(); 
-            }, 5000);
+            setTimeout(() => { window.state.isPremiumUser = true; window.showToast("Premium Activated!"); window.closeUpgradeModal(); renderMainContent(); }, 2000);
         };
 
-        window.handlePlayClick = (id) => window.togglePlay(id);
-        window.handleDownloadClick = (id) => window.toggleDownload(id);
+        // NEW: Check login before playing
+        window.handlePlayClick = (id) => {
+            if (!window.state.isLoggedIn) {
+                window.showToast("ऑडियो सुनने के लिए कृपया लॉगिन करें!");
+                document.getElementById('auth-screen').classList.remove('hidden');
+                return;
+            }
+            window.togglePlay(id);
+        };
+        
+        window.handleDownloadClick = (id) => {
+            if (!window.state.isLoggedIn) {
+                window.showToast("डाउनलोड करने के लिए लॉगिन करें!");
+                document.getElementById('auth-screen').classList.remove('hidden');
+                return;
+            }
+            window.toggleDownload(id);
+        };
+
         window.seekAudio = (val) => audioElement.currentTime = val;
         window.skipTime = (sec) => audioElement.currentTime = Math.max(0, Math.min(audioElement.duration || 0, audioElement.currentTime + sec));
         
@@ -539,23 +416,8 @@
         window.openPlayerModal = () => { if(window.state.currentTrackId){ renderPlayerModalContent(); document.getElementById('player-modal').classList.remove('hidden'); }};
         window.closePlayerModal = () => document.getElementById('player-modal').classList.add('hidden');
         window.togglePlayerMenu = (e) => { if(e)e.stopPropagation(); document.getElementById('player-dropdown')?.classList.toggle('hidden'); };
-        window.openNotificationsModal = () => document.getElementById('notifications-modal')?.classList.remove('hidden');
-        window.closeNotificationsModal = () => document.getElementById('notifications-modal')?.classList.add('hidden');
-        window.openShareModal = () => document.getElementById('share-modal')?.classList.remove('hidden');
-        window.closeShareModal = () => document.getElementById('share-modal')?.classList.add('hidden');
-        window.shareTo = (p) => { window.showToast(`Shared via ${p}!`); window.closeShareModal(); };
-        window.copyLink = () => { navigator.clipboard?.writeText(window.location.href); window.showToast("Link copied!"); window.closeShareModal(); };
-
-        window.openDrawer = () => {
-            document.getElementById('sidebar-overlay').classList.remove('hidden', 'opacity-0');
-            document.getElementById('sidebar-menu').classList.remove('-translate-x-full');
-        };
-        window.closeDrawer = () => {
-            document.getElementById('sidebar-overlay').classList.add('opacity-0');
-            document.getElementById('sidebar-menu').classList.add('-translate-x-full');
-            setTimeout(() => document.getElementById('sidebar-overlay').classList.add('hidden'), 300);
-        };
-
+        window.openDrawer = () => { document.getElementById('sidebar-overlay').classList.remove('hidden', 'opacity-0'); document.getElementById('sidebar-menu').classList.remove('-translate-x-full'); };
+        window.closeDrawer = () => { document.getElementById('sidebar-overlay').classList.add('opacity-0'); document.getElementById('sidebar-menu').classList.add('-translate-x-full'); setTimeout(() => document.getElementById('sidebar-overlay').classList.add('hidden'), 300); };
         window.showToast = function(msg) {
             const t = document.getElementById('toast'); t.textContent = msg;
             t.classList.remove('hidden', 'opacity-0'); t.classList.add('opacity-100');
@@ -720,7 +582,7 @@
                 window.renderQuizResult();
             } else if (window.state.activeTab === 'Profile') {
                 if (!window.state.isLoggedIn) {
-                    mainEl.innerHTML = `<div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-20 w-full"><div class="w-32 h-32 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-700 mb-6"><i class="fa-solid fa-user-lock text-6xl text-gray-400"></i></div><h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">लॉगिन करें</h2><p class="text-gray-500 dark:text-gray-400 text-center mb-8 text-sm md:text-base">अपनी प्रोफाइल देखने और प्रीमियम ऑडियो सुनने के लिए Google से लॉगिन करें।</p><button onclick="window.loginWithGoogle()" class="w-full max-w-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-bold py-3.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-md text-lg flex items-center justify-center gap-3"><img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6"> Login with Google</button></div>`;
+                    mainEl.innerHTML = `<div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-20 w-full"><div class="w-32 h-32 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-700 mb-6"><i class="fa-solid fa-user-lock text-6xl text-gray-400"></i></div><h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">लॉगिन करें</h2><p class="text-gray-500 dark:text-gray-400 text-center mb-8 text-sm md:text-base">अपनी प्रोफाइल देखने और प्रीमियम ऑडियो सुनने के लिए लॉगिन करें।</p><button onclick="document.getElementById('auth-screen').classList.remove('hidden')" class="w-full max-w-sm bg-[#FF6600] text-white font-bold py-3.5 rounded-xl hover:bg-orange-600 transition-colors shadow-md text-lg flex items-center justify-center gap-3">Login / Sign Up</button></div>`;
                 } else {
                     const userImgHtml = window.state.userImage ? `<img src="${window.state.userImage}" class="w-full h-full object-cover" referrerpolicy="no-referrer" />` : `<i class="fa-solid fa-user text-6xl text-orange-500"></i>`;
                     mainEl.innerHTML = `<div class="max-w-3xl mx-auto px-4 flex flex-col items-center justify-center mt-10 md:mt-16 w-full"><div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 dark:bg-orange-950/40 rounded-full flex items-center justify-center shadow-inner border-4 border-white dark:border-gray-800 overflow-hidden relative transition-transform hover:scale-105 mb-4">${userImgHtml}</div><h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 text-center">${window.state.userName}</h2><p class="text-gray-500 dark:text-gray-400 text-sm md:text-base text-center">${window.state.userEmail}</p><div class="mt-4 mb-10">${window.state.isPremiumUser ? '<span class="bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-200 dark:border-amber-800"><i class="fa-solid fa-crown mr-1"></i> Premium Member</span>' : '<span class="bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 dark:border-gray-700">Free Account</span>'}</div><button onclick="window.logoutUser()" class="w-full max-w-sm bg-red-50 dark:bg-red-900/20 text-red-500 font-bold py-3.5 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors shadow-sm text-base border border-red-100 dark:border-red-800 flex items-center justify-center gap-2"><i class="fa-solid fa-right-from-bracket"></i> Logout</button></div>`;
@@ -854,6 +716,11 @@
         let quizTimerInterval = null;
 
         window.startQuiz = function(quizId) {
+            if (!window.state.isLoggedIn) {
+                window.showToast("क्विज़ खेलने के लिए पहले लॉगिन करें!");
+                document.getElementById('auth-screen').classList.remove('hidden');
+                return;
+            }
             const allQuizzes = getQuizzes();
             if(!allQuizzes[quizId]) return window.showToast("Quiz data not available!");
             window.state.quizState = { activeQuizId: quizId, currentQ: 0, answers: {}, score: 0, lang: 'hi', timeLeft: 60 * 60 };
@@ -964,21 +831,6 @@
 
         window.handleNextTrack = () => { if(!window.state.currentTrackId)return; const allPodcasts=getPodcasts(); const curr = allPodcasts.findIndex(p=>p.id===window.state.currentTrackId); window.togglePlay(allPodcasts[(curr+1)%allPodcasts.length].id); };
         window.handlePrevTrack = () => { if(!window.state.currentTrackId)return; const allPodcasts=getPodcasts(); const curr = allPodcasts.findIndex(p=>p.id===window.state.currentTrackId); window.togglePlay(allPodcasts[(curr-1+allPodcasts.length)%allPodcasts.length].id); };
-        window.toggleDownload = (id) => { const allPodcasts=getPodcasts(); const track = allPodcasts.find(p=>p.id===id); if(!track)return; if(track.isPremium && !window.state.isPremiumUser)return window.openUpgradeModal(); window.state.downloads.has(id)?window.state.downloads.delete(id):window.state.downloads.add(id); window.showToast("Download list updated!"); renderMainContent(); };
-        window.toggleBookmark = (id) => { window.state.bookmarks.has(id)?window.state.bookmarks.delete(id):window.state.bookmarks.add(id); window.showToast("Bookmarks updated!"); renderMainContent(); };
-
-        window.startVoiceSearch = function() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) return window.showToast("आपका ब्राउज़र वॉइस सर्च सपोर्ट नहीं करता। Chrome उपयोग करें।");
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'hi-IN'; recognition.continuous = false;
-            const micIcon = document.getElementById('mic-icon'), searchBox = document.getElementById('search-box'), micBtn = document.getElementById('mic-btn');
-            recognition.onstart = () => { window.showToast("बोलिए..."); micIcon.classList.replace('text-gray-500', 'text-orange-600'); searchBox.classList.add('ring-2', 'ring-orange-400', 'bg-orange-50'); micBtn.classList.add('bg-orange-200', 'animate-pulse'); };
-            recognition.onresult = (event) => { const t = event.results[0][0].transcript; window.state.searchQuery = t; document.getElementById('search-input').value = t; window.showToast(`आपने कहा: "${t}"`); renderMainContent(); };
-            recognition.onerror = () => window.showToast("आवाज़ पहचानने में समस्या हुई।");
-            recognition.onend = () => { micIcon.classList.replace('text-orange-600', 'text-gray-500'); searchBox.classList.remove('ring-2', 'ring-orange-400', 'bg-orange-50'); micBtn.classList.remove('bg-orange-200', 'animate-pulse'); };
-            recognition.start();
-        };
 
         document.addEventListener('DOMContentLoaded', init);
     </script>
@@ -1033,11 +885,12 @@
         window.logoutUser = () => signOut(auth).then(()=>window.showToast("लॉगआउट हो गए!"));
 
         onAuthStateChanged(auth, async (user) => {
-            const as = document.getElementById('auth-screen'), ms = document.getElementById('main-app-container'), hIcon = document.getElementById('header-user-icon');
+            const as = document.getElementById('auth-screen');
+            const hIcon = document.getElementById('header-user-icon');
             if (user) {
                 window.state.isLoggedIn = true; window.state.userName = user.displayName || user.email.split('@')[0];
                 window.state.userImage = user.photoURL; window.state.userEmail = user.email; window.state.uid = user.uid;
-                as.classList.add("hidden"); ms.classList.remove("hidden");
+                as.classList.add("hidden"); 
                 if(hIcon) hIcon.innerHTML = user.photoURL ? `<img src="${user.photoURL}" class="w-full h-full object-cover">` : `<div class="w-full h-full bg-orange-500 text-white flex items-center justify-center font-bold text-sm">${window.state.userName.charAt(0).toUpperCase()}</div>`;
                 try {
                     const uRef = doc(db, "users", user.uid); const snap = await getDoc(uRef);
@@ -1046,7 +899,6 @@
                 } catch(e) {}
             } else {
                 window.state.isLoggedIn = false; window.state.userName = 'Guest User'; window.state.userImage = null;
-                as.classList.remove('hidden'); ms.classList.add('hidden');
                 if(hIcon) hIcon.innerHTML = `<i class="fa-solid fa-user"></i>`;
             }
             if(window.renderMainContent) window.renderMainContent();
