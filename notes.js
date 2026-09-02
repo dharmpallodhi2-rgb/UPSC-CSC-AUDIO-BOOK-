@@ -12,10 +12,11 @@ const NOTES_DATA = [
     {
         id: 2,
         subject: "भूगोल (Geography)",
-        title: "भारत एवं विश्व का भूगोल - NCERT सार",
+        title: "भारत का भूगोल सम्पूर्ण नोट्स", // टाइटल अपडेट किया गया
         author: "Only Hindi IAS",
-        pages: 112,
-        thumbnail: "https://placehold.co/400x550/e2e8f0/475569?text=Geography+Notes",
+        pages: 473, // पेज संख्या अपडेट की गई
+        // यहाँ आपको अपनी फोटो को इंटरनेट पर अपलोड करके उसका लिंक डालना होगा
+        thumbnail: "Screenshot_20260902-152935_WhatsApp.jpg", 
         pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
     },
     {
