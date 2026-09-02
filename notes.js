@@ -10,8 +10,8 @@ const NOTES_DATA = [
     },
     {
         id: 2,
-        subject: "भूगोल (Geography)",
-        title: "विश्व का भूगोल",
+        subject: "इतिहास  (History)",
+        title: "विश्व का इतिहास",
         author: "Only Hindi IAS",
         pages: 200,
         thumbnail: "Screenshot_20260902-155909_WhatsApp.png",
