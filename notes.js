@@ -1,4 +1,3 @@
-
 const NOTES_DATA = [
     {
         id: 1,
@@ -7,8 +6,8 @@ const NOTES_DATA = [
         author: "UPSC Audio Book",
         pages: 45,
         thumbnail: "https://placehold.co/400x550/e2e8f0/475569?text=History+Notes",
-        // यहाँ अपने असली PDF का डायरेक्ट लिंक डालें
-        pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" 
+        // आपका Google Drive लिंक (Preview फॉर्मेट में)
+        pdfUrl: "https://drive.google.com/file/d/157MjMCLEgTbg4yQ2rV87ZUc4ErrAcTRs/preview" 
     },
     {
         id: 2,
