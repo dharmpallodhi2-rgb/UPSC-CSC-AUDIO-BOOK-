@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UPSC CSE Audio Book</title>
     
+    <!-- SEO Meta Tags for Google Search -->
+    <meta name="description" content="UPSC CSE Audio Book 2026 - Listen to latest podcasts, audiobooks, download PDF notes, and take UPSC practice test quizzes. Complete preparation for IAS with Spectrum, Laxmikanth, and NCERT in Hindi & English.">
+    <meta name="keywords" content="UPSC, IAS, Audio Book, Hindi Notes, UPSC PDF, UPSC Audio Notes, Geography Notes, History Audio, Laxmikanth Audio, Practice Test, Quiz 2026">
+    <meta name="author" content="Only Hindi IAS">
+    <meta name="robots" content="index, follow">
+
     <!-- Google AdSense Code -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1221126109823975" crossorigin="anonymous"></script>
 
@@ -192,7 +198,6 @@
                     <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200"><i class="fa-solid fa-list-check text-xl w-6 text-center text-orange-500"></i><span class="font-bold text-sm">UPSC Quiz</span></div>
                 </div>
                 
-                <!-- NOTES PDF BUTTON ADDED HERE -->
                 <div class="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-gray-100 dark:border-gray-700" onclick="window.changeTab('Notes'); window.closeDrawer();">
                     <div class="flex items-center gap-3 text-gray-700 dark:text-gray-200">
                         <i class="fa-solid fa-file-pdf text-xl w-6 text-center text-red-500"></i>
@@ -229,7 +234,7 @@
                         <div>
                             <span class="text-[10px] font-bold text-orange-500 tracking-wider uppercase">New Update • Today</span>
                             <h4 class="text-sm font-bold text-gray-900 dark:text-white mt-0.5">नया ऑडियो आ गया है!</h4>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">"GDP का गणित और अर्थव्यवस्था की हकीकत" अब सुनने के लिए उपलब्ध है。</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">"GDP का गणित और अर्थव्यवस्था की हकीकत" अब सुनने के लिए उपलब्ध है।</p>
                         </div>
                     </div>
                 </div>
@@ -300,7 +305,6 @@
             <div id="player-modal-content" class="flex flex-col items-center justify-center max-w-md mx-auto w-full my-auto py-4"></div>
         </div>
 
-        <!-- PDF VIEWER MODAL ADDED HERE -->
         <div id="pdf-viewer-modal" class="fixed inset-0 bg-black z-[400] hidden flex flex-col transition-opacity duration-300">
             <div class="bg-white dark:bg-gray-800 h-14 flex items-center justify-between px-4 shrink-0 shadow-md">
                 <div class="flex items-center gap-3">
@@ -317,9 +321,8 @@
             </div>
         </div>
 
-    </div> <!-- END MAIN APP CONTAINER -->
+    </div>
 
-    <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
         const FALLBACK_IMG = "https://placehold.co/800x450/f3f4f6/9ca3af?text=UPSC+Audio";
         const CATEGORIES = ["All", "History", "Polity", "Geography", "Economy", "Environment", "Science", "Current Affairs", "Ethics"];
@@ -335,7 +338,6 @@
 
         const audioElement = document.getElementById('audio-player');
 
-        // ======== DATA FETCHERS ========
         function getPodcasts() { return typeof PODCAST_LIST !== 'undefined' ? PODCAST_LIST : (window.PODCAST_LIST || []); }
         function getBanners() { return typeof BANNERS_DATA !== 'undefined' ? BANNERS_DATA : (window.BANNERS_DATA || []); }
         function getQuizzes() { return typeof QUIZ_DB !== 'undefined' ? QUIZ_DB : (window.QUIZ_DB || {}); }
@@ -404,10 +406,8 @@
                 window.closeUpgradeModal(); 
                 return; 
             }
-            
             window.showToast("Payment Page Opening...");
             window.open("https://rzp.io/rzp/mQmuz9Lp", "_blank");
-            
             setTimeout(() => { 
                 window.state.isPremiumUser = true; 
                 window.showToast("Premium Activated!"); 
@@ -505,7 +505,6 @@
             }
         };
 
-        // --- CORE UI RENDERING ---
         function renderMainContent() {
             const mainEl = document.getElementById('main-content');
             if (window.state.activeTab === 'Home') {
@@ -594,6 +593,21 @@
                     });
                     html += `</div></div>`;
                 }
+
+                // ==================== NEW SEO / ADSENSE CONTENT ADDED HERE ====================
+                html += `
+                <div class="max-w-7xl mx-auto px-4 w-full mt-10 mb-8 pb-10">
+                    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100 dark:border-gray-700">
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white mb-5">UPSC CSE Preparation 2026: Audio Books, Notes & Quizzes</h2>
+                        <div class="space-y-4 text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                            <p>Welcome to <strong>UPSC CSE Audio Book</strong>, the most comprehensive and modern digital platform for UPSC IAS, IPS, and IFS preparation in 2026. Whether you are a beginner or a veteran aspirant, our application is designed to optimize your study hours by converting heavy syllabus books into high-quality <strong>latest podcasts and audio books</strong>. Now you can listen to essential standard books like Spectrum for Modern History, M. Laxmikanth for Indian Polity, and comprehensive NCERT summaries anywhere, anytime.</p>
+                            <p>Apart from our rich audio library, we provide meticulously crafted <strong>Notes PDF</strong> for quick revision. Our study materials cover major subjects including Geography, History, Economy, Environment, and Ethics. We understand that practice is the key to cracking the Civil Services Examination. That is why our platform features an advanced <strong>Practice Test and UPSC Quiz</strong> section. Solve daily MCQs, participate in mock tests, and evaluate your performance instantly with our interactive quiz modules.</p>
+                            <p>Stay updated with the dynamic syllabus through our <strong>Latest Current Affairs</strong> and editorial podcasts. By combining smart audio learning, in-depth PDF notes, and rigorous practice tests, the UPSC CSE Audio Book application ensures you are fully equipped for Prelims and Mains 2026. Join our community of dedicated aspirants and make your screen-free learning productive and successful.</p>
+                        </div>
+                    </div>
+                </div>`;
+                // =================================================================================
+
                 mainEl.innerHTML = html;
 
                 if (window.bannerInterval) clearInterval(window.bannerInterval);
@@ -606,7 +620,6 @@
                 const libCats = CATEGORIES.filter(c => c !== 'All').map(c => `<div onclick="window.changeCategory('${c}'); window.changeTab('Home');" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center cursor-pointer hover:border-orange-500 hover:shadow-md transition-all group"><i class="fa-solid fa-book-open text-3xl text-gray-300 dark:text-gray-600 group-hover:text-orange-400 mb-3 transition-colors"></i><span class="font-bold text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white">${c}</span></div>`).join('');
                 mainEl.innerHTML = `<div class="max-w-7xl mx-auto px-4"><h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Library Categories</h2><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">${libCats}</div></div>`;
             } else if (window.state.activeTab === 'Notes') {
-                // ================= NOTES RENDER LOGIC =================
                 const notesDb = typeof NOTES_DATA !== 'undefined' ? NOTES_DATA : [];
                 let html = `<div class="max-w-7xl mx-auto px-4"><div class="py-2 mb-4 flex justify-between items-end"><h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">UPSC Notes PDF</h2></div>`;
                 
@@ -720,7 +733,6 @@
             return html;
         }
 
-        // ================= MINI PLAYER =================
         function renderMiniPlayer() {
             const playerWrapper = document.getElementById('mini-player-wrapper');
             const playerEl = document.getElementById('mini-player');
@@ -787,7 +799,6 @@
             document.getElementById('nav-items-container').innerHTML = tabs.map(t=>`<button onclick="window.changeTab('${t.id}')" class="flex flex-col items-center flex-1 gap-1.5 ${window.state.activeTab===t.id?'text-orange-600 font-bold':'text-gray-500'}"><i class="fa-solid ${t.i} text-xl transition-transform ${window.state.activeTab===t.id?'-translate-y-1':''}"></i><span class="text-[10px]">${t.l}</span></button>`).join('');
         }
 
-        // ================= QUIZ LOGIC =================
         let quizTimerInterval = null;
 
         window.startQuiz = function(quizId) {
@@ -922,7 +933,6 @@
             recognition.start();
         };
 
-        // NEW PDF VIEWER FUNCTIONS
         window.openPdfViewer = function(url, title) {
             if (!window.state.isLoggedIn) {
                 window.showToast("नोट्स पढ़ने के लिए कृपया लॉगिन करें!");
@@ -944,7 +954,6 @@
         document.addEventListener('DOMContentLoaded', init);
     </script>
 
-    <!-- ================= FIREBASE AUTHENTICATION ================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth, signInWithPopup, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
