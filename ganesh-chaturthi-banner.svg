@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff7ed"/><stop offset="0.5" stop-color="#ffedd5"/><stop offset="1" stop-color="#fed7aa"/></linearGradient>
+  <radialGradient id="halo"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".7" stop-color="#fbbf24" stop-opacity=".35"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+  <linearGradient id="saffron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ea580c"/><stop offset="1" stop-color="#c2410c"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f59e0b"/><stop offset=".5" stop-color="#fde68a"/><stop offset="1" stop-color="#d97706"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-opacity=".18"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<circle cx="1320" cy="120" r="360" fill="#fb923c" opacity=".12"/><circle cx="180" cy="760" r="420" fill="#f59e0b" opacity=".09"/>
+<path d="M0 760 Q400 650 800 760 T1600 700 V900 H0Z" fill="#fff" opacity=".45"/>
+<!-- decorative lamps -->
+<g fill="#b45309" opacity=".75"><path d="M80 120h90l-12 45H92z"/><path d="M1430 735h90l-12 45h-66z"/></g>
+<g fill="#f59e0b"><circle cx="125" cy="105" r="8"/><circle cx="1530" cy="720" r="8"/><circle cx="1120" cy="70" r="6"/><circle cx="460" cy="820" r="7"/></g>
+<!-- Ganesha illustration -->
+<g transform="translate(70 185)" filter="url(#shadow)">
+  <circle cx="350" cy="300" r="270" fill="url(#halo)"/>
+  <path d="M175 205 Q105 105 175 55 Q230 120 250 190 Q195 170 175 205Z" fill="#f97316"/>
+  <path d="M525 205 Q595 105 525 55 Q470 120 450 190 Q505 170 525 205Z" fill="#f97316"/>
+  <path d="M225 155 Q350 80 475 155 L505 360 Q475 500 350 535 Q225 500 195 360Z" fill="#fb923c"/>
+  <path d="M290 275 Q350 235 410 275 Q392 310 350 320 Q308 310 290 275Z" fill="#fff7ed"/>
+  <circle cx="300" cy="245" r="13" fill="#431407"/><circle cx="400" cy="245" r="13" fill="#431407"/>
+  <circle cx="303" cy="241" r="4" fill="#fff"/><circle cx="403" cy="241" r="4" fill="#fff"/>
+  <path d="M350 285 C330 350 315 370 350 405 C385 370 370 350 350 285Z" fill="#ea580c"/>
+  <path d="M350 405 Q285 430 315 475 Q350 505 385 475 Q415 430 350 405Z" fill="#f97316"/>
+  <path d="M245 365 Q175 350 160 420 Q190 450 250 430" fill="none" stroke="#ea580c" stroke-width="24" stroke-linecap="round"/>
+  <path d="M455 365 Q525 350 540 420 Q510 450 450 430" fill="none" stroke="#ea580c" stroke-width="24" stroke-linecap="round"/>
+  <path d="M230 170 Q350 105 470 170" fill="none" stroke="#f59e0b" stroke-width="18" stroke-linecap="round"/>
+  <path d="M260 145 L285 105 L310 145 M390 145 L415 105 L440 145" fill="none" stroke="#f59e0b" stroke-width="10"/>
+  <path d="M250 530 Q350 490 450 530 L500 650 H200Z" fill="#c2410c"/>
+  <path d="M300 535 L350 610 L400 535" fill="#f59e0b"/>
+</g>
+<!-- main message -->
+<g font-family="Arial, Noto Sans Devanagari, sans-serif" text-anchor="middle">
+  <text x="980" y="125" font-size="34" font-weight="800" fill="#9a3412" letter-spacing="3">UPSC CSE AUDIO BOOK</text>
+  <text x="980" y="175" font-size="19" font-weight="700" fill="#c2410c" letter-spacing="2">STUDY ANYTIME • ANYWHERE • IN HINDI</text>
+  <rect x="620" y="225" width="720" height="180" rx="35" fill="#fff" opacity=".82" filter="url(#shadow)"/>
+  <text x="980" y="295" font-size="42" font-weight="900" fill="#c2410c">आप सभी को गणेश चतुर्थी की</text>
+  <text x="980" y="355" font-size="48" font-weight="900" fill="#ea580c">हार्दिक शुभकामनाएं</text>
+  <text x="980" y="450" font-size="22" font-weight="600" fill="#7c2d12">विघ्नहर्ता श्री गणेश जी का आशीर्वाद</text>
+  <text x="980" y="485" font-size="22" font-weight="600" fill="#7c2d12">आपके जीवन में सफलता, ज्ञान और खुशियां लेकर आए।</text>
+</g>
+<!-- study cards -->
+<g transform="translate(700 535)" filter="url(#shadow)">
+  <rect width="560" height="185" rx="28" fill="#fff" opacity=".94"/>
+  <text x="280" y="42" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#9a3412">DREAM • LEARN • PREPARE • SUCCEED</text>
+  <g font-family="Arial, Noto Sans Devanagari, sans-serif" font-size="16" font-weight="700" text-anchor="middle">
+    <rect x="25" y="65" width="105" height="80" rx="14" fill="#fff7ed"/><text x="77" y="95" fill="#c2410c">AUDIO</text><text x="77" y="118" fill="#7c2d12">BOOKS</text>
+    <rect x="145" y="65" width="105" height="80" rx="14" fill="#fff7ed"/><text x="197" y="95" fill="#c2410c">UPSC</text><text x="197" y="118" fill="#7c2d12">QUIZ</text>
+    <rect x="265" y="65" width="105" height="80" rx="14" fill="#fff7ed"/><text x="317" y="95" fill="#c2410c">NOTES</text><text x="317" y="118" fill="#7c2d12">&amp; PDFs</text>
+    <rect x="385" y="65" width="150" height="80" rx="14" fill="#fff7ed"/><text x="460" y="95" fill="#c2410c">CURRENT</text><text x="460" y="118" fill="#7c2d12">AFFAIRS</text>
+  </g>
+</g>
+<g font-family="Arial, sans-serif" text-anchor="middle"><text x="980" y="785" font-size="26" font-weight="900" fill="#9a3412" letter-spacing="2">STUDY HARD  •  STAY POSITIVE  •  KEEP GOING</text><text x="980" y="825" font-size="17" font-weight="700" fill="#c2410c">May Lord Ganesha remove every obstacle from your UPSC journey.</text></g>
+<path d="M0 20 H1600" stroke="url(#gold)" stroke-width="10" opacity=".9"/><path d="M0 880 H1600" stroke="url(#gold)" stroke-width="10" opacity=".9"/>
+</svg>
