@@ -1,11 +1,5 @@
 const BANNERS_DATA = [
     {
-        id: 7,
-        imageUrl: "ganesh-chaturthi-banner.svg",
-        link: "#",
-        isActive: true
-    },
-    {
         id: 1,
         imageUrl: "file_00000000ab1c81fa8bbaaded2eaed436.png", 
         link: "#",
