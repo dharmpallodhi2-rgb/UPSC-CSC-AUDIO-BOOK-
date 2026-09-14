@@ -1,56 +1,166 @@
-const QUIZ_DB = {
-  geography: [
-    {hi:{q:"महासागरीय धाराओं के संदर्भ में निम्नलिखित कथनों पर विचार करें:<br>1. पृथ्वी का घूर्णन धाराओं की दिशा को प्रभावित करता है।<br>2. ठंडी धाराएँ सामान्यतः महाद्वीपों के पश्चिमी तटों के साथ पाई जाती हैं।<br>उपरोक्त में से कौन-सा/से कथन सही है/हैं?",options:["केवल 1","केवल 2","1 और 2 दोनों","न तो 1 न ही 2"]},en:{q:"Consider the following statements regarding ocean currents:<br>1. Earth's rotation affects their direction.<br>2. Cold currents are generally found along the western coasts of continents.<br>Which of the statements is/are correct?",options:["1 only","2 only","Both 1 and 2","Neither 1 nor 2"]},correct:2},
-    {hi:{q:"भारत में दक्षिण-पश्चिम मानसून के आगमन को प्रभावित करने वाला प्रमुख कारक कौन-सा है?",options:["केवल हिमालयी हिमपात","भूमि और समुद्र के बीच तापीय अंतर तथा दाब व्यवस्था","केवल पश्चिमी विक्षोभ","केवल जेट स्ट्रीम का अभाव"]},en:{q:"Which is a major factor influencing the onset of the southwest monsoon in India?",options:["Only Himalayan snowfall","Thermal contrast between land and sea and pressure configuration","Only western disturbances","Only absence of jet streams"]},correct:1},
-    {hi:{q:"काली मिट्टी की सबसे प्रमुख विशेषता क्या है?",options:["अत्यधिक अम्लीय होना","नमी धारण करने की उच्च क्षमता","केवल रेतीली बनावट","ह्यूमस की अत्यधिक मात्रा"]},en:{q:"What is a major characteristic of black soil?",options:["Highly acidic nature","High moisture-retention capacity","Only sandy texture","Extremely high humus content"]},correct:1},
-    {hi:{q:"निम्नलिखित में से कौन-सी नदी भ्रंश घाटी से होकर बहती है?",options:["गोदावरी","नर्मदा","गंगा","यमुना"]},en:{q:"Which of the following rivers flows through a rift valley?",options:["Godavari","Narmada","Ganga","Yamuna"]},correct:1},
-    {hi:{q:"एल नीनो की घटना मुख्यतः किस महासागरीय क्षेत्र के असामान्य गर्म होने से संबंधित है?",options:["उत्तरी अटलांटिक","भूमध्यसागरीय","उष्णकटिबंधीय पूर्वी एवं मध्य प्रशांत","दक्षिणी हिंद महासागर"]},en:{q:"El Niño is mainly associated with abnormal warming of which oceanic region?",options:["North Atlantic","Mediterranean","Tropical eastern and central Pacific","Southern Indian Ocean"]},correct:2},
-    {hi:{q:"ला नीना के दौरान सामान्यतः पूर्वी प्रशांत महासागर की सतही समुद्री धाराओं में क्या प्रवृत्ति होती है?",options:["अधिक गर्माहट","अधिक शीतलता","कोई परिवर्तन नहीं","पूरी तरह स्थिरता"]},en:{q:"During La Niña, what generally occurs in the surface waters of the eastern Pacific Ocean?",options:["Greater warming","Greater cooling","No change","Complete stagnation"]},correct:1},
-    {hi:{q:"भारत का सबसे बड़ा नदी बेसिन कौन-सा है?",options:["गोदावरी","गंगा","कृष्णा","नर्मदा"]},en:{q:"Which is the largest river basin in India?",options:["Godavari","Ganga","Krishna","Narmada"]},correct:1},
-    {hi:{q:"हिमालय की सबसे बाहरी श्रेणी को क्या कहा जाता है?",options:["हिमाद्रि","हिमाचल","शिवालिक","काराकोरम"]},en:{q:"What is the outermost range of the Himalayas called?",options:["Himadri","Himachal","Shiwalik","Karakoram"]},correct:2},
-    {hi:{q:"दक्कन का पठार मुख्यतः किस प्रकार की चट्टानों से निर्मित है?",options:["बेसाल्टिक ज्वालामुखीय चट्टानें","चूना पत्थर","केवल बलुआ पत्थर","ग्रेनाइट की नई परतें"]},en:{q:"The Deccan Plateau is mainly composed of which type of rocks?",options:["Basaltic volcanic rocks","Limestone","Only sandstone","New layers of granite"]},correct:0},
-    {hi:{q:"पृथ्वी के वायुमंडल में सबसे अधिक मात्रा में कौन-सी गैस है?",options:["ऑक्सीजन","नाइट्रोजन","कार्बन डाइऑक्साइड","आर्गन"]},en:{q:"Which gas is most abundant in Earth's atmosphere?",options:["Oxygen","Nitrogen","Carbon dioxide","Argon"]},correct:1},
-    {hi:{q:"समतापमंडल में ओजोन परत मुख्यतः किस ऊँचाई क्षेत्र में पाई जाती है?",options:["क्षोभमंडल के निचले भाग में","समतापमंडल में","आयनमंडल में","बहिर्मंडल में"]},en:{q:"The ozone layer is mainly found in which atmospheric layer?",options:["Lower troposphere","Stratosphere","Ionosphere","Exosphere"]},correct:1},
-    {hi:{q:"कोरिओलिस बल का कारण क्या है?",options:["पृथ्वी का परिक्रमण","पृथ्वी का घूर्णन","सूर्य का घूर्णन","चंद्रमा का परिक्रमण"]},en:{q:"What causes the Coriolis force?",options:["Earth's revolution","Earth's rotation","Sun's rotation","Moon's revolution"]},correct:1},
-    {hi:{q:"उत्तरी गोलार्ध में चक्रवात की वायु किस दिशा में घूमती है?",options:["घड़ी की दिशा में","घड़ी की विपरीत दिशा में","केवल पूर्व की ओर","केवल पश्चिम की ओर"]},en:{q:"In the Northern Hemisphere, cyclone winds rotate in which direction?",options:["Clockwise","Anticlockwise","Only eastward","Only westward"]},correct:1},
-    {hi:{q:"भू-मध्य रेखा पर कोरिओलिस बल का प्रभाव कैसा होता है?",options:["अधिकतम","न्यूनतम नहीं बल्कि अधिकतम","शून्य","ध्रुवों के समान"]},en:{q:"What is the Coriolis effect at the Equator?",options:["Maximum","Greater than at the poles","Zero","Same as at the poles"]},correct:2},
-    {hi:{q:"ज्वार-भाटा मुख्यतः किन खगोलीय पिंडों के गुरुत्वाकर्षण से प्रभावित होता है?",options:["सूर्य और चंद्रमा","केवल मंगल","केवल सूर्य","केवल बृहस्पति"]},en:{q:"Tides are mainly influenced by the gravitational forces of which celestial bodies?",options:["Sun and Moon","Only Mars","Only Sun","Only Jupiter"]},correct:0},
-    {hi:{q:"विषुव के दिन क्या होता है?",options:["दोनों गोलार्धों में दिन-रात लगभग बराबर होते हैं","केवल उत्तरी गोलार्ध में दिन बड़ा होता है","केवल दक्षिणी गोलार्ध में रात बड़ी होती है","ध्रुवों पर हमेशा दिन होता है"]},en:{q:"What happens around an equinox?",options:["Day and night are approximately equal in both hemispheres","Day is longer only in the Northern Hemisphere","Night is longer only in the Southern Hemisphere","There is always daylight at the poles"]},correct:0},
-    {hi:{q:"सूर्य के चारों ओर पृथ्वी की कक्षा का आकार क्या है?",options:["पूर्ण वृत्त","दीर्घवृत्त","परवलय","अतिपरवलय"]},en:{q:"What is the shape of Earth's orbit around the Sun?",options:["Perfect circle","Ellipse","Parabola","Hyperbola"]},correct:1},
-    {hi:{q:"भारतीय मानक समय किस देशांतर पर आधारित है?",options:["68°7′ पूर्व","82°30′ पूर्व","90° पूर्व","75° पूर्व"]},en:{q:"Indian Standard Time is based on which longitude?",options:["68°7′ E","82°30′ E","90° E","75° E"]},correct:1},
-    {hi:{q:"कर्क रेखा भारत के कितने राज्यों से होकर गुजरती है?",options:["6","7","8","9"]},en:{q:"Through how many Indian states does the Tropic of Cancer pass?",options:["6","7","8","9"]},correct:2},
-    {hi:{q:"भारत का सबसे दक्षिणी बिंदु, जो भारतीय भूभाग का हिस्सा है, कौन-सा है?",options:["इंदिरा प्वाइंट","कन्याकुमारी","रामेश्वरम","मिनिकॉय"]},en:{q:"Which is the southernmost point of India's mainland?",options:["Indira Point","Kanyakumari","Rameswaram","Minicoy"]},correct:1},
-    {hi:{q:"अंडमान और निकोबार द्वीप समूह को कौन-सा चैनल अलग करता है?",options:["10 डिग्री चैनल","9 डिग्री चैनल","8 डिग्री चैनल","11 डिग्री चैनल"]},en:{q:"Which channel separates the Andaman and Nicobar island groups?",options:["10 Degree Channel","9 Degree Channel","8 Degree Channel","11 Degree Channel"]},correct:0},
-    {hi:{q:"भारत में सर्वाधिक वर्षा प्राप्त करने वाले स्थानों में से एक मौसिनराम किस राज्य में है?",options:["असम","मेघालय","नागालैंड","मणिपुर"]},en:{q:"Mawsynram, one of the wettest places in India, is located in which state?",options:["Assam","Meghalaya","Nagaland","Manipur"]},correct:1},
-    {hi:{q:"पश्चिमी घाट के पश्चिमी ढालों पर अधिक वर्षा का प्रमुख कारण क्या है?",options:["संवहनीय वर्षा","पर्वतीय या ओरोग्राफिक वर्षा","चक्रवाती वर्षा","फ्रंटल वर्षा"]},en:{q:"What is the main reason for high rainfall on the western slopes of the Western Ghats?",options:["Convectional rainfall","Orographic rainfall","Cyclonic rainfall","Frontal rainfall"]},correct:1},
-    {hi:{q:"तमिलनाडु को शीत ऋतु में वर्षा मुख्यतः किस मानसून से मिलती है?",options:["दक्षिण-पश्चिम मानसून","उत्तर-पूर्व मानसून","दक्षिण-पूर्व मानसून","पश्चिमी विक्षोभ"]},en:{q:"Tamil Nadu receives much of its winter rainfall from which monsoon?",options:["Southwest monsoon","Northeast monsoon","Southeast monsoon","Western disturbances"]},correct:1},
-    {hi:{q:"भारत में ‘लू’ किस प्रकार की पवन है?",options:["शीत और आर्द्र","गर्म और शुष्क स्थानीय पवन","समुद्री ठंडी पवन","पर्वतीय हिम पवन"]},en:{q:"What is the ‘Loo’ in India?",options:["Cold and humid wind","Hot and dry local wind","Cool maritime wind","Mountain snow wind"]},correct:1},
-    {hi:{q:"भाबर क्षेत्र की प्रमुख विशेषता क्या है?",options:["नदियाँ सतह पर स्थायी रूप से बहती हैं","कंकड़-पत्थरों की पट्टी में नदियाँ लुप्त हो जाती हैं","दलदली भूमि","काली मिट्टी का विस्तार"]},en:{q:"What is a major characteristic of the Bhabar region?",options:["Rivers flow permanently on the surface","Streams disappear into the porous pebble belt","It is marshy land","It has extensive black soil"]},correct:1},
-    {hi:{q:"तराई क्षेत्र भाबर के दक्षिण में किस विशेषता के लिए जाना जाता है?",options:["शुष्क मरुस्थल","जलभराव और दलदली दशाएँ","लावा मैदान","नमक की झीलें"]},en:{q:"The Terai region south of Bhabar is known for which condition?",options:["Arid desert","Waterlogging and marshy conditions","Lava plains","Salt lakes"]},correct:1},
-    {hi:{q:"निम्नलिखित में से कौन-सा एक जलोढ़ मिट्टी का क्षेत्र है?",options:["गंगा-ब्रह्मपुत्र मैदान","दक्कन ट्रैप का पठार","अरावली का शुष्क क्षेत्र","लद्दाख का शीत मरुस्थल"]},en:{q:"Which of the following is a major alluvial soil region?",options:["Ganga-Brahmaputra Plain","Deccan Trap plateau","Aravalli arid region","Ladakh cold desert"]},correct:0},
-    {hi:{q:"लेटराइट मिट्टी का निर्माण सामान्यतः किन परिस्थितियों में होता है?",options:["कम तापमान और कम वर्षा","उच्च तापमान और अधिक वर्षा से तीव्र निक्षालन","हिमानी परिस्थितियाँ","मरुस्थलीय शुष्कता"]},en:{q:"Laterite soil generally forms under which conditions?",options:["Low temperature and low rainfall","High temperature and heavy rainfall causing intense leaching","Glacial conditions","Desert aridity"]},correct:1},
-    {hi:{q:"मरुस्थलीय मिट्टी की एक सामान्य विशेषता क्या है?",options:["अत्यधिक ह्यूमस","रेतीली बनावट और कम जैविक पदार्थ","बहुत अधिक चिकनी मिट्टी","सर्वत्र जलभराव"]},en:{q:"What is a common characteristic of desert soil?",options:["Very high humus","Sandy texture and low organic matter","Very high clay content everywhere","Persistent waterlogging"]},correct:1},
-    {hi:{q:"भारत में लौह-अयस्क के प्रमुख भंडार किस प्रकार की भूगर्भिक संरचनाओं से जुड़े हैं?",options:["प्राचीन क्रिस्टलीय चट्टानी पट्टियाँ","केवल नवीन जलोढ़ मैदान","हाल की प्रवाल भित्तियाँ","केवल हिमानी निक्षेप"]},en:{q:"India's major iron ore deposits are largely associated with which geological formations?",options:["Ancient crystalline rock belts","Only recent alluvial plains","Recent coral reefs","Only glacial deposits"]},correct:0},
-    {hi:{q:"मानसूनी वर्षा की ‘विराम’ अवस्था का क्या अर्थ है?",options:["मानसून का स्थायी अंत","कुछ दिनों के लिए वर्षा की गतिविधि में कमी या रुकावट","केवल हिमपात","केवल तटीय वर्षा"]},en:{q:"What does a ‘break’ in monsoon rainfall mean?",options:["Permanent end of monsoon","A temporary reduction or cessation of rainfall activity","Only snowfall","Only coastal rainfall"]},correct:1},
-    {hi:{q:"जेट स्ट्रीम का भारतीय मानसून से संबंध किस कारण महत्वपूर्ण है?",options:["यह वायुमंडलीय परिसंचरण और मानसूनी प्रवाह को प्रभावित कर सकती है","यह केवल समुद्री ज्वार बनाती है","यह पृथ्वी के घूर्णन को रोकती है","इसका मौसम से कोई संबंध नहीं"]},en:{q:"Why are jet streams important for the Indian monsoon?",options:["They can influence atmospheric circulation and monsoonal flow","They only create ocean tides","They stop Earth's rotation","They have no relation to weather"]},correct:0},
-    {hi:{q:"‘पश्चिमी विक्षोभ’ भारत के किस भाग में शीतकालीन वर्षा के लिए महत्वपूर्ण हैं?",options:["उत्तर-पश्चिम भारत","केवल पूर्वोत्तर भारत","केवल प्रायद्वीपीय दक्षिण","केवल अंडमान"]},en:{q:"Western disturbances are important for winter rainfall mainly in which part of India?",options:["Northwestern India","Only Northeast India","Only peninsular south","Only Andaman"]},correct:0},
-    {hi:{q:"सुंदरबन डेल्टा का निर्माण मुख्यतः किन नदियों की संयुक्त निक्षेपण प्रक्रिया से हुआ है?",options:["गंगा-ब्रह्मपुत्र-मेघना","नर्मदा-ताप्ती","गोदावरी-कृष्णा","महानदी-ब्राह्मणी"]},en:{q:"The Sundarbans delta has mainly been formed by the combined depositional activity of which rivers?",options:["Ganga-Brahmaputra-Meghna","Narmada-Tapi","Godavari-Krishna","Mahanadi-Brahmani"]},correct:0},
-    {hi:{q:"मैंग्रोव वनस्पति के लिए कौन-सी दशा सबसे उपयुक्त है?",options:["ज्वारीय, लवणीय और दलदली तटीय क्षेत्र","उच्च पर्वतीय शुष्क क्षेत्र","ठंडे मरुस्थल","केवल शुष्क पठार"]},en:{q:"Which condition is most suitable for mangrove vegetation?",options:["Tidal, saline and marshy coastal areas","High dry mountains","Cold deserts","Only dry plateaus"]},correct:0},
-    {hi:{q:"प्रवाल भित्तियों के विकास के लिए सामान्यतः किस प्रकार का समुद्री पर्यावरण उपयुक्त होता है?",options:["उथला, गर्म और स्वच्छ जल","बहुत गहरा और अत्यधिक ठंडा जल","मीठे पानी की नदी","हिमाच्छादित झील"]},en:{q:"Which marine environment is generally suitable for coral reef growth?",options:["Shallow, warm and clear water","Very deep and extremely cold water","Freshwater river","Ice-covered lake"]},correct:0},
-    {hi:{q:"महाद्वीपीय विस्थापन सिद्धांत किसने प्रस्तावित किया था?",options:["अल्फ्रेड वेगेनर","आर्थर होम्स","हैरी हेस","चार्ल्स लायल"]},en:{q:"Who proposed the Continental Drift theory?",options:["Alfred Wegener","Arthur Holmes","Harry Hess","Charles Lyell"]},correct:0},
-    {hi:{q:"समुद्रतल प्रसरण की अवधारणा किस वैज्ञानिक से प्रमुख रूप से जुड़ी है?",options:["हैरी हेस","वेगेनर","डार्विन","डेविस"]},en:{q:"The concept of seafloor spreading is strongly associated with which scientist?",options:["Harry Hess","Wegener","Darwin","Davis"]},correct:0},
-    {hi:{q:"प्लेट विवर्तनिकी के अनुसार मध्य-महासागरीय पर्वतमालाएँ किस प्रकार की प्लेट सीमा पर बनती हैं?",options:["अपसारी सीमा","अभिसारी सीमा","रूपांतरण सीमा","निष्क्रिय सीमा"]},en:{q:"According to plate tectonics, mid-ocean ridges form mainly at which type of plate boundary?",options:["Divergent boundary","Convergent boundary","Transform boundary","Passive boundary"]},correct:0},
-    {hi:{q:"हिमालय का निर्माण मुख्यतः किस प्लेटीय टक्कर से हुआ?",options:["भारतीय और यूरेशियाई प्लेटों की अभिसरण से","अफ्रीकी और दक्षिण अमेरिकी प्लेटों के अलगाव से","प्रशांत और नाज़्का प्लेटों के अलगाव से","अंटार्कटिक और ऑस्ट्रेलियाई प्लेटों के टकराव से"]},en:{q:"The Himalayas were mainly formed due to the convergence of which plates?",options:["Indian and Eurasian plates","African and South American plates","Pacific and Nazca plates","Antarctic and Australian plates"]},correct:0},
-    {hi:{q:"भूकंप की तीव्रता मापने के लिए आधुनिक वैज्ञानिक संदर्भ में कौन-सा पैमाना अधिक उपयुक्त है?",options:["मोमेंट मैग्नीट्यूड स्केल","ब्यूफोर्ट स्केल","सेल्सियस स्केल","फुजिता स्केल"]},en:{q:"Which scale is more appropriate in modern scientific practice for measuring earthquake magnitude?",options:["Moment Magnitude Scale","Beaufort Scale","Celsius Scale","Fujita Scale"]},correct:0},
-    {hi:{q:"भूकंप के दौरान उत्पन्न तरंगों में सबसे तेज कौन-सी होती हैं?",options:["P-तरंगें","S-तरंगें","L-तरंगें","सतही तरंगें"]},en:{q:"Which seismic waves are the fastest?",options:["P-waves","S-waves","L-waves","Surface waves"]},correct:0},
-    {hi:{q:"S-तरंगों की एक प्रमुख विशेषता क्या है?",options:["वे द्रव माध्यम से नहीं गुजरतीं","वे केवल निर्वात में चलती हैं","वे P-तरंगों से तेज होती हैं","वे केवल महासागरों में उत्पन्न होती हैं"]},en:{q:"What is a key characteristic of S-waves?",options:["They do not travel through liquids","They travel only through vacuum","They are faster than P-waves","They originate only in oceans"]},correct:0},
-    {hi:{q:"विश्व का सबसे बड़ा महासागर कौन-सा है?",options:["अटलांटिक महासागर","प्रशांत महासागर","हिंद महासागर","आर्कटिक महासागर"]},en:{q:"Which is the largest ocean in the world?",options:["Atlantic Ocean","Pacific Ocean","Indian Ocean","Arctic Ocean"]},correct:1},
-    {hi:{q:"विश्व का सबसे बड़ा गर्म मरुस्थल कौन-सा है?",options:["गोबी","सहारा","कालाहारी","अटाकामा"]},en:{q:"Which is the largest hot desert in the world?",options:["Gobi","Sahara","Kalahari","Atacama"]},correct:1},
-    {hi:{q:"अटाकामा मरुस्थल अत्यधिक शुष्क होने का एक प्रमुख कारण क्या है?",options:["हम्बोल्ट ठंडी धारा और उपोष्ण उच्च दाब की संयुक्त भूमिका","केवल मानसूनी वर्षा","केवल हिमपात","केवल भूमध्यरेखीय निम्न दाब"]},en:{q:"What is a major reason for the extreme aridity of the Atacama Desert?",options:["Combined influence of the cold Humboldt Current and subtropical high pressure","Only monsoon rainfall","Only snowfall","Only equatorial low pressure"]},correct:0},
-    {hi:{q:"अमेजन बेसिन में घने वर्षावनों के विकास के लिए कौन-सी जलवायु सबसे अनुकूल है?",options:["वर्षभर गर्म और आर्द्र जलवायु","ठंडी और शुष्क जलवायु","भूमध्यसागरीय जलवायु","टुंड्रा जलवायु"]},en:{q:"Which climate is most favorable for dense rainforests in the Amazon Basin?",options:["Warm and humid throughout the year","Cold and dry climate","Mediterranean climate","Tundra climate"]},correct:0},
-    {hi:{q:"भूमध्यसागरीय जलवायु की प्रमुख विशेषता क्या है?",options:["गर्म शुष्क ग्रीष्म और हल्की आर्द्र शीत ऋतु","वर्षभर अत्यधिक वर्षा","वर्षभर हिमपात","गर्म आर्द्र ग्रीष्म और शुष्क शीत ऋतु"]},en:{q:"What is a key characteristic of the Mediterranean climate?",options:["Hot dry summers and mild wet winters","Very heavy rainfall throughout the year","Snowfall throughout the year","Hot humid summers and dry winters"]},correct:0},
-    {hi:{q:"समुद्र से दूर जाने पर सामान्यतः महाद्वीपीयता क्यों बढ़ती है?",options:["समुद्र के तापीय प्रभाव का कम होना","वायुमंडल का समाप्त होना","सूर्य का अधिक निकट आना","पृथ्वी की घूर्णन गति का बढ़ना"]},en:{q:"Why does continentality generally increase with distance from the sea?",options:["The moderating thermal influence of the sea decreases","The atmosphere disappears","The Sun comes closer","Earth's rotation becomes faster"]},correct:0},
-    {hi:{q:"भू-आकृति विज्ञान में अपक्षय और अपरदन में मुख्य अंतर क्या है?",options:["अपक्षय चट्टानों का स्थान पर विघटन है, जबकि अपरदन में सामग्री का हटना/स्थानांतरण होता है","दोनों बिल्कुल समान हैं","अपरदन केवल रासायनिक प्रक्रिया है","अपक्षय केवल नदियों द्वारा होता है"]},en:{q:"What is the main difference between weathering and erosion?",options:["Weathering breaks down rocks in place, while erosion involves removal or transport of material","They are exactly the same","Erosion is only a chemical process","Weathering occurs only through rivers"]},correct:0}
-  ],
-  history: [{"hi": {"q": "सिंधु घाटी सभ्यता एक लौकिक सभ्यता थी?", "options": ["हाँ", "नहीं", "कह नहीं सकते", "इनमें से कोई नहीं"]}, "en": {"q": "Indus Valley was secular?", "options": ["Yes", "No", "Can't say", "None"]}, "correct": 0}]
-};
+const GEO_Q = [
+['भारत का सबसे बड़ा नदी बेसिन कौन-सा है?',['गंगा','गोदावरी','कृष्णा','नर्मदा'],0],
+['हिमालय की सबसे बाहरी श्रेणी कौन-सी है?',['हिमाद्रि','हिमाचल','शिवालिक','काराकोरम'],2],
+['दक्कन का पठार मुख्यतः किस चट्टान से बना है?',['बेसाल्ट','चूना पत्थर','बलुआ पत्थर','संगमरमर'],0],
+['वायुमंडल में सर्वाधिक मात्रा किस गैस की है?',['ऑक्सीजन','नाइट्रोजन','कार्बन डाइऑक्साइड','आर्गन'],1],
+['ओजोन परत मुख्यतः किस मंडल में है?',['क्षोभमंडल','समतापमंडल','मध्यमंडल','बहिर्मंडल'],1],
+['कोरिओलिस बल का मुख्य कारण क्या है?',['परिक्रमण','घूर्णन','गुरुत्वाकर्षण','सौर विकिरण'],1],
+['उत्तरी गोलार्ध में चक्रवात किस दिशा में घूमता है?',['घड़ी की दिशा','घड़ी की विपरीत दिशा','उत्तर से दक्षिण','पूर्व से पश्चिम'],1],
+['भूमध्य रेखा पर कोरिओलिस बल कैसा होता है?',['अधिकतम','न्यूनतम','शून्य','ध्रुवों जितना'],2],
+['ज्वार-भाटा मुख्यतः किन पिंडों से प्रभावित है?',['सूर्य और चंद्रमा','मंगल और शुक्र','बृहस्पति और शनि','केवल सूर्य'],0],
+['पृथ्वी की सूर्य के चारों ओर कक्षा कैसी है?',['वृत्ताकार','दीर्घवृत्ताकार','परवलयाकार','सीधी'],1],
+['भारतीय मानक समय किस देशांतर पर आधारित है?',['75°E','82°30′E','90°E','68°E'],1],
+['कर्क रेखा भारत के कितने राज्यों से गुजरती है?',['6','7','8','9'],2],
+['भारत के मुख्य भूभाग का दक्षिणतम बिंदु कौन-सा है?',['इंदिरा प्वाइंट','कन्याकुमारी','मिनिकॉय','रामेश्वरम'],1],
+['अंडमान और निकोबार को कौन-सा चैनल अलग करता है?',['8 डिग्री','9 डिग्री','10 डिग्री','11 डिग्री'],2],
+['मौसिनराम किस राज्य में स्थित है?',['असम','मेघालय','मणिपुर','त्रिपुरा'],1],
+['तमिलनाडु को शीत ऋतु में वर्षा मुख्यतः किससे मिलती है?',['दक्षिण-पश्चिम मानसून','उत्तर-पूर्व मानसून','पश्चिमी विक्षोभ','स्थानीय संवहन'],1],
+['लू किस प्रकार की हवा है?',['ठंडी नम','गर्म शुष्क','ठंडी शुष्क','गर्म नम'],1],
+['भाबर क्षेत्र की प्रमुख विशेषता क्या है?',['जलभराव','नदियों का भूमिगत हो जाना','दलदली वन','काली मिट्टी'],1],
+['तराई क्षेत्र की प्रमुख विशेषता क्या है?',['अत्यधिक शुष्कता','दलदली और जलभराव','लावा मैदान','रेतीले टीले'],1],
+['लेटराइट मिट्टी के निर्माण में कौन-सी प्रक्रिया प्रमुख है?',['कम निक्षालन','तीव्र निक्षालन','हिमानीकरण','लवणीकरण'],1],
+['काली मिट्टी किस फसल के लिए विशेष रूप से उपयुक्त है?',['कपास','चाय','जूट','केसर'],0],
+['जलोढ़ मिट्टी मुख्यतः कहाँ मिलती है?',['गंगा-ब्रह्मपुत्र मैदान','दक्कन पठार','अरावली','पश्चिमी घाट'],0],
+['रेगिस्तानी मिट्टी में सामान्यतः क्या कम होता है?',['रेत','खनिज','जैविक पदार्थ','लवण'],2],
+['नर्मदा नदी किस प्रकार की घाटी से बहती है?',['भ्रंश घाटी','हिमानी घाटी','कार्स्ट घाटी','डेल्टा घाटी'],0],
+['ताप्ती नदी का सामान्य प्रवाह किस दिशा में है?',['पूर्व','पश्चिम','उत्तर','दक्षिण'],1],
+['भारत का सबसे बड़ा प्रायद्वीपीय नदी बेसिन कौन-सा है?',['कृष्णा','गोदावरी','कावेरी','नर्मदा'],1],
+['सुंदरबन किस प्रकार की वनस्पति के लिए प्रसिद्ध है?',['कांटेदार वन','मैंग्रोव','शंकुधारी वन','पर्णपाती वन'],1],
+['प्रवाल भित्तियों के लिए कौन-सी दशा उपयुक्त है?',['ठंडा गहरा जल','गर्म उथला स्वच्छ जल','गंदला नदी जल','ध्रुवीय जल'],1],
+['महासागरों का सबसे बड़ा महासागर कौन-सा है?',['अटलांटिक','प्रशांत','हिंद','आर्कटिक'],1],
+['विश्व का सबसे बड़ा गर्म मरुस्थल कौन-सा है?',['गोबी','सहारा','कालाहारी','अटाकामा'],1],
+['अटाकामा मरुस्थल की शुष्कता में कौन-सी धारा महत्वपूर्ण है?',['गल्फ स्ट्रीम','हम्बोल्ट','कुरोशियो','अगुलहास'],1],
+['भूमध्यसागरीय जलवायु की प्रमुख विशेषता क्या है?',['गर्म ग्रीष्म और शुष्क, शीत ऋतु में वर्षा','पूरे वर्ष वर्षा','पूरे वर्ष हिमपात','गर्म और शुष्क पूरे वर्ष'],0],
+['एल नीनो किस क्षेत्र के असामान्य गर्म होने से जुड़ा है?',['पूर्वी-मध्य उष्णकटिबंधीय प्रशांत','उत्तरी अटलांटिक','हिंद महासागर का पश्चिमी भाग','दक्षिणी अटलांटिक'],0],
+['ला नीना में पूर्वी प्रशांत का सतही जल सामान्यतः कैसा होता है?',['अधिक गर्म','अधिक ठंडा','स्थिर','लवणरहित'],1],
+['दक्षिण-पश्चिम मानसून के आगमन में कौन-सा कारक महत्वपूर्ण है?',['भूमि-समुद्र तापीय अंतर','केवल हिमपात','केवल ज्वार','केवल समुद्री लवणता'],0],
+['पश्चिमी विक्षोभ भारत में मुख्यतः किस मौसम में वर्षा देता है?',['ग्रीष्म','शीत','मानसून','शरद'],1],
+['मानसून ब्रेक का अर्थ क्या है?',['मानसून का स्थायी अंत','वर्षा गतिविधि में अस्थायी कमी','तूफान का बनना','समुद्र का गर्म होना'],1],
+['जेट स्ट्रीम किसे प्रभावित कर सकती है?',['वायुमंडलीय परिसंचरण और मानसून','केवल ज्वार','केवल भूकंप','केवल मिट्टी'],0],
+['समुद्र तल प्रसरण सिद्धांत किससे जुड़ा है?',['हैरी हेस','अल्फ्रेड वेगनर','न्यूटन','कोपरनिकस'],0],
+['महाद्वीपीय विस्थापन सिद्धांत किसने दिया?',['हैरी हेस','अल्फ्रेड वेगनर','डार्विन','प्लेटो'],1],
+['मध्य-महासागरीय कटक किस प्लेट सीमा पर बनते हैं?',['अभिसारी','अपसारी','रूपांतरण','स्थिर'],1],
+['हिमालय का निर्माण मुख्यतः किस कारण हुआ?',['भारतीय और यूरेशियन प्लेटों का अभिसरण','अपसरण','ज्वारीय बल','हवा का अपरदन'],0],
+['P-तरंगों की प्रमुख विशेषता क्या है?',['सबसे धीमी भूकंपीय तरंग','सबसे तेज भूकंपीय तरंग','केवल सतह पर चलती हैं','तरल में नहीं चलतीं'],1],
+['S-तरंगें किस माध्यम से नहीं गुजर सकतीं?',['ठोस','द्रव','पृथ्वी की पर्पटी','चट्टान'],1],
+['भूकंप की आधुनिक व्यापक मापनी कौन-सी है?',['मोमेंट मैग्नीट्यूड स्केल','ब्यूफोर्ट स्केल','सेल्सियस स्केल','फुजिता स्केल'],0],
+['पृथ्वी की आंतरिक सबसे बाहरी ठोस परत कौन-सी है?',['क्रोड','मेंटल','भूपर्पटी','आंतरिक क्रोड'],2],
+['पृथ्वी का सबसे बड़ा आंतरिक स्तर कौन-सा है?',['भूपर्पटी','मेंटल','आंतरिक क्रोड','बाह्य क्रोड'],1],
+['अपक्षय का अर्थ क्या है?',['चट्टानों का अपने स्थान पर टूटना','नदी द्वारा परिवहन','हवा द्वारा निक्षेपण','समुद्र में अवसादन'],0],
+['अपरदन का अर्थ क्या है?',['चट्टानों का केवल गर्म होना','अपक्षयित पदार्थ का हटना/परिवहन','भूकंप का उत्पन्न होना','बादल बनना'],1],
+['डेल्टा का निर्माण मुख्यतः किस प्रक्रिया से होता है?',['निक्षेपण','ज्वालामुखिता','भूकंप','हिमानीकरण'],0],
+['V-आकार की घाटियाँ सामान्यतः किससे बनती हैं?',['नदी अपरदन','हिमानी अपरदन','समुद्री निक्षेपण','हवा'],0],
+['U-आकार की घाटियाँ सामान्यतः किससे संबंधित हैं?',['नदी','हिमानी','पवन','कार्स्ट'],1],
+['बालू के टीले मुख्यतः किस प्रक्रिया से बनते हैं?',['पवन निक्षेपण','हिमानीकरण','ज्वालामुखिता','समुद्री अपक्षय'],0],
+['कार्स्ट स्थलाकृति किस चट्टान से विशेष रूप से जुड़ी है?',['ग्रेनाइट','चूना पत्थर','बेसाल्ट','गनीस'],1],
+['भू-जल का प्रमुख स्रोत क्या है?',['वर्षा का अंतःस्रवण','ज्वार','ज्वालामुखी','हिमालयी हवा'],0],
+['जल चक्र में वाष्पीकरण के लिए ऊर्जा मुख्यतः कहाँ से आती है?',['सूर्य','चंद्रमा','पृथ्वी का क्रोड','ज्वार'],0],
+['सापेक्ष आर्द्रता किससे संबंधित है?',['हवा में जलवाष्प की मात्रा और तापमान','केवल वायुदाब','केवल पवन वेग','केवल वर्षा'],0],
+['वायुदाब ऊँचाई बढ़ने पर सामान्यतः क्या करता है?',['बढ़ता है','घटता है','स्थिर रहता है','दोगुना होता है'],1],
+['समुद्र तल पर सामान्य वायुदाब लगभग कितना है?',['1013.25 hPa','500 hPa','2000 hPa','760 hPa'],0],
+['बादल बनने की प्रमुख प्रक्रिया क्या है?',['संघनन','उर्ध्वपातन ही','निक्षेपण','अपक्षय'],0],
+['क्यूम्यलोनिंबस बादल किससे जुड़े होते हैं?',['गरज-चमक वाले तूफान','स्वच्छ आकाश','केवल कोहरा','ध्रुवीय रात'],0],
+['ओरोग्राफिक वर्षा किस कारण होती है?',['पर्वत से ऊपर उठती नम हवा','रेगिस्तानी गर्मी','ज्वार','भूकंप'],0],
+['वर्षाछाया क्षेत्र सामान्यतः किस ओर बनता है?',['पवनाभिमुख ढाल','पवनविमुख ढाल','समुद्र के बीच','नदी के स्रोत पर'],1],
+['भारत में मानसूनी वर्षा का सबसे महत्वपूर्ण स्रोत कौन-सा है?',['दक्षिण-पश्चिम मानसूनी हवाएँ','पश्चिमी विक्षोभ','ध्रुवीय हवाएँ','स्थानीय ज्वार'],0],
+['अरावली पर्वतमाला मानसून के संदर्भ में कैसी स्थिति रखती है?',['दक्षिण-पश्चिम मानसून के समानांतर होने से प्रभाव सीमित','हमेशा भारी वर्षा कराती है','भारत की सबसे ऊँची है','समुद्र के भीतर है'],0],
+['पश्चिमी घाट के पश्चिमी ढाल पर अधिक वर्षा का प्रमुख कारण क्या है?',['पर्वतीय अवरोध','महाद्वीपीयता','ध्रुवीय हवा','रेगिस्तानी प्रभाव'],0],
+['मेघालय में भारी वर्षा का प्रमुख कारण क्या है?',['नम हवाओं का पर्वतीय उत्थान','हिमानीकरण','मरुस्थलीकरण','ठंडी समुद्री धारा'],0],
+['भारत में सबसे लंबी तटरेखा वाला राज्य कौन-सा है?',['गुजरात','तमिलनाडु','केरल','ओडिशा'],0],
+['भारत का सबसे बड़ा खारे पानी का लैगून कौन-सा है?',['चिलिका','वेम्बनाड','पुलिकट','लोकटक'],0],
+['लोकटक झील किस राज्य में है?',['मणिपुर','मेघालय','असम','मिजोरम'],0],
+['वेम्बनाड झील किस राज्य में है?',['केरल','गोवा','कर्नाटक','ओडिशा'],0],
+['पुलिकट झील किन राज्यों की सीमा पर है?',['आंध्र प्रदेश और तमिलनाडु','केरल और कर्नाटक','ओडिशा और बंगाल','गुजरात और महाराष्ट्र'],0],
+['सियाचिन ग्लेशियर किस पर्वत क्षेत्र में है?',['काराकोरम','अरावली','सतपुड़ा','नीलगिरि'],0],
+['भारत की सबसे ऊँची चोटी जो पूरी तरह भारत में स्थित है, कौन-सी है?',['कंचनजंघा','नंदा देवी','अनामुडी','धौलागिरि'],1],
+['नंदा देवी किस राज्य में है?',['उत्तराखंड','हिमाचल प्रदेश','सिक्किम','अरुणाचल प्रदेश'],0],
+['नीलगिरि पहाड़ियाँ मुख्यतः किन राज्यों के संगम क्षेत्र में हैं?',['तमिलनाडु, केरल और कर्नाटक','गुजरात, राजस्थान और MP','बिहार, झारखंड और बंगाल','असम, नागालैंड और मणिपुर'],0],
+['सतपुड़ा और विंध्य के बीच कौन-सी नदी बहती है?',['नर्मदा','गंगा','यमुना','कावेरी'],0],
+['महानदी का डेल्टा मुख्यतः किस राज्य में है?',['ओडिशा','गुजरात','केरल','गोवा'],0],
+['कावेरी नदी का उद्गम कहाँ है?',['ब्रह्मगिरि पहाड़ियाँ','अमरकंटक','यमुनोत्री','त्र्यंबकेश्वर'],0],
+['गोदावरी का उद्गम किस क्षेत्र में है?',['त्र्यंबकेश्वर के पास','अमरकंटक','यमुनोत्री','महाबलेश्वर'],0],
+['कृष्णा नदी का उद्गम कहाँ है?',['महाबलेश्वर क्षेत्र','नासिक','अमरकंटक','मानसरोवर'],0],
+['ब्रह्मपुत्र भारत में किस नाम से प्रवेश करती है?',['सियांग/दिहांग','भागीरथी','अलकनंदा','कोसी'],0],
+['गंगा की प्रमुख सहायक नदी यमुना का उद्गम कहाँ है?',['यमुनोत्री','गंगोत्री','अमरकंटक','मानसरोवर'],0],
+['कोसी नदी को किस उपनाम से जाना जाता है?',['बिहार का शोक','बंगाल का शोक','दक्षिण की गंगा','रेगिस्तान की नदी'],0],
+['दामोदर नदी को ऐतिहासिक रूप से किस नाम से जाना जाता है?',['बंगाल का शोक','बिहार का शोक','दक्षिण की गंगा','नीली नदी'],0],
+['सुंदरबन डेल्टा किन नदियों की संयुक्त प्रणाली से बना है?',['गंगा-ब्रह्मपुत्र-मेघना','नर्मदा-ताप्ती','गोदावरी-कृष्णा','कावेरी-महानदी'],0],
+['भारत में काली मिट्टी का व्यापक क्षेत्र किस पठार से जुड़ा है?',['दक्कन ट्रैप','छोटानागपुर','मालवा ही नहीं','मेघालय पठार'],0],
+['लाल मिट्टी का लाल रंग मुख्यतः किस तत्व से जुड़ा है?',['लोहा','कैल्शियम','सोडियम','पोटैशियम'],0],
+['पीटयुक्त मिट्टी में किसकी मात्रा अधिक हो सकती है?',['जैविक पदार्थ','रेत','लवण ही','चूना'],0],
+['कृषि के लिए जलोढ़ मिट्टी का प्रमुख लाभ क्या है?',['उर्वरता','अत्यधिक अम्लता','कम पोषक तत्व','केवल रेतीली बनावट'],0],
+['कपास की खेती के लिए कौन-सी मिट्टी प्रसिद्ध है?',['काली मिट्टी','लाल मिट्टी','लेटराइट','मरुस्थलीय'],0],
+['चाय की खेती के लिए कैसी दशाएँ सामान्यतः अनुकूल हैं?',['आर्द्र जलवायु और अम्लीय मिट्टी','अत्यधिक शुष्कता','क्षारीय रेगिस्तान','ध्रुवीय जलवायु'],0],
+['जूट की खेती के लिए कौन-सी दशाएँ अनुकूल हैं?',['गर्म आर्द्र जलवायु और जलोढ़ मिट्टी','शुष्क ठंडी जलवायु','रेगिस्तानी मिट्टी','हिमानी मिट्टी'],0],
+['भारत में मसाला फसलों के लिए प्रसिद्ध क्षेत्र कौन-सा है?',['पश्चिमी घाट','थार','लद्दाख','गंगा का ऊपरी मैदान'],0],
+['थार मरुस्थल मुख्यतः किस राज्य में है?',['राजस्थान','गुजरात','हरियाणा','पंजाब'],0],
+['थार में वर्षा की मात्रा सामान्यतः किस दिशा में घटती है?',['पूर्व से पश्चिम','पश्चिम से पूर्व','दक्षिण से उत्तर ही','उत्तर से दक्षिण'],0],
+['भारत का शीत मरुस्थल किस क्षेत्र में है?',['लद्दाख','राजस्थान','कच्छ','बुंदेलखंड'],0],
+['कच्छ का रण किस प्रकार की भौगोलिक विशेषता है?',['लवणीय दलदली मैदान','हिमानी मैदान','ज्वालामुखी पठार','घना वर्षावन'],0],
+['भारत में मानसून की वापसी सामान्यतः कहाँ से शुरू होती है?',['उत्तर-पश्चिम भारत','दक्षिण भारत','पूर्वोत्तर भारत','अंडमान'],0],
+['अंतर-उष्णकटिबंधीय अभिसरण क्षेत्र का संक्षिप्त नाम क्या है?',['ITCZ','ENSO','IOD','NAO'],0],
+['ENSO किससे संबंधित है?',['एल नीनो-दक्षिणी दोलन','केवल ज्वार','हिमनद','चक्रवात की आँख'],0],
+['हिंद महासागर द्विध्रुव का संक्षिप्त नाम क्या है?',['IOD','ITCZ','ENSO','NAO'],0],
+['पश्चिमी तट पर वर्षा में पश्चिमी घाट की भूमिका क्या है?',['नम मानसूनी हवाओं को ऊपर उठाना','हवाओं को पूरी तरह रोकना','रेगिस्तान बनाना','हिमपात कराना'],0],
+['महाद्वीपीयता का अर्थ क्या है?',['समुद्र के प्रभाव से दूरी बढ़ने पर तापांतर बढ़ना','समुद्र के पास अधिक वर्षा ही','ज्वार का बढ़ना','पर्वत का बनना'],0],
+['समुद्री समीर सामान्यतः कब चलता है?',['दिन में समुद्र से भूमि की ओर','रात में समुद्र से भूमि की ओर','दिन में भूमि से समुद्र की ओर','केवल सर्दियों में'],0],
+['स्थलीय समीर सामान्यतः कब चलता है?',['रात में भूमि से समुद्र की ओर','दिन में समुद्र से भूमि की ओर','दिन में भूमि से समुद्र की ओर','केवल मानसून में'],0],
+['हवा की गति मापने का उपकरण कौन-सा है?',['एनीमोमीटर','बैरोमीटर','हाइग्रोमीटर','रेनगेज'],0],
+['वायुदाब मापने का उपकरण कौन-सा है?',['बैरोमीटर','एनीमोमीटर','थर्मामीटर','हाइग्रोमीटर'],0],
+['आर्द्रता मापने का उपकरण कौन-सा है?',['हाइग्रोमीटर','बैरोमीटर','रेनगेज','एनीमोमीटर'],0],
+['वर्षा मापने का उपकरण कौन-सा है?',['रेनगेज','बैरोमीटर','हाइग्रोमीटर','एनीमोमीटर'],0]
+];
+const QUIZ_DB = { geography: GEO_Q.map((x,i)=>({hi:{q:x[0],options:x[1]},en:{q:x[0],options:x[1]},correct:x[2],id:'geo-'+(i+1)})) };
+
+// ===== Enhanced UPSC Quiz Interface =====
+(function(){
+  let timer=null;
+  function db(){return (window.QUIZ_DB||QUIZ_DB);}
+  window.startQuiz=function(id){
+    const all=db(), source=all[id];
+    if(!source||!source.length) return window.showToast('Quiz data not available!');
+    const questions=source.slice(0,100);
+    window.state.quizState={activeQuizId:id,currentQ:0,answers:{},score:0,lang:'hi',timeLeft:30*60,questions:questions,submitted:false};
+    window.changeTab('ActiveQuiz');
+    clearInterval(timer);
+    timer=setInterval(()=>{
+      if(window.state.activeTab!=='ActiveQuiz'){clearInterval(timer);return;}
+      const s=window.state.quizState; s.timeLeft=Math.max(0,s.timeLeft-1);
+      const el=document.getElementById('quiz-timer-display');
+      if(el){const m=Math.floor(s.timeLeft/60),sec=s.timeLeft%60;el.textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');}
+      if(s.timeLeft<=0){clearInterval(timer);window.submitQuiz(true);}
+    },1000);
+  };
+  window.selectOption=function(i){
+    const s=window.state.quizState;if(s.answers[s.currentQ]!==undefined)return;
+    s.answers[s.currentQ]=i; window.renderActiveQuiz();
+  };
+  window.nextQuestion=function(){const s=window.state.quizState;if(s.currentQ<s.questions.length-1){s.currentQ++;window.renderActiveQuiz();document.getElementById('main-content').scrollTop=0;}};
+  window.prevQuestion=function(){const s=window.state.quizState;if(s.currentQ>0){s.currentQ--;window.renderActiveQuiz();document.getElementById('main-content').scrollTop=0;}};
+  window.jumpQuestion=function(i){window.state.quizState.currentQ=i;window.renderActiveQuiz();};
+  window.submitQuiz=function(auto){
+    const s=window.state.quizState;if(s.submitted)return;s.submitted=true;clearInterval(timer);
+    let score=0;s.questions.forEach((q,i)=>{if(s.answers[i]===q.correct)score++;});s.score=score;
+    window.changeTab('QuizResult');if(auto&&window.showToast)window.showToast('समय समाप्त! Test submit हो गया।');
+  };
+  window.renderActiveQuiz=function(){
+    const s=window.state.quizState,q=s.questions[s.currentQ],idx=s.currentQ,total=s.questions.length,ans=s.answers[idx];
+    if(!q)return;
+    const letters=['A','B','C','D'];
+    const answered=ans!==undefined;
+    const opts=q.hi.options.map((o,i)=>{
+      let cls='bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-100';
+      if(answered&&i===q.correct)cls='bg-green-50 dark:bg-green-900/30 border-green-500 text-green-700 dark:text-green-300';
+      else if(answered&&i===ans)cls='bg-red-50 dark:bg-red-900/30 border-red-500 text-red-700 dark:text-red-300';
+      return `<button ${answered?'disabled':''} onclick="window.selectOption(${i})" class="w-full p-4 mb-3 rounded-2xl border-2 ${cls} flex items-center gap-3 text-left font-semibold transition-all active:scale-[.99]"><span class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center shrink-0 font-bold">${letters[i]}</span><span>${o}</span>${answered&&i===q.correct?'<i class="fa-solid fa-circle-check ml-auto text-green-500"></i>':''}${answered&&i===ans&&i!==q.correct?'<i class="fa-solid fa-circle-xmark ml-auto text-red-500"></i>':''}</button>`;
+    }).join('');
+    const palette=Array.from({length:total},(_,i)=>`<button onclick="window.jumpQuestion(${i})" class="w-8 h-8 rounded-lg text-xs font-bold ${i===idx?'bg-orange-500 text-white':s.answers[i]!==undefined?'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300':'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'}">${i+1}</button>`).join('');
+    const m=Math.floor(s.timeLeft/60),sec=s.timeLeft%60;
+    document.getElementById('main-content').innerHTML=`<div class="max-w-4xl mx-auto px-3 md:px-5 pb-8"><div class="sticky top-0 z-10 pt-2 pb-3 bg-gray-50 dark:bg-gray-900"><div class="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-sm border border-gray-200 dark:border-gray-700"><div class="flex items-center justify-between gap-3"><div><p class="text-[11px] text-gray-500 font-semibold">UPSC CSE • GEOGRAPHY</p><p class="font-extrabold text-gray-900 dark:text-white">Question ${idx+1} / ${total}</p></div><div id="quiz-timer-display" class="px-4 py-2 rounded-xl bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-300 font-mono font-extrabold text-lg">${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}</div></div><div class="mt-3 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-orange-500" style="width:${((idx+1)/total)*100}%"></div></div></div></div><div class="bg-white dark:bg-gray-800 rounded-2xl p-5 md:p-7 shadow-sm border border-gray-200 dark:border-gray-700 mb-4"><div class="flex items-start gap-3 mb-5"><span class="bg-orange-100 dark:bg-orange-900/40 text-orange-600 font-bold px-3 py-1 rounded-lg text-sm">Q${idx+1}</span><h2 class="text-lg md:text-xl font-extrabold leading-relaxed text-gray-900 dark:text-white">${q.hi.q}</h2></div>${opts}<div class="flex items-center justify-between gap-2 mt-5"><button onclick="window.prevQuestion()" class="px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 font-bold ${idx===0?'opacity-40':''}"><i class="fa-solid fa-arrow-left mr-1"></i> Previous</button>${idx===total-1?`<button onclick="window.submitQuiz(false)" class="px-6 py-3 rounded-xl bg-green-600 text-white font-extrabold shadow-md"><i class="fa-solid fa-paper-plane mr-1"></i> Submit Test</button>`:`<button onclick="window.nextQuestion()" class="px-6 py-3 rounded-xl bg-orange-500 text-white font-extrabold shadow-md">Next <i class="fa-solid fa-arrow-right ml-1"></i></button>`}</div></div><div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-gray-700"><div class="flex justify-between items-center mb-3"><span class="font-extrabold">Question Palette</span><span class="text-xs text-gray-500">Green = Answered</span></div><div class="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-12 gap-2 max-h-48 overflow-y-auto">${palette}</div><button onclick="window.submitQuiz(false)" class="w-full mt-4 py-3 rounded-xl bg-red-600 text-white font-extrabold">Submit Test</button></div></div>`;
+  };
+  window.renderQuizResult=function(){
+    const s=window.state.quizState,total=s.questions.length,score=s.score||0,attempted=Object.keys(s.answers).length,wrong=attempted-score,unattempted=total-attempted,p=Math.round(score/total*100);
+    const deg=p*3.6;
+    document.getElementById('main-content').innerHTML=`<div class="max-w-3xl mx-auto px-4 py-8 pb-20"><div class="text-center mb-6"><div class="w-20 h-20 mx-auto rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 flex items-center justify-center text-4xl mb-3"><i class="fa-solid fa-trophy"></i></div><h1 class="text-3xl font-extrabold">Test Result</h1><p class="text-gray-500 mt-1">UPSC CSE Geography • 100 Questions</p></div><div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"><div class="flex flex-col items-center"><div class="w-44 h-44 rounded-full flex items-center justify-center" style="background:conic-gradient(#22c55e 0deg ${deg}deg,#ef4444 ${deg}deg 360deg)"><div class="w-32 h-32 rounded-full bg-white dark:bg-gray-800 flex flex-col items-center justify-center"><span class="text-3xl font-extrabold">${p}%</span><span class="text-xs text-gray-500">Score</span></div></div><div class="text-2xl font-extrabold mt-4">${score} / ${total}</div></div><div class="grid grid-cols-3 gap-3 mt-7"><div class="rounded-2xl bg-green-50 dark:bg-green-900/20 p-4 text-center"><p class="text-2xl font-extrabold text-green-600">${score}</p><p class="text-xs font-bold text-gray-500">Correct</p></div><div class="rounded-2xl bg-red-50 dark:bg-red-900/20 p-4 text-center"><p class="text-2xl font-extrabold text-red-600">${wrong}</p><p class="text-xs font-bold text-gray-500">Wrong</p></div><div class="rounded-2xl bg-gray-100 dark:bg-gray-700 p-4 text-center"><p class="text-2xl font-extrabold">${unattempted}</p><p class="text-xs font-bold text-gray-500">Unattempted</p></div></div><div class="mt-6 space-y-3"><div class="flex justify-between text-sm"><span>Attempted</span><b>${attempted}/${total}</b></div><div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-blue-500" style="width:${attempted/total*100}%"></div></div></div><div class="grid grid-cols-2 gap-3 mt-7"><button onclick="window.startQuiz('geography')" class="py-3 rounded-xl bg-orange-500 text-white font-extrabold"><i class="fa-solid fa-rotate-right mr-1"></i> Reattempt</button><button onclick="window.changeTab('Quiz')" class="py-3 rounded-xl border border-gray-300 dark:border-gray-600 font-extrabold">Back to Quiz</button></div></div></div>`;
+  };
+})();
